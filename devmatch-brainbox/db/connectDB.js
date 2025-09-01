@@ -18,11 +18,11 @@ if (!DB_URI || !DB_NAME) {
 }
 
 const connectDB = async () => {
-  console.log("Connecting DevMatch database...");
+  console.log("INFO :: Connecting DevMatch database...");
 
   try {
     await mongoose.connect(`${DB_URI}/${DB_NAME}`);
-    console.log("DEVMATCH DB CONNECTED");
+    console.log("INF0 :: DEVMATCH DB CONNECTED");
   } catch (error) {
     console.error(
       `ERROR :: DB connection failed with message : ${error.message}`
