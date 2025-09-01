@@ -22,7 +22,7 @@ const connectDB = async () => {
 
   try {
     await mongoose.connect(`${DB_URI}/${DB_NAME}`);
-    console.log("INF0 :: DEVMATCH DB CONNECTED");
+    console.log("INFO :: DEVMATCH DB CONNECTED");
   } catch (error) {
     console.error(
       `ERROR :: DB connection failed with message : ${error.message}`
