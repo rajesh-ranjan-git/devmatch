@@ -33,7 +33,7 @@ server.get("/", (req, res) => {
 server.listen(BRAINBOX_PORT, () => {
   connectDB().then(() => {
     console.log(
-      `Server is running at ${BRAINBOX_HOST_URL} on PORT : ${BRAINBOX_PORT}`
+      `INFO :: Server is running at ${BRAINBOX_HOST_URL} on PORT : ${BRAINBOX_PORT}`
     );
   });
 });
