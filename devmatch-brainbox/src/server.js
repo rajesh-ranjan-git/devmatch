@@ -2,7 +2,8 @@ import express from "express";
 import * as dotenv from "dotenv";
 import path from "path";
 import cors from "cors";
-import cookieParser from "cookie-parser"
+import cookieParser from "cookie-parser";
+import session from "express-session";
 
 import connectDB from "../db/connectDB.js";
 
@@ -22,6 +23,17 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 server.use(cookieParser());
+server.use(
+  session({
+    secret: process.env.BRAINBOX_SESSION_SECRET_KEY,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 1,
+    },
+  })
+);
 
 server.get("/", (req, res) => {
   res.status(200).json({
