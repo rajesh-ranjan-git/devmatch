@@ -1,7 +1,7 @@
 {
-  "name": "devmatch",
+  "name": "devmatch-brainbox",
   "version": "1.0.0",
-  "description": "Tinder for Software Engineers.",
+  "description": "Tinder for Software Engineers. (backend)",
   "keywords": [
     "devmatch",
     "tinder",
