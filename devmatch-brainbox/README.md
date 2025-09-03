@@ -74,6 +74,6 @@
 
 - \_id -> ObjectId
 - type -> string -> "request" | "chat" -> required
-- body -> string -> required
-- title -> string -> required
+- title -> string (max 100) -> required
+- body -> string (max 100) -> required
 - status -> string -> "read" | "unread" -> required -> default : "unread"
