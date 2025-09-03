@@ -7,6 +7,12 @@ import session from "express-session";
 
 import connectDB from "../db/connectDB.js";
 
+import userRouter from "../routes/user.js";
+import profileRouter from "../routes/profile.js";
+import connectionRouter from "../routes/connection.js";
+import notificationRouter from "../routes/notification.js";
+import exploreRouter from "../routes/explore.js";
+
 const envFile =
   process.env.NODE_ENV === "production"
     ? "env/env-production"
@@ -34,6 +40,12 @@ server.use(
     },
   })
 );
+
+server.use("/user", userRouter);
+server.use("/profile", profileRouter);
+server.use("/connection", connectionRouter);
+server.use("/notification", notificationRouter);
+server.use("/", exploreRouter);
 
 server.get("/", (req, res) => {
   res.status(200).json({

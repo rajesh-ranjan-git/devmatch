@@ -2,8 +2,8 @@
 
 ## User APIs
 
-- POST -> /user/login
 - POST -> /user/register
+- POST -> /user/login
 - POST -> /user/logout
 
 ## Profile APIs
@@ -14,20 +14,20 @@
 - POST -> /profile/updatePassword
 - POST -> /profile/forgotPassword
 
-## Feed API
+## Explore API
 
-- GET -> /feed
+- GET -> /explore
 
 ## Connection APIs
 
-- GET -> /connection/request/:status/:id
+- POST -> /connection/request/:status/:id
 - GET -> /connection/view
 - GET -> /connection/review
 
 ## Notification APIs
 
-- GET -> /notification/get
-- GET -> /notification/mark/:status
+- GET -> /notification/view
+- POST -> /notification/mark/:status
 
 # Models
 
