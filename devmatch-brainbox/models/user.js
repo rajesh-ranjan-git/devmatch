@@ -21,7 +21,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
       minlength: 2,
-      maxlength: 50,
+      maxlength: 100,
       trim: true,
       lowercase: true,
     },
@@ -29,7 +29,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: false,
       minlength: 2,
-      maxlength: 50,
+      maxlength: 100,
       trim: true,
       lowercase: true,
     },
@@ -37,7 +37,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: false,
       minlength: 2,
-      maxlength: 50,
+      maxlength: 100,
       trim: true,
       lowercase: true,
     },
@@ -45,7 +45,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: false,
       minlength: 2,
-      maxlength: 50,
+      maxlength: 100,
       trim: true,
       lowercase: true,
     },
@@ -55,15 +55,34 @@ const userSchema = mongoose.Schema(
       min: 18,
       max: 100,
     },
+    phone: {
+      type: Number,
+      required: false,
+      min: 10,
+      max: 10,
+    },
     gender: {
       type: String,
       enum: ["male", "female", "other"],
       required: false,
       set: (val) => (typeof val === "string" ? val.trim().toLowerCase() : val),
     },
-    avatarUrl: {
+    avatarURL: {
       type: String,
       required: false,
+    },
+    bio: {
+      type: String,
+      required: false,
+      minlength: 4,
+      maxlength: 100,
+      trim: true,
+    },
+    maritalStatus: {
+      type: String,
+      required: false,
+      enum: ["married", "single", "separated"],
+      set: (val) => (typeof val === "string" ? val.trim().toLowerCase() : val),
     },
     city: {
       type: String,
@@ -73,13 +92,29 @@ const userSchema = mongoose.Schema(
       trim: true,
       lowercase: true,
     },
-    designation: {
+    jobProfile: {
       type: String,
       required: false,
-      minlength: 2,
       maxlength: 100,
       trim: true,
       lowercase: true,
+    },
+    experience: {
+      type: Number,
+      required: false,
+    },
+    github: {
+      type: String,
+      required: false,
+    },
+    website: {
+      type: String,
+      required: false,
+    },
+    organization: {
+      type: String,
+      required: false,
+      maxlength: 100,
     },
     skills: {
       type: [String],
@@ -90,13 +125,57 @@ const userSchema = mongoose.Schema(
         return [];
       },
     },
-    hobbies: {
+    interests: {
       type: [String],
       required: false,
       set: (val) => {
         if (Array.isArray(val)) return val.map((s) => s.trim().toLowerCase());
         if (typeof val === "string") return [val.trim().toLowerCase()];
         return [];
+      },
+    },
+    address: {
+      street: {
+        type: String,
+        required: false,
+        trim: true,
+        maxlength: 100,
+      },
+      landmark: {
+        type: String,
+        required: false,
+        trim: true,
+        maxlength: 100,
+      },
+      city: {
+        type: String,
+        required: false,
+        trim: true,
+        maxlength: 100,
+      },
+      state: {
+        type: String,
+        required: false,
+        trim: true,
+        maxlength: 100,
+      },
+      countryCode: {
+        type: Number,
+        required: false,
+        min: 2,
+        max: 2,
+      },
+      country: {
+        type: String,
+        required: false,
+        trim: true,
+        maxlength: 100,
+      },
+      pinCode: {
+        type: Number,
+        required: false,
+        minlength: 6,
+        maxlength: 6,
       },
     },
   },

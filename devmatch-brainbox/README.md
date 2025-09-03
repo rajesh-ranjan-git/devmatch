@@ -41,16 +41,27 @@
 - lastName -> lowercase (1-50)
 - nickName -> lowercase (1-50)
 - age -> number (18-100) -> required
+- phone -> number (10) -> required
 - gender -> string -> "male" | "female" | "other" -> required
-- avatarUrl -> string
+- avatarURL -> string
 - bio -> string (4-100)
-- status -> string -> "married" | "single"
+- maritalStatus -> string -> "married" | "single" | "separated"
 - jobProfile -> string (max 100)
 - experience -> number
 - gitHub -> string
 - website -> string
 - organization -> string (max 100)
+- skills -> [string]
 - interests -> [string]
+- address -> {
+  street -> string (max 100)
+  landmark -> string (max 100)
+  city -> string (max 100)
+  state -> string (max 100)
+  countryCode -> number (2)
+  country -> string (max 100)
+  pinCode -> number (6)
+  }
 
 ## Connection Model
 
