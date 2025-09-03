@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import path from "path";
 
-// Load environment variables
 const envFile =
   process.env.NODE_ENV === "production" ? ".env-production" : ".env-dev";
 

@@ -7,11 +7,9 @@ import session from "express-session";
 
 import connectDB from "../db/connectDB.js";
 
-// Determine environment
 const envFile =
   process.env.NODE_ENV === "production" ? ".env-production" : ".env-dev";
 
-// Load the .env file from env folder
 dotenv.config({ path: path.resolve(process.cwd(), "env", envFile) });
 
 const BRAINBOX_PORT = process.env.BRAINBOX_PORT || 5000;
