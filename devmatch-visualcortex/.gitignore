@@ -1,6 +1,6 @@
 node_modules
 .env
-.env-dev
+.env-development
 .env-production
-env/.env-dev
+env/.env-development
 env/.env-production

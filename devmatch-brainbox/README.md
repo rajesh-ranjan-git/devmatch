@@ -40,7 +40,7 @@
 - middleName -> lowercase (1-50)
 - lastName -> lowercase (1-50)
 - nickName -> lowercase (1-50)
-- age -> number (min 18) -> required
+- age -> number (18-100) -> required
 - gender -> string -> "male" | "female" | "other" -> required
 - avatarUrl -> string
 - bio -> string (4-100)
