@@ -1,22 +1,16 @@
 import express from "express";
 
-import {
-  view,
-  update,
-  updatePassword,
-  forgotPassword,
-} from "../controllers/profile.js";
+import { view, update, updatePassword } from "../controllers/profile.js";
+import auth from "../middlewares/auth.js";
 
 const profileRouter = express.Router();
 
-profileRouter.get("/view/:id", view);
+profileRouter.get("/view/:id", auth, view);
 
-profileRouter.get("/view", view);
+profileRouter.get("/view", auth, view);
 
-profileRouter.post("/update", update);
+profileRouter.post("/update", auth, update);
 
-profileRouter.post("/updatePassword", updatePassword);
-
-profileRouter.post("/forgotPassword", forgotPassword);
+profileRouter.post("/updatePassword", auth, updatePassword);
 
 export default profileRouter;

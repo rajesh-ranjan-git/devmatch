@@ -5,6 +5,7 @@
 - POST -> /user/register
 - POST -> /user/login
 - POST -> /user/logout
+- POST -> /user/forgotPassword
 
 ## Profile APIs
 
@@ -12,7 +13,6 @@
 - GET -> /profile/view/:id
 - POST -> /profile/update
 - POST -> /profile/updatePassword
-- POST -> /profile/forgotPassword
 
 ## Explore API
 
