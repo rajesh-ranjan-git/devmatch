@@ -11,8 +11,6 @@ const requestValidator = (req, res) => {
 export const loginRequestValidator = (req, res) => {
   const { email, password } = requestValidator(req, res);
 
-  console.log("debug loginRequestValidator");
-
   if (
     !email ||
     !password ||
