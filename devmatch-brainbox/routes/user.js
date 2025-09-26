@@ -6,11 +6,14 @@ import {
   logout,
   forgotPassword,
 } from "../controllers/user.js";
-import { loginRequestValidator } from "../validations/validations.js";
+import {
+  loginRequestValidator,
+  registerRequestValidator,
+} from "../middlewares/requests.js";
 
 const userRouter = express.Router();
 
-userRouter.post("/register", register);
+userRouter.post("/register", registerRequestValidator, register);
 
 userRouter.post("/login", loginRequestValidator, login);
 

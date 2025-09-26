@@ -20,7 +20,7 @@ const userSchema = mongoose.Schema(
     firstName: {
       type: String,
       required: true,
-      minlength: 2,
+      minlength: 1,
       maxlength: 100,
       trim: true,
       lowercase: true,
@@ -28,7 +28,7 @@ const userSchema = mongoose.Schema(
     middleName: {
       type: String,
       required: false,
-      minlength: 2,
+      minlength: 1,
       maxlength: 100,
       trim: true,
       lowercase: true,
@@ -36,7 +36,7 @@ const userSchema = mongoose.Schema(
     lastName: {
       type: String,
       required: false,
-      minlength: 2,
+      minlength: 1,
       maxlength: 100,
       trim: true,
       lowercase: true,
@@ -44,7 +44,7 @@ const userSchema = mongoose.Schema(
     nickName: {
       type: String,
       required: false,
-      minlength: 2,
+      minlength: 1,
       maxlength: 100,
       trim: true,
       lowercase: true,

@@ -1,5 +1,11 @@
 export const register = async (req, res) => {
-  return res.status(200).json({ status: "ok", message: "Request received" });
+  try {
+    console.log("debug req?.data : ", req?.data);
+
+    return res.status(200).json({ status: "ok", message: "Request received" });
+  } catch (error) {
+    return res.status(400).json({ status: "fail", error: error.message });
+  }
 };
 
 export const login = async (req, res) => {
