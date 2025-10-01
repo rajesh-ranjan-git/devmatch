@@ -1,5 +1,8 @@
 const auth = (req, res, next) => {
-  console.log("debug auth middleware");
+  const body = requestValidator(req, res);
+
+  console.log("debug auth middleware body : ", body);
+
   next();
 };
 

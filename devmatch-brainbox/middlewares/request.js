@@ -2,8 +2,8 @@ import { errorMessages } from "../config/errorsConfig.js";
 import { ValidationError } from "../errors/CustomError.js";
 import {
   requestValidator,
-  validateEmail,
-  validatePassword,
+  emailValidator,
+  passwordValidator,
 } from "../validations/validation.js";
 
 export const registerRequestMiddleware = (req, res, next) => {
@@ -23,7 +23,7 @@ export const registerRequestMiddleware = (req, res, next) => {
       throw new ValidationError(errorMessages.EMAIL_REQUIRED_ERROR, { email });
     }
 
-    const { isEmailValid, message: emailErrorMessage } = validateEmail(email);
+    const { isEmailValid, message: emailErrorMessage } = emailValidator(email);
     if (!isEmailValid) {
       throw new ValidationError(emailErrorMessage, { email });
     }
@@ -38,7 +38,7 @@ export const registerRequestMiddleware = (req, res, next) => {
       isPasswordValid,
       message: passwordErrorMessage,
       errors: passwordErrors,
-    } = validatePassword(password);
+    } = passwordValidator(password);
 
     if (!isPasswordValid) {
       throw new ValidationError(passwordErrorMessage, {
@@ -57,7 +57,7 @@ export const registerRequestMiddleware = (req, res, next) => {
       isPasswordValid: isConfirmPasswordValid,
       message: confirmPasswordErrorMessage,
       errors: confirmPasswordErrors,
-    } = validatePassword(
+    } = passwordValidator(
       confirmPassword,
       errorMessages.CONFIRM_PASSWORD_COMBINATION_ERROR
     );
@@ -97,7 +97,7 @@ export const loginRequestMiddleware = (req, res, next) => {
       throw new ValidationError(errorMessages.EMAIL_REQUIRED_ERROR, { email });
     }
 
-    const { isEmailValid, message: emailErrorMessage } = validateEmail(email);
+    const { isEmailValid, message: emailErrorMessage } = emailValidator(email);
     if (!isEmailValid) {
       throw new ValidationError(emailErrorMessage, {
         email,
@@ -115,7 +115,7 @@ export const loginRequestMiddleware = (req, res, next) => {
       isPasswordValid,
       message: passwordErrorMessage,
       errors: passwordErrors,
-    } = validatePassword(password);
+    } = passwordValidator(password);
 
     if (!isPasswordValid) {
       throw new ValidationError(passwordErrorMessage, {
@@ -140,7 +140,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
       throw new ValidationError(errorMessages.EMAIL_REQUIRED_ERROR, { email });
     }
 
-    const { isEmailValid, message: emailErrorMessage } = validateEmail(email);
+    const { isEmailValid, message: emailErrorMessage } = emailValidator(email);
     if (!isEmailValid) {
       throw new ValidationError(emailErrorMessage, {
         email,
@@ -158,7 +158,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
       isPasswordValid,
       message: passwordErrorMessage,
       errors: passwordErrors,
-    } = validatePassword(password);
+    } = passwordValidator(password);
 
     if (!isPasswordValid) {
       throw new ValidationError(passwordErrorMessage, {
@@ -177,7 +177,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
       isPasswordValid: isConfirmPasswordValid,
       message: confirmPasswordErrorMessage,
       errors: confirmPasswordErrors,
-    } = validatePassword(
+    } = passwordValidator(
       confirmPassword,
       errorMessages.CONFIRM_PASSWORD_COMBINATION_ERROR
     );

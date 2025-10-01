@@ -18,7 +18,7 @@ export const requestValidator = (req, res) => {
   return req?.body;
 };
 
-export const validateEmail = (email) => {
+export const emailValidator = (email) => {
   if (!EMAIL_REGEX.test(email)) {
     return {
       isEmailValid: false,
@@ -31,7 +31,7 @@ export const validateEmail = (email) => {
   };
 };
 
-export const validatePassword = (
+export const passwordValidator = (
   password,
   message = errorMessages.PASSWORD_COMBINATION_ERROR
 ) => {
