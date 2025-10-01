@@ -10,7 +10,7 @@ export const validateEmail = (email) => {
   if (!EMAIL_REGEX.test(email)) {
     return {
       isEmailValid: false,
-      emailError: "Invalid Email!",
+      emailError: "Invalid Email format!",
     };
   }
 
