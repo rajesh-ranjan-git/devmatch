@@ -144,6 +144,13 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
       });
     }
 
+    if (password !== confirmPassword) {
+      throw new ValidationError("Password and Confirm Password must be same!", {
+        password,
+        confirmPassword,
+      });
+    }
+
     req.data = { email, password, confirmPassword };
 
     next();
