@@ -5,6 +5,15 @@ import {
   NUMBER_REGEX,
   UPPER_CASE_REGEX,
 } from "../config/config.js";
+import { ValidationError } from "../errors/CustomError.js";
+
+export const requestValidator = (req, res) => {
+  if (!req || !req?.body || !Object.keys(req?.body).length) {
+    throw new ValidationError("Invalid Request!", { requestBody: req?.body });
+  }
+
+  return req?.body;
+};
 
 export const validateEmail = (email) => {
   if (!EMAIL_REGEX.test(email)) {

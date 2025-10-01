@@ -22,7 +22,13 @@ let DB_URI = "";
 
 try {
   if (!DB_BASE_URI || !DB_CLUSTER || !DB_NAME || !DB_USER || !DB_PASSWORD) {
-    throw new DatabaseError("Database configuration not found!");
+    throw new DatabaseError("Database configuration not found!", {
+      DB_BASE_URI,
+      DB_CLUSTER,
+      DB_NAME,
+      DB_USER,
+      DB_PASSWORD,
+    });
   }
 
   DB_URI = `${DB_BASE_URI}://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}/`;

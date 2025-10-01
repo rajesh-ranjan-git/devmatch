@@ -7,6 +7,7 @@ import {
   forgotPassword,
 } from "../controllers/user.js";
 import {
+  forgotPasswordRequestMiddleware,
   loginRequestMiddleware,
   registerRequestMiddleware,
 } from "../middlewares/request.js";
@@ -19,6 +20,10 @@ userRouter.post("/login", loginRequestMiddleware, login);
 
 userRouter.get("/logout", logout);
 
-userRouter.post("/forgotPassword", forgotPassword);
+userRouter.post(
+  "/forgotPassword",
+  forgotPasswordRequestMiddleware,
+  forgotPassword
+);
 
 export default userRouter;
