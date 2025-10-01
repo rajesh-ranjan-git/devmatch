@@ -62,9 +62,9 @@ export const loginRequestValidator = (req, res, next) => {
     }
 
     req.data = { email, password };
+
+    next();
   } catch (error) {
     return res.status(400).json({ status: "fail", error: error.message });
   }
-
-  next();
 };
