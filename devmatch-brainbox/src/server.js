@@ -4,6 +4,7 @@ import path from "path";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
+import { status } from "../config/config.js";
 import connectDB from "../db/connectDB.js";
 
 import userRouter from "../routes/user.js";
@@ -45,7 +46,7 @@ server.use("/", exploreRouter);
 
 server.get("/", (req, res) => {
   res.status(200).json({
-    status: "ok",
+    status: status.SUCCESS,
     message: `Server is running at ${BRAINBOX_HOST_URL}`,
   });
 });
@@ -57,8 +58,11 @@ server.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
 
   return res.status(statusCode).json({
-    status: "fail",
-    error: err.message || "Internal Server Error",
+    status: status.FAILURE,
+    error: {
+      apiURL: req?.url,
+      message: err.message || "Internal Server Error",
+    },
   });
 });
 

@@ -5,12 +5,15 @@ export const errorMessages = {
   EMAIL_REQUIRED_ERROR: "Email is required!",
   PASSWORD_REQUIRED_ERROR: "Password is required!",
   CONFIRM_PASSWORD_REQUIRED_ERROR: "Confirm Password is required!",
+  INVALID_FIRST_NAME_ERROR:
+    "First Name must only contain alphabets (a-z or A-Z)!",
   INVALID_EMAIL_ERROR: "Invalid Email format!",
   PASSWORD_COMBINATION_ERROR: "Invalid Password combination!",
   CONFIRM_PASSWORD_COMBINATION_ERROR: "Invalid Confirm Password combination!",
   PASSWORD_CONFIRM_PASSWORD_MISMATCH_ERROR:
     "Password and Confirm Password must be same!",
-  PASSWORD_MINIMUM_LENGTH_ERROR: "Password must be at least 6 characters long!",
+  FIRST_NAME_MIN_LENGTH_ERROR: "First Name must be at least 1 character long!",
+  PASSWORD_MIN_LENGTH_ERROR: "Password must be at least 6 characters long!",
   PASSWORD_UPPERCASE_ERROR:
     "Password must contain at least one uppercase letter (A-Z)!",
   PASSWORD_LOWERCASE_ERROR:

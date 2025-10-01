@@ -79,13 +79,13 @@ class CustomError extends Error {
   constructor(type, message, data = null, apiURL) {
     super(message);
     this.name = type;
+    this.apiURL = apiURL;
     this.type = type;
     this.data = data;
-    this.apiURL = apiURL;
     this.timestamp = new Date().toISOString();
 
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, this.constructor);
+    if (Error?.captureStackTrace) {
+      Error?.captureStackTrace(this, this.constructor);
     }
 
     errorManager.logError(this.toJSON());
@@ -94,10 +94,10 @@ class CustomError extends Error {
   toJSON() {
     return {
       name: this.name,
+      apiURL: this.apiURL,
       type: this.type,
       message: this.message,
       data: this.data,
-      apiURL: this.apiURL,
       timestamp: this.timestamp,
       stack: this.stack,
     };
@@ -144,9 +144,12 @@ errorManager.configure({
   logLevel: "error",
   onError: (error) => {
     if (process.env.NODE_ENV === "development") {
-      console.log("LOG :: [Error Data] ", error.data);
-      console.log("LOG :: [Error Request URL] ", error.apiURL);
-      // console.log("LOG :: [Error Stack trace] ", error.stack);
+      console.log("ERROR LOG :: [Error] ", {
+        URL: error?.apiURL,
+        Type: error?.type,
+        Data: error?.data,
+      });
+      // console.log("ERROR LOG :: [Error Stack trace] ", error?.stack);
     }
   },
 });
