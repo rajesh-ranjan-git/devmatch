@@ -14,43 +14,68 @@ export const registerRequestMiddleware = (req, res, next) => {
     );
 
     if (!firstName) {
-      throw new ValidationError(errorMessages.FIRST_NAME_REQUIRED_ERROR, {
-        firstName,
-      });
+      throw new ValidationError(
+        errorMessages.FIRST_NAME_REQUIRED_ERROR,
+        {
+          firstName,
+        },
+        req?.url
+      );
     }
 
     if (!email) {
-      throw new ValidationError(errorMessages.EMAIL_REQUIRED_ERROR, { email });
+      throw new ValidationError(
+        errorMessages.EMAIL_REQUIRED_ERROR,
+        { email },
+        req?.url
+      );
     }
 
-    const { isEmailValid, message: emailErrorMessage } = emailValidator(email);
+    const {
+      isEmailValid,
+      message: emailErrorMessage,
+      validatedEmail,
+    } = emailValidator(email);
     if (!isEmailValid) {
-      throw new ValidationError(emailErrorMessage, { email });
+      throw new ValidationError(emailErrorMessage, { email }, req?.url);
     }
 
     if (!password) {
-      throw new ValidationError(errorMessages.PASSWORD_REQUIRED_ERROR, {
-        password,
-      });
+      throw new ValidationError(
+        errorMessages.PASSWORD_REQUIRED_ERROR,
+        {
+          password,
+        },
+        req?.url
+      );
     }
 
     const {
       isPasswordValid,
       message: passwordErrorMessage,
       errors: passwordErrors,
+      validatedPassword,
     } = passwordValidator(password);
 
     if (!isPasswordValid) {
-      throw new ValidationError(passwordErrorMessage, {
-        errors: passwordErrors,
-        password,
-      });
+      throw new ValidationError(
+        passwordErrorMessage,
+        {
+          errors: passwordErrors,
+          password,
+        },
+        req?.url
+      );
     }
 
     if (!confirmPassword) {
-      throw new ValidationError(errorMessages.CONFIRM_PASSWORD_REQUIRED_ERROR, {
-        confirmPassword,
-      });
+      throw new ValidationError(
+        errorMessages.CONFIRM_PASSWORD_REQUIRED_ERROR,
+        {
+          confirmPassword,
+        },
+        req?.url
+      );
     }
 
     const {
@@ -63,10 +88,14 @@ export const registerRequestMiddleware = (req, res, next) => {
     );
 
     if (!isConfirmPasswordValid) {
-      throw new ValidationError(confirmPasswordErrorMessage, {
-        errors: confirmPasswordErrors,
-        confirmPassword,
-      });
+      throw new ValidationError(
+        confirmPasswordErrorMessage,
+        {
+          errors: confirmPasswordErrors,
+          confirmPassword,
+        },
+        req?.url
+      );
     }
 
     if (password !== confirmPassword) {
@@ -75,11 +104,12 @@ export const registerRequestMiddleware = (req, res, next) => {
         {
           password,
           confirmPassword,
-        }
+        },
+        req?.url
       );
     }
 
-    req.data = { email, password };
+    req.data = { email: validatedEmail, password: validatedPassword };
 
     next();
   } catch (error) {
@@ -94,37 +124,58 @@ export const loginRequestMiddleware = (req, res, next) => {
     const { email, password } = requestValidator(req, res);
 
     if (!email) {
-      throw new ValidationError(errorMessages.EMAIL_REQUIRED_ERROR, { email });
+      throw new ValidationError(
+        errorMessages.EMAIL_REQUIRED_ERROR,
+        { email },
+        req?.url
+      );
     }
 
-    const { isEmailValid, message: emailErrorMessage } = emailValidator(email);
+    const {
+      isEmailValid,
+      message: emailErrorMessage,
+      validatedEmail,
+    } = emailValidator(email);
     if (!isEmailValid) {
-      throw new ValidationError(emailErrorMessage, {
-        email,
-        password,
-      });
+      throw new ValidationError(
+        emailErrorMessage,
+        {
+          email,
+          password,
+        },
+        req?.url
+      );
     }
 
     if (!password) {
-      throw new ValidationError(errorMessages.PASSWORD_REQUIRED_ERROR, {
-        password,
-      });
+      throw new ValidationError(
+        errorMessages.PASSWORD_REQUIRED_ERROR,
+        {
+          password,
+        },
+        req?.url
+      );
     }
 
     const {
       isPasswordValid,
       message: passwordErrorMessage,
       errors: passwordErrors,
+      validatedPassword,
     } = passwordValidator(password);
 
     if (!isPasswordValid) {
-      throw new ValidationError(passwordErrorMessage, {
-        errors: passwordErrors,
-        password,
-      });
+      throw new ValidationError(
+        passwordErrorMessage,
+        {
+          errors: passwordErrors,
+          password,
+        },
+        req?.url
+      );
     }
 
-    req.data = { email, password };
+    req.data = { email: validatedEmail, password: validatedPassword };
 
     next();
   } catch (error) {
@@ -137,40 +188,65 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
     const { email, password, confirmPassword } = requestValidator(req, res);
 
     if (!email) {
-      throw new ValidationError(errorMessages.EMAIL_REQUIRED_ERROR, { email });
+      throw new ValidationError(
+        errorMessages.EMAIL_REQUIRED_ERROR,
+        { email },
+        req?.url
+      );
     }
 
-    const { isEmailValid, message: emailErrorMessage } = emailValidator(email);
+    const {
+      isEmailValid,
+      message: emailErrorMessage,
+      validatedEmail,
+    } = emailValidator(email);
     if (!isEmailValid) {
-      throw new ValidationError(emailErrorMessage, {
-        email,
-        password,
-      });
+      throw new ValidationError(
+        emailErrorMessage,
+        {
+          email,
+          password,
+        },
+        req?.url
+      );
     }
 
     if (!password) {
-      throw new ValidationError(errorMessages.PASSWORD_REQUIRED_ERROR, {
-        password,
-      });
+      throw new ValidationError(
+        errorMessages.PASSWORD_REQUIRED_ERROR,
+        {
+          password,
+        },
+        req?.url
+      );
     }
 
     const {
       isPasswordValid,
       message: passwordErrorMessage,
       errors: passwordErrors,
+      validatedPassword,
     } = passwordValidator(password);
 
     if (!isPasswordValid) {
-      throw new ValidationError(passwordErrorMessage, {
-        errors: passwordErrors,
-        password,
-      });
+      throw new ValidationError(
+        passwordErrorMessage,
+        {
+          errors: passwordErrors,
+          password,
+        },
+        req?.url
+      );
     }
 
     if (!confirmPassword) {
-      throw new ValidationError(errorMessages.CONFIRM_PASSWORD_REQUIRED_ERROR, {
-        confirmPassword,
-      });
+      throw new ValidationError(
+        errorMessages.CONFIRM_PASSWORD_REQUIRED_ERROR,
+        {
+          confirmPassword,
+        },
+        req?.url
+      );
     }
 
     const {
@@ -183,10 +259,14 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
     );
 
     if (!isConfirmPasswordValid) {
-      throw new ValidationError(confirmPasswordErrorMessage, {
-        errors: confirmPasswordErrors,
-        confirmPassword,
-      });
+      throw new ValidationError(
+        confirmPasswordErrorMessage,
+        {
+          errors: confirmPasswordErrors,
+          confirmPassword,
+        },
+        req?.url
+      );
     }
 
     if (password !== confirmPassword) {
@@ -195,11 +275,12 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
         {
           password,
           confirmPassword,
-        }
+        },
+        req?.url
       );
     }
 
-    req.data = { email, password };
+    req.data = { email: validatedEmail, password: validatedPassword };
 
     next();
   } catch (error) {

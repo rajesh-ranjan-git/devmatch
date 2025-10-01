@@ -10,16 +10,20 @@ import { ValidationError } from "../errors/CustomError.js";
 
 export const requestValidator = (req, res) => {
   if (!req || !req?.body || !Object.keys(req?.body).length) {
-    throw new ValidationError(errorMessages.REQUEST_ERROR, {
-      requestBody: req?.body,
-    });
+    throw new ValidationError(
+      errorMessages.REQUEST_ERROR,
+      {
+        requestBody: req?.body,
+      },
+      req?.url
+    );
   }
 
   return req?.body;
 };
 
 export const emailValidator = (email) => {
-  if (!EMAIL_REGEX.test(email)) {
+  if (!EMAIL_REGEX.test(email.trim())) {
     return {
       isEmailValid: false,
       message: errorMessages.INVALID_EMAIL_ERROR,
@@ -28,6 +32,7 @@ export const emailValidator = (email) => {
 
   return {
     isEmailValid: true,
+    validatedEmail: email.trim(),
   };
 };
 
@@ -41,19 +46,19 @@ export const passwordValidator = (
     errors.push(errorMessages.PASSWORD_MINIMUM_LENGTH_ERROR);
   }
 
-  if (!UPPER_CASE_REGEX.test(password)) {
+  if (!UPPER_CASE_REGEX.test(password.trim())) {
     errors.push(errorMessages.PASSWORD_UPPERCASE_ERROR);
   }
 
-  if (!LOWER_CASE_REGEX.test(password)) {
+  if (!LOWER_CASE_REGEX.test(password.trim())) {
     errors.push(errorMessages.PASSWORD_LOWERCASE_ERROR);
   }
 
-  if (!NUMBER_REGEX.test(password)) {
+  if (!NUMBER_REGEX.test(password.trim())) {
     errors.push(errorMessages.PASSWORD_NUMBER_ERROR);
   }
 
-  if (!ALLOWED_SPECIAL_CHARACTERS_REGEX.test(password)) {
+  if (!ALLOWED_SPECIAL_CHARACTERS_REGEX.test(password.trim())) {
     errors.push(errorMessages.PASSWORD_SPECIAL_CHARACTERS_ERROR);
   }
 
@@ -67,5 +72,6 @@ export const passwordValidator = (
 
   return {
     isPasswordValid: true,
+    validatedPassword: password.trim(),
   };
 };

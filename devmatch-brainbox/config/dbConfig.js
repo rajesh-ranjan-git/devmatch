@@ -23,13 +23,17 @@ let DB_URI = "";
 
 try {
   if (!DB_BASE_URI || !DB_CLUSTER || !DB_NAME || !DB_USER || !DB_PASSWORD) {
-    throw new DatabaseError(errorMessages.DB_CONFIG_ERROR, {
-      DB_BASE_URI,
-      DB_CLUSTER,
-      DB_NAME,
-      DB_USER,
-      DB_PASSWORD,
-    });
+    throw new DatabaseError(
+      errorMessages.DB_CONFIG_ERROR,
+      {
+        DB_BASE_URI,
+        DB_CLUSTER,
+        DB_NAME,
+        DB_USER,
+        DB_PASSWORD,
+      },
+      req?.url
+    );
   }
 
   DB_URI = `${DB_BASE_URI}://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}/`;

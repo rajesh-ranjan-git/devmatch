@@ -76,11 +76,12 @@ class ErrorHandlerManager {
 const errorManager = new ErrorHandlerManager();
 
 class CustomError extends Error {
-  constructor(type, message, data = null) {
+  constructor(type, message, data = null, apiURL) {
     super(message);
     this.name = type;
     this.type = type;
     this.data = data;
+    this.apiURL = apiURL;
     this.timestamp = new Date().toISOString();
 
     if (Error.captureStackTrace) {
@@ -96,6 +97,7 @@ class CustomError extends Error {
       type: this.type,
       message: this.message,
       data: this.data,
+      apiURL: this.apiURL,
       timestamp: this.timestamp,
       stack: this.stack,
     };
@@ -103,26 +105,26 @@ class CustomError extends Error {
 }
 
 class NetworkError extends CustomError {
-  constructor(message, data = null) {
-    super("NETWORK_ERROR", message, data);
+  constructor(message, data = null, apiURL) {
+    super("NETWORK_ERROR", message, data, apiURL);
   }
 }
 
 class DatabaseError extends CustomError {
-  constructor(message, data = null) {
-    super("DATABASE_ERROR", message, data);
+  constructor(message, data = null, apiURL) {
+    super("DATABASE_ERROR", message, data, apiURL);
   }
 }
 
 class ValidationError extends CustomError {
-  constructor(message, data = null) {
-    super("VALIDATION_ERROR", message, data);
+  constructor(message, data = null, apiURL) {
+    super("VALIDATION_ERROR", message, data, apiURL);
   }
 }
 
 class AuthenticationError extends CustomError {
-  constructor(message, data = null) {
-    super("AUTHENTICATION_ERROR", message, data);
+  constructor(message, data = null, apiURL) {
+    super("AUTHENTICATION_ERROR", message, data, apiURL);
   }
 }
 
@@ -143,6 +145,7 @@ errorManager.configure({
   onError: (error) => {
     if (process.env.NODE_ENV === "development") {
       console.log("LOG :: [Error Data] ", error.data);
+      console.log("LOG :: [Error Request URL] ", error.apiURL);
       // console.log("LOG :: [Error Stack trace] ", error.stack);
     }
   },
