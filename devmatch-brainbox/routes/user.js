@@ -7,15 +7,15 @@ import {
   forgotPassword,
 } from "../controllers/user.js";
 import {
-  loginRequestValidator,
-  registerRequestValidator,
-} from "../middlewares/requests.js";
+  loginRequestMiddleware,
+  registerRequestMiddleware,
+} from "../middlewares/request.js";
 
 const userRouter = express.Router();
 
-userRouter.post("/register", registerRequestValidator, register);
+userRouter.post("/register", registerRequestMiddleware, register);
 
-userRouter.post("/login", loginRequestValidator, login);
+userRouter.post("/login", loginRequestMiddleware, login);
 
 userRouter.get("/logout", logout);
 
