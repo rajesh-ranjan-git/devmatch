@@ -10,13 +10,13 @@ export const validateEmail = (email) => {
   if (!EMAIL_REGEX.test(email)) {
     return {
       isEmailValid: false,
-      emailError: "Invalid Email format!",
+      message: "Invalid Email format!",
     };
   }
 
   return {
     isEmailValid: true,
-    emailError: null,
+    message: "Valid Email format!",
   };
 };
 
@@ -48,12 +48,14 @@ export const validatePassword = (password) => {
   if (errors.length > 0) {
     return {
       isPasswordValid: false,
-      passwordError: errors,
+      message: "Invalid Password combination!",
+      errors: errors,
     };
   }
 
   return {
     isPasswordValid: true,
-    passwordError: [],
+    message: "Valid Password combination",
+    errors: [],
   };
 };

@@ -39,16 +39,16 @@ class ErrorHandlerManager {
 
     switch (this.config.logLevel) {
       case "error":
-        console.error("ERROR :: ", logMessage, errorObject.data || "");
+        console.error("ERROR :: ", logMessage);
         break;
       case "warn":
-        console.warn("WARNING :: ", logMessage, errorObject.data || "");
+        console.warn("WARNING :: ", logMessage);
         break;
       case "info":
-        console.info("INFO :: ", logMessage, errorObject.data || "");
+        console.info("INFO :: ", logMessage);
         break;
       default:
-        console.log("LOG :: ", logMessage, errorObject.data || "");
+        console.log("LOG :: ", logMessage);
     }
   }
 

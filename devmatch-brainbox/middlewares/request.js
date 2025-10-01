@@ -1,8 +1,9 @@
+import { ValidationError } from "../errors/CustomError.js";
 import { validateEmail, validatePassword } from "../validations/validation.js";
 
 const requestValidator = (req, res) => {
   if (!req || !req?.body || !Object.keys(req?.body).length) {
-    throw new Error("Invalid Request!");
+    throw new ValidationError("Invalid Request!", { requestBody: req?.body });
   }
 
   return req?.body;
@@ -13,29 +14,36 @@ export const registerRequestMiddleware = (req, res, next) => {
     const { firstName, email, password } = requestValidator(req, res);
 
     if (!firstName) {
-      throw new Error("First Name is required!");
+      throw new ValidationError("First Name is required!", {
+        firstName,
+      });
     }
 
     if (!email) {
-      throw new Error("Email is required!");
+      throw new ValidationError("Email is required!", { email });
     }
 
     if (!password) {
-      throw new Error("Password is required!");
+      throw new ValidationError("Password is required!", { password });
     }
 
-    const { isEmailValid, emailError } = validateEmail(email);
+    const { isEmailValid, message: emailErrorMessage } = validateEmail(email);
 
     if (!isEmailValid) {
-      throw new Error(emailError);
+      throw new ValidationError(emailErrorMessage, { email });
     }
 
-    const { isPasswordValid, passwordError } = validatePassword(password);
+    const {
+      isPasswordValid,
+      message: passwordErrorMessage,
+      errors: passwordErrors,
+    } = validatePassword(password);
 
     if (!isPasswordValid) {
-      const error = new Error("Invalid Password combination!");
-      error.errors = passwordError;
-      throw error;
+      throw new ValidationError(passwordErrorMessage, {
+        errors: passwordErrors,
+        password,
+      });
     }
 
     req.data = { email, password };
@@ -53,18 +61,21 @@ export const loginRequestMiddleware = (req, res, next) => {
     const { email, password } = requestValidator(req, res);
 
     if (!email) {
-      throw new Error("Email is required!");
+      throw new ValidationError("Email is required!", { email });
     }
 
     if (!password) {
-      throw new Error("Password is required!");
+      throw new ValidationError("Password is required!", { password });
     }
 
     if (
-      !validator.isEmail(email) ||
+      !validateEmail(email).isEmailValid ||
       !validatePassword(password).isPasswordValid
     ) {
-      throw new Error("Invalid email / password combination!");
+      throw new ValidationError("Invalid email / password combination!", {
+        email,
+        password,
+      });
     }
 
     req.data = { email, password };
