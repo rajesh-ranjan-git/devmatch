@@ -3,7 +3,6 @@ import * as dotenv from "dotenv";
 import path from "path";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-// import session from "express-session";
 
 import connectDB from "../db/connectDB.js";
 
@@ -37,17 +36,6 @@ server.use(
   })
 );
 server.use(cookieParser());
-// server.use(
-//   session({
-//     secret: process.env.BRAINBOX_SESSION_SECRET_KEY,
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: {
-//       secure: false,
-//       maxAge: 1000 * 60 * 60 * 1,
-//     },
-//   })
-// );
 
 server.use("/user", userRouter);
 server.use("/profile", profileRouter);

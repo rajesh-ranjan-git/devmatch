@@ -1,6 +1,6 @@
-import validator from "validator";
 import {
   ALLOWED_SPECIAL_CHARACTERS_REGEX,
+  EMAIL_REGEX,
   LOWER_CASE_REGEX,
   NUMBER_REGEX,
   UPPER_CASE_REGEX,
@@ -12,6 +12,20 @@ const requestValidator = (req, res) => {
   }
 
   return req?.body;
+};
+
+const validateEmail = (email) => {
+  if (!EMAIL_REGEX.test(email)) {
+    return {
+      isEmailValid: false,
+      emailError: "Invalid Email!",
+    };
+  }
+
+  return {
+    isEmailValid: true,
+    emailError: null,
+  };
 };
 
 const validatePassword = (password) => {
@@ -42,13 +56,13 @@ const validatePassword = (password) => {
   if (errors.length > 0) {
     return {
       isPasswordValid: false,
-      errors: errors,
+      passwordError: errors,
     };
   }
 
   return {
     isPasswordValid: true,
-    errors: [],
+    passwordError: [],
   };
 };
 
@@ -68,15 +82,17 @@ export const registerRequestValidator = (req, res, next) => {
       throw new Error("Password is required!");
     }
 
-    if (!validator.isEmail(email)) {
-      throw new Error("Invalid Email!");
+    const { isEmailValid, emailError } = validateEmail(email);
+
+    if (!isEmailValid) {
+      throw new Error(emailError);
     }
 
-    const { isPasswordValid, errors } = validatePassword(password);
+    const { isPasswordValid, passwordError } = validatePassword(password);
 
     if (!isPasswordValid) {
       const error = new Error("Invalid Password combination!");
-      error.errors = errors;
+      error.errors = passwordError;
       throw error;
     }
 
