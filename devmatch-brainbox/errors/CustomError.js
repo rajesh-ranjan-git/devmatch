@@ -143,7 +143,7 @@ errorManager.configure({
   onError: (error) => {
     if (process.env.NODE_ENV === "development") {
       console.log("LOG :: [Error Data] ", error.data);
-      console.log("LOG :: [Error Stack trace] ", error.stack);
+      // console.log("LOG :: [Error Stack trace] ", error.stack);
     }
   },
 });

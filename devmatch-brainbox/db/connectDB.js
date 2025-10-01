@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { DB_URL } from "../config/config.js";
+import { DB_URL } from "../config/dbConfig.js";
 
 const connectDB = async () => {
   console.log("INFO :: Connecting DevMatch database...");

@@ -5,11 +5,14 @@ import {
   NUMBER_REGEX,
   UPPER_CASE_REGEX,
 } from "../config/config.js";
+import { errorMessages } from "../config/errorsConfig.js";
 import { ValidationError } from "../errors/CustomError.js";
 
 export const requestValidator = (req, res) => {
   if (!req || !req?.body || !Object.keys(req?.body).length) {
-    throw new ValidationError("Invalid Request!", { requestBody: req?.body });
+    throw new ValidationError(errorMessages.REQUEST_ERROR, {
+      requestBody: req?.body,
+    });
   }
 
   return req?.body;
@@ -19,52 +22,50 @@ export const validateEmail = (email) => {
   if (!EMAIL_REGEX.test(email)) {
     return {
       isEmailValid: false,
-      message: "Invalid Email format!",
+      message: errorMessages.INVALID_EMAIL_ERROR,
     };
   }
 
   return {
     isEmailValid: true,
-    message: "Valid Email format!",
   };
 };
 
-export const validatePassword = (password) => {
+export const validatePassword = (
+  password,
+  message = errorMessages.PASSWORD_COMBINATION_ERROR
+) => {
   const errors = [];
 
   if (password.length < 6) {
-    errors.push("Password must be at least 6 characters long");
+    errors.push(errorMessages.PASSWORD_MINIMUM_LENGTH_ERROR);
   }
 
   if (!UPPER_CASE_REGEX.test(password)) {
-    errors.push("Password must contain at least one uppercase letter (A-Z)");
+    errors.push(errorMessages.PASSWORD_UPPERCASE_ERROR);
   }
 
   if (!LOWER_CASE_REGEX.test(password)) {
-    errors.push("Password must contain at least one lowercase letter (a-z)");
+    errors.push(errorMessages.PASSWORD_LOWERCASE_ERROR);
   }
 
   if (!NUMBER_REGEX.test(password)) {
-    errors.push("Password must contain at least one digit (0-9)");
+    errors.push(errorMessages.PASSWORD_NUMBER_ERROR);
   }
 
   if (!ALLOWED_SPECIAL_CHARACTERS_REGEX.test(password)) {
-    errors.push(
-      "Password must contain at least one special character (@, #, $, %, &)"
-    );
+    errors.push(errorMessages.PASSWORD_SPECIAL_CHARACTERS_ERROR);
   }
 
   if (errors.length > 0) {
     return {
       isPasswordValid: false,
-      message: "Invalid Password combination!",
+      message,
       errors: errors,
     };
   }
 
   return {
     isPasswordValid: true,
-    message: "Valid Password combination",
-    errors: [],
   };
 };
