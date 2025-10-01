@@ -1,4 +1,10 @@
 import validator from "validator";
+import {
+  ALLOWED_SPECIAL_CHARACTERS_REGEX,
+  LOWER_CASE_REGEX,
+  NUMBER_REGEX,
+  UPPER_CASE_REGEX,
+} from "../config/config.js";
 
 const requestValidator = (req, res) => {
   if (!req || !req?.body || !Object.keys(req?.body).length) {
@@ -6,6 +12,44 @@ const requestValidator = (req, res) => {
   }
 
   return req?.body;
+};
+
+const validatePassword = (password) => {
+  const errors = [];
+
+  if (password.length < 6) {
+    errors.push("Password must be at least 6 characters long");
+  }
+
+  if (!UPPER_CASE_REGEX.test(password)) {
+    errors.push("Password must contain at least one uppercase letter (A-Z)");
+  }
+
+  if (!LOWER_CASE_REGEX.test(password)) {
+    errors.push("Password must contain at least one lowercase letter (a-z)");
+  }
+
+  if (!NUMBER_REGEX.test(password)) {
+    errors.push("Password must contain at least one digit (0-9)");
+  }
+
+  if (!ALLOWED_SPECIAL_CHARACTERS_REGEX.test(password)) {
+    errors.push(
+      "Password must contain at least one special character (@, #, $, %, &)"
+    );
+  }
+
+  if (errors.length > 0) {
+    return {
+      isPasswordValid: false,
+      errors: errors,
+    };
+  }
+
+  return {
+    isPasswordValid: true,
+    errors: [],
+  };
 };
 
 export const registerRequestValidator = (req, res, next) => {
@@ -28,17 +72,21 @@ export const registerRequestValidator = (req, res, next) => {
       throw new Error("Invalid Email!");
     }
 
-    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%&]).{6,}$/.test(password)) {
-      throw new Error(
-        "Password must be at least 6 characters long and must include at least an uppercase letter, a lowercase letter, a number and a special character (@, #, $, %, &)."
-      );
+    const { isPasswordValid, errors } = validatePassword(password);
+
+    if (!isPasswordValid) {
+      const error = new Error("Invalid Password combination!");
+      error.errors = errors;
+      throw error;
     }
 
     req.data = { email, password };
 
     next();
   } catch (error) {
-    return res.status(400).json({ status: "fail", error: error.message });
+    return res
+      .status(400)
+      .json({ status: "fail", error: error.message, errors: error.errors });
   }
 };
 
@@ -56,7 +104,7 @@ export const loginRequestValidator = (req, res, next) => {
 
     if (
       !validator.isEmail(email) ||
-      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%&]).{6,}$/.test(password)
+      !validatePassword(password).isPasswordValid
     ) {
       throw new Error("Invalid email / password combination!");
     }

@@ -22,3 +22,8 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
 
 // export const DB_URL = `${DB_BASE_URI}://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}/`;
 export const DB_URL = process.env.DB_URI || "mongodb://localhost:27017/";
+
+export const UPPER_CASE_REGEX = /[A-Z]/;
+export const LOWER_CASE_REGEX = /[a-z]/;
+export const NUMBER_REGEX = /\d/;
+export const ALLOWED_SPECIAL_CHARACTERS_REGEX = /[@#$%&]/;
