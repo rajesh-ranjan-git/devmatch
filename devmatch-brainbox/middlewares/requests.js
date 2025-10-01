@@ -1,21 +1,17 @@
 import validator from "validator";
 
 const requestValidator = (req, res) => {
-  try {
-    if (!req || !req?.body) {
-      throw new Error("Invalid Request!");
-    }
-  } catch (error) {
-    return res.status(500).json({ status: "fail", error: error.message });
+  if (!req || !req?.body || !Object.keys(req?.body).length) {
+    throw new Error("Invalid Request!");
   }
 
   return req?.body;
 };
 
 export const registerRequestValidator = (req, res, next) => {
-  const { firstName, email, password } = requestValidator(req, res);
-
   try {
+    const { firstName, email, password } = requestValidator(req, res);
+
     if (!firstName) {
       throw new Error("First Name is required!");
     }
@@ -39,17 +35,17 @@ export const registerRequestValidator = (req, res, next) => {
     }
 
     req.data = { email, password };
+
+    next();
   } catch (error) {
     return res.status(400).json({ status: "fail", error: error.message });
   }
-
-  next();
 };
 
 export const loginRequestValidator = (req, res, next) => {
-  const { email, password } = requestValidator(req, res);
-
   try {
+    const { email, password } = requestValidator(req, res);
+
     if (!email) {
       throw new Error("Email is required!");
     }

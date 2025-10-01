@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 import path from "path";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import session from "express-session";
+// import session from "express-session";
 
 import connectDB from "../db/connectDB.js";
 
@@ -34,21 +34,20 @@ server.use(
     origin: [BRAINBOX_HOST_URL, VISUALCORTEX_HOST_URL],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
   })
 );
 server.use(cookieParser());
-server.use(
-  session({
-    secret: process.env.BRAINBOX_SESSION_SECRET_KEY,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: false,
-      maxAge: 1000 * 60 * 60 * 1,
-    },
-  })
-);
+// server.use(
+//   session({
+//     secret: process.env.BRAINBOX_SESSION_SECRET_KEY,
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: {
+//       secure: false,
+//       maxAge: 1000 * 60 * 60 * 1,
+//     },
+//   })
+// );
 
 server.use("/user", userRouter);
 server.use("/profile", profileRouter);
@@ -60,6 +59,18 @@ server.get("/", (req, res) => {
   res.status(200).json({
     status: "ok",
     message: `Server is running at ${BRAINBOX_HOST_URL}`,
+  });
+});
+
+server.use((err, req, res, next) => {
+  console.error("Global Error :", err.message);
+  console.error("Global Error Stack:", err.stack);
+
+  const statusCode = err.statusCode || 500;
+
+  return res.status(statusCode).json({
+    status: "fail",
+    error: err.message || "Internal Server Error",
   });
 });
 

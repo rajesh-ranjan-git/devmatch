@@ -21,4 +21,4 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
 // }
 
 // export const DB_URL = `${DB_BASE_URI}://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}/`;
-export const DB_URL = process.env.DB_URI;
+export const DB_URL = process.env.DB_URI || "mongodb://localhost:27017/";
