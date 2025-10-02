@@ -175,7 +175,7 @@ export const forgotPassword = async (req, res) => {
     if (firstName !== user?.firstName) {
       throw new AuthenticationError(
         status.forbidden,
-        errorMessages.INCORRECT_SECURITY_QUESTION_ERROR,
+        errorMessages.INCORRECT_SECURITY_QUESTION_ANSWER_ERROR,
         { email, firstName },
         req?.url
       );

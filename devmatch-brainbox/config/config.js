@@ -68,7 +68,8 @@ export const errorMessages = {
   BCRYPT_ERROR: "Unable to encrypt password!",
   JWT_ERROR: "Unable to generate token!",
   INCORRECT_EMAIL_PASSWORD_ERROR: "Incorrect Email / Password!",
-  INCORRECT_SECURITY_QUESTION_ERROR: "Incorrect security question's answer!",
+  INCORRECT_SECURITY_QUESTION_ANSWER_ERROR:
+    "Incorrect security question's answer!",
   PASSWORD_UPDATE_FAILED: "Unable to update password!",
 };
 
