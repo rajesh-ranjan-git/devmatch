@@ -1,5 +1,5 @@
 import { status } from "../config/config.js";
-import { errorMessages } from "../config/errorsConfig.js";
+import { errorMessages } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
 import {
   requestValidator,
@@ -22,7 +22,12 @@ export const registerRequestMiddleware = (req, res, next) => {
     } = firstNameValidator(firstName);
 
     if (!isFirstNameValid) {
-      throw new ValidationError(firstNameErrorMessage, { firstName }, req?.url);
+      throw new ValidationError(
+        status.badRequest,
+        firstNameErrorMessage,
+        { firstName },
+        req?.url
+      );
     }
 
     const {
@@ -32,7 +37,12 @@ export const registerRequestMiddleware = (req, res, next) => {
     } = emailValidator(email);
 
     if (!isEmailValid) {
-      throw new ValidationError(emailErrorMessage, { email }, req?.url);
+      throw new ValidationError(
+        status.badRequest,
+        emailErrorMessage,
+        { email },
+        req?.url
+      );
     }
 
     const {
@@ -44,6 +54,7 @@ export const registerRequestMiddleware = (req, res, next) => {
 
     if (!isPasswordValid) {
       throw new ValidationError(
+        status.badRequest,
         passwordErrorMessage,
         {
           errors: passwordErrors,
@@ -66,6 +77,7 @@ export const registerRequestMiddleware = (req, res, next) => {
 
     if (!isConfirmPasswordValid) {
       throw new ValidationError(
+        status.badRequest,
         confirmPasswordErrorMessage,
         {
           errors: confirmPasswordErrors,
@@ -77,6 +89,7 @@ export const registerRequestMiddleware = (req, res, next) => {
 
     if (validatedPassword !== validatedConfirmPassword) {
       throw new ValidationError(
+        status.badRequest,
         errorMessages.PASSWORD_CONFIRM_PASSWORD_MISMATCH_ERROR,
         {
           password,
@@ -94,16 +107,19 @@ export const registerRequestMiddleware = (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(status.failure.statusCode).json({
-      status: status.failure.message,
-      statusCode: status.failure.statusCode,
-      error: {
+    return res
+      .status(error.status.statusCode || status.internalServerError.statusCode)
+      .json({
+        status: error.status.message || status.internalServerError.message,
+        statusCode:
+          error.status.statusCode || status.internalServerError.statusCode,
         apiURL: error?.apiURL,
-        type: error?.type,
-        message: error?.message,
-        data: error?.data?.errors,
-      },
-    });
+        error: {
+          type: error?.type,
+          message: error?.message,
+          data: error?.data?.errors,
+        },
+      });
   }
 };
 
@@ -119,6 +135,7 @@ export const loginRequestMiddleware = (req, res, next) => {
 
     if (!isEmailValid) {
       throw new ValidationError(
+        status.badRequest,
         emailErrorMessage,
         {
           email,
@@ -137,6 +154,7 @@ export const loginRequestMiddleware = (req, res, next) => {
 
     if (!isPasswordValid) {
       throw new ValidationError(
+        status.badRequest,
         passwordErrorMessage,
         {
           errors: passwordErrors,
@@ -150,16 +168,19 @@ export const loginRequestMiddleware = (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(status.failure.statusCode).json({
-      status: status.failure.message,
-      statusCode: status.failure.statusCode,
-      error: {
+    return res
+      .status(error.status.statusCode || status.internalServerError.statusCode)
+      .json({
+        status: error.status.message || status.internalServerError.message,
+        statusCode:
+          error.status.statusCode || status.internalServerError.statusCode,
         apiURL: error?.apiURL,
-        type: error?.type,
-        message: error?.message,
-        data: error?.data?.errors,
-      },
-    });
+        error: {
+          type: error?.type,
+          message: error?.message,
+          data: error?.data?.errors,
+        },
+      });
   }
 };
 
@@ -175,6 +196,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
 
     if (!isEmailValid) {
       throw new ValidationError(
+        status.badRequest,
         emailErrorMessage,
         {
           email,
@@ -193,6 +215,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
 
     if (!isPasswordValid) {
       throw new ValidationError(
+        status.badRequest,
         passwordErrorMessage,
         {
           errors: passwordErrors,
@@ -214,6 +237,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
 
     if (!isConfirmPasswordValid) {
       throw new ValidationError(
+        status.badRequest,
         confirmPasswordErrorMessage,
         {
           errors: confirmPasswordErrors,
@@ -225,6 +249,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
 
     if (password !== confirmPassword) {
       throw new ValidationError(
+        status.badRequest,
         errorMessages.PASSWORD_CONFIRM_PASSWORD_MISMATCH_ERROR,
         {
           password,
@@ -238,15 +263,18 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(status.failure.statusCode).json({
-      status: status.failure.message,
-      statusCode: status.failure.statusCode,
-      error: {
+    return res
+      .status(error.status.statusCode || status.internalServerError.statusCode)
+      .json({
+        status: error.status.message || status.internalServerError.message,
+        statusCode:
+          error.status.statusCode || status.internalServerError.statusCode,
         apiURL: error?.apiURL,
-        type: error?.type,
-        message: error?.message,
-        data: error?.data?.errors,
-      },
-    });
+        error: {
+          type: error?.type,
+          message: error?.message,
+          data: error?.data?.errors,
+        },
+      });
   }
 };

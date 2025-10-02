@@ -4,14 +4,16 @@ import {
   FIRST_NAME_REGEX,
   LOWER_CASE_REGEX,
   NUMBER_REGEX,
+  status,
   UPPER_CASE_REGEX,
 } from "../config/config.js";
-import { errorMessages } from "../config/errorsConfig.js";
+import { errorMessages } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
 
 export const requestValidator = (req, res) => {
   if (!req || !req?.body || !Object.keys(req?.body).length) {
     throw new ValidationError(
+      status.badRequest,
       errorMessages.REQUEST_ERROR,
       {
         requestBody: req?.body,

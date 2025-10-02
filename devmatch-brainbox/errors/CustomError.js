@@ -1,3 +1,5 @@
+import { errorTypes } from "../config/config.js";
+
 class ErrorHandlerManager {
   constructor() {
     if (ErrorHandlerManager.instance) {
@@ -76,9 +78,10 @@ class ErrorHandlerManager {
 const errorManager = new ErrorHandlerManager();
 
 class CustomError extends Error {
-  constructor(type, message, data = null, apiURL) {
+  constructor(status, type, message, data = null, apiURL) {
     super(message);
     this.name = type;
+    this.status = status;
     this.apiURL = apiURL;
     this.type = type;
     this.data = data;
@@ -94,6 +97,7 @@ class CustomError extends Error {
   toJSON() {
     return {
       name: this.name,
+      status: this.status,
       apiURL: this.apiURL,
       type: this.type,
       message: this.message,
@@ -105,35 +109,42 @@ class CustomError extends Error {
 }
 
 class NetworkError extends CustomError {
-  constructor(message, data = null, apiURL) {
-    super("NETWORK_ERROR", message, data, apiURL);
+  constructor(status, message, data = null, apiURL) {
+    super(status, errorTypes.NETWORK_ERROR, message, data, apiURL);
   }
 }
 
-class DatabaseError extends CustomError {
-  constructor(message, data = null, apiURL) {
-    super("DATABASE_ERROR", message, data, apiURL);
+class DatabaseConfigError extends CustomError {
+  constructor(status, message, data = null, apiURL) {
+    super(status, errorTypes.DATABASE_CONFIG_ERROR, message, data, apiURL);
   }
 }
 
 class ValidationError extends CustomError {
-  constructor(message, data = null, apiURL) {
-    super("VALIDATION_ERROR", message, data, apiURL);
+  constructor(status, message, data = null, apiURL) {
+    super(status, errorTypes.VALIDATION_ERROR, message, data, apiURL);
+  }
+}
+
+class DatabaseError extends CustomError {
+  constructor(status, message, data = null, apiURL) {
+    super(status, errorTypes.DATABASE_ERROR, message, data, apiURL);
   }
 }
 
 class AuthenticationError extends CustomError {
-  constructor(message, data = null, apiURL) {
-    super("AUTHENTICATION_ERROR", message, data, apiURL);
+  constructor(status, message, data = null, apiURL) {
+    super(status, errorTypes.AUTHENTICATION_ERROR, message, data, apiURL);
   }
 }
 
 export {
   CustomError,
   NetworkError,
+  DatabaseConfigError,
   ValidationError,
-  AuthenticationError,
   DatabaseError,
+  AuthenticationError,
   errorManager,
 };
 
@@ -145,9 +156,13 @@ errorManager.configure({
   onError: (error) => {
     if (process.env.NODE_ENV === "development") {
       console.log("ERROR LOG :: [Error] ", {
-        URL: error?.apiURL,
-        Type: error?.type,
-        Data: error?.data,
+        status: error?.status?.message,
+        statusCode: error?.status?.statusCode,
+        url: error?.apiURL || "",
+        type: error?.type,
+        message: error?.message,
+        data: error?.data,
+        timestamp: error?.timestamp,
       });
       // console.log("ERROR LOG :: [Error Stack trace] ", error?.stack);
     }
