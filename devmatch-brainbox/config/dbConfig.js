@@ -37,7 +37,7 @@ try {
     );
   }
 
-  DB_URI = `${DB_BASE_URI}://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}/`;
+  DB_URI = `${DB_BASE_URI}://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}/${DB_NAME}`;
 } catch (error) {
   DB_URI = DB_LOCAL_URI || "mongodb://localhost:27017/";
 }
