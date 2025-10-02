@@ -4,5 +4,9 @@ export const explore = async (req, res) => {
   console.log("debug body : ", req.body);
   return res
     .status(200)
-    .json({ status: status.success.message, message: "Request received" });
+    .json({
+      status: status.success.message,
+      statusCode: status.success.statusCode,
+      message: "Request received",
+    });
 };

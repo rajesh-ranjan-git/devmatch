@@ -47,6 +47,7 @@ server.use("/", exploreRouter);
 server.get("/", (req, res) => {
   res.status(200).json({
     status: status.success.message,
+    statusCode: status.success.statusCode,
     message: `Server is running at ${BRAINBOX_HOST_URL}`,
   });
 });
@@ -59,6 +60,7 @@ server.use((err, req, res, next) => {
 
   return res.status(statusCode).json({
     status: status.failure.message,
+    statusCode: status.failure.statusCode,
     error: {
       apiURL: req?.url,
       message: err.message || "Internal Server Error",

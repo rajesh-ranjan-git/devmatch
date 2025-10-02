@@ -4,12 +4,15 @@ export const register = async (req, res) => {
   try {
     console.log("debug req?.data : ", req?.data);
 
-    return res
-      .status(200)
-      .json({ status: status.success.message, message: "Request received" });
+    return res.status(200).json({
+      status: status.success.message,
+      statusCode: status.success.statusCode,
+      message: "Request received",
+    });
   } catch (error) {
     return res.status(status.failure.statusCode).json({
       status: status.failure.message,
+      statusCode: status.failure.statusCode,
       error: {
         apiURL: error?.apiURL,
         type: error?.type,
@@ -24,12 +27,15 @@ export const login = async (req, res) => {
   try {
     console.log("debug req?.data : ", req?.data);
 
-    return res
-      .status(200)
-      .json({ status: status.success.message, message: "Request received" });
+    return res.status(200).json({
+      status: status.success.message,
+      statusCode: status.success.statusCode,
+      message: "Request received",
+    });
   } catch (error) {
     return res.status(status.failure.statusCode).json({
       status: status.failure.message,
+      statusCode: status.failure.statusCode,
       error: {
         apiURL: error?.apiURL,
         type: error?.type,
@@ -44,12 +50,15 @@ export const logout = async (req, res) => {
   try {
     console.log("debug req?.data : ", req?.data);
 
-    return res
-      .status(200)
-      .json({ status: status.success.message, message: "Request received" });
+    return res.status(200).json({
+      status: status.success.message,
+      statusCode: status.success.statusCode,
+      message: "Request received",
+    });
   } catch (error) {
     return res.status(status.failure.statusCode).json({
       status: status.failure.message,
+      statusCode: status.failure.statusCode,
       error: {
         apiURL: error?.apiURL,
         type: error?.type,
@@ -64,12 +73,15 @@ export const forgotPassword = async (req, res) => {
   try {
     console.log("debug req?.data : ", req?.data);
 
-    return res
-      .status(200)
-      .json({ status: status.success.message, message: "Request received" });
+    return res.status(200).json({
+      status: status.success.message,
+      statusCode: status.success.statusCode,
+      message: "Request received",
+    });
   } catch (error) {
     return res.status(status.failure.statusCode).json({
       status: status.failure.message,
+      statusCode: status.failure.statusCode,
       error: {
         apiURL: error?.apiURL,
         type: error?.type,

@@ -35,8 +35,6 @@ export const registerRequestMiddleware = (req, res, next) => {
       throw new ValidationError(emailErrorMessage, { email }, req?.url);
     }
 
-    console.log("debug password from requestValidator : ", password);
-
     const {
       isPasswordValid,
       message: passwordErrorMessage,
@@ -98,6 +96,7 @@ export const registerRequestMiddleware = (req, res, next) => {
   } catch (error) {
     return res.status(status.failure.statusCode).json({
       status: status.failure.message,
+      statusCode: status.failure.statusCode,
       error: {
         apiURL: error?.apiURL,
         type: error?.type,
@@ -153,6 +152,7 @@ export const loginRequestMiddleware = (req, res, next) => {
   } catch (error) {
     return res.status(status.failure.statusCode).json({
       status: status.failure.message,
+      statusCode: status.failure.statusCode,
       error: {
         apiURL: error?.apiURL,
         type: error?.type,
@@ -240,6 +240,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
   } catch (error) {
     return res.status(status.failure.statusCode).json({
       status: status.failure.message,
+      statusCode: status.failure.statusCode,
       error: {
         apiURL: error?.apiURL,
         type: error?.type,
