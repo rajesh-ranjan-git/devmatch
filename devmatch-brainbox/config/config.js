@@ -63,14 +63,18 @@ export const errorMessages = {
   PASSWORD_SPECIAL_CHARACTERS_ERROR:
     "Password must contain at least one special character (@, #, $, %, &)!",
   USER_EXISTS_ERROR: "User already exists!",
+  USER_NOT_EXIST_ERROR: "User does not exist!",
   REGISTRATION_FAILED_ERROR: "Unable to register user!",
   BCRYPT_ERROR: "Unable to encrypt password!",
   JWT_ERROR: "Unable to generate token!",
+  INCORRECT_EMAIL_PASSWORD_ERROR: "Incorrect Email / Password!",
 };
 
 export const successMessages = {
   DB_CONNECTION_SUCCESS: "DEVMATCH DB CONNECTED",
-  REGISTRATION_SUCCESS: "User registered successfully!",
+  REGISTRATION_SUCCESS: "Registration successful!",
+  LOGIN_SUCCESS: "Login Successful!",
+  LOGOUT_SUCCESS: "Logout Successful!",
 };
 
 export const FIRST_NAME_REGEX = /^[A-Za-z]+$/;

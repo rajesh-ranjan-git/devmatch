@@ -188,6 +188,30 @@ export const loginRequestMiddleware = (req, res, next) => {
   }
 };
 
+export const logoutRequestMiddleware = (req, res, next) => {
+  try {
+    requestValidator(req, res);
+
+    next();
+  } catch (error) {
+    return res
+      .status(
+        error?.status?.statusCode || status.internalServerError.statusCode
+      )
+      .json({
+        status: error?.status?.message || status.internalServerError.message,
+        statusCode:
+          error?.status?.statusCode || status.internalServerError.statusCode,
+        apiUrl: error?.apiUrl,
+        error: {
+          type: error?.type,
+          message: error?.message,
+          data: error?.data,
+        },
+      });
+  }
+};
+
 export const forgotPasswordRequestMiddleware = (req, res, next) => {
   try {
     const { email, password, confirmPassword } = requestValidator(req, res);

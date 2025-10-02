@@ -1,6 +1,10 @@
 import { errorMessages, status, successMessages } from "../config/config.js";
-import { DatabaseError } from "../errors/CustomError.js";
-import { getEncryptedPassword, getJwtToken } from "../utils/utils.js";
+import { AuthenticationError, DatabaseError } from "../errors/CustomError.js";
+import {
+  comparePassword,
+  getEncryptedPassword,
+  getJwtToken,
+} from "../utils/utils.js";
 import User from "../models/user.js";
 
 export const register = async (req, res) => {
@@ -48,7 +52,7 @@ export const register = async (req, res) => {
         status: status.created.message,
         statusCode: status.created.statusCode,
         message: successMessages.REGISTRATION_SUCCESS,
-        newUserId: registeredUser?.id,
+        userId: registeredUser?.id,
       });
   } catch (error) {
     return res
@@ -71,13 +75,41 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    console.log("debug req?.data : ", req?.data);
+    const { email, password } = req?.data;
 
-    return res.status(status.success.statusCode).json({
-      status: status.success.message,
-      statusCode: status.success.statusCode,
-      message: "Request received",
-    });
+    const user = await User.findOne({ email }, "_id password");
+
+    if (!user) {
+      throw new DatabaseError(
+        status.notFound,
+        errorMessages.USER_NOT_EXIST_ERROR,
+        { email },
+        req?.url
+      );
+    }
+
+    const isPasswordCorrect = comparePassword(password, user?.password);
+
+    if (!isPasswordCorrect) {
+      throw new AuthenticationError(
+        status.forbidden,
+        errorMessages.INCORRECT_EMAIL_PASSWORD_ERROR,
+        { email, password },
+        req?.url
+      );
+    }
+
+    const token = getJwtToken(user?.id);
+
+    return res
+      .status(status.success.statusCode)
+      .cookie("authToken", token)
+      .json({
+        status: status.success.message,
+        statusCode: status.success.statusCode,
+        message: successMessages.LOGIN_SUCCESS,
+        userId: user?.id,
+      });
   } catch (error) {
     return res
       .status(
@@ -99,12 +131,12 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-    console.log("debug req?.data : ", req?.data);
+    res.clearCookie("authToken");
 
     return res.status(status.success.statusCode).json({
       status: status.success.message,
       statusCode: status.success.statusCode,
-      message: "Request received",
+      message: successMessages.LOGOUT_SUCCESS,
     });
   } catch (error) {
     return res
