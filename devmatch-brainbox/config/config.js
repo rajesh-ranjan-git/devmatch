@@ -1,6 +1,9 @@
 export const status = {
-  SUCCESS: "ok",
-  FAILURE: "fail",
+  success: { message: "ok", statusCode: 200 },
+  failure: {
+    message: "fail",
+    statusCode: 400,
+  },
 };
 
 export const FIRST_NAME_REGEX = /^[A-Za-z]+$/;

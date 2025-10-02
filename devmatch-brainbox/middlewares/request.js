@@ -96,13 +96,13 @@ export const registerRequestMiddleware = (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(400).json({
-      status: status.FAILURE,
+    return res.status(status.failure.statusCode).json({
+      status: status.failure.message,
       error: {
         apiURL: error?.apiURL,
         type: error?.type,
         message: error?.message,
-        data: error?.data.errors,
+        data: error?.data?.errors,
       },
     });
   }
@@ -151,13 +151,13 @@ export const loginRequestMiddleware = (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(400).json({
-      status: status.FAILURE,
+    return res.status(status.failure.statusCode).json({
+      status: status.failure.message,
       error: {
         apiURL: error?.apiURL,
         type: error?.type,
         message: error?.message,
-        data: error?.data.errors,
+        data: error?.data?.errors,
       },
     });
   }
@@ -238,13 +238,13 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(400).json({
-      status: status.FAILURE,
+    return res.status(status.failure.statusCode).json({
+      status: status.failure.message,
       error: {
         apiURL: error?.apiURL,
         type: error?.type,
         message: error?.message,
-        data: error?.data.errors,
+        data: error?.data?.errors,
       },
     });
   }
