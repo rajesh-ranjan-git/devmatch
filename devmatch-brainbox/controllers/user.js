@@ -1,8 +1,6 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-
 import { errorMessages, status, successMessages } from "../config/config.js";
 import { DatabaseError } from "../errors/CustomError.js";
+import { getEncryptedPassword, getJwtToken } from "../utils/utils.js";
 import User from "../models/user.js";
 
 export const register = async (req, res) => {
@@ -20,8 +18,7 @@ export const register = async (req, res) => {
       );
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await getEncryptedPassword(password);
 
     const user = new User({
       firstName,
@@ -37,16 +34,12 @@ export const register = async (req, res) => {
       throw new DatabaseError(
         status.internalServerError,
         errorMessages.REGISTRATION_FAILED_ERROR,
-        user,
+        { user },
         req?.url
       );
     }
 
-    const token = jwt.sign(
-      { id: registeredUser?.id },
-      process.env.BRAINBOX_JWT_SECRET_KEY,
-      { expiresIn: "1h" }
-    );
+    const token = getJwtToken(registeredUser?.id);
 
     return res
       .status(status.created.statusCode)
@@ -70,7 +63,7 @@ export const register = async (req, res) => {
         error: {
           type: error?.type,
           message: error?.message,
-          data: error?.data?.errors,
+          data: error?.data,
         },
       });
   }
@@ -98,7 +91,7 @@ export const login = async (req, res) => {
         error: {
           type: error?.type,
           message: error?.message,
-          data: error?.data?.errors,
+          data: error?.data,
         },
       });
   }
@@ -126,7 +119,7 @@ export const logout = async (req, res) => {
         error: {
           type: error?.type,
           message: error?.message,
-          data: error?.data?.errors,
+          data: error?.data,
         },
       });
   }
@@ -154,7 +147,7 @@ export const forgotPassword = async (req, res) => {
         error: {
           type: error?.type,
           message: error?.message,
-          data: error?.data?.errors,
+          data: error?.data,
         },
       });
   }

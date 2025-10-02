@@ -30,6 +30,8 @@ export const errorTypes = {
   DATABASE_CONFIG_ERROR: "DATABASE_CONFIG_ERROR",
   VALIDATION_ERROR: "VALIDATION_ERROR",
   DATABASE_ERROR: "DATABASE_ERROR",
+  BCRYPT_ERROR: "BCRYPT_ERROR",
+  JWT_ERROR: "JWT_ERROR",
   AUTHENTICATION_ERROR: "AUTHENTICATION_ERROR",
 };
 
@@ -62,6 +64,8 @@ export const errorMessages = {
     "Password must contain at least one special character (@, #, $, %, &)!",
   USER_EXISTS_ERROR: "User already exists!",
   REGISTRATION_FAILED_ERROR: "Unable to register user!",
+  BCRYPT_ERROR: "Unable to encrypt password!",
+  JWT_ERROR: "Unable to generate token!",
 };
 
 export const successMessages = {

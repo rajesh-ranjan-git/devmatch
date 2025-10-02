@@ -119,7 +119,7 @@ export const registerRequestMiddleware = (req, res, next) => {
         error: {
           type: error?.type,
           message: error?.message,
-          data: error?.data?.errors,
+          data: error?.data,
         },
       });
   }
@@ -182,7 +182,7 @@ export const loginRequestMiddleware = (req, res, next) => {
         error: {
           type: error?.type,
           message: error?.message,
-          data: error?.data?.errors,
+          data: error?.data,
         },
       });
   }
@@ -279,7 +279,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
         error: {
           type: error?.type,
           message: error?.message,
-          data: error?.data?.errors,
+          data: error?.data,
         },
       });
   }

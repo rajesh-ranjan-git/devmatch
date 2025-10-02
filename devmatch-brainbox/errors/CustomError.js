@@ -78,7 +78,7 @@ class ErrorHandlerManager {
 const errorManager = new ErrorHandlerManager();
 
 class CustomError extends Error {
-  constructor(status, type, message, data = null, apiUrl) {
+  constructor(status, type, message, data = null, apiUrl = "") {
     super(message);
     this.name = type;
     this.status = status;
@@ -132,6 +132,18 @@ class DatabaseError extends CustomError {
   }
 }
 
+class BcryptError extends CustomError {
+  constructor(status, message, data = null, apiUrl) {
+    super(status, errorTypes.BCRYPT_ERROR, message, data, apiUrl);
+  }
+}
+
+class JwtError extends CustomError {
+  constructor(status, message, data = null, apiUrl) {
+    super(status, errorTypes.JWT_ERROR, message, data, apiUrl);
+  }
+}
+
 class AuthenticationError extends CustomError {
   constructor(status, message, data = null, apiUrl) {
     super(status, errorTypes.AUTHENTICATION_ERROR, message, data, apiUrl);
@@ -144,6 +156,8 @@ export {
   DatabaseConfigError,
   ValidationError,
   DatabaseError,
+  BcryptError,
+  JwtError,
   AuthenticationError,
   errorManager,
 };
