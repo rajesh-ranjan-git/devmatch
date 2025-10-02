@@ -26,7 +26,7 @@ export const requestValidator = (req, res) => {
 };
 
 export const firstNameValidator = (firstName) => {
-  if (!firstName?.trim()) {
+  if (!firstName?.trim().toLowerCase()) {
     return {
       isFirstNameValid: false,
       message: errorMessages.FIRST_NAME_REQUIRED_ERROR,
@@ -47,7 +47,7 @@ export const firstNameValidator = (firstName) => {
     };
   }
 
-  if (!FIRST_NAME_REGEX.test(firstName?.trim())) {
+  if (!FIRST_NAME_REGEX.test(firstName?.trim().toLowerCase())) {
     return {
       isFirstNameValid: false,
       message: errorMessages.INVALID_FIRST_NAME_ERROR,
@@ -56,19 +56,19 @@ export const firstNameValidator = (firstName) => {
 
   return {
     isFirstNameValid: true,
-    validatedFirstName: firstName?.trim(),
+    validatedFirstName: firstName?.trim().toLowerCase(),
   };
 };
 
 export const emailValidator = (email) => {
-  if (!email?.trim()) {
+  if (!email?.trim().toLowerCase()) {
     return {
       isEmailValid: false,
       message: errorMessages.EMAIL_REQUIRED_ERROR,
     };
   }
 
-  if (!EMAIL_REGEX.test(email?.trim())) {
+  if (!EMAIL_REGEX.test(email?.trim().toLowerCase())) {
     return {
       isEmailValid: false,
       message: errorMessages.INVALID_EMAIL_ERROR,
@@ -77,7 +77,7 @@ export const emailValidator = (email) => {
 
   return {
     isEmailValid: true,
-    validatedEmail: email?.trim(),
+    validatedEmail: email?.trim().toLowerCase(),
   };
 };
 

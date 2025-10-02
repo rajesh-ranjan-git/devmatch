@@ -159,12 +159,47 @@ export const logout = async (req, res) => {
 
 export const forgotPassword = async (req, res) => {
   try {
-    console.log("debug req?.data : ", req?.data);
+    const { firstName, email, password } = req?.data;
 
-    return res.status(status.success.statusCode).json({
-      status: status.success.message,
-      statusCode: status.success.statusCode,
-      message: "Request received",
+    const user = await User.findOne({ email }, "_id firstName");
+
+    if (!user) {
+      throw new DatabaseError(
+        status.notFound,
+        errorMessages.USER_NOT_EXIST_ERROR,
+        { email },
+        req?.url
+      );
+    }
+
+    if (firstName !== user?.firstName) {
+      throw new AuthenticationError(
+        status.forbidden,
+        errorMessages.INCORRECT_SECURITY_QUESTION_ERROR,
+        { email, firstName },
+        req?.url
+      );
+    }
+
+    const hashedPassword = await getEncryptedPassword(password);
+
+    const updatedUser = await User.findByIdAndUpdate(user?.id, {
+      password: hashedPassword,
+    });
+
+    if (!updatedUser) {
+      throw new DatabaseError(
+        status.internalServerError,
+        errorMessages.PASSWORD_UPDATE_FAILED,
+        { email },
+        req?.url
+      );
+    }
+
+    return res.status(status.updated.statusCode).json({
+      status: status.updated.message,
+      statusCode: status.updated.statusCode,
+      message: successMessages.PASSWORD_UPDATE_SUCCESS,
     });
   } catch (error) {
     return res

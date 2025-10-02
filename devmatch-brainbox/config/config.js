@@ -1,7 +1,7 @@
 export const status = {
   success: { message: "OK", statusCode: 200 },
   created: { message: "CREATED", statusCode: 201 },
-  updated: { message: "UPDATED", statusCode: 203 },
+  updated: { message: "UPDATED", statusCode: 201 },
   deleted: { message: "DELETED", statusCode: 204 },
   badRequest: {
     message: "BAD REQUEST",
@@ -68,6 +68,8 @@ export const errorMessages = {
   BCRYPT_ERROR: "Unable to encrypt password!",
   JWT_ERROR: "Unable to generate token!",
   INCORRECT_EMAIL_PASSWORD_ERROR: "Incorrect Email / Password!",
+  INCORRECT_SECURITY_QUESTION_ERROR: "Incorrect security question's answer!",
+  PASSWORD_UPDATE_FAILED: "Unable to update password!",
 };
 
 export const successMessages = {
@@ -75,6 +77,7 @@ export const successMessages = {
   REGISTRATION_SUCCESS: "Registration successful!",
   LOGIN_SUCCESS: "Login Successful!",
   LOGOUT_SUCCESS: "Logout Successful!",
+  PASSWORD_UPDATE_SUCCESS: "Password updated!",
 };
 
 export const FIRST_NAME_REGEX = /^[A-Za-z]+$/;
