@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+import { EMAIL_REGEX, PASSWORD_REGEX } from "../config/config.js";
+
 const userSchema = mongoose.Schema(
   {
     email: {
@@ -8,14 +10,14 @@ const userSchema = mongoose.Schema(
       unique: true,
       trim: true,
       lowercase: true,
-      match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      match: EMAIL_REGEX,
     },
     password: {
       type: String,
       required: true,
       minlength: 2,
       maxlength: 100,
-      match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%&]).{6,}$/,
+      match: PASSWORD_REGEX,
     },
     firstName: {
       type: String,

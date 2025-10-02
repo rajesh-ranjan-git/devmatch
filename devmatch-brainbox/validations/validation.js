@@ -40,6 +40,13 @@ export const firstNameValidator = (firstName) => {
     };
   }
 
+  if (firstName?.trim().length > 100) {
+    return {
+      isFirstNameValid: false,
+      message: errorMessages.FIRST_NAME_MAX_LENGTH_ERROR,
+    };
+  }
+
   if (!FIRST_NAME_REGEX.test(firstName?.trim())) {
     return {
       isFirstNameValid: false,
@@ -90,6 +97,10 @@ export const passwordValidator = (
 
   if (password?.trim().length < 6) {
     errors.push(errorMessages.PASSWORD_MIN_LENGTH_ERROR);
+  }
+
+  if (password?.trim().length > 100) {
+    errors.push(errorMessages.PASSWORD_MAX_LENGTH_ERROR);
   }
 
   if (!UPPER_CASE_REGEX.test(password?.trim())) {

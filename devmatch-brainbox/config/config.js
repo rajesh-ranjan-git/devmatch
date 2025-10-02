@@ -49,7 +49,10 @@ export const errorMessages = {
   PASSWORD_CONFIRM_PASSWORD_MISMATCH_ERROR:
     "Password and Confirm Password must be same!",
   FIRST_NAME_MIN_LENGTH_ERROR: "First Name must be at least 1 character long!",
+  FIRST_NAME_MAX_LENGTH_ERROR:
+    "First Name must not be longer than 100 characters!",
   PASSWORD_MIN_LENGTH_ERROR: "Password must be at least 6 characters long!",
+  PASSWORD_MAX_LENGTH_ERROR: "Password must not be longer than 100 characters!",
   PASSWORD_UPPERCASE_ERROR:
     "Password must contain at least one uppercase letter (A-Z)!",
   PASSWORD_LOWERCASE_ERROR:
@@ -68,6 +71,8 @@ export const successMessages = {
 
 export const FIRST_NAME_REGEX = /^[A-Za-z]+$/;
 export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+export const PASSWORD_REGEX =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%&]).{6,}$/;
 export const UPPER_CASE_REGEX = /[A-Z]/;
 export const LOWER_CASE_REGEX = /[a-z]/;
 export const NUMBER_REGEX = /\d/;
