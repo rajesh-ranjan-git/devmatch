@@ -108,12 +108,14 @@ export const registerRequestMiddleware = (req, res, next) => {
     next();
   } catch (error) {
     return res
-      .status(error.status.statusCode || status.internalServerError.statusCode)
+      .status(
+        error?.status?.statusCode || status.internalServerError.statusCode
+      )
       .json({
-        status: error.status.message || status.internalServerError.message,
+        status: error?.status?.message || status.internalServerError.message,
         statusCode:
-          error.status.statusCode || status.internalServerError.statusCode,
-        apiURL: error?.apiURL,
+          error?.status?.statusCode || status.internalServerError.statusCode,
+        apiUrl: error?.apiUrl,
         error: {
           type: error?.type,
           message: error?.message,
@@ -169,12 +171,14 @@ export const loginRequestMiddleware = (req, res, next) => {
     next();
   } catch (error) {
     return res
-      .status(error.status.statusCode || status.internalServerError.statusCode)
+      .status(
+        error?.status?.statusCode || status.internalServerError.statusCode
+      )
       .json({
-        status: error.status.message || status.internalServerError.message,
+        status: error?.status?.message || status.internalServerError.message,
         statusCode:
-          error.status.statusCode || status.internalServerError.statusCode,
-        apiURL: error?.apiURL,
+          error?.status?.statusCode || status.internalServerError.statusCode,
+        apiUrl: error?.apiUrl,
         error: {
           type: error?.type,
           message: error?.message,
@@ -264,12 +268,14 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
     next();
   } catch (error) {
     return res
-      .status(error.status.statusCode || status.internalServerError.statusCode)
+      .status(
+        error?.status?.statusCode || status.internalServerError.statusCode
+      )
       .json({
-        status: error.status.message || status.internalServerError.message,
+        status: error?.status?.message || status.internalServerError.message,
         statusCode:
-          error.status.statusCode || status.internalServerError.statusCode,
-        apiURL: error?.apiURL,
+          error?.status?.statusCode || status.internalServerError.statusCode,
+        apiUrl: error?.apiUrl,
         error: {
           type: error?.type,
           message: error?.message,

@@ -53,17 +53,17 @@ server.get("/", (req, res) => {
 });
 
 server.use((err, req, res, next) => {
-  console.error("Global Error :", err.message);
+  console.error("Global Error :", err?.message);
   // console.error("Global Error Stack:", err.stack);
 
-  const statusCode = err.statusCode || 500;
+  const statusCode = err?.statusCode || 500;
 
   return res.status(statusCode).json({
     status: status.internalServerError.message,
     statusCode: status.internalServerError.statusCode,
+    apiUrl: req?.url,
     error: {
-      apiURL: req?.url,
-      message: err.message || "Internal Server Error",
+      message: err?.message || status.internalServerError.message,
     },
   });
 });

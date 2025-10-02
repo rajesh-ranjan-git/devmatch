@@ -78,11 +78,11 @@ class ErrorHandlerManager {
 const errorManager = new ErrorHandlerManager();
 
 class CustomError extends Error {
-  constructor(status, type, message, data = null, apiURL) {
+  constructor(status, type, message, data = null, apiUrl) {
     super(message);
     this.name = type;
     this.status = status;
-    this.apiURL = apiURL;
+    this.apiUrl = apiUrl;
     this.type = type;
     this.data = data;
     this.timestamp = new Date().toISOString();
@@ -98,7 +98,7 @@ class CustomError extends Error {
     return {
       name: this.name,
       status: this.status,
-      apiURL: this.apiURL,
+      apiUrl: this.apiUrl,
       type: this.type,
       message: this.message,
       data: this.data,
@@ -109,32 +109,32 @@ class CustomError extends Error {
 }
 
 class NetworkError extends CustomError {
-  constructor(status, message, data = null, apiURL) {
-    super(status, errorTypes.NETWORK_ERROR, message, data, apiURL);
+  constructor(status, message, data = null, apiUrl) {
+    super(status, errorTypes.NETWORK_ERROR, message, data, apiUrl);
   }
 }
 
 class DatabaseConfigError extends CustomError {
-  constructor(status, message, data = null, apiURL) {
-    super(status, errorTypes.DATABASE_CONFIG_ERROR, message, data, apiURL);
+  constructor(status, message, data = null, apiUrl) {
+    super(status, errorTypes.DATABASE_CONFIG_ERROR, message, data, apiUrl);
   }
 }
 
 class ValidationError extends CustomError {
-  constructor(status, message, data = null, apiURL) {
-    super(status, errorTypes.VALIDATION_ERROR, message, data, apiURL);
+  constructor(status, message, data = null, apiUrl) {
+    super(status, errorTypes.VALIDATION_ERROR, message, data, apiUrl);
   }
 }
 
 class DatabaseError extends CustomError {
-  constructor(status, message, data = null, apiURL) {
-    super(status, errorTypes.DATABASE_ERROR, message, data, apiURL);
+  constructor(status, message, data = null, apiUrl) {
+    super(status, errorTypes.DATABASE_ERROR, message, data, apiUrl);
   }
 }
 
 class AuthenticationError extends CustomError {
-  constructor(status, message, data = null, apiURL) {
-    super(status, errorTypes.AUTHENTICATION_ERROR, message, data, apiURL);
+  constructor(status, message, data = null, apiUrl) {
+    super(status, errorTypes.AUTHENTICATION_ERROR, message, data, apiUrl);
   }
 }
 
@@ -158,7 +158,7 @@ errorManager.configure({
       console.log("ERROR LOG :: [Error] ", {
         status: error?.status?.message,
         statusCode: error?.status?.statusCode,
-        url: error?.apiURL || "",
+        url: error?.apiUrl || "",
         type: error?.type,
         message: error?.message,
         data: error?.data,
