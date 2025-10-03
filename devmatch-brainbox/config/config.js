@@ -71,6 +71,9 @@ export const errorMessages = {
   INCORRECT_SECURITY_QUESTION_ANSWER_ERROR:
     "Incorrect security question's answer!",
   PASSWORD_UPDATE_FAILED: "Unable to update password!",
+  PASSWORD_ALREADY_USED_ERROR:
+    "New password must be different from previous password!",
+  PASSWORD_EXPIRED_ERROR: "Password expired!",
 };
 
 export const successMessages = {

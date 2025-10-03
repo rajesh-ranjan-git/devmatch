@@ -19,6 +19,18 @@ const userSchema = mongoose.Schema(
       maxlength: 100,
       match: PASSWORD_REGEX,
     },
+    previousPassword: {
+      type: String,
+      required: false,
+      minlength: 2,
+      maxlength: 100,
+      match: PASSWORD_REGEX,
+    },
+    passwordLastUpdated: {
+      type: Date,
+      required: true,
+      default: Date.now,
+    },
     firstName: {
       type: String,
       required: true,

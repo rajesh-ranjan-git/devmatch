@@ -49,3 +49,8 @@ export const comparePassword = async (incomingPassword, existingPassword) => {
 
   return isPasswordCorrect;
 };
+
+export const isPasswordExpired = (passwordLastUpdated) => {
+  const THREE_MONTHS = 1000 * 60 * 60 * 24 * 90;
+  return Date.now() - new Date(passwordLastUpdated).getTime() > THREE_MONTHS;
+};

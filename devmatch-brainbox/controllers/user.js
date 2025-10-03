@@ -4,6 +4,7 @@ import {
   comparePassword,
   getEncryptedPassword,
   getJwtToken,
+  isPasswordExpired,
 } from "../utils/utils.js";
 import User from "../models/user.js";
 
@@ -24,17 +25,13 @@ export const register = async (req, res) => {
 
     const hashedPassword = await getEncryptedPassword(password);
 
-    const user = new User({
+    const user = await User.create({
       firstName,
       email,
       password: hashedPassword,
     });
 
-    user.save();
-
-    const registeredUser = await User.findOne({ email }, "_id");
-
-    if (!registeredUser) {
+    if (!user) {
       throw new DatabaseError(
         status.internalServerError,
         errorMessages.REGISTRATION_FAILED_ERROR,
@@ -43,7 +40,7 @@ export const register = async (req, res) => {
       );
     }
 
-    const token = getJwtToken(registeredUser?.id);
+    const token = getJwtToken(user?.id);
 
     return res
       .status(status.created.statusCode)
@@ -52,7 +49,7 @@ export const register = async (req, res) => {
         status: status.created.message,
         statusCode: status.created.statusCode,
         message: successMessages.REGISTRATION_SUCCESS,
-        userId: registeredUser?.id,
+        userId: user?.id,
       });
   } catch (error) {
     return res
@@ -77,7 +74,10 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req?.data;
 
-    const user = await User.findOne({ email }, "_id password");
+    const user = await User.findOne(
+      { email },
+      "_id password passwordLastUpdated"
+    );
 
     if (!user) {
       throw new DatabaseError(
@@ -94,6 +94,15 @@ export const login = async (req, res) => {
       throw new AuthenticationError(
         status.forbidden,
         errorMessages.INCORRECT_EMAIL_PASSWORD_ERROR,
+        { email, password },
+        req?.url
+      );
+    }
+
+    if (isPasswordExpired(user?.passwordLastUpdated)) {
+      throw new AuthenticationError(
+        status.forbidden,
+        errorMessages.PASSWORD_EXPIRED_ERROR,
         { email, password },
         req?.url
       );
@@ -161,7 +170,10 @@ export const forgotPassword = async (req, res) => {
   try {
     const { firstName, email, password } = req?.data;
 
-    const user = await User.findOne({ email }, "_id firstName");
+    const user = await User.findOne(
+      { email },
+      "_id firstName password previousPassword passwordLastUpdated"
+    );
 
     if (!user) {
       throw new DatabaseError(
@@ -181,10 +193,26 @@ export const forgotPassword = async (req, res) => {
       );
     }
 
+    const isPasswordAlreadyUsed = await comparePassword(
+      password,
+      user?.password
+    );
+
+    if (isPasswordAlreadyUsed) {
+      throw new AuthenticationError(
+        status.forbidden,
+        errorMessages.PASSWORD_ALREADY_USED_ERROR,
+        { email, password },
+        req?.url
+      );
+    }
+
     const hashedPassword = await getEncryptedPassword(password);
 
     const updatedUser = await User.findByIdAndUpdate(user?.id, {
       password: hashedPassword,
+      previousPassword: user?.password,
+      passwordLastUpdated: Date.now(),
     });
 
     if (!updatedUser) {
