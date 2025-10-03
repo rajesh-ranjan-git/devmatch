@@ -82,7 +82,8 @@ export const successMessages = {
   REGISTRATION_SUCCESS: "Registration successful!",
   LOGIN_SUCCESS: "Login Successful!",
   LOGOUT_SUCCESS: "Logout Successful!",
-  PASSWORD_UPDATE_SUCCESS: "Password updated!",
+  PASSWORD_UPDATE_SUCCESS: "Password update successful!",
+  FETCH_PROFILE_SUCCESS: "Profile fetch successful!",
 };
 
 export const FIRST_NAME_REGEX = /^[A-Za-z]+$/;

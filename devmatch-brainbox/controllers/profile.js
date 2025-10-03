@@ -1,13 +1,26 @@
-import { status } from "../config/config.js";
+import { status, successMessages } from "../config/config.js";
+import { DatabaseError } from "../errors/CustomError.js";
+import User from "../models/user.js";
 
 export const view = async (req, res) => {
   const { id } = req?.data;
 
+  const user = await User.findById(id, "-password -previousPassword");
+
+  if (!user) {
+    throw new DatabaseError(
+      status.notFound,
+      errorMessages.USER_NOT_EXIST_ERROR,
+      { user },
+      req?.url
+    );
+  }
+
   return res.status(status.success.statusCode).json({
     status: status.success.message,
     statusCode: status.success.statusCode,
-    data: { id },
-    message: "View Profile!",
+    data: { user },
+    message: successMessages.FETCH_PROFILE_SUCCESS,
   });
 };
 

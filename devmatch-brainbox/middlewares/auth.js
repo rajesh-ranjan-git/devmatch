@@ -1,14 +1,8 @@
-import jwt from "jsonwebtoken";
-
 import { errorMessages, status } from "../config/config.js";
-import {
-  AuthenticationError,
-  DatabaseError,
-  JwtError,
-} from "../errors/CustomError.js";
+import { AuthenticationError, DatabaseError } from "../errors/CustomError.js";
 import { requestValidator } from "../validations/validation.js";
-import User from "../models/user.js";
 import { verifyJwtToken } from "../utils/utils.js";
+import User from "../models/user.js";
 
 const auth = async (req, res, next) => {
   try {
