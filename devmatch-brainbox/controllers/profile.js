@@ -1,12 +1,12 @@
 import { status } from "../config/config.js";
 
 export const view = async (req, res) => {
-  const { firstName, id } = req?.data;
+  const { id } = req?.data;
 
   return res.status(status.success.statusCode).json({
     status: status.success.message,
     statusCode: status.success.statusCode,
-    data: { user: { firstName, id } },
+    data: { id },
     message: "View Profile!",
   });
 };

@@ -8,6 +8,7 @@ import {
 } from "../errors/CustomError.js";
 import { requestValidator } from "../validations/validation.js";
 import User from "../models/user.js";
+import { verifyJwtToken } from "../utils/utils.js";
 
 const auth = async (req, res, next) => {
   try {
@@ -22,36 +23,21 @@ const auth = async (req, res, next) => {
       );
     }
 
-    const decodedToken = jwt.verify(
-      req?.cookies?.authToken,
-      process.env.BRAINBOX_JWT_SECRET_KEY
-    );
+    const decodedUserId = verifyJwtToken(req?.cookies?.authToken);
 
-    if (!decodedToken) {
-      throw new JwtError(
-        status.internalServerError,
-        errorMessages.JWT_ERROR,
-        {
-          token: decodedToken,
-        },
-        req?.url
-      );
-    }
-
-    const loggedInUser = await User.findById(decodedToken?.id, "firstName");
+    const loggedInUser = await User.findById(decodedUserId, "id");
 
     if (!loggedInUser) {
       throw new DatabaseError(
         status.notFound,
         errorMessages.USER_NOT_EXIST_ERROR,
-        { user: loggedInUser },
+        { user: loggedInUser?.id },
         req?.url
       );
     }
 
     req.data = {
       id: loggedInUser?.id,
-      firstName: loggedInUser?.firstName,
     };
 
     next();

@@ -33,6 +33,18 @@ export const getJwtToken = (id) => {
   return token;
 };
 
+export const verifyJwtToken = (token) => {
+  const decodedToken = jwt.verify(token, process.env.BRAINBOX_JWT_SECRET_KEY);
+
+  if (!decodedToken) {
+    throw new JwtError(status.internalServerError, errorMessages.JWT_ERROR, {
+      token: decodedToken,
+    });
+  }
+
+  return decodedToken?.id;
+};
+
 export const comparePassword = async (incomingPassword, existingPassword) => {
   const isPasswordCorrect = await bcrypt.compare(
     incomingPassword,

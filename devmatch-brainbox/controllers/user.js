@@ -12,7 +12,7 @@ export const register = async (req, res) => {
   try {
     const { firstName, email, password } = req?.data;
 
-    const existingUser = await User.findOne({ email }, "_id");
+    const existingUser = await User.findOne({ email }, "id");
 
     if (existingUser) {
       throw new DatabaseError(
