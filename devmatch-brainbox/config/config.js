@@ -38,21 +38,21 @@ export const errorTypes = {
 export const errorMessages = {
   DB_CONFIG_ERROR: "Database configuration error!",
   DB_CONNECTION_ERROR: "Database connection failed!",
-  REQUEST_ERROR: "Invalid Request!",
-  FIRST_NAME_REQUIRED_ERROR: "First Name is required!",
+  REQUEST_ERROR: "Invalid request!",
+  FIRST_NAME_REQUIRED_ERROR: "First name is required!",
   EMAIL_REQUIRED_ERROR: "Email is required!",
   PASSWORD_REQUIRED_ERROR: "Password is required!",
-  CONFIRM_PASSWORD_REQUIRED_ERROR: "Confirm Password is required!",
+  CONFIRM_PASSWORD_REQUIRED_ERROR: "Confirm password is required!",
   INVALID_FIRST_NAME_ERROR:
-    "First Name must only contain alphabets (a-z or A-Z)!",
-  INVALID_EMAIL_ERROR: "Invalid Email format!",
-  PASSWORD_COMBINATION_ERROR: "Invalid Password combination!",
-  CONFIRM_PASSWORD_COMBINATION_ERROR: "Invalid Confirm Password combination!",
+    "First name must only contain alphabets (a-z or A-Z)!",
+  INVALID_EMAIL_ERROR: "Invalid email format!",
+  PASSWORD_COMBINATION_ERROR: "Invalid password combination!",
+  CONFIRM_PASSWORD_COMBINATION_ERROR: "Invalid confirm password combination!",
   PASSWORD_CONFIRM_PASSWORD_MISMATCH_ERROR:
-    "Password and Confirm Password must be same!",
-  FIRST_NAME_MIN_LENGTH_ERROR: "First Name must be at least 1 character long!",
+    "Password and confirm password must be same!",
+  FIRST_NAME_MIN_LENGTH_ERROR: "First name must be at least 1 character long!",
   FIRST_NAME_MAX_LENGTH_ERROR:
-    "First Name must not be longer than 100 characters!",
+    "First name must not be longer than 100 characters!",
   PASSWORD_MIN_LENGTH_ERROR: "Password must be at least 6 characters long!",
   PASSWORD_MAX_LENGTH_ERROR: "Password must not be longer than 100 characters!",
   PASSWORD_UPPERCASE_ERROR:
@@ -67,13 +67,14 @@ export const errorMessages = {
   REGISTRATION_FAILED_ERROR: "Unable to register user!",
   BCRYPT_ERROR: "Unable to encrypt password!",
   JWT_ERROR: "Unable to generate token!",
-  INCORRECT_EMAIL_PASSWORD_ERROR: "Incorrect Email / Password!",
+  INCORRECT_EMAIL_PASSWORD_ERROR: "Incorrect email or password!",
   INCORRECT_SECURITY_QUESTION_ANSWER_ERROR:
     "Incorrect security question's answer!",
   PASSWORD_UPDATE_FAILED: "Unable to update password!",
   PASSWORD_ALREADY_USED_ERROR:
     "New password must be different from previous password!",
   PASSWORD_EXPIRED_ERROR: "Password expired!",
+  UNAUTHORIZED_USER_ERROR: "Unauthorized user!",
 };
 
 export const successMessages = {

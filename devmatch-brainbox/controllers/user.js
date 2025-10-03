@@ -88,7 +88,7 @@ export const login = async (req, res) => {
       );
     }
 
-    const isPasswordCorrect = comparePassword(password, user?.password);
+    const isPasswordCorrect = await comparePassword(password, user?.password);
 
     if (!isPasswordCorrect) {
       throw new AuthenticationError(

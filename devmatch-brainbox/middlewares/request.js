@@ -187,3 +187,9 @@ export const loginRequestMiddleware = (req, res, next) => {
       });
   }
 };
+
+export const requestMiddleware = (req, res, next) => {
+  requestValidator(req, res);
+
+  next();
+};

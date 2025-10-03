@@ -11,18 +11,28 @@ import { errorMessages } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
 
 export const requestValidator = (req, res) => {
-  if (!req || !req?.body || !Object.keys(req?.body).length) {
-    throw new ValidationError(
-      status.badRequest,
-      errorMessages.REQUEST_ERROR,
-      {
-        requestBody: req?.body,
-      },
-      req?.url
-    );
+  if (!req) {
+    throw new ValidationError(status.badRequest, errorMessages.REQUEST_ERROR, {
+      req: req,
+    });
   }
 
-  return req?.body;
+  if (req?.method === "GET") {
+    return;
+  } else {
+    if (!req || !req?.body || !Object.keys(req?.body).length) {
+      throw new ValidationError(
+        status.badRequest,
+        errorMessages.REQUEST_ERROR,
+        {
+          requestBody: req?.body,
+        },
+        req?.url
+      );
+    }
+
+    return req?.body;
+  }
 };
 
 export const firstNameValidator = (firstName) => {
