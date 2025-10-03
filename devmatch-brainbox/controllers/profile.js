@@ -1,11 +1,19 @@
-import { status, successMessages } from "../config/config.js";
+import {
+  allowedPrivateProfileFields,
+  allowedPublicProfileFields,
+  status,
+  successMessages,
+} from "../config/config.js";
 import { DatabaseError } from "../errors/CustomError.js";
 import User from "../models/user.js";
 
 export const view = async (req, res) => {
-  const { id } = req?.data;
+  const { id, params, query } = await req?.data;
 
-  const user = await User.findById(id, "-password -previousPassword");
+  const user = await User.findById(
+    params?.id ? params?.id : id,
+    params?.id ? allowedPublicProfileFields : allowedPrivateProfileFields
+  );
 
   if (!user) {
     throw new DatabaseError(

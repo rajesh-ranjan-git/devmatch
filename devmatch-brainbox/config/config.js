@@ -1,3 +1,12 @@
+export const FIRST_NAME_REGEX = /^[A-Za-z]+$/;
+export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+export const PASSWORD_REGEX =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%&]).{6,}$/;
+export const UPPER_CASE_REGEX = /[A-Z]/;
+export const LOWER_CASE_REGEX = /[a-z]/;
+export const NUMBER_REGEX = /\d/;
+export const ALLOWED_SPECIAL_CHARACTERS_REGEX = /[@#$%&]/;
+
 export const status = {
   success: { message: "OK", statusCode: 200 },
   created: { message: "CREATED", statusCode: 201 },
@@ -86,11 +95,51 @@ export const successMessages = {
   FETCH_PROFILE_SUCCESS: "Profile fetch successful!",
 };
 
-export const FIRST_NAME_REGEX = /^[A-Za-z]+$/;
-export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-export const PASSWORD_REGEX =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%&]).{6,}$/;
-export const UPPER_CASE_REGEX = /[A-Z]/;
-export const LOWER_CASE_REGEX = /[a-z]/;
-export const NUMBER_REGEX = /\d/;
-export const ALLOWED_SPECIAL_CHARACTERS_REGEX = /[@#$%&]/;
+export const allowedPrivateProfileFields = [
+  "email",
+  "passwordLastUpdated",
+  "firstName",
+  "middleName",
+  "lastName",
+  "nickName",
+  "age",
+  "phone",
+  "gender",
+  "avatarURL",
+  "bio",
+  "maritalStatus",
+  "city",
+  "jobProfile",
+  "experience",
+  "github",
+  "website",
+  "organization",
+  "skills",
+  "interests",
+  "address",
+  "createdAt",
+  "updatedAt",
+];
+
+export const allowedPublicProfileFields = [
+  "email",
+  "firstName",
+  "middleName",
+  "lastName",
+  "nickName",
+  "age",
+  "phone",
+  "gender",
+  "avatarURL",
+  "bio",
+  "maritalStatus",
+  "city",
+  "jobProfile",
+  "experience",
+  "github",
+  "website",
+  "organization",
+  "skills",
+  "interests",
+  "address",
+];
