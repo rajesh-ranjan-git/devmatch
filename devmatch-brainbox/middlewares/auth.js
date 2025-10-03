@@ -1,8 +1,15 @@
-import { errorMessages, status } from "../config/config.js";
-import { AuthenticationError } from "../errors/CustomError.js";
-import { requestValidator } from "../validations/validation.js";
+import jwt from "jsonwebtoken";
 
-const auth = (req, res, next) => {
+import { errorMessages, status } from "../config/config.js";
+import {
+  AuthenticationError,
+  DatabaseError,
+  JwtError,
+} from "../errors/CustomError.js";
+import { requestValidator } from "../validations/validation.js";
+import User from "../models/user.js";
+
+const auth = async (req, res, next) => {
   try {
     requestValidator(req, res);
 
@@ -15,7 +22,37 @@ const auth = (req, res, next) => {
       );
     }
 
-    console.log("User authorized, token : ", req?.cookies?.authToken);
+    const decodedToken = jwt.verify(
+      req?.cookies?.authToken,
+      process.env.BRAINBOX_JWT_SECRET_KEY
+    );
+
+    if (!decodedToken) {
+      throw new JwtError(
+        status.internalServerError,
+        errorMessages.JWT_ERROR,
+        {
+          token: decodedToken,
+        },
+        req?.url
+      );
+    }
+
+    const loggedInUser = await User.findById(decodedToken?.id, "firstName");
+
+    if (!loggedInUser) {
+      throw new DatabaseError(
+        status.notFound,
+        errorMessages.USER_NOT_EXIST_ERROR,
+        { user: loggedInUser },
+        req?.url
+      );
+    }
+
+    req.data = {
+      id: loggedInUser?.id,
+      firstName: loggedInUser?.firstName,
+    };
 
     next();
   } catch (error) {

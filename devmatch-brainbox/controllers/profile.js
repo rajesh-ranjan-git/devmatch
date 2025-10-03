@@ -1,11 +1,13 @@
 import { status } from "../config/config.js";
 
 export const view = async (req, res) => {
-  console.log("debug body : ", req.body);
+  const { firstName, id } = req?.data;
+
   return res.status(status.success.statusCode).json({
     status: status.success.message,
     statusCode: status.success.statusCode,
-    message: "Request received",
+    data: { user: { firstName, id } },
+    message: "View Profile!",
   });
 };
 
