@@ -193,3 +193,114 @@ export const requestMiddleware = (req, res, next) => {
 
   next();
 };
+
+export const updatePasswordRequestMiddleware = (req, res, next) => {
+  try {
+    const { oldPassword, newPassword, confirmPassword } = req?.body;
+
+    const {
+      isPasswordValid: isOldPasswordValid,
+      message: oldPasswordErrorMessage,
+      errors: oldPasswordErrors,
+      validatedPassword: validatedOldPassword,
+    } = passwordValidator(
+      oldPassword,
+      errorMessages.OLD_PASSWORD_REQUIRED_ERROR,
+      errorMessages.OLD_PASSWORD_COMBINATION_ERROR
+    );
+
+    if (!isOldPasswordValid) {
+      throw new ValidationError(
+        status.badRequest,
+        oldPasswordErrorMessage,
+        {
+          errors: oldPasswordErrors,
+          password: oldPassword,
+        },
+        req?.url
+      );
+    }
+
+    const {
+      isPasswordValid: isNewPasswordValid,
+      message: newPasswordErrorMessage,
+      errors: newPasswordErrors,
+      validatedPassword: validatedNewPassword,
+    } = passwordValidator(
+      newPassword,
+      errorMessages.NEW_PASSWORD_REQUIRED_ERROR,
+      errorMessages.NEW_PASSWORD_COMBINATION_ERROR
+    );
+
+    if (!isNewPasswordValid) {
+      throw new ValidationError(
+        status.badRequest,
+        newPasswordErrorMessage,
+        {
+          errors: newPasswordErrors,
+          password: newPassword,
+        },
+        req?.url
+      );
+    }
+
+    const {
+      isPasswordValid: isConfirmPasswordValid,
+      message: confirmPasswordErrorMessage,
+      errors: confirmPasswordErrors,
+      validatedPassword: validatedConfirmPassword,
+    } = passwordValidator(
+      confirmPassword,
+      errorMessages.CONFIRM_PASSWORD_REQUIRED_ERROR,
+      errorMessages.CONFIRM_PASSWORD_COMBINATION_ERROR
+    );
+
+    if (!isConfirmPasswordValid) {
+      throw new ValidationError(
+        status.badRequest,
+        confirmPasswordErrorMessage,
+        {
+          errors: confirmPasswordErrors,
+          password: confirmPassword,
+        },
+        req?.url
+      );
+    }
+
+    if (validatedNewPassword !== validatedConfirmPassword) {
+      throw new ValidationError(
+        status.badRequest,
+        errorMessages.NEW_PASSWORD_CONFIRM_PASSWORD_MISMATCH_ERROR,
+        {
+          password: newPassword,
+          confirmPassword,
+        },
+        req?.url
+      );
+    }
+
+    req.data = {
+      ...req?.data,
+      oldPassword: validatedOldPassword,
+      newPassword: validatedNewPassword,
+    };
+
+    next();
+  } catch (error) {
+    return res
+      .status(
+        error?.status?.statusCode || status.internalServerError.statusCode
+      )
+      .json({
+        status: error?.status?.message || status.internalServerError.message,
+        statusCode:
+          error?.status?.statusCode || status.internalServerError.statusCode,
+        apiUrl: error?.apiUrl,
+        error: {
+          type: error?.type,
+          message: error?.message,
+          data: error?.data,
+        },
+      });
+  }
+};

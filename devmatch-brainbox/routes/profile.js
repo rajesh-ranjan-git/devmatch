@@ -2,6 +2,7 @@ import express from "express";
 
 import { view, update, updatePassword } from "../controllers/profile.js";
 import auth from "../middlewares/auth.js";
+import { updatePasswordRequestMiddleware } from "../middlewares/request.js";
 
 const profileRouter = express.Router();
 
@@ -11,6 +12,11 @@ profileRouter.get("/view", auth, view);
 
 profileRouter.post("/update", auth, update);
 
-profileRouter.post("/updatePassword", auth, updatePassword);
+profileRouter.post(
+  "/updatePassword",
+  auth,
+  updatePasswordRequestMiddleware,
+  updatePassword
+);
 
 export default profileRouter;

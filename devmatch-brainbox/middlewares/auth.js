@@ -32,8 +32,6 @@ const auth = async (req, res, next) => {
 
     req.data = {
       id: loggedInUser?.id,
-      params: req?.params,
-      query: req?.query,
     };
 
     next();

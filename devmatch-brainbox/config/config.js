@@ -51,14 +51,20 @@ export const errorMessages = {
   FIRST_NAME_REQUIRED_ERROR: "First name is required!",
   EMAIL_REQUIRED_ERROR: "Email is required!",
   PASSWORD_REQUIRED_ERROR: "Password is required!",
+  OLD_PASSWORD_REQUIRED_ERROR: "Old Password is required!",
+  NEW_PASSWORD_REQUIRED_ERROR: "New Password is required!",
   CONFIRM_PASSWORD_REQUIRED_ERROR: "Confirm password is required!",
   INVALID_FIRST_NAME_ERROR:
     "First name must only contain alphabets (a-z or A-Z)!",
   INVALID_EMAIL_ERROR: "Invalid email format!",
   PASSWORD_COMBINATION_ERROR: "Invalid password combination!",
+  OLD_PASSWORD_COMBINATION_ERROR: "Invalid old password combination!",
+  NEW_PASSWORD_COMBINATION_ERROR: "Invalid new password combination!",
   CONFIRM_PASSWORD_COMBINATION_ERROR: "Invalid confirm password combination!",
   PASSWORD_CONFIRM_PASSWORD_MISMATCH_ERROR:
     "Password and confirm password must be same!",
+  NEW_PASSWORD_CONFIRM_PASSWORD_MISMATCH_ERROR:
+    "New password and confirm password must be same!",
   FIRST_NAME_MIN_LENGTH_ERROR: "First name must be at least 1 character long!",
   FIRST_NAME_MAX_LENGTH_ERROR:
     "First name must not be longer than 100 characters!",
@@ -79,6 +85,7 @@ export const errorMessages = {
   INCORRECT_EMAIL_PASSWORD_ERROR: "Incorrect email or password!",
   INCORRECT_SECURITY_QUESTION_ANSWER_ERROR:
     "Incorrect security question's answer!",
+  INCORRECT_OLD_PASSWORD_ERROR: "Incorrect old password! ",
   PASSWORD_UPDATE_FAILED: "Unable to update password!",
   PASSWORD_ALREADY_USED_ERROR:
     "New password must be different from previous password!",
