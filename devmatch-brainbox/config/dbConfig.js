@@ -14,6 +14,7 @@ dotenv.config({
 });
 
 const DB_LOCAL_URI = process.env.DB_LOCAL_URI;
+const DB_LOCAL_NAME = process.env.DB_NAME;
 const DB_BASE_URI = process.env.DB_BASE_URI;
 const DB_CLUSTER = process.env.DB_CLUSTER;
 const DB_NAME = process.env.DB_NAME;
@@ -39,7 +40,10 @@ try {
 
   DB_URI = `${DB_BASE_URI}://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}/${DB_NAME}`;
 } catch (error) {
-  DB_URI = DB_LOCAL_URI || "mongodb://localhost:27017/";
+  DB_URI =
+    DB_LOCAL_URI && DB_LOCAL_NAME
+      ? `${DB_LOCAL_URI}/${DB_LOCAL_NAME}`
+      : "mongodb://localhost:27017/devmatch-local";
 }
 
 export const DB_URL = DB_URI;
