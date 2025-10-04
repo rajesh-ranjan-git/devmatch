@@ -7,7 +7,7 @@ import {
 } from "../config/config.js";
 import { AuthenticationError, DatabaseError } from "../errors/CustomError.js";
 import User from "../models/user.js";
-import { comparePassword } from "../utils/utils.js";
+import { comparePassword, getEncryptedPassword } from "../utils/utils.js";
 
 export const view = async (req, res) => {
   const { id } = await req?.data;
@@ -83,8 +83,24 @@ export const updatePassword = async (req, res) => {
       );
     }
 
+    const isPasswordAlreadyUsed = await comparePassword(
+      newPassword,
+      user?.password
+    );
+
+    if (isPasswordAlreadyUsed) {
+      throw new AuthenticationError(
+        status.forbidden,
+        errorMessages.PASSWORD_ALREADY_USED_ERROR,
+        { password: newPassword },
+        req?.url
+      );
+    }
+
+    const hashedPassword = await getEncryptedPassword(newPassword);
+
     const updatedUser = await User.findByIdAndUpdate(id, {
-      password: newPassword,
+      password: hashedPassword,
       previousPassword: user?.password,
       passwordLastUpdated: Date.now(),
     });
