@@ -150,6 +150,12 @@ class AuthenticationError extends CustomError {
   }
 }
 
+class ForbiddenError extends CustomError {
+  constructor(status, message, data = null, apiUrl) {
+    super(status, errorTypes.FORBIDDEN_ERROR, message, data, apiUrl);
+  }
+}
+
 export {
   CustomError,
   NetworkError,
@@ -159,6 +165,7 @@ export {
   BcryptError,
   JwtError,
   AuthenticationError,
+  ForbiddenError,
   errorManager,
 };
 

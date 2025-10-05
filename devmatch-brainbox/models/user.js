@@ -81,7 +81,7 @@ const userSchema = mongoose.Schema(
       required: false,
       set: (val) => (typeof val === "string" ? val.trim().toLowerCase() : val),
     },
-    avatarURL: {
+    avatarUrl: {
       type: String,
       required: false,
     },
@@ -97,14 +97,6 @@ const userSchema = mongoose.Schema(
       required: false,
       enum: ["married", "single", "separated"],
       set: (val) => (typeof val === "string" ? val.trim().toLowerCase() : val),
-    },
-    city: {
-      type: String,
-      required: false,
-      minlength: 2,
-      maxlength: 100,
-      trim: true,
-      lowercase: true,
     },
     jobProfile: {
       type: String,

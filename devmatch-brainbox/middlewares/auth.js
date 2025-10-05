@@ -1,12 +1,12 @@
 import { errorMessages, status } from "../config/config.js";
 import { AuthenticationError, DatabaseError } from "../errors/CustomError.js";
 import { requestValidator } from "../validations/validation.js";
-import { verifyJwtToken } from "../utils/utils.js";
+import { verifyJwtToken } from "../utils/authUtils.js";
 import User from "../models/user.js";
 
 const auth = async (req, res, next) => {
   try {
-    requestValidator(req, res);
+    const body = requestValidator(req, res);
 
     if (!req?.cookies || !req?.cookies?.authToken) {
       throw new AuthenticationError(
@@ -33,6 +33,10 @@ const auth = async (req, res, next) => {
     req.data = {
       id: loggedInUser?.id,
     };
+
+    if (body) {
+      req.data = { ...req?.data, ...body };
+    }
 
     next();
   } catch (error) {

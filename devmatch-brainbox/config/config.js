@@ -1,4 +1,6 @@
-export const FIRST_NAME_REGEX = /^[A-Za-z]+$/;
+import { omitObjectProperties } from "../utils/utils.js";
+
+export const NAME_REGEX = /^[A-Za-z]+$/;
 export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 export const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%&]).{6,}$/;
@@ -42,6 +44,7 @@ export const errorTypes = {
   BCRYPT_ERROR: "BCRYPT_ERROR",
   JWT_ERROR: "JWT_ERROR",
   AUTHENTICATION_ERROR: "AUTHENTICATION_ERROR",
+  FORBIDDEN_ERROR: "FORBIDDEN_ERROR",
 };
 
 export const errorMessages = {
@@ -56,6 +59,12 @@ export const errorMessages = {
   CONFIRM_PASSWORD_REQUIRED_ERROR: "Confirm password is required!",
   INVALID_FIRST_NAME_ERROR:
     "First name must only contain alphabets (a-z or A-Z)!",
+  INVALID_MIDDLE_NAME_ERROR:
+    "Middle name must only contain alphabets (a-z or A-Z)!",
+  INVALID_LAST_NAME_ERROR:
+    "Last name must only contain alphabets (a-z or A-Z)!",
+  INVALID_NICK_NAME_ERROR:
+    "Nick name must only contain alphabets (a-z or A-Z)!",
   INVALID_EMAIL_ERROR: "Invalid email format!",
   PASSWORD_COMBINATION_ERROR: "Invalid password combination!",
   OLD_PASSWORD_COMBINATION_ERROR: "Invalid old password combination!",
@@ -68,6 +77,16 @@ export const errorMessages = {
   FIRST_NAME_MIN_LENGTH_ERROR: "First name must be at least 1 character long!",
   FIRST_NAME_MAX_LENGTH_ERROR:
     "First name must not be longer than 100 characters!",
+  MIDDLE_NAME_MIN_LENGTH_ERROR:
+    "Middle name must be at least 1 character long!",
+  MIDDLE_NAME_MAX_LENGTH_ERROR:
+    "Middle name must not be longer than 100 characters!",
+  LAST_NAME_MIN_LENGTH_ERROR: "Last name must be at least 1 character long!",
+  LAST_NAME_MAX_LENGTH_ERROR:
+    "Last name must not be longer than 100 characters!",
+  NICK_NAME_MIN_LENGTH_ERROR: "Nick name must be at least 1 character long!",
+  NICK_NAME_MAX_LENGTH_ERROR:
+    "Nick name must not be longer than 100 characters!",
   PASSWORD_MIN_LENGTH_ERROR: "Password must be at least 6 characters long!",
   PASSWORD_MAX_LENGTH_ERROR: "Password must not be longer than 100 characters!",
   PASSWORD_UPPERCASE_ERROR:
@@ -91,6 +110,9 @@ export const errorMessages = {
     "New password must be different from previous password!",
   PASSWORD_EXPIRED_ERROR: "Password expired!",
   UNAUTHORIZED_USER_ERROR: "Unauthorized user!",
+  FORBIDDEN_UPDATE_ERROR: "Update not allowed!",
+  FORBIDDEN_PROPERTY_UPDATE_ERROR: "Property update not allowed!",
+  FORBIDDEN_PROPERTIES_UPDATE_ERROR: "Some property updates not allowed!",
 };
 
 export const successMessages = {
@@ -102,51 +124,78 @@ export const successMessages = {
   FETCH_PROFILE_SUCCESS: "Profile fetch successful!",
 };
 
-export const allowedPrivateProfileFields = [
-  "email",
-  "passwordLastUpdated",
-  "firstName",
-  "middleName",
-  "lastName",
-  "nickName",
-  "age",
-  "phone",
-  "gender",
-  "avatarURL",
-  "bio",
-  "maritalStatus",
-  "city",
-  "jobProfile",
-  "experience",
-  "github",
-  "website",
-  "organization",
-  "skills",
-  "interests",
-  "address",
-  "createdAt",
-  "updatedAt",
-];
+export const userProperties = {
+  ID: "id",
+  EMAIL: "email",
+  PASSWORD: "password",
+  PREVIOUS_PASSWORD: "previousPassword",
+  PASSWORD_LAST_UPDATED: "passwordLastUpdated",
+  FIRST_NAME: "firstName",
+  MIDDLE_NAME: "middleName",
+  LAST_NAME: "lastName",
+  NICK_NAME: "nickName",
+  AGE: "age",
+  PHONE: "phone",
+  GENDER: "gender",
+  AVATAR_URL: "avatarUrl",
+  BIO: "bio",
+  MARITAL_STATUS: "maritalStatus",
+  JOB_PROFILE: "jobProfile",
+  EXPERIENCE: "experience",
+  GITHUB: "github",
+  WEBSITE: "website",
+  ORGANIZATION: "organization",
+  SKILLS: "skills",
+  INTERESTS: "interests",
+  ADDRESS: "address",
+  CREATED_AT: "createdAt",
+  UPDATED_AT: "updatedAt",
+};
 
-export const allowedPublicProfileFields = [
-  "email",
-  "firstName",
-  "middleName",
-  "lastName",
-  "nickName",
-  "age",
-  "phone",
-  "gender",
-  "avatarURL",
-  "bio",
-  "maritalStatus",
-  "city",
-  "jobProfile",
-  "experience",
-  "github",
-  "website",
-  "organization",
-  "skills",
-  "interests",
-  "address",
-];
+export const genderProperties = {
+  MALE: "male",
+  FEMALE: "female",
+  OTHER: "other",
+};
+
+export const maritalStatusProperties = {
+  MARRIED: "married",
+  SINGLE: "single",
+  SEPARATED: "separated",
+};
+
+export const addressProperties = {
+  STREET: "street",
+  LANDMARK: "landmark",
+  CITY: "city",
+  STATE: "state",
+  COUNTRY_CODE: "countryCode",
+  COUNTRY: "country",
+  PIN_CODE: "pinCode",
+};
+
+export const publicProfileProperties = omitObjectProperties(userProperties, [
+  userProperties.ID,
+  userProperties.PASSWORD,
+  userProperties.PREVIOUS_PASSWORD,
+  userProperties.PASSWORD_LAST_UPDATED,
+  userProperties.UPDATED_AT,
+]);
+
+export const privateProfileProperties = omitObjectProperties(userProperties, [
+  userProperties.PASSWORD,
+  userProperties.PREVIOUS_PASSWORD,
+]);
+
+export const allowedUpdateProfileProperties = omitObjectProperties(
+  userProperties,
+  [
+    userProperties.ID,
+    userProperties.EMAIL,
+    userProperties.PASSWORD,
+    userProperties.PREVIOUS_PASSWORD,
+    userProperties.PASSWORD_LAST_UPDATED,
+    userProperties.CREATED_AT,
+    userProperties.UPDATED_AT,
+  ]
+);

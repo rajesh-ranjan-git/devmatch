@@ -1,13 +1,16 @@
 import {
-  allowedPrivateProfileFields,
-  allowedPublicProfileFields,
+  privateProfileProperties,
+  publicProfileProperties,
   errorMessages,
   status,
   successMessages,
+  userProperties,
+  allowedUpdateProfileProperties,
 } from "../config/config.js";
 import { AuthenticationError, DatabaseError } from "../errors/CustomError.js";
+import { comparePassword, getEncryptedPassword } from "../utils/authUtils.js";
+import { validatePropertiesToUpdate } from "../utils/utils.js";
 import User from "../models/user.js";
-import { comparePassword, getEncryptedPassword } from "../utils/utils.js";
 
 export const view = async (req, res) => {
   const { id } = await req?.data;
@@ -15,7 +18,9 @@ export const view = async (req, res) => {
 
   const user = await User.findById(
     params?.id ? params?.id : id,
-    params?.id ? allowedPublicProfileFields : allowedPrivateProfileFields
+    params?.id
+      ? Object.values(publicProfileProperties)
+      : Object.values(privateProfileProperties)
   );
 
   if (!user) {
@@ -36,12 +41,11 @@ export const view = async (req, res) => {
 };
 
 export const update = async (req, res) => {
-  const { id } = await req?.data;
-  const body = req?.body;
+  const { id, properties } = await req?.data;
 
-  // body.map(item => allowedPrivateProfileFields.item ?  )
+  validatePropertiesToUpdate(properties);
 
-  // const user = await User.findByIdAndUpdate(id, allowedPrivateProfileFields);
+  const user = await User.findByIdAndUpdate(id, allowedUpdateProfileProperties);
 
   return res.status(status.success.statusCode).json({
     status: status.success.message,
@@ -55,10 +59,11 @@ export const updatePassword = async (req, res) => {
     const { id } = await req?.data;
     const { oldPassword, newPassword } = req?.body;
 
-    const user = await User.findById(
-      id,
-      "password previousPassword passwordLastUpdated"
-    );
+    const user = await User.findById(id, [
+      userProperties.PASSWORD,
+      userProperties.PREVIOUS_PASSWORD,
+      userProperties.PASSWORD_LAST_UPDATED,
+    ]);
 
     if (!user) {
       throw new DatabaseError(

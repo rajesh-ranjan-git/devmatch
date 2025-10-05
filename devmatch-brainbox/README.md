@@ -43,7 +43,7 @@
 - age -> number (18-100) -> required
 - phone -> number (10) -> required
 - gender -> string -> "male" | "female" | "other" -> required
-- avatarURL -> string
+- avatarUrl -> string
 - bio -> string (4-100)
 - maritalStatus -> string -> "married" | "single" | "separated"
 - jobProfile -> string (max 100)

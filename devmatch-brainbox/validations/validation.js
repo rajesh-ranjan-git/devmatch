@@ -1,11 +1,12 @@
 import {
   ALLOWED_SPECIAL_CHARACTERS_REGEX,
   EMAIL_REGEX,
-  FIRST_NAME_REGEX,
+  NAME_REGEX,
   LOWER_CASE_REGEX,
   NUMBER_REGEX,
   status,
   UPPER_CASE_REGEX,
+  userProperties,
 } from "../config/config.js";
 import { errorMessages } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
@@ -20,19 +21,25 @@ export const requestValidator = (req, res) => {
   if (req?.method === "GET") {
     return;
   } else {
-    if (!req || !req?.body || !Object.keys(req?.body).length) {
-      throw new ValidationError(
-        status.badRequest,
-        errorMessages.REQUEST_ERROR,
-        {
-          requestBody: req?.body,
-        },
-        req?.url
-      );
-    }
+    const body = requestBodyValidator(req, res);
 
-    return req?.body;
+    return body;
   }
+};
+
+export const requestBodyValidator = (req, res) => {
+  if (!req?.body || !Object.keys(req?.body).length) {
+    throw new ValidationError(
+      status.badRequest,
+      errorMessages.REQUEST_ERROR,
+      {
+        requestBody: req?.body,
+      },
+      req?.url
+    );
+  }
+
+  return req?.body;
 };
 
 export const firstNameValidator = (firstName) => {
@@ -43,30 +50,60 @@ export const firstNameValidator = (firstName) => {
     };
   }
 
-  if (firstName?.trim().length < 1) {
-    return {
-      isFirstNameValid: false,
-      message: errorMessages.FIRST_NAME_MIN_LENGTH_ERROR,
-    };
-  }
-
-  if (firstName?.trim().length > 100) {
-    return {
-      isFirstNameValid: false,
-      message: errorMessages.FIRST_NAME_MAX_LENGTH_ERROR,
-    };
-  }
-
-  if (!FIRST_NAME_REGEX.test(firstName?.trim().toLowerCase())) {
-    return {
-      isFirstNameValid: false,
-      message: errorMessages.INVALID_FIRST_NAME_ERROR,
-    };
-  }
+  nameValidator(firstName, userProperties.FIRST_NAME);
 
   return {
     isFirstNameValid: true,
     validatedFirstName: firstName?.trim().toLowerCase(),
+  };
+};
+
+export const nameValidator = (name, type) => {
+  if (name?.trim().length < 1) {
+    return {
+      isNameValid: false,
+      message:
+        type === userProperties.FIRST_NAME
+          ? errorMessages.FIRST_NAME_MIN_LENGTH_ERROR
+          : type === userProperties.MIDDLE_NAME
+          ? errorMessages.MIDDLE_NAME_MIN_LENGTH_ERROR
+          : type === userProperties.LAST_NAME
+          ? errorMessages.LAST_NAME_MIN_LENGTH_ERROR
+          : errorMessages.NICK_NAME_MIN_LENGTH_ERROR,
+    };
+  }
+
+  if (name?.trim().length > 100) {
+    return {
+      isNameValid: false,
+      message:
+        type === userProperties.FIRST_NAME
+          ? errorMessages.FIRST_NAME_MAX_LENGTH_ERROR
+          : type === userProperties.MIDDLE_NAME
+          ? errorMessages.MIDDLE_NAME_MAX_LENGTH_ERROR
+          : type === userProperties.LAST_NAME
+          ? errorMessages.LAST_NAME_MAX_LENGTH_ERROR
+          : errorMessages.NICK_NAME_MAX_LENGTH_ERROR,
+    };
+  }
+
+  if (!NAME_REGEX.test(name?.trim().toLowerCase())) {
+    return {
+      isNameValid: false,
+      message:
+        type === userProperties.FIRST_NAME
+          ? errorMessages.INVALID_FIRST_NAME_ERROR
+          : type === userProperties.MIDDLE_NAME
+          ? errorMessages.INVALID_MIDDLE_NAME_ERROR
+          : type === userProperties.LAST_NAME
+          ? errorMessages.INVALID_LAST_NAME_ERROR
+          : errorMessages.INVALID_NICK_NAME_ERROR,
+    };
+  }
+
+  return {
+    isNameValid: true,
+    validatedName: name?.trim().toLowerCase(),
   };
 };
 

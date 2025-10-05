@@ -1,12 +1,19 @@
-import { status } from "../config/config.js";
+import { allowedUpdateProfileProperties, status } from "../config/config.js";
 import { errorMessages } from "../config/config.js";
-import { ValidationError } from "../errors/CustomError.js";
+import { ForbiddenError, ValidationError } from "../errors/CustomError.js";
 import {
   requestValidator,
   emailValidator,
   passwordValidator,
   firstNameValidator,
+  requestBodyValidator,
 } from "../validations/validation.js";
+
+export const requestMiddleware = (req, res, next) => {
+  requestValidator(req, res);
+
+  next();
+};
 
 export const registerRequestMiddleware = (req, res, next) => {
   try {
@@ -188,12 +195,6 @@ export const loginRequestMiddleware = (req, res, next) => {
   }
 };
 
-export const requestMiddleware = (req, res, next) => {
-  requestValidator(req, res);
-
-  next();
-};
-
 export const updatePasswordRequestMiddleware = (req, res, next) => {
   try {
     const { oldPassword, newPassword, confirmPassword } = req?.body;
@@ -283,6 +284,58 @@ export const updatePasswordRequestMiddleware = (req, res, next) => {
       ...req?.data,
       oldPassword: validatedOldPassword,
       newPassword: validatedNewPassword,
+    };
+
+    next();
+  } catch (error) {
+    return res
+      .status(
+        error?.status?.statusCode || status.internalServerError.statusCode
+      )
+      .json({
+        status: error?.status?.message || status.internalServerError.message,
+        statusCode:
+          error?.status?.statusCode || status.internalServerError.statusCode,
+        apiUrl: error?.apiUrl,
+        error: {
+          type: error?.type,
+          message: error?.message,
+          data: error?.data,
+        },
+      });
+  }
+};
+
+export const updateProfileRequestMiddleware = (req, res, next) => {
+  try {
+    const { id, ...incomingProperties } = req?.data;
+
+    let propertiesToUpdate = {};
+
+    if (incomingProperties && incomingProperties?.length > 0) {
+      const propertyKeys = Object.keys(incomingProperties).filter((key) =>
+        Object.values(allowedUpdateProfileProperties).includes(key)
+      );
+
+      if (!propertyKeys || (propertyKeys && !propertyKeys.length)) {
+        throw ForbiddenError(
+          status.forbidden,
+          errorMessages.FORBIDDEN_PROPERTIES_UPDATE_ERROR,
+          {
+            properties: Object.keys(incomingProperties),
+          },
+          req?.url
+        );
+      }
+
+      propertyKeys.forEach(
+        (key) => (propertiesToUpdate[key] = incomingProperties[key])
+      );
+    }
+
+    req.data = {
+      ...req?.data,
+      properties: propertiesToUpdate,
     };
 
     next();

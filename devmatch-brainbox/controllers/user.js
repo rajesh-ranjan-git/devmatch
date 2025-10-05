@@ -1,18 +1,23 @@
-import { errorMessages, status, successMessages } from "../config/config.js";
+import {
+  errorMessages,
+  status,
+  successMessages,
+  userProperties,
+} from "../config/config.js";
 import { AuthenticationError, DatabaseError } from "../errors/CustomError.js";
 import {
   comparePassword,
   getEncryptedPassword,
   getJwtToken,
   isPasswordExpired,
-} from "../utils/utils.js";
+} from "../utils/authUtils.js";
 import User from "../models/user.js";
 
 export const register = async (req, res) => {
   try {
     const { firstName, email, password } = req?.data;
 
-    const existingUser = await User.findOne({ email }, "id");
+    const existingUser = await User.findOne({ email }, userProperties.ID);
 
     if (existingUser) {
       throw new DatabaseError(
@@ -74,10 +79,11 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req?.data;
 
-    const user = await User.findOne(
-      { email },
-      "_id password passwordLastUpdated"
-    );
+    const user = await User.findOne({ email }, [
+      userProperties.ID,
+      userProperties.PASSWORD,
+      userProperties.PASSWORD_LAST_UPDATED,
+    ]);
 
     if (!user) {
       throw new DatabaseError(
@@ -170,10 +176,12 @@ export const forgotPassword = async (req, res) => {
   try {
     const { firstName, email, password } = req?.data;
 
-    const user = await User.findOne(
-      { email },
-      "_id firstName password previousPassword passwordLastUpdated"
-    );
+    const user = await User.findOne({ email }, [
+      (userProperties.ID,
+      userProperties.PASSWORD,
+      userProperties.PREVIOUS_PASSWORD,
+      userProperties.PASSWORD_LAST_UPDATED),
+    ]);
 
     if (!user) {
       throw new DatabaseError(

@@ -1,68 +1,85 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import { allowedUpdateProfileProperties, status } from "../config/config.js";
+import { ValidationError } from "../errors/CustomError.js";
+import { nameValidator } from "../validations/validation.js";
 
-import { errorMessages, status } from "../config/config.js";
-import { BcryptError, JwtError } from "../errors/CustomError.js";
+export const createObjectFromListOfKeysAndValues = (keys, values) => {};
 
-export const getEncryptedPassword = async (password) => {
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
-
-  if (!hashedPassword) {
-    throw new BcryptError(
-      status.internalServerError,
-      errorMessages.BCRYPT_ERROR,
-      { password: hashedPassword }
-    );
-  }
-
-  return hashedPassword;
-};
-
-export const getJwtToken = (id) => {
-  const token = jwt.sign({ id }, process.env.BRAINBOX_JWT_SECRET_KEY, {
-    expiresIn: "1h",
-  });
-
-  if (!token) {
-    throw new JwtError(status.internalServerError, errorMessages.JWT_ERROR, {
-      token,
-    });
-  }
-
-  return token;
-};
-
-export const verifyJwtToken = (token) => {
-  const decodedToken = jwt.verify(token, process.env.BRAINBOX_JWT_SECRET_KEY);
-
-  if (!decodedToken) {
-    throw new JwtError(status.internalServerError, errorMessages.JWT_ERROR, {
-      token: decodedToken,
-    });
-  }
-
-  return decodedToken?.id;
-};
-
-export const comparePassword = async (incomingPassword, existingPassword) => {
-  const isPasswordCorrect = await bcrypt.compare(
-    incomingPassword,
-    existingPassword
+export const omitObjectProperties = (obj, keysToOmit) => {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([key]) => !keysToOmit.includes(key))
   );
-
-  if (isPasswordCorrect === undefined || isPasswordCorrect === null) {
-    throw new BcryptError(
-      status.internalServerError,
-      errorMessages.BCRYPT_ERROR,
-      { password: incomingPassword }
-    );
-  }
-
-  return isPasswordCorrect;
 };
 
-export const isPasswordExpired = (passwordLastUpdated) => {
-  const THREE_MONTHS = 1000 * 60 * 60 * 24 * 90;
-  return Date.now() - new Date(passwordLastUpdated).getTime() > THREE_MONTHS;
+export const validatePropertiesToUpdate = (properties) => {
+  const validatedProperties = {};
+
+  for (property in properties) {
+    switch (property) {
+      case allowedUpdateProfileProperties.FIRST_NAME ||
+        allowedUpdateProfileProperties.MIDDLE_NAME ||
+        allowedUpdateProfileProperties.LAST_NAME ||
+        allowedUpdateProfileProperties.NICK_NAME:
+        const {
+          isNameValid,
+          message: nameErrorMessage,
+          validatedName,
+        } = nameValidator(properties[property]);
+
+        if (!isNameValid) {
+          throw new ValidationError(
+            status.badRequest,
+            nameErrorMessage,
+            { property },
+            req?.url
+          );
+        }
+
+        validatedProperties[property] = validatedName;
+        break;
+      case allowedUpdateProfileProperties.AGE:
+        // Code to execute if expression === value2
+        break;
+      case allowedUpdateProfileProperties.PHONE:
+        // Code to execute if expression === value2
+        break;
+      case allowedUpdateProfileProperties.GENDER:
+        // Code to execute if expression === value2
+        break;
+      case allowedUpdateProfileProperties.AVATAR_URL:
+        // Code to execute if expression === value2
+        break;
+      case allowedUpdateProfileProperties.BIO:
+        // Code to execute if expression === value2
+        break;
+      case allowedUpdateProfileProperties.MARITAL_STATUS:
+        // Code to execute if expression === value2
+        break;
+      case allowedUpdateProfileProperties.JOB_PROFILE:
+        // Code to execute if expression === value2
+        break;
+      case allowedUpdateProfileProperties.EXPERIENCE:
+        // Code to execute if expression === value2
+        break;
+      case allowedUpdateProfileProperties.GITHUB:
+        // Code to execute if expression === value2
+        break;
+      case allowedUpdateProfileProperties.WEBSITE:
+        // Code to execute if expression === value2
+        break;
+      case allowedUpdateProfileProperties.ORGANIZATION:
+        // Code to execute if expression === value2
+        break;
+      case allowedUpdateProfileProperties.SKILLS:
+        // Code to execute if expression === value2
+        break;
+      case allowedUpdateProfileProperties.INTERESTS:
+        // Code to execute if expression === value2
+        break;
+      case allowedUpdateProfileProperties.ADDRESS:
+        // Code to execute if expression === value2
+        break;
+      default:
+      // Code to execute if no case matches
+    }
+  }
 };
