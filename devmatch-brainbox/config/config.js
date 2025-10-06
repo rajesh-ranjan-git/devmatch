@@ -57,6 +57,7 @@ export const errorMessages = {
   OLD_PASSWORD_REQUIRED_ERROR: "Old Password is required!",
   NEW_PASSWORD_REQUIRED_ERROR: "New Password is required!",
   CONFIRM_PASSWORD_REQUIRED_ERROR: "Confirm password is required!",
+  INVALID_USER_ID_FORMAT: "Invalid user id format!",
   INVALID_FIRST_NAME_ERROR:
     "First name must only contain alphabets (a-z or A-Z)!",
   INVALID_MIDDLE_NAME_ERROR:
@@ -184,27 +185,25 @@ export const addressProperties = {
 };
 
 export const publicProfileProperties = omitObjectProperties(userProperties, [
-  userProperties.ID,
-  userProperties.PASSWORD,
-  userProperties.PREVIOUS_PASSWORD,
-  userProperties.PASSWORD_LAST_UPDATED,
-  userProperties.UPDATED_AT,
+  "PASSWORD",
+  "PREVIOUS_PASSWORD",
+  "PASSWORD_LAST_UPDATED",
+  "UPDATED_AT",
 ]);
 
 export const privateProfileProperties = omitObjectProperties(userProperties, [
-  userProperties.PASSWORD,
-  userProperties.PREVIOUS_PASSWORD,
+  "PASSWORD",
+  "PREVIOUS_PASSWORD",
 ]);
 
 export const allowedUpdateProfileProperties = omitObjectProperties(
   userProperties,
   [
-    userProperties.ID,
-    userProperties.EMAIL,
-    userProperties.PASSWORD,
-    userProperties.PREVIOUS_PASSWORD,
-    userProperties.PASSWORD_LAST_UPDATED,
-    userProperties.CREATED_AT,
-    userProperties.UPDATED_AT,
+    "EMAIL",
+    "PASSWORD",
+    "PREVIOUS_PASSWORD",
+    "PASSWORD_LAST_UPDATED",
+    "CREATED_AT",
+    "UPDATED_AT",
   ]
 );

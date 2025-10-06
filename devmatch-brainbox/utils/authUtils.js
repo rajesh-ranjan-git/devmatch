@@ -1,8 +1,13 @@
+import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 import { errorMessages, jwtKnownErrors, status } from "../config/config.js";
 import { BcryptError, JwtError } from "../errors/CustomError.js";
+
+export const isValidMongoDbObjectId = (id) => {
+  return mongoose.Types.ObjectId.isValid(id);
+};
 
 export const getEncryptedPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);

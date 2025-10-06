@@ -1,7 +1,7 @@
 import { errorMessages, status } from "../config/config.js";
 import { AuthenticationError, DatabaseError } from "../errors/CustomError.js";
 import { requestValidator } from "../validations/validation.js";
-import { verifyJwtToken } from "../utils/authUtils.js";
+import { isValidMongoDbObjectId, verifyJwtToken } from "../utils/authUtils.js";
 import User from "../models/user.js";
 
 const auth = async (req, res, next) => {
@@ -18,6 +18,15 @@ const auth = async (req, res, next) => {
     }
 
     const decodedUserId = verifyJwtToken(req?.cookies?.authToken);
+
+    if (!isValidMongoDbObjectId(decodedUserId)) {
+      throw new DatabaseError(
+        status.internalServerError,
+        errorMessages.INVALID_USER_ID_FORMAT,
+        { id: decodedUserId },
+        req?.url
+      );
+    }
 
     const loggedInUser = await User.findById(decodedUserId, "id");
 

@@ -8,20 +8,35 @@ import {
   allowedUpdateProfileProperties,
 } from "../config/config.js";
 import { AuthenticationError, DatabaseError } from "../errors/CustomError.js";
-import { comparePassword, getEncryptedPassword } from "../utils/authUtils.js";
+import {
+  comparePassword,
+  getEncryptedPassword,
+  isValidMongoDbObjectId,
+} from "../utils/authUtils.js";
 import { validatePropertiesToUpdate } from "../utils/utils.js";
 import User from "../models/user.js";
 
 export const view = async (req, res) => {
   try {
     const { id } = await req?.data;
-    const { params } = await req?.params;
+    const params = await req?.params;
+
+    if (params?.id && !isValidMongoDbObjectId(params?.id)) {
+      throw new DatabaseError(
+        status.forbidden,
+        errorMessages.INVALID_USER_ID_FORMAT,
+        { id: params?.id },
+        req?.url
+      );
+    }
 
     const user = await User.findById(
       params?.id ? params?.id : id,
-      params?.id
-        ? Object.values(publicProfileProperties)
-        : Object.values(privateProfileProperties)
+      !params?.id
+        ? Object.values(privateProfileProperties)
+        : params?.id === id
+        ? Object.values(privateProfileProperties)
+        : Object.values(publicProfileProperties)
     );
 
     if (!user) {
@@ -40,6 +55,7 @@ export const view = async (req, res) => {
       message: successMessages.FETCH_PROFILE_SUCCESS,
     });
   } catch (error) {
+    console.log("debug from profile controller error : ", error);
     return res
       .status(
         error?.status?.statusCode || status.internalServerError.statusCode
