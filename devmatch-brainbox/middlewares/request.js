@@ -122,7 +122,7 @@ export const registerForgotPasswordRequestMiddleware = (req, res, next) => {
         status: error?.status?.message || status.internalServerError.message,
         statusCode:
           error?.status?.statusCode || status.internalServerError.statusCode,
-        apiUrl: error?.apiUrl,
+        apiUrl: error?.apiUrl || req?.url,
         error: {
           type: error?.type,
           message: error?.message,
@@ -185,7 +185,7 @@ export const loginRequestMiddleware = (req, res, next) => {
         status: error?.status?.message || status.internalServerError.message,
         statusCode:
           error?.status?.statusCode || status.internalServerError.statusCode,
-        apiUrl: error?.apiUrl,
+        apiUrl: error?.apiUrl || req?.url,
         error: {
           type: error?.type,
           message: error?.message,
@@ -296,7 +296,7 @@ export const updatePasswordRequestMiddleware = (req, res, next) => {
         status: error?.status?.message || status.internalServerError.message,
         statusCode:
           error?.status?.statusCode || status.internalServerError.statusCode,
-        apiUrl: error?.apiUrl,
+        apiUrl: error?.apiUrl || req?.url,
         error: {
           type: error?.type,
           message: error?.message,
@@ -348,7 +348,7 @@ export const updateProfileRequestMiddleware = (req, res, next) => {
         status: error?.status?.message || status.internalServerError.message,
         statusCode:
           error?.status?.statusCode || status.internalServerError.statusCode,
-        apiUrl: error?.apiUrl,
+        apiUrl: error?.apiUrl || req?.url,
         error: {
           type: error?.type,
           message: error?.message,

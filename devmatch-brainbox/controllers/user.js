@@ -65,7 +65,7 @@ export const register = async (req, res) => {
         status: error?.status?.message || status.internalServerError.message,
         statusCode:
           error?.status?.statusCode || status.internalServerError.statusCode,
-        apiUrl: error?.apiUrl,
+        apiUrl: error?.apiUrl || req?.url,
         error: {
           type: error?.type,
           message: error?.message,
@@ -134,7 +134,7 @@ export const login = async (req, res) => {
         status: error?.status?.message || status.internalServerError.message,
         statusCode:
           error?.status?.statusCode || status.internalServerError.statusCode,
-        apiUrl: error?.apiUrl,
+        apiUrl: error?.apiUrl || req?.url,
         error: {
           type: error?.type,
           message: error?.message,
@@ -162,7 +162,7 @@ export const logout = async (req, res) => {
         status: error?.status?.statusCode || status.internalServerError.message,
         statusCode:
           error?.status?.statusCode || status.internalServerError.statusCode,
-        apiUrl: error?.apiUrl,
+        apiUrl: error?.apiUrl || req?.url,
         error: {
           type: error?.type,
           message: error?.message,
@@ -247,7 +247,7 @@ export const forgotPassword = async (req, res) => {
         status: error?.status?.message || status.internalServerError.message,
         statusCode:
           error?.status?.statusCode || status.internalServerError.statusCode,
-        apiUrl: error?.apiUrl,
+        apiUrl: error?.apiUrl || req?.url,
         error: {
           type: error?.type,
           message: error?.message,

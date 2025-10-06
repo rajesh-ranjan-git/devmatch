@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-import { errorMessages, status } from "../config/config.js";
+import { errorMessages, jwtKnownErrors, status } from "../config/config.js";
 import { BcryptError, JwtError } from "../errors/CustomError.js";
 
 export const getEncryptedPassword = async (password) => {
@@ -34,15 +34,35 @@ export const getJwtToken = (id) => {
 };
 
 export const verifyJwtToken = (token) => {
-  const decodedToken = jwt.verify(token, process.env.BRAINBOX_JWT_SECRET_KEY);
+  try {
+    const decodedToken = jwt.verify(token, process.env.BRAINBOX_JWT_SECRET_KEY);
 
-  if (!decodedToken) {
-    throw new JwtError(status.internalServerError, errorMessages.JWT_ERROR, {
-      token: decodedToken,
-    });
+    if (!decodedToken) {
+      throw new JwtError(status.internalServerError, errorMessages.JWT_ERROR, {
+        token: decodedToken,
+      });
+    }
+
+    return decodedToken?.id;
+  } catch (error) {
+    if (error.name === jwtKnownErrors.TOKEN_EXPIRED_ERROR) {
+      throw new JwtError(status.forbidden, errorMessages.JWT_EXPIRED_ERROR, {
+        token,
+      });
+    } else if (error.name === jwtKnownErrors.JWT_ERROR) {
+      throw new JwtError(status.forbidden, errorMessages.JWT_INVALID_ERROR, {
+        token,
+      });
+    } else if (error.name === jwtKnownErrors.NOT_BEFORE_ERROR) {
+      throw new JwtError(status.forbidden, errorMessages.JWT_NOT_BEFORE_ERROR, {
+        token,
+      });
+    } else {
+      throw new JwtError(status.internalServerError, errorMessages.JWT_ERROR, {
+        token,
+      });
+    }
   }
-
-  return decodedToken?.id;
 };
 
 export const comparePassword = async (incomingPassword, existingPassword) => {

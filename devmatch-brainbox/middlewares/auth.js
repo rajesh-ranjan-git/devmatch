@@ -48,7 +48,7 @@ const auth = async (req, res, next) => {
         status: error?.status?.message || status.internalServerError.message,
         statusCode:
           error?.status?.statusCode || status.internalServerError.statusCode,
-        apiUrl: error?.apiUrl,
+        apiUrl: error?.apiUrl || req?.url || req?.url,
         error: {
           type: error?.type,
           message: error?.message,

@@ -13,31 +13,49 @@ import { validatePropertiesToUpdate } from "../utils/utils.js";
 import User from "../models/user.js";
 
 export const view = async (req, res) => {
-  const { id } = await req?.data;
-  const { params } = await req?.params;
+  try {
+    const { id } = await req?.data;
+    const { params } = await req?.params;
 
-  const user = await User.findById(
-    params?.id ? params?.id : id,
-    params?.id
-      ? Object.values(publicProfileProperties)
-      : Object.values(privateProfileProperties)
-  );
-
-  if (!user) {
-    throw new DatabaseError(
-      status.notFound,
-      errorMessages.USER_NOT_EXIST_ERROR,
-      { user },
-      req?.url
+    const user = await User.findById(
+      params?.id ? params?.id : id,
+      params?.id
+        ? Object.values(publicProfileProperties)
+        : Object.values(privateProfileProperties)
     );
-  }
 
-  return res.status(status.success.statusCode).json({
-    status: status.success.message,
-    statusCode: status.success.statusCode,
-    data: { user },
-    message: successMessages.FETCH_PROFILE_SUCCESS,
-  });
+    if (!user) {
+      throw new DatabaseError(
+        status.notFound,
+        errorMessages.USER_NOT_EXIST_ERROR,
+        { user },
+        req?.url
+      );
+    }
+
+    return res.status(status.success.statusCode).json({
+      status: status.success.message,
+      statusCode: status.success.statusCode,
+      data: { user },
+      message: successMessages.FETCH_PROFILE_SUCCESS,
+    });
+  } catch (error) {
+    return res
+      .status(
+        error?.status?.statusCode || status.internalServerError.statusCode
+      )
+      .json({
+        status: error?.status?.message || status.internalServerError.message,
+        statusCode:
+          error?.status?.statusCode || status.internalServerError.statusCode,
+        apiUrl: error?.apiUrl || req?.url,
+        error: {
+          type: error?.type,
+          message: error?.message,
+          data: error?.data,
+        },
+      });
+  }
 };
 
 export const update = async (req, res) => {
@@ -133,7 +151,7 @@ export const updatePassword = async (req, res) => {
         status: error?.status?.message || status.internalServerError.message,
         statusCode:
           error?.status?.statusCode || status.internalServerError.statusCode,
-        apiUrl: error?.apiUrl,
+        apiUrl: error?.apiUrl || req?.url,
         error: {
           type: error?.type,
           message: error?.message,

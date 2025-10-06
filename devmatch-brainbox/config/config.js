@@ -101,6 +101,9 @@ export const errorMessages = {
   REGISTRATION_FAILED_ERROR: "Unable to register user!",
   BCRYPT_ERROR: "Unable to encrypt password!",
   JWT_ERROR: "Unable to generate token!",
+  JWT_EXPIRED_ERROR: "Token expired!",
+  JWT_INVALID_ERROR: "Invalid token!",
+  JWT_NOT_BEFORE_ERROR: "Not before token error!",
   INCORRECT_EMAIL_PASSWORD_ERROR: "Incorrect email or password!",
   INCORRECT_SECURITY_QUESTION_ANSWER_ERROR:
     "Incorrect security question's answer!",
@@ -122,6 +125,12 @@ export const successMessages = {
   LOGOUT_SUCCESS: "Logout Successful!",
   PASSWORD_UPDATE_SUCCESS: "Password update successful!",
   FETCH_PROFILE_SUCCESS: "Profile fetch successful!",
+};
+
+export const jwtKnownErrors = {
+  TOKEN_EXPIRED_ERROR: "TokenExpiredError",
+  JWT_ERROR: "JsonWebTokenError",
+  NOT_BEFORE_ERROR: "NotBeforeError",
 };
 
 export const userProperties = {
