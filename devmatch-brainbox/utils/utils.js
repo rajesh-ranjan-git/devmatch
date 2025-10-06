@@ -98,12 +98,12 @@ export const validatePropertiesToUpdate = (properties) => {
   let validatedProperties = {};
 
   for (let property in properties) {
-    const temp = addToValidatedProperties(
+    const propertiesToAdd = addToValidatedProperties(
       properties,
       validatedProperties,
       property
     );
-    validatedProperties = { ...validatedProperties, ...temp };
+    validatedProperties = { ...validatedProperties, ...propertiesToAdd };
   }
 
   return validatedProperties;

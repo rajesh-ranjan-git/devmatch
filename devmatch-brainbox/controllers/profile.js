@@ -5,7 +5,6 @@ import {
   status,
   successMessages,
   userProperties,
-  allowedUpdateProfileProperties,
 } from "../config/config.js";
 import { AuthenticationError, DatabaseError } from "../errors/CustomError.js";
 import {
