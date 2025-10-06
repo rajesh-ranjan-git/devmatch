@@ -117,6 +117,7 @@ export const errorMessages = {
   FORBIDDEN_UPDATE_ERROR: "Update not allowed!",
   FORBIDDEN_PROPERTY_UPDATE_ERROR: "Property update not allowed!",
   FORBIDDEN_PROPERTIES_UPDATE_ERROR: "Some property updates not allowed!",
+  USER_UPDATE_FAILED_ERROR: "Unable to update user!",
 };
 
 export const successMessages = {

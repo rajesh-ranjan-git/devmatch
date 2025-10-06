@@ -8,74 +8,90 @@ export const omitObjectProperties = (obj, keysToOmit) => {
   );
 };
 
+const addToValidatedProperties = (
+  properties,
+  validatedProperties = {},
+  property
+) => {
+  if (
+    property === allowedUpdateProfileProperties.FIRST_NAME ||
+    property === allowedUpdateProfileProperties.MIDDLE_NAME ||
+    property === allowedUpdateProfileProperties.LAST_NAME ||
+    property === allowedUpdateProfileProperties.NICK_NAME
+  ) {
+    const {
+      isNameValid,
+      message: nameErrorMessage,
+      validatedName,
+    } = nameValidator(properties[property]);
+
+    if (!isNameValid) {
+      throw new ValidationError(status.badRequest, nameErrorMessage, {
+        property,
+      });
+    }
+
+    validatedProperties[property] = validatedName;
+
+    return validatedProperties;
+  }
+
+  switch (property) {
+    case allowedUpdateProfileProperties.AGE:
+      // Code to execute if expression === value2
+      return;
+    case allowedUpdateProfileProperties.PHONE:
+      // Code to execute if expression === value2
+      return;
+    case allowedUpdateProfileProperties.GENDER:
+      // Code to execute if expression === value2
+      return;
+    case allowedUpdateProfileProperties.AVATAR_URL:
+      // Code to execute if expression === value2
+      return;
+    case allowedUpdateProfileProperties.BIO:
+      // Code to execute if expression === value2
+      return;
+    case allowedUpdateProfileProperties.MARITAL_STATUS:
+      // Code to execute if expression === value2
+      return;
+    case allowedUpdateProfileProperties.JOB_PROFILE:
+      // Code to execute if expression === value2
+      return;
+    case allowedUpdateProfileProperties.EXPERIENCE:
+      // Code to execute if expression === value2
+      return;
+    case allowedUpdateProfileProperties.GITHUB:
+      // Code to execute if expression === value2
+      return;
+    case allowedUpdateProfileProperties.WEBSITE:
+      // Code to execute if expression === value2
+      return;
+    case allowedUpdateProfileProperties.ORGANIZATION:
+      // Code to execute if expression === value2
+      return;
+    case allowedUpdateProfileProperties.SKILLS:
+      // Code to execute if expression === value2
+      return;
+    case allowedUpdateProfileProperties.INTERESTS:
+      // Code to execute if expression === value2
+      return;
+    case allowedUpdateProfileProperties.ADDRESS:
+      // Code to execute if expression === value2
+      return;
+  }
+};
+
 export const validatePropertiesToUpdate = (properties) => {
-  const validatedProperties = {};
+  let validatedProperties = {};
 
   for (let property in properties) {
-    switch (property) {
-      case allowedUpdateProfileProperties.FIRST_NAME ||
-        allowedUpdateProfileProperties.MIDDLE_NAME ||
-        allowedUpdateProfileProperties.LAST_NAME ||
-        allowedUpdateProfileProperties.NICK_NAME:
-        const {
-          isNameValid,
-          message: nameErrorMessage,
-          validatedName,
-        } = nameValidator(properties[property]);
-
-        if (!isNameValid) {
-          throw new ValidationError(status.badRequest, nameErrorMessage, {
-            property,
-          });
-        }
-
-        validatedProperties[property] = validatedName;
-        break;
-      case allowedUpdateProfileProperties.AGE:
-        // Code to execute if expression === value2
-        break;
-      case allowedUpdateProfileProperties.PHONE:
-        // Code to execute if expression === value2
-        break;
-      case allowedUpdateProfileProperties.GENDER:
-        // Code to execute if expression === value2
-        break;
-      case allowedUpdateProfileProperties.AVATAR_URL:
-        // Code to execute if expression === value2
-        break;
-      case allowedUpdateProfileProperties.BIO:
-        // Code to execute if expression === value2
-        break;
-      case allowedUpdateProfileProperties.MARITAL_STATUS:
-        // Code to execute if expression === value2
-        break;
-      case allowedUpdateProfileProperties.JOB_PROFILE:
-        // Code to execute if expression === value2
-        break;
-      case allowedUpdateProfileProperties.EXPERIENCE:
-        // Code to execute if expression === value2
-        break;
-      case allowedUpdateProfileProperties.GITHUB:
-        // Code to execute if expression === value2
-        break;
-      case allowedUpdateProfileProperties.WEBSITE:
-        // Code to execute if expression === value2
-        break;
-      case allowedUpdateProfileProperties.ORGANIZATION:
-        // Code to execute if expression === value2
-        break;
-      case allowedUpdateProfileProperties.SKILLS:
-        // Code to execute if expression === value2
-        break;
-      case allowedUpdateProfileProperties.INTERESTS:
-        // Code to execute if expression === value2
-        break;
-      case allowedUpdateProfileProperties.ADDRESS:
-        // Code to execute if expression === value2
-        break;
-      default:
-      // Code to execute if no case matches
-    }
+    const temp = addToValidatedProperties(
+      properties,
+      validatedProperties,
+      property
+    );
+    validatedProperties = { ...validatedProperties, ...temp };
   }
 
   return validatedProperties;
