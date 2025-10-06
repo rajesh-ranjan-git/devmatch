@@ -7,6 +7,7 @@ import {
   status,
   UPPER_CASE_REGEX,
   userProperties,
+  PHONE_REGEX,
 } from "../config/config.js";
 import { errorMessages } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
@@ -217,5 +218,19 @@ export const ageValidator = (age) => {
   return {
     isAgeValid: true,
     validatedAge: Number(age),
+  };
+};
+
+export const phoneValidator = (phone) => {
+  if (!PHONE_REGEX.test(phone)) {
+    return {
+      isPhoneValid: false,
+      message: errorMessages.INVALID_PHONE_ERROR,
+    };
+  }
+
+  return {
+    isPhoneValid: true,
+    validatedPhone: Number(phone),
   };
 };

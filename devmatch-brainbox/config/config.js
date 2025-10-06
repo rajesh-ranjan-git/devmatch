@@ -8,6 +8,7 @@ export const UPPER_CASE_REGEX = /[A-Z]/;
 export const LOWER_CASE_REGEX = /[a-z]/;
 export const NUMBER_REGEX = /\d/;
 export const ALLOWED_SPECIAL_CHARACTERS_REGEX = /[@#$%&]/;
+export const PHONE_REGEX = /^\d{10}$/;
 
 export const status = {
   success: { message: "OK", statusCode: 200 },
@@ -122,6 +123,7 @@ export const errorMessages = {
   DECIMAL_AGE_ERROR: "Age must not be in decimals!",
   MIN_AGE_ERROR: "User must be older than 18 years!",
   MAX_AGE_ERROR: "User must be younger than 18 years!",
+  INVALID_PHONE_ERROR: "Invalid phone number!",
 };
 
 export const successMessages = {
