@@ -107,6 +107,8 @@ const userSchema = mongoose.Schema(
     },
     experience: {
       type: Number,
+      min: 0,
+      max: 70,
       required: false,
     },
     github: {
