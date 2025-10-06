@@ -15,7 +15,7 @@ export const requestMiddleware = (req, res, next) => {
   next();
 };
 
-export const registerRequestMiddleware = (req, res, next) => {
+export const registerForgotPasswordRequestMiddleware = (req, res, next) => {
   try {
     const { firstName, email, password, confirmPassword } = requestValidator(
       req,

@@ -177,10 +177,11 @@ export const forgotPassword = async (req, res) => {
     const { firstName, email, password } = req?.data;
 
     const user = await User.findOne({ email }, [
-      (userProperties.ID,
+      userProperties.ID,
+      userProperties.FIRST_NAME,
       userProperties.PASSWORD,
       userProperties.PREVIOUS_PASSWORD,
-      userProperties.PASSWORD_LAST_UPDATED),
+      userProperties.PASSWORD_LAST_UPDATED,
     ]);
 
     if (!user) {

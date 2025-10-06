@@ -59,7 +59,7 @@ export const firstNameValidator = (firstName) => {
 };
 
 export const nameValidator = (name, type) => {
-  if (name?.trim().length < 1) {
+  if (name?.trim().toLowerCase().length < 1) {
     return {
       isNameValid: false,
       message:
@@ -73,7 +73,7 @@ export const nameValidator = (name, type) => {
     };
   }
 
-  if (name?.trim().length > 100) {
+  if (name?.trim().toLowerCase().length > 100) {
     return {
       isNameValid: false,
       message:
