@@ -2,8 +2,6 @@ import { allowedUpdateProfileProperties, status } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
 import { nameValidator } from "../validations/validation.js";
 
-export const createObjectFromListOfKeysAndValues = (keys, values) => {};
-
 export const omitObjectProperties = (obj, keysToOmit) => {
   return Object.fromEntries(
     Object.entries(obj).filter(([key]) => !keysToOmit.includes(key))
@@ -13,7 +11,7 @@ export const omitObjectProperties = (obj, keysToOmit) => {
 export const validatePropertiesToUpdate = (properties) => {
   const validatedProperties = {};
 
-  for (property in properties) {
+  for (let property in properties) {
     switch (property) {
       case allowedUpdateProfileProperties.FIRST_NAME ||
         allowedUpdateProfileProperties.MIDDLE_NAME ||
@@ -26,12 +24,9 @@ export const validatePropertiesToUpdate = (properties) => {
         } = nameValidator(properties[property]);
 
         if (!isNameValid) {
-          throw new ValidationError(
-            status.badRequest,
-            nameErrorMessage,
-            { property },
-            req?.url
-          );
+          throw new ValidationError(status.badRequest, nameErrorMessage, {
+            property,
+          });
         }
 
         validatedProperties[property] = validatedName;
@@ -82,4 +77,6 @@ export const validatePropertiesToUpdate = (properties) => {
       // Code to execute if no case matches
     }
   }
+
+  return validatedProperties;
 };

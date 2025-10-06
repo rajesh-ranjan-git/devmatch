@@ -312,7 +312,7 @@ export const updateProfileRequestMiddleware = (req, res, next) => {
 
     let propertiesToUpdate = {};
 
-    if (incomingProperties && incomingProperties?.length > 0) {
+    if (incomingProperties && Object.keys(incomingProperties).length > 0) {
       const propertyKeys = Object.keys(incomingProperties).filter((key) =>
         Object.values(allowedUpdateProfileProperties).includes(key)
       );
@@ -334,8 +334,8 @@ export const updateProfileRequestMiddleware = (req, res, next) => {
     }
 
     req.data = {
-      ...req?.data,
-      properties: propertiesToUpdate,
+      id: req?.data?.id,
+      ...propertiesToUpdate,
     };
 
     next();

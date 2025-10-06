@@ -126,6 +126,7 @@ export const successMessages = {
   LOGOUT_SUCCESS: "Logout Successful!",
   PASSWORD_UPDATE_SUCCESS: "Password update successful!",
   FETCH_PROFILE_SUCCESS: "Profile fetch successful!",
+  USER_UPDATE_SUCCESS: "User update success!",
 };
 
 export const jwtKnownErrors = {

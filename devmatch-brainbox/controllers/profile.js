@@ -55,7 +55,6 @@ export const view = async (req, res) => {
       message: successMessages.FETCH_PROFILE_SUCCESS,
     });
   } catch (error) {
-    console.log("debug from profile controller error : ", error);
     return res
       .status(
         error?.status?.statusCode || status.internalServerError.statusCode
@@ -75,16 +74,38 @@ export const view = async (req, res) => {
 };
 
 export const update = async (req, res) => {
-  const { id, properties } = await req?.data;
+  const { id, ...properties } = await req?.data;
 
-  validatePropertiesToUpdate(properties);
+  const validatedProperties = validatePropertiesToUpdate(properties);
 
-  const user = await User.findByIdAndUpdate(id, allowedUpdateProfileProperties);
+  console.log(
+    "debug Object.keys(privateProfileProperties) : ",
+    Object.keys(privateProfileProperties)
+  );
+
+  const user = await User.findByIdAndUpdate(
+    id,
+    validatedProperties,
+    {
+      new: true,
+    },
+    Object.values(privateProfileProperties)
+  );
+
+  if (!user) {
+    throw new DatabaseError(
+      status.notFound,
+      errorMessages.USER_NOT_EXIST_ERROR,
+      { user },
+      req?.url
+    );
+  }
 
   return res.status(status.success.statusCode).json({
     status: status.success.message,
     statusCode: status.success.statusCode,
-    message: "Request received",
+    data: { user },
+    message: successMessages.USER_UPDATE_SUCCESS,
   });
 };
 

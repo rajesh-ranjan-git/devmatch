@@ -46,7 +46,7 @@ const auth = async (req, res, next) => {
     if (body) {
       req.data = { ...req?.data, ...body };
     }
-
+    
     next();
   } catch (error) {
     return res
