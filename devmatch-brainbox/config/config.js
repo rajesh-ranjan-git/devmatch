@@ -118,6 +118,10 @@ export const errorMessages = {
   FORBIDDEN_PROPERTY_UPDATE_ERROR: "Property update not allowed!",
   FORBIDDEN_PROPERTIES_UPDATE_ERROR: "Some property updates not allowed!",
   USER_UPDATE_FAILED_ERROR: "Unable to update user!",
+  INVALID_AGE_ERROR: "Invalid age!",
+  DECIMAL_AGE_ERROR: "Age must not be in decimals!",
+  MIN_AGE_ERROR: "User must be older than 18 years!",
+  MAX_AGE_ERROR: "User must be younger than 18 years!",
 };
 
 export const successMessages = {

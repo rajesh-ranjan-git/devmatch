@@ -1,6 +1,6 @@
 import { allowedUpdateProfileProperties, status } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
-import { nameValidator } from "../validations/validation.js";
+import { ageValidator, nameValidator } from "../validations/validation.js";
 
 export const omitObjectProperties = (obj, keysToOmit) => {
   return Object.fromEntries(
@@ -27,7 +27,7 @@ const addToValidatedProperties = (
 
     if (!isNameValid) {
       throw new ValidationError(status.badRequest, nameErrorMessage, {
-        property,
+        property: properties[property],
       });
     }
 
@@ -38,8 +38,20 @@ const addToValidatedProperties = (
 
   switch (property) {
     case allowedUpdateProfileProperties.AGE:
-      // Code to execute if expression === value2
-      return;
+      const {
+        isAgeValid,
+        message: ageErrorMessage,
+        validatedAge,
+      } = ageValidator(properties[property]);
+
+      if (!isAgeValid) {
+        throw new ValidationError(status.badRequest, ageErrorMessage, {
+          property: properties[property],
+        });
+      }
+
+      validatedProperties[property] = validatedAge;
+      return validatedProperties;
     case allowedUpdateProfileProperties.PHONE:
       // Code to execute if expression === value2
       return;

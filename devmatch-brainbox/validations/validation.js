@@ -179,3 +179,43 @@ export const passwordValidator = (
     validatedPassword: password?.trim(),
   };
 };
+
+export const ageValidator = (age) => {
+  const isAgeValid =
+    (typeof age === "number" || typeof age === "string") &&
+    !isNaN(age) &&
+    age !== "";
+
+  if (!isAgeValid) {
+    return {
+      isAgeValid: false,
+      message: errorMessages.INVALID_AGE_ERROR,
+    };
+  }
+
+  if (!Number.isInteger(Number(age))) {
+    return {
+      isAgeValid: false,
+      message: errorMessages.DECIMAL_AGE_ERROR,
+    };
+  }
+
+  if (Number(age) < 17) {
+    return {
+      isAgeValid: false,
+      message: errorMessages.MIN_AGE_ERROR,
+    };
+  }
+
+  if (Number(age) > 100) {
+    return {
+      isAgeValid: false,
+      message: errorMessages.MAX_AGE_ERROR,
+    };
+  }
+
+  return {
+    isAgeValid: true,
+    validatedAge: Number(age),
+  };
+};
