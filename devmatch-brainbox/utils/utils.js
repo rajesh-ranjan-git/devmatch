@@ -1,4 +1,9 @@
-import { allowedUpdateProfileProperties, status } from "../config/config.js";
+import {
+  allowedUpdateProfileProperties,
+  errorMessages,
+  genderProperties,
+  status,
+} from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
 import {
   nameValidator,
@@ -72,8 +77,35 @@ const addToValidatedProperties = (
       validatedProperties[property] = validatedPhone;
       return validatedProperties;
     case allowedUpdateProfileProperties.GENDER:
-      // Code to execute if expression === value2
-      return;
+      console.log("debug genderProperties : ", genderProperties);
+      Object.values(genderProperties).forEach((value) => {
+        console.log("debug value : ", value);
+        if (value === properties[property]) {
+          console.log("debug properties[property] : ", properties[property]);
+          validatedProperties[property] = properties[property];
+
+          console.log(
+            "debug validatedProperties after update : ",
+            validatedProperties
+          );
+        }
+      });
+
+      if (
+        !Object.keys(validatedProperties).includes(
+          allowedUpdateProfileProperties.GENDER
+        )
+      ) {
+        throw new ValidationError(
+          status.badRequest,
+          errorMessages.INVALID_GENDER_ERROR,
+          {
+            property: properties[property],
+          }
+        );
+      }
+
+      return validatedProperties;
     case allowedUpdateProfileProperties.AVATAR_URL:
       // Code to execute if expression === value2
       return;

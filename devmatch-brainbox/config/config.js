@@ -126,6 +126,7 @@ export const errorMessages = {
   MIN_AGE_ERROR: "User must be older than 18 years!",
   MAX_AGE_ERROR: "User must be younger than 18 years!",
   INVALID_PHONE_ERROR: "Invalid phone number!",
+  INVALID_GENDER_ERROR: "Invalid gender!",
 };
 
 export const successMessages = {
