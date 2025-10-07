@@ -2,6 +2,7 @@ import {
   allowedUpdateProfileProperties,
   errorMessages,
   genderProperties,
+  maritalStatusProperties,
   status,
 } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
@@ -77,17 +78,10 @@ const addToValidatedProperties = (
       validatedProperties[property] = validatedPhone;
       return validatedProperties;
     case allowedUpdateProfileProperties.GENDER:
-      console.log("debug genderProperties : ", genderProperties);
       Object.values(genderProperties).forEach((value) => {
         console.log("debug value : ", value);
         if (value === properties[property]) {
-          console.log("debug properties[property] : ", properties[property]);
           validatedProperties[property] = properties[property];
-
-          console.log(
-            "debug validatedProperties after update : ",
-            validatedProperties
-          );
         }
       });
 
@@ -113,8 +107,27 @@ const addToValidatedProperties = (
       // Code to execute if expression === value2
       return;
     case allowedUpdateProfileProperties.MARITAL_STATUS:
-      // Code to execute if expression === value2
-      return;
+      Object.values(maritalStatusProperties).forEach((value) => {
+        if (value === properties[property]) {
+          validatedProperties[property] = properties[property];
+        }
+      });
+
+      if (
+        !Object.keys(validatedProperties).includes(
+          allowedUpdateProfileProperties.MARITAL_STATUS
+        )
+      ) {
+        throw new ValidationError(
+          status.badRequest,
+          errorMessages.INVALID_MARITAL_STATUS_ERROR,
+          {
+            property: properties[property],
+          }
+        );
+      }
+
+      return validatedProperties;
     case allowedUpdateProfileProperties.JOB_PROFILE:
       // Code to execute if expression === value2
       return;
