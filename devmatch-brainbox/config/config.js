@@ -147,6 +147,11 @@ export const errorMessages = {
     "Job profile must not be longer than 100 characters!",
   INVALID_GITHUB_URL_ERROR: "Invalid github url!",
   INVALID_WEBSITE_URL_ERROR: "Invalid website url!",
+  INVALID_ORGANIZATION_ERROR: "Invalid organization!",
+  ORGANIZATION_MIN_LENGTH_ERROR:
+    "Organization must be at least 2 characters long!",
+  ORGANIZATION_MAX_LENGTH_ERROR:
+    "Organization must not be longer than 100 characters!",
 };
 
 export const successMessages = {

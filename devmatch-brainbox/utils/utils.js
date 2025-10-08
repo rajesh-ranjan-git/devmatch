@@ -275,7 +275,31 @@ const addToValidatedProperties = (
 
       validatedProperties[property] = validatedWebsite;
       return validatedProperties;
-      return;
+    case allowedUpdateProfileProperties.ORGANIZATION:
+      const {
+        isPropertyValid: isOrganizationValid,
+        message: organizationErrorMessage,
+        validatedProperty: validatedOrganization,
+      } = stringPropertiesValidator(
+        properties[property],
+        propertyConstraints.MIN_STRING_LENGTH,
+        propertyConstraints.MAX_STRING_LENGTH,
+        {
+          INVALID_ERROR: errorMessages.INVALID_ORGANIZATION_ERROR,
+          MIN_ERROR: errorMessages.ORGANIZATION_MIN_LENGTH_ERROR,
+          MAX_ERROR: errorMessages.ORGANIZATION_MAX_LENGTH_ERROR,
+        }
+      );
+
+      if (!isOrganizationValid) {
+        throw new ValidationError(status.badRequest, organizationErrorMessage, {
+          property: properties[property],
+        });
+      }
+
+      validatedProperties[property] = validatedOrganization;
+
+      return validatedProperties;
     case allowedUpdateProfileProperties.SKILLS:
       // Code to execute if expression === value2
       return;
@@ -285,18 +309,6 @@ const addToValidatedProperties = (
     case allowedUpdateProfileProperties.ADDRESS:
       // Code to execute if expression === value2
       return;
-  }
-
-  if (
-    property === allowedUpdateProfileProperties.BIO ||
-    property === allowedUpdateProfileProperties.JOB_PROFILE ||
-    property === allowedUpdateProfileProperties.ORGANIZATION
-  ) {
-    const validateProperty = stringPropertiesValidator(properties[property]);
-
-    validatedProperties[property] = validateProperty;
-
-    return validatedProperties;
   }
 };
 
