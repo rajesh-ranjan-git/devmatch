@@ -45,7 +45,7 @@ const addToValidatedProperties = (
       isNameValid,
       message: nameErrorMessage,
       validatedName,
-    } = nameValidator(properties[property]);
+    } = nameValidator(properties[property], property);
 
     if (!isNameValid) {
       throw new ValidationError(status.badRequest, nameErrorMessage, {
@@ -71,8 +71,8 @@ const addToValidatedProperties = (
         {
           INVALID_ERROR: errorMessages.INVALID_AGE_ERROR,
           DECIMAL_ERROR: errorMessages.DECIMAL_AGE_ERROR,
-          MIN_ERROR: errorMessages.MIN_AGE_ERROR,
-          MAX_ERROR: errorMessages.MAX_AGE_ERROR,
+          MIN_LENGTH_ERROR: errorMessages.MIN_AGE_ERROR,
+          MAX_LENGTH_ERROR: errorMessages.MAX_AGE_ERROR,
         }
       );
 
@@ -156,8 +156,8 @@ const addToValidatedProperties = (
         propertyConstraints.MAX_STRING_LENGTH,
         {
           INVALID_ERROR: errorMessages.INVALID_BIO_ERROR,
-          MIN_ERROR: errorMessages.BIO_MIN_LENGTH_ERROR,
-          MAX_ERROR: errorMessages.BIO_MAX_LENGTH_ERROR,
+          MIN_LENGTH_ERROR: errorMessages.BIO_MIN_LENGTH_ERROR,
+          MAX_LENGTH_ERROR: errorMessages.BIO_MAX_LENGTH_ERROR,
         }
       );
 
@@ -203,8 +203,8 @@ const addToValidatedProperties = (
         propertyConstraints.MAX_STRING_LENGTH,
         {
           INVALID_ERROR: errorMessages.INVALID_JOB_PROFILE_ERROR,
-          MIN_ERROR: errorMessages.JOB_PROFILE_MIN_LENGTH_ERROR,
-          MAX_ERROR: errorMessages.JOB_PROFILE_MAX_LENGTH_ERROR,
+          MIN_LENGTH_ERROR: errorMessages.JOB_PROFILE_MIN_LENGTH_ERROR,
+          MAX_LENGTH_ERROR: errorMessages.JOB_PROFILE_MAX_LENGTH_ERROR,
         }
       );
 
@@ -229,8 +229,8 @@ const addToValidatedProperties = (
         {
           INVALID_ERROR: errorMessages.INVALID_EXPERIENCE_ERROR,
           DECIMAL_ERROR: errorMessages.DECIMAL_EXPERIENCE_ERROR,
-          MIN_ERROR: errorMessages.MIN_EXPERIENCE_ERROR,
-          MAX_ERROR: errorMessages.MAX_EXPERIENCE_ERROR,
+          MIN_LENGTH_ERROR: errorMessages.MIN_EXPERIENCE_ERROR,
+          MAX_LENGTH_ERROR: errorMessages.MAX_EXPERIENCE_ERROR,
         }
       );
 
@@ -291,8 +291,8 @@ const addToValidatedProperties = (
         propertyConstraints.MAX_STRING_LENGTH,
         {
           INVALID_ERROR: errorMessages.INVALID_ORGANIZATION_ERROR,
-          MIN_ERROR: errorMessages.ORGANIZATION_MIN_LENGTH_ERROR,
-          MAX_ERROR: errorMessages.ORGANIZATION_MAX_LENGTH_ERROR,
+          MIN_LENGTH_ERROR: errorMessages.ORGANIZATION_MIN_LENGTH_ERROR,
+          MAX_LENGTH_ERROR: errorMessages.ORGANIZATION_MAX_LENGTH_ERROR,
         }
       );
 

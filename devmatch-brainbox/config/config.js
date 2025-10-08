@@ -15,6 +15,8 @@ export const GITHUB_REGEX =
   /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9-]{1,39}\/?$/;
 export const WEBSITE_REGEX =
   /^https?:\/\/(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+(:\d+)?(\/[^\s]*)?$/;
+export const COUNTRY_CODE_REGEX = /^\d{1,3}$/;
+export const PIN_CODE_REGEX = /^\d{6}$/;
 
 export const status = {
   success: { message: "OK", statusCode: 200 },
@@ -171,13 +173,7 @@ export const errorMessages = {
   COUNTRY_MIN_LENGTH_ERROR: "Country must be at least 2 characters long!",
   COUNTRY_MAX_LENGTH_ERROR: "Country must not be longer than 100 characters!",
   INVALID_COUNTRY_CODE_ERROR: "Invalid country code!",
-  DECIMAL_COUNTRY_CODE_ERROR: "Country code must not be in decimals!",
-  MIN_COUNTRY_CODE_ERROR: "Country code must be more than 0 years!",
-  MAX_COUNTRY_CODE_ERROR: "Country code must be less than 70 years!",
   INVALID_PIN_CODE_ERROR: "Invalid pin code!",
-  DECIMAL_PIN_CODE_ERROR: "Pin code must not be in decimals!",
-  MIN_PIN_CODE_ERROR: "Pin code must be more than 0 years!",
-  MAX_PIN_CODE_ERROR: "Pin code must be less than 70 years!",
 };
 
 export const successMessages = {
@@ -282,6 +278,5 @@ export const propertyConstraints = {
   MIN_STRING_LENGTH: 2,
   MAX_STRING_LENGTH: 100,
   PHONE_LENGTH: 10,
-  COUNTRY_CODE_LENGTH: 2,
   PIN_CODE_LENGTH: 6,
 };

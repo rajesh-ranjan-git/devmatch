@@ -9,9 +9,12 @@ import {
   userProperties,
   propertyConstraints,
   addressProperties,
+  PIN_CODE_REGEX,
+  COUNTRY_CODE_REGEX,
 } from "../config/config.js";
 import { errorMessages } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
+import { isPlainObject } from "../utils/utils.js";
 
 export const requestValidator = (req, res) => {
   if (!req) {
@@ -183,7 +186,7 @@ export const passwordValidator = (
 };
 
 export const regexPropertiesValidator = (property, regex, error) => {
-  property = typeof property === "string" ? property.trim() : property;
+  property = typeof property === "string" ? property?.trim() : property;
 
   if (!regex.test(property)) {
     return {
@@ -204,7 +207,7 @@ export const numberPropertiesValidator = (
   maxValue,
   errors
 ) => {
-  property = typeof property === "string" ? property.trim() : property;
+  property = typeof property === "string" ? property?.trim() : property;
 
   const isPropertyValid =
     (typeof property === "number" || typeof property === "string") &&
@@ -218,24 +221,24 @@ export const numberPropertiesValidator = (
     };
   }
 
-  if (!Number.isInteger(property)) {
+  if (!Number.isInteger(Number(property))) {
     return {
       isPropertyValid: false,
       message: errors.DECIMAL_ERROR,
     };
   }
 
-  if (Number(property) <= minValue) {
+  if (Number(property) < minValue) {
     return {
       isPropertyValid: false,
-      message: errors.MIN_ERROR,
+      message: errors.MIN_LENGTH_ERROR,
     };
   }
 
   if (Number(property) > maxValue) {
     return {
       isPropertyValid: false,
-      message: errors.MAX_ERROR,
+      message: errors.MAX_LENGTH_ERROR,
     };
   }
 
@@ -251,21 +254,21 @@ export const stringPropertiesValidator = (
   maxLength,
   errors
 ) => {
-  if (!typeof property === "string") {
+  if (typeof property !== "string") {
     return {
       isPropertyValid: false,
       message: errors.INVALID_ERROR,
     };
   }
 
-  if (property.trim().toLowerCase().length <= minLength) {
+  if (property?.trim().toLowerCase().length < minLength) {
     return {
       isPropertyValid: false,
       message: errors.MIN_LENGTH_ERROR,
     };
   }
 
-  if (property.trim().toLowerCase().length > maxLength) {
+  if (property?.trim().toLowerCase().length > maxLength) {
     return {
       isPropertyValid: false,
       message: errors.MAX_LENGTH_ERROR,
@@ -274,15 +277,15 @@ export const stringPropertiesValidator = (
 
   return {
     isPropertyValid: true,
-    validatedProperty: property.trim().toLowerCase(),
+    validatedProperty: property?.trim().toLowerCase(),
   };
 };
 
-export const listPropertiesValidator = (property, errors) => {
-  if (!typeof property === "string" || !Array.isArray(property)) {
+export const listPropertiesValidator = (property, error) => {
+  if (typeof property !== "string" && !Array.isArray(property)) {
     return {
       isPropertyValid: false,
-      message: errors.INVALID_ERROR,
+      message: error,
     };
   }
 
@@ -291,7 +294,7 @@ export const listPropertiesValidator = (property, errors) => {
     validatedProperty: Array.isArray(property)
       ? property.map((s) => s.trim().toLowerCase())
       : typeof property === "string"
-      ? [property.trim().toLowerCase()]
+      ? [property?.trim().toLowerCase()]
       : [],
   };
 };
@@ -314,115 +317,113 @@ export const addressValidator = (address) => {
           message: streetErrorMessage,
           validatedProperty: validatedStreet,
         } = stringPropertiesValidator(
-          addressField,
+          address[addressField],
           propertyConstraints.MIN_STRING_LENGTH,
           propertyConstraints.MAX_STRING_LENGTH,
           {
             INVALID_ERROR: errorMessages.INVALID_STREET_ERROR,
-            MIN_ERROR: errorMessages.STREET_MIN_LENGTH_ERROR,
-            MAX_ERROR: errorMessages.STREET_MAX_LENGTH_ERROR,
+            MIN_LENGTH_ERROR: errorMessages.STREET_MIN_LENGTH_ERROR,
+            MAX_LENGTH_ERROR: errorMessages.STREET_MAX_LENGTH_ERROR,
           }
         );
 
         if (!isStreetValid) {
           throw new ValidationError(status.badRequest, streetErrorMessage, {
-            property: addressField,
+            property: address[addressField],
           });
         }
 
         validatedAddress[addressField] = validatedStreet;
+        break;
 
-        return validatedAddress;
+      // return validatedAddress;
       case addressProperties.LANDMARK:
         const {
           isPropertyValid: isLandmarkValid,
           message: landmarkErrorMessage,
           validatedProperty: validatedLandmark,
         } = stringPropertiesValidator(
-          addressField,
+          address[addressField],
           propertyConstraints.MIN_STRING_LENGTH,
           propertyConstraints.MAX_STRING_LENGTH,
           {
             INVALID_ERROR: errorMessages.INVALID_LANDMARK_ERROR,
-            MIN_ERROR: errorMessages.LANDMARK_MIN_LENGTH_ERROR,
-            MAX_ERROR: errorMessages.LANDMARK_MAX_LENGTH_ERROR,
+            MIN_LENGTH_ERROR: errorMessages.LANDMARK_MIN_LENGTH_ERROR,
+            MAX_LENGTH_ERROR: errorMessages.LANDMARK_MAX_LENGTH_ERROR,
           }
         );
 
         if (!isLandmarkValid) {
           throw new ValidationError(status.badRequest, landmarkErrorMessage, {
-            property: addressField,
+            property: address[addressField],
           });
         }
 
         validatedAddress[addressField] = validatedLandmark;
+        break;
 
-        return validatedAddress;
+      // return validatedAddress;
       case addressProperties.CITY:
         const {
           isPropertyValid: isCityValid,
           message: cityErrorMessage,
           validatedProperty: validatedCity,
         } = stringPropertiesValidator(
-          addressField,
+          address[addressField],
           propertyConstraints.MIN_STRING_LENGTH,
           propertyConstraints.MAX_STRING_LENGTH,
           {
             INVALID_ERROR: errorMessages.INVALID_CITY_ERROR,
-            MIN_ERROR: errorMessages.CITY_MIN_LENGTH_ERROR,
-            MAX_ERROR: errorMessages.CITY_MAX_LENGTH_ERROR,
+            MIN_LENGTH_ERROR: errorMessages.CITY_MIN_LENGTH_ERROR,
+            MAX_LENGTH_ERROR: errorMessages.CITY_MAX_LENGTH_ERROR,
           }
         );
 
         if (!isCityValid) {
           throw new ValidationError(status.badRequest, cityErrorMessage, {
-            property: addressField,
+            property: address[addressField],
           });
         }
 
         validatedAddress[addressField] = validatedCity;
+        break;
 
-        return validatedAddress;
+      // return validatedAddress;
       case addressProperties.STATE:
         const {
           isPropertyValid: isStateValid,
           message: stateErrorMessage,
           validatedProperty: validatedState,
         } = stringPropertiesValidator(
-          addressField,
+          address[addressField],
           propertyConstraints.MIN_STRING_LENGTH,
           propertyConstraints.MAX_STRING_LENGTH,
           {
             INVALID_ERROR: errorMessages.INVALID_STATE_ERROR,
-            MIN_ERROR: errorMessages.STATE_MIN_LENGTH_ERROR,
-            MAX_ERROR: errorMessages.STATE_MAX_LENGTH_ERROR,
+            MIN_LENGTH_ERROR: errorMessages.STATE_MIN_LENGTH_ERROR,
+            MAX_LENGTH_ERROR: errorMessages.STATE_MAX_LENGTH_ERROR,
           }
         );
 
         if (!isStateValid) {
           throw new ValidationError(status.badRequest, stateErrorMessage, {
-            property: addressField,
+            property: address[addressField],
           });
         }
 
         validatedAddress[addressField] = validatedState;
+        break;
 
-        return validatedAddress;
+      // return validatedAddress;
       case addressProperties.COUNTRY_CODE:
         const {
           isPropertyValid: isCountryCodeValid,
           message: countryCodeErrorMessage,
           validatedProperty: validatedCountryCode,
-        } = numberPropertiesValidator(
-          addressField,
-          propertyConstraints.COUNTRY_CODE_LENGTH,
-          propertyConstraints.COUNTRY_CODE_LENGTH,
-          {
-            INVALID_ERROR: errorMessages.INVALID_COUNTRY_CODE_ERROR,
-            DECIMAL_ERROR: errorMessages.DECIMAL_COUNTRY_CODE_ERROR,
-            MIN_ERROR: errorMessages.MIN_COUNTRY_CODE_ERROR,
-            MAX_ERROR: errorMessages.MAX_COUNTRY_CODE_ERROR,
-          }
+        } = regexPropertiesValidator(
+          address[addressField],
+          COUNTRY_CODE_REGEX,
+          errorMessages.INVALID_COUNTRY_CODE_ERROR
         );
 
         if (!isCountryCodeValid) {
@@ -430,63 +431,60 @@ export const addressValidator = (address) => {
             status.badRequest,
             countryCodeErrorMessage,
             {
-              property: addressField,
+              property: address[addressField],
             }
           );
         }
 
         validatedAddress[addressField] = validatedCountryCode;
-        return validatedAddress;
+        break;
+
+      // return validatedAddress;
       case addressProperties.COUNTRY:
         const {
           isPropertyValid: isSCountryValid,
           message: countryErrorMessage,
           validatedProperty: validatedCountry,
         } = stringPropertiesValidator(
-          addressField,
+          address[addressField],
           propertyConstraints.MIN_STRING_LENGTH,
           propertyConstraints.MAX_STRING_LENGTH,
           {
             INVALID_ERROR: errorMessages.INVALID_COUNTRY_ERROR,
-            MIN_ERROR: errorMessages.COUNTRY_MIN_LENGTH_ERROR,
-            MAX_ERROR: errorMessages.COUNTRY_MAX_LENGTH_ERROR,
+            MIN_LENGTH_ERROR: errorMessages.COUNTRY_MIN_LENGTH_ERROR,
+            MAX_LENGTH_ERROR: errorMessages.COUNTRY_MAX_LENGTH_ERROR,
           }
         );
 
         if (!isSCountryValid) {
           throw new ValidationError(status.badRequest, countryErrorMessage, {
-            property: addressField,
+            property: address[addressField],
           });
         }
 
         validatedAddress[addressField] = validatedCountry;
+        break;
 
-        return validatedAddress;
+      // return validatedAddress;
       case addressProperties.PIN_CODE:
         const {
           isPropertyValid: isPinCodeValid,
           message: pinCodeErrorMessage,
           validatedProperty: validatedPinCode,
-        } = numberPropertiesValidator(
-          addressField,
-          propertyConstraints.PIN_CODE_LENGTH,
-          propertyConstraints.PIN_CODE_LENGTH,
-          {
-            INVALID_ERROR: errorMessages.INVALID_PIN_CODE_ERROR,
-            DECIMAL_ERROR: errorMessages.DECIMAL_PIN_CODE_ERROR,
-            MIN_ERROR: errorMessages.MIN_PIN_CODE_ERROR,
-            MAX_ERROR: errorMessages.MAX_PIN_CODE_ERROR,
-          }
+        } = regexPropertiesValidator(
+          address[addressField],
+          PIN_CODE_REGEX,
+          errorMessages.INVALID_PIN_CODE_ERROR
         );
 
         if (!isPinCodeValid) {
           throw new ValidationError(status.badRequest, pinCodeErrorMessage, {
-            property: addressField,
+            property: address[addressField],
           });
         }
 
         validatedAddress[addressField] = validatedPinCode;
-        return validatedProperties;
+        break;
     }
   }
 

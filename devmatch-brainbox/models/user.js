@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
-import { EMAIL_REGEX, PASSWORD_REGEX } from "../config/config.js";
+import {
+  COUNTRY_CODE_REGEX,
+  EMAIL_REGEX,
+  PASSWORD_REGEX,
+  PIN_CODE_REGEX,
+} from "../config/config.js";
 
 const userSchema = mongoose.Schema(
   {
@@ -104,7 +109,6 @@ const userSchema = mongoose.Schema(
       minlength: 2,
       maxlength: 100,
       trim: true,
-      lowercase: true,
     },
     experience: {
       type: Number,
@@ -174,10 +178,11 @@ const userSchema = mongoose.Schema(
         maxlength: 100,
       },
       countryCode: {
-        type: Number,
+        type: String,
         required: false,
-        min: 2,
-        max: 2,
+        minlength: 1,
+        maxlength: 3,
+        match: COUNTRY_CODE_REGEX,
       },
       country: {
         type: String,
@@ -191,6 +196,7 @@ const userSchema = mongoose.Schema(
         required: false,
         minlength: 6,
         maxlength: 6,
+        match: PIN_CODE_REGEX,
       },
     },
   },
