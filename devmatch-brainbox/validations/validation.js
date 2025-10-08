@@ -7,8 +7,6 @@ import {
   status,
   UPPER_CASE_REGEX,
   userProperties,
-  PHONE_REGEX,
-  AVATAR_URL_REGEX,
   propertyConstraints,
 } from "../config/config.js";
 import { errorMessages } from "../config/config.js";
@@ -183,31 +181,17 @@ export const passwordValidator = (
   };
 };
 
-export const phoneValidator = (phone) => {
-  if (!PHONE_REGEX.test(phone)) {
+export const regexPropertiesValidator = (property, regex, error) => {
+  if (!regex.test(property)) {
     return {
-      isPhoneValid: false,
-      message: errorMessages.INVALID_PHONE_ERROR,
+      isPropertyValid: false,
+      message: error,
     };
   }
 
   return {
-    isPhoneValid: true,
-    validatedPhone: Number(phone),
-  };
-};
-
-export const avatarUrlValidator = (avatarUrl) => {
-  if (!AVATAR_URL_REGEX.test(avatarUrl)) {
-    return {
-      isAvatarUrlValid: false,
-      message: errorMessages.INVALID_AVATAR_URL_ERROR,
-    };
-  }
-
-  return {
-    isAvatarUrlValid: true,
-    validatedAvatarUrl: Number(avatarUrl),
+    isPropertyValid: true,
+    validatedProperty: property,
   };
 };
 

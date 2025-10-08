@@ -1,10 +1,14 @@
 import {
   allowedUpdateProfileProperties,
+  AVATAR_URL_REGEX,
   errorMessages,
   genderProperties,
+  GITHUB_REGEX,
   maritalStatusProperties,
+  PHONE_REGEX,
   propertyConstraints,
   status,
+  WEBSITE_REGEX,
 } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
 import {
@@ -12,6 +16,7 @@ import {
   phoneValidator,
   numberPropertiesValidator,
   stringPropertiesValidator,
+  regexPropertiesValidator,
 } from "../validations/validation.js";
 
 export const omitObjectProperties = (obj, keysToOmit) => {
@@ -79,7 +84,11 @@ const addToValidatedProperties = (
         isPhoneValid,
         message: phoneErrorMessage,
         validatedPhone,
-      } = phoneValidator(properties[property]);
+      } = regexPropertiesValidator(
+        properties[property],
+        PHONE_REGEX,
+        errorMessages.INVALID_PHONE_ERROR
+      );
 
       if (!isPhoneValid) {
         throw new ValidationError(status.badRequest, phoneErrorMessage, {
@@ -116,7 +125,11 @@ const addToValidatedProperties = (
         isAvatarUrlValid,
         message: avatarUrlErrorMessage,
         validatedAvatarUrl,
-      } = ageValidator(properties[property]);
+      } = regexPropertiesValidator(
+        properties[property],
+        AVATAR_URL_REGEX,
+        errorMessages.INVALID_AVATAR_URL_ERROR
+      );
 
       if (!isAvatarUrlValid) {
         throw new ValidationError(status.badRequest, avatarUrlErrorMessage, {
@@ -225,10 +238,43 @@ const addToValidatedProperties = (
       validatedProperties[property] = validatedExperience;
       return validatedProperties;
     case allowedUpdateProfileProperties.GITHUB:
-      // Code to execute if expression === value2
-      return;
+      const {
+        isPropertyValid: isGithubValid,
+        message: githubErrorMessage,
+        validatedProperty: validatedGithub,
+      } = regexPropertiesValidator(
+        properties[property],
+        GITHUB_REGEX,
+        errorMessages.INVALID_GITHUB_URL_ERROR
+      );
+
+      if (!isGithubValid) {
+        throw new ValidationError(status.badRequest, githubErrorMessage, {
+          property: properties[property],
+        });
+      }
+
+      validatedProperties[property] = validatedGithub;
+      return validatedProperties;
     case allowedUpdateProfileProperties.WEBSITE:
-      // Code to execute if expression === value2
+      const {
+        isPropertyValid: isWebsiteValid,
+        message: websiteErrorMessage,
+        validatedProperty: validatedWebsite,
+      } = regexPropertiesValidator(
+        properties[property],
+        WEBSITE_REGEX,
+        errorMessages.INVALID_WEBSITE_URL_ERROR
+      );
+
+      if (!isWebsiteValid) {
+        throw new ValidationError(status.badRequest, websiteErrorMessage, {
+          property: properties[property],
+        });
+      }
+
+      validatedProperties[property] = validatedWebsite;
+      return validatedProperties;
       return;
     case allowedUpdateProfileProperties.SKILLS:
       // Code to execute if expression === value2

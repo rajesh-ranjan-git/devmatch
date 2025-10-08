@@ -145,6 +145,8 @@ export const errorMessages = {
     "Job profile must be at least 2 characters long!",
   JOB_PROFILE_MAX_LENGTH_ERROR:
     "Job profile must not be longer than 100 characters!",
+  INVALID_GITHUB_URL_ERROR: "Invalid github url!",
+  INVALID_WEBSITE_URL_ERROR: "Invalid website url!",
 };
 
 export const successMessages = {
