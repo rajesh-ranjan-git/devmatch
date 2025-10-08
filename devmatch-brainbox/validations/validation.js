@@ -314,7 +314,7 @@ export const addressValidator = (address) => {
           message: streetErrorMessage,
           validatedProperty: validatedStreet,
         } = stringPropertiesValidator(
-          properties[property],
+          addressField,
           propertyConstraints.MIN_STRING_LENGTH,
           propertyConstraints.MAX_STRING_LENGTH,
           {
@@ -339,7 +339,7 @@ export const addressValidator = (address) => {
           message: landmarkErrorMessage,
           validatedProperty: validatedLandmark,
         } = stringPropertiesValidator(
-          properties[property],
+          addressField,
           propertyConstraints.MIN_STRING_LENGTH,
           propertyConstraints.MAX_STRING_LENGTH,
           {
@@ -364,7 +364,7 @@ export const addressValidator = (address) => {
           message: cityErrorMessage,
           validatedProperty: validatedCity,
         } = stringPropertiesValidator(
-          properties[property],
+          addressField,
           propertyConstraints.MIN_STRING_LENGTH,
           propertyConstraints.MAX_STRING_LENGTH,
           {
@@ -389,7 +389,7 @@ export const addressValidator = (address) => {
           message: stateErrorMessage,
           validatedProperty: validatedState,
         } = stringPropertiesValidator(
-          properties[property],
+          addressField,
           propertyConstraints.MIN_STRING_LENGTH,
           propertyConstraints.MAX_STRING_LENGTH,
           {
@@ -414,9 +414,9 @@ export const addressValidator = (address) => {
           message: countryCodeErrorMessage,
           validatedProperty: validatedCountryCode,
         } = numberPropertiesValidator(
-          properties[property],
-          propertyConstraints.MIN_AGE,
-          propertyConstraints.MAX_AGE,
+          addressField,
+          propertyConstraints.COUNTRY_CODE_LENGTH,
+          propertyConstraints.COUNTRY_CODE_LENGTH,
           {
             INVALID_ERROR: errorMessages.INVALID_COUNTRY_CODE_ERROR,
             DECIMAL_ERROR: errorMessages.DECIMAL_COUNTRY_CODE_ERROR,
@@ -443,7 +443,7 @@ export const addressValidator = (address) => {
           message: countryErrorMessage,
           validatedProperty: validatedCountry,
         } = stringPropertiesValidator(
-          properties[property],
+          addressField,
           propertyConstraints.MIN_STRING_LENGTH,
           propertyConstraints.MAX_STRING_LENGTH,
           {
@@ -468,9 +468,9 @@ export const addressValidator = (address) => {
           message: pinCodeErrorMessage,
           validatedProperty: validatedPinCode,
         } = numberPropertiesValidator(
-          properties[property],
-          propertyConstraints.MIN_AGE,
-          propertyConstraints.MAX_AGE,
+          addressField,
+          propertyConstraints.PIN_CODE_LENGTH,
+          propertyConstraints.PIN_CODE_LENGTH,
           {
             INVALID_ERROR: errorMessages.INVALID_PIN_CODE_ERROR,
             DECIMAL_ERROR: errorMessages.DECIMAL_PIN_CODE_ERROR,
