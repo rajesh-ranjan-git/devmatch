@@ -13,7 +13,6 @@ import {
 import { ValidationError } from "../errors/CustomError.js";
 import {
   nameValidator,
-  phoneValidator,
   numberPropertiesValidator,
   stringPropertiesValidator,
   regexPropertiesValidator,
