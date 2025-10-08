@@ -182,6 +182,8 @@ export const passwordValidator = (
 };
 
 export const regexPropertiesValidator = (property, regex, error) => {
+  property = typeof property === "string" ? property.trim() : property;
+
   if (!regex.test(property)) {
     return {
       isPropertyValid: false,
@@ -201,6 +203,8 @@ export const numberPropertiesValidator = (
   maxValue,
   errors
 ) => {
+  property = typeof property === "string" ? property.trim() : property;
+
   const isPropertyValid =
     (typeof property === "number" || typeof property === "string") &&
     !isNaN(property) &&
@@ -213,7 +217,7 @@ export const numberPropertiesValidator = (
     };
   }
 
-  if (!Number.isInteger(Number(property))) {
+  if (!Number.isInteger(property)) {
     return {
       isPropertyValid: false,
       message: errors.DECIMAL_ERROR,
@@ -253,14 +257,14 @@ export const stringPropertiesValidator = (
     };
   }
 
-  if (property.length <= minLength) {
+  if (property.trim().toLowerCase().length <= minLength) {
     return {
       isPropertyValid: false,
       message: errors.MIN_LENGTH_ERROR,
     };
   }
 
-  if (property.length > maxLength) {
+  if (property.trim().toLowerCase().length > maxLength) {
     return {
       isPropertyValid: false,
       message: errors.MAX_LENGTH_ERROR,
@@ -269,6 +273,24 @@ export const stringPropertiesValidator = (
 
   return {
     isPropertyValid: true,
-    validatedProperty: property,
+    validatedProperty: property.trim().toLowerCase(),
+  };
+};
+
+export const listPropertiesValidator = (property, errors) => {
+  if (!typeof property === "string" || !Array.isArray(property)) {
+    return {
+      isPropertyValid: false,
+      message: errors.INVALID_ERROR,
+    };
+  }
+
+  return {
+    isPropertyValid: true,
+    validatedProperty: Array.isArray(property)
+      ? property.map((s) => s.trim().toLowerCase())
+      : typeof property === "string"
+      ? [property.trim().toLowerCase()]
+      : [],
   };
 };

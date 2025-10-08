@@ -152,6 +152,8 @@ export const errorMessages = {
     "Organization must be at least 2 characters long!",
   ORGANIZATION_MAX_LENGTH_ERROR:
     "Organization must not be longer than 100 characters!",
+  INVALID_SKILLS_ERROR: "Invalid skills!",
+  INVALID_INTERESTS_ERROR: "Invalid interests!",
 };
 
 export const successMessages = {

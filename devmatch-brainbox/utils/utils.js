@@ -17,6 +17,7 @@ import {
   numberPropertiesValidator,
   stringPropertiesValidator,
   regexPropertiesValidator,
+  listPropertiesValidator,
 } from "../validations/validation.js";
 
 export const omitObjectProperties = (obj, keysToOmit) => {
@@ -301,11 +302,43 @@ const addToValidatedProperties = (
 
       return validatedProperties;
     case allowedUpdateProfileProperties.SKILLS:
-      // Code to execute if expression === value2
-      return;
+      const {
+        isPropertyValid: isSkillsValid,
+        message: skillsErrorMessage,
+        validatedProperty: validatedSkills,
+      } = listPropertiesValidator(
+        properties[property],
+        errorMessages.INVALID_SKILLS_ERROR
+      );
+
+      if (!isSkillsValid) {
+        throw new ValidationError(status.badRequest, skillsErrorMessage, {
+          property: properties[property],
+        });
+      }
+
+      validatedProperties[property] = validatedSkills;
+
+      return validatedProperties;
     case allowedUpdateProfileProperties.INTERESTS:
-      // Code to execute if expression === value2
-      return;
+      const {
+        isPropertyValid: isInterestsValid,
+        message: interestsErrorMessage,
+        validatedProperty: validatedInterests,
+      } = listPropertiesValidator(
+        properties[property],
+        errorMessages.INVALID_INTERESTS_ERROR
+      );
+
+      if (!isInterestsValid) {
+        throw new ValidationError(status.badRequest, interestsErrorMessage, {
+          property: properties[property],
+        });
+      }
+
+      validatedProperties[property] = validatedInterests;
+
+      return validatedProperties;
     case allowedUpdateProfileProperties.ADDRESS:
       // Code to execute if expression === value2
       return;
