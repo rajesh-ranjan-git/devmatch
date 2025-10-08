@@ -10,6 +10,7 @@ import {
   nameValidator,
   ageValidator,
   phoneValidator,
+  stringPropertiesValidator,
 } from "../validations/validation.js";
 
 export const omitObjectProperties = (obj, keysToOmit) => {
