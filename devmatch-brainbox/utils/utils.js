@@ -18,7 +18,12 @@ import {
   stringPropertiesValidator,
   regexPropertiesValidator,
   listPropertiesValidator,
+  addressValidator,
 } from "../validations/validation.js";
+
+export const isPlainObject = (data) => {
+  return typeof data === "object" && data !== null && !Array.isArray(data);
+};
 
 export const omitObjectProperties = (obj, keysToOmit) => {
   return Object.fromEntries(
@@ -340,8 +345,9 @@ const addToValidatedProperties = (
 
       return validatedProperties;
     case allowedUpdateProfileProperties.ADDRESS:
-      // Code to execute if expression === value2
-      return;
+      validatedProperties[property] = addressValidator(properties[property]);
+
+      return validatedProperties;
   }
 };
 
