@@ -14,7 +14,7 @@ const connectionSchema = mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["male", "female", "other"],
+    enum: ["pending", "accept", "reject", "blocked"],
     required: true,
     default: "pending",
     set: (val) => (typeof val === "string" ? val.trim().toLowerCase() : val),
