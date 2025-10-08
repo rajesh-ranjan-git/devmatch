@@ -88,7 +88,7 @@ const userSchema = mongoose.Schema(
     bio: {
       type: String,
       required: false,
-      minlength: 4,
+      minlength: 2,
       maxlength: 100,
       trim: true,
     },
@@ -101,6 +101,7 @@ const userSchema = mongoose.Schema(
     jobProfile: {
       type: String,
       required: false,
+      minlength: 2,
       maxlength: 100,
       trim: true,
       lowercase: true,
@@ -122,6 +123,7 @@ const userSchema = mongoose.Schema(
     organization: {
       type: String,
       required: false,
+      minlength: 2,
       maxlength: 100,
     },
     skills: {
@@ -147,24 +149,28 @@ const userSchema = mongoose.Schema(
         type: String,
         required: false,
         trim: true,
+        minlength: 2,
         maxlength: 100,
       },
       landmark: {
         type: String,
         required: false,
         trim: true,
+        minlength: 2,
         maxlength: 100,
       },
       city: {
         type: String,
         required: false,
         trim: true,
+        minlength: 2,
         maxlength: 100,
       },
       state: {
         type: String,
         required: false,
         trim: true,
+        minlength: 2,
         maxlength: 100,
       },
       countryCode: {
@@ -177,6 +183,7 @@ const userSchema = mongoose.Schema(
         type: String,
         required: false,
         trim: true,
+        minlength: 2,
         maxlength: 100,
       },
       pinCode: {

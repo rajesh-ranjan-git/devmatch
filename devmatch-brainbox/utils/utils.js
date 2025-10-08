@@ -79,7 +79,6 @@ const addToValidatedProperties = (
       return validatedProperties;
     case allowedUpdateProfileProperties.GENDER:
       Object.values(genderProperties).forEach((value) => {
-        console.log("debug value : ", value);
         if (value === properties[property]) {
           validatedProperties[property] = properties[property];
         }
