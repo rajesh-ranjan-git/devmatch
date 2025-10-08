@@ -11,6 +11,10 @@ export const ALLOWED_SPECIAL_CHARACTERS_REGEX = /[@#$%&]/;
 export const PHONE_REGEX = /^\d{10}$/;
 export const AVATAR_URL_REGEX =
   /^(https?:\/\/)([a-zA-Z0-9\-._~%]+@)?([a-zA-Z0-9\-._~%]+\.)+[a-zA-Z]{2,}(\/[^\s?#]*)*(\.(jpg|jpeg|png|gif|webp|svg))?(\?[^\s]*)?$/i;
+export const GITHUB_REGEX =
+  /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9-]{1,39}\/?$/;
+export const WEBSITE_REGEX =
+  /^https?:\/\/(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+(:\d+)?(\/[^\s]*)?$/;
 
 export const status = {
   success: { message: "OK", statusCode: 200 },
@@ -132,6 +136,15 @@ export const errorMessages = {
   INVALID_BIO_ERROR: "Invalid Bio!",
   BIO_MIN_LENGTH_ERROR: "Bio must be at least 2 characters long!",
   BIO_MAX_LENGTH_ERROR: "Bio must not be longer than 100 characters!",
+  INVALID_EXPERIENCE_ERROR: "Invalid experience!",
+  DECIMAL_EXPERIENCE_ERROR: "Experience must not be in decimals!",
+  MIN_EXPERIENCE_ERROR: "Experience must be more than 0 years!",
+  MAX_EXPERIENCE_ERROR: "Experience must be less than 70 years!",
+  INVALID_JOB_PROFILE_ERROR: "Invalid job profile!",
+  JOB_PROFILE_MIN_LENGTH_ERROR:
+    "Job profile must be at least 2 characters long!",
+  JOB_PROFILE_MAX_LENGTH_ERROR:
+    "Job profile must not be longer than 100 characters!",
 };
 
 export const successMessages = {
@@ -223,3 +236,19 @@ export const allowedUpdateProfileProperties = omitObjectProperties(
     "UPDATED_AT",
   ]
 );
+
+export const propertyConstraints = {
+  MIN_NAME_LENGTH: 1,
+  MAX_NAME_LENGTH: 100,
+  MIN_PASSWORD_LENGTH: 6,
+  MAX_PASSWORD_LENGTH: 100,
+  MIN_AGE: 18,
+  MAX_AGE: 100,
+  MIN_EXPERIENCE: 0,
+  MAX_EXPERIENCE: 70,
+  MIN_STRING_LENGTH: 2,
+  MAX_STRING_LENGTH: 100,
+  PHONE_LENGTH: 10,
+  COUNTRY_CODE_LENGTH: 2,
+  PIN_CODE_LENGTH: 6,
+};

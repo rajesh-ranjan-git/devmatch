@@ -3,13 +3,14 @@ import {
   errorMessages,
   genderProperties,
   maritalStatusProperties,
+  propertyConstraints,
   status,
 } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
 import {
   nameValidator,
-  ageValidator,
   phoneValidator,
+  numberPropertiesValidator,
   stringPropertiesValidator,
 } from "../validations/validation.js";
 
@@ -50,10 +51,20 @@ const addToValidatedProperties = (
   switch (property) {
     case allowedUpdateProfileProperties.AGE:
       const {
-        isAgeValid,
+        isPropertyValid: isAgeValid,
         message: ageErrorMessage,
-        validatedAge,
-      } = ageValidator(properties[property]);
+        validatedProperty: validatedAge,
+      } = numberPropertiesValidator(
+        properties[property],
+        propertyConstraints.MIN_AGE,
+        propertyConstraints.MAX_AGE,
+        {
+          INVALID_ERROR: errorMessages.INVALID_AGE_ERROR,
+          DECIMAL_ERROR: errorMessages.DECIMAL_AGE_ERROR,
+          MIN_ERROR: errorMessages.MIN_AGE_ERROR,
+          MAX_ERROR: errorMessages.MAX_AGE_ERROR,
+        }
+      );
 
       if (!isAgeValid) {
         throw new ValidationError(status.badRequest, ageErrorMessage, {
@@ -62,7 +73,6 @@ const addToValidatedProperties = (
       }
 
       validatedProperties[property] = validatedAge;
-
       return validatedProperties;
     case allowedUpdateProfileProperties.PHONE:
       const {
@@ -117,6 +127,31 @@ const addToValidatedProperties = (
       validatedProperties[property] = validatedAvatarUrl;
 
       return validatedProperties;
+    case allowedUpdateProfileProperties.BIO:
+      const {
+        isPropertyValid: isBioValid,
+        message: bioErrorMessage,
+        validatedProperty: validatedBio,
+      } = stringPropertiesValidator(
+        properties[property],
+        propertyConstraints.MIN_STRING_LENGTH,
+        propertyConstraints.MAX_STRING_LENGTH,
+        {
+          INVALID_ERROR: errorMessages.INVALID_BIO_ERROR,
+          MIN_ERROR: errorMessages.BIO_MIN_LENGTH_ERROR,
+          MAX_ERROR: errorMessages.BIO_MAX_LENGTH_ERROR,
+        }
+      );
+
+      if (!isBioValid) {
+        throw new ValidationError(status.badRequest, bioErrorMessage, {
+          property: properties[property],
+        });
+      }
+
+      validatedProperties[property] = validatedBio;
+
+      return validatedProperties;
     case allowedUpdateProfileProperties.MARITAL_STATUS:
       Object.values(maritalStatusProperties).forEach((value) => {
         if (value === properties[property]) {
@@ -139,9 +174,56 @@ const addToValidatedProperties = (
       }
 
       return validatedProperties;
+    case allowedUpdateProfileProperties.JOB_PROFILE:
+      const {
+        isPropertyValid: isJobProfileValid,
+        message: jobProfileErrorMessage,
+        validatedProperty: validatedJobProfile,
+      } = stringPropertiesValidator(
+        properties[property],
+        propertyConstraints.MIN_STRING_LENGTH,
+        propertyConstraints.MAX_STRING_LENGTH,
+        {
+          INVALID_ERROR: errorMessages.INVALID_JOB_PROFILE_ERROR,
+          MIN_ERROR: errorMessages.JOB_PROFILE_MIN_LENGTH_ERROR,
+          MAX_ERROR: errorMessages.JOB_PROFILE_MAX_LENGTH_ERROR,
+        }
+      );
+
+      if (!isJobProfileValid) {
+        throw new ValidationError(status.badRequest, jobProfileErrorMessage, {
+          property: properties[property],
+        });
+      }
+
+      validatedProperties[property] = validatedJobProfile;
+
+      return validatedProperties;
     case allowedUpdateProfileProperties.EXPERIENCE:
-      // Code to execute if expression === value2
-      return;
+      const {
+        isPropertyValid: isExperienceValid,
+        message: experienceErrorMessage,
+        validatedProperty: validatedExperience,
+      } = numberPropertiesValidator(
+        properties[property],
+        propertyConstraints.MIN_EXPERIENCE,
+        propertyConstraints.MAX_EXPERIENCE,
+        {
+          INVALID_ERROR: errorMessages.INVALID_EXPERIENCE_ERROR,
+          DECIMAL_ERROR: errorMessages.DECIMAL_EXPERIENCE_ERROR,
+          MIN_ERROR: errorMessages.MIN_EXPERIENCE_ERROR,
+          MAX_ERROR: errorMessages.MAX_EXPERIENCE_ERROR,
+        }
+      );
+
+      if (!isExperienceValid) {
+        throw new ValidationError(status.badRequest, experienceErrorMessage, {
+          property: properties[property],
+        });
+      }
+
+      validatedProperties[property] = validatedExperience;
+      return validatedProperties;
     case allowedUpdateProfileProperties.GITHUB:
       // Code to execute if expression === value2
       return;

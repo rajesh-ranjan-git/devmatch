@@ -15,14 +15,14 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       required: true,
-      minlength: 2,
+      minlength: 6,
       maxlength: 100,
       match: PASSWORD_REGEX,
     },
     previousPassword: {
       type: String,
       required: false,
-      minlength: 2,
+      minlength: 6,
       maxlength: 100,
       match: PASSWORD_REGEX,
     },

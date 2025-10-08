@@ -9,6 +9,7 @@ import {
   userProperties,
   PHONE_REGEX,
   AVATAR_URL_REGEX,
+  propertyConstraints,
 } from "../config/config.js";
 import { errorMessages } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
@@ -61,7 +62,7 @@ export const firstNameValidator = (firstName) => {
 };
 
 export const nameValidator = (name, type) => {
-  if (name?.trim().toLowerCase().length < 1) {
+  if (name?.trim().toLowerCase().length < propertyConstraints.MIN_NAME_LENGTH) {
     return {
       isNameValid: false,
       message:
@@ -75,7 +76,7 @@ export const nameValidator = (name, type) => {
     };
   }
 
-  if (name?.trim().toLowerCase().length > 100) {
+  if (name?.trim().toLowerCase().length > propertyConstraints.MAX_NAME_LENGTH) {
     return {
       isNameValid: false,
       message:
@@ -144,11 +145,11 @@ export const passwordValidator = (
 
   const errors = [];
 
-  if (password?.trim().length < 6) {
+  if (password?.trim().length < propertyConstraints.MIN_PASSWORD_LENGTH) {
     errors.push(errorMessages.PASSWORD_MIN_LENGTH_ERROR);
   }
 
-  if (password?.trim().length > 100) {
+  if (password?.trim().length > propertyConstraints.MAX_PASSWORD_LENGTH) {
     errors.push(errorMessages.PASSWORD_MAX_LENGTH_ERROR);
   }
 
@@ -182,46 +183,6 @@ export const passwordValidator = (
   };
 };
 
-export const ageValidator = (age) => {
-  const isAgeValid =
-    (typeof age === "number" || typeof age === "string") &&
-    !isNaN(age) &&
-    age !== "";
-
-  if (!isAgeValid) {
-    return {
-      isAgeValid: false,
-      message: errorMessages.INVALID_AGE_ERROR,
-    };
-  }
-
-  if (!Number.isInteger(Number(age))) {
-    return {
-      isAgeValid: false,
-      message: errorMessages.DECIMAL_AGE_ERROR,
-    };
-  }
-
-  if (Number(age) < 17) {
-    return {
-      isAgeValid: false,
-      message: errorMessages.MIN_AGE_ERROR,
-    };
-  }
-
-  if (Number(age) > 100) {
-    return {
-      isAgeValid: false,
-      message: errorMessages.MAX_AGE_ERROR,
-    };
-  }
-
-  return {
-    isAgeValid: true,
-    validatedAge: Number(age),
-  };
-};
-
 export const phoneValidator = (phone) => {
   if (!PHONE_REGEX.test(phone)) {
     return {
@@ -250,36 +211,80 @@ export const avatarUrlValidator = (avatarUrl) => {
   };
 };
 
-export const stringPropertiesValidator = (property) => {
+export const numberPropertiesValidator = (
+  property,
+  minValue,
+  maxValue,
+  errors
+) => {
+  const isPropertyValid =
+    (typeof property === "number" || typeof property === "string") &&
+    !isNaN(property) &&
+    property !== "";
+
+  if (!isPropertyValid) {
+    return {
+      isPropertyValid: false,
+      message: errors.INVALID_ERROR,
+    };
+  }
+
+  if (!Number.isInteger(Number(property))) {
+    return {
+      isPropertyValid: false,
+      message: errors.DECIMAL_ERROR,
+    };
+  }
+
+  if (Number(property) <= minValue) {
+    return {
+      isPropertyValid: false,
+      message: errors.MIN_ERROR,
+    };
+  }
+
+  if (Number(property) > maxValue) {
+    return {
+      isPropertyValid: false,
+      message: errors.MAX_ERROR,
+    };
+  }
+
+  return {
+    isPropertyValid: true,
+    validatedProperty: Number(property),
+  };
+};
+
+export const stringPropertiesValidator = (
+  property,
+  minLength,
+  maxLength,
+  errors
+) => {
   if (!typeof property === "string") {
-    throw new ValidationError(
-      status.badRequest,
-      errorMessages.INVALID_BIO_ERROR,
-      {
-        property: property,
-      }
-    );
+    return {
+      isPropertyValid: false,
+      message: errors.INVALID_ERROR,
+    };
   }
 
-  if (property.length < 2) {
-    throw new ValidationError(
-      status.badRequest,
-      errorMessages.BIO_MIN_LENGTH_ERROR,
-      {
-        property: property,
-      }
-    );
+  if (property.length <= minLength) {
+    return {
+      isPropertyValid: false,
+      message: errors.MIN_LENGTH_ERROR,
+    };
   }
 
-  if (property.length > 100) {
-    throw new ValidationError(
-      status.badRequest,
-      errorMessages.BIO_MAX_LENGTH_ERROR,
-      {
-        property: property,
-      }
-    );
+  if (property.length > maxLength) {
+    return {
+      isPropertyValid: false,
+      message: errors.MAX_LENGTH_ERROR,
+    };
   }
 
-  return property;
+  return {
+    isPropertyValid: true,
+    validatedProperty: property,
+  };
 };
