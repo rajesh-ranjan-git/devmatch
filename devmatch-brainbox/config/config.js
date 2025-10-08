@@ -129,6 +129,9 @@ export const errorMessages = {
   INVALID_GENDER_ERROR: "Invalid gender!",
   INVALID_MARITAL_STATUS_ERROR: "Invalid marital status!",
   INVALID_AVATAR_URL_ERROR: "Invalid avatar url!",
+  INVALID_BIO_ERROR: "Invalid Bio!",
+  BIO_MIN_LENGTH_ERROR: "Bio must be at least 2 characters long!",
+  BIO_MAX_LENGTH_ERROR: "Bio must not be longer than 100 characters!",
 };
 
 export const successMessages = {

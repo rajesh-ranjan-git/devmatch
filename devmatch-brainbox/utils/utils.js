@@ -116,9 +116,6 @@ const addToValidatedProperties = (
       validatedProperties[property] = validatedAvatarUrl;
 
       return validatedProperties;
-    case allowedUpdateProfileProperties.BIO:
-      // Code to execute if expression === value2
-      return;
     case allowedUpdateProfileProperties.MARITAL_STATUS:
       Object.values(maritalStatusProperties).forEach((value) => {
         if (value === properties[property]) {
@@ -141,9 +138,6 @@ const addToValidatedProperties = (
       }
 
       return validatedProperties;
-    case allowedUpdateProfileProperties.JOB_PROFILE:
-      // Code to execute if expression === value2
-      return;
     case allowedUpdateProfileProperties.EXPERIENCE:
       // Code to execute if expression === value2
       return;
@@ -151,9 +145,6 @@ const addToValidatedProperties = (
       // Code to execute if expression === value2
       return;
     case allowedUpdateProfileProperties.WEBSITE:
-      // Code to execute if expression === value2
-      return;
-    case allowedUpdateProfileProperties.ORGANIZATION:
       // Code to execute if expression === value2
       return;
     case allowedUpdateProfileProperties.SKILLS:
@@ -165,6 +156,18 @@ const addToValidatedProperties = (
     case allowedUpdateProfileProperties.ADDRESS:
       // Code to execute if expression === value2
       return;
+  }
+
+  if (
+    property === allowedUpdateProfileProperties.BIO ||
+    property === allowedUpdateProfileProperties.JOB_PROFILE ||
+    property === allowedUpdateProfileProperties.ORGANIZATION
+  ) {
+    const validateProperty = stringPropertiesValidator(properties[property]);
+
+    validatedProperties[property] = validateProperty;
+
+    return validatedProperties;
   }
 };
 

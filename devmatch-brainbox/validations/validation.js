@@ -249,3 +249,37 @@ export const avatarUrlValidator = (avatarUrl) => {
     validatedAvatarUrl: Number(avatarUrl),
   };
 };
+
+export const stringPropertiesValidator = (property) => {
+  if (!typeof property === "string") {
+    throw new ValidationError(
+      status.badRequest,
+      errorMessages.INVALID_BIO_ERROR,
+      {
+        property: property,
+      }
+    );
+  }
+
+  if (property.length < 2) {
+    throw new ValidationError(
+      status.badRequest,
+      errorMessages.BIO_MIN_LENGTH_ERROR,
+      {
+        property: property,
+      }
+    );
+  }
+
+  if (property.length > 100) {
+    throw new ValidationError(
+      status.badRequest,
+      errorMessages.BIO_MAX_LENGTH_ERROR,
+      {
+        property: property,
+      }
+    );
+  }
+
+  return property;
+};
