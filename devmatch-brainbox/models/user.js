@@ -178,7 +178,7 @@ const userSchema = mongoose.Schema(
         maxlength: 100,
       },
       countryCode: {
-        type: String,
+        type: Number,
         required: false,
         minlength: 1,
         maxlength: 3,

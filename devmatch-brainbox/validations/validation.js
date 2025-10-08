@@ -195,6 +195,8 @@ export const regexPropertiesValidator = (property, regex, error) => {
     };
   }
 
+  console.log("debug from validations typeof property : ", typeof property);
+
   return {
     isPropertyValid: true,
     validatedProperty: property,
@@ -261,14 +263,14 @@ export const stringPropertiesValidator = (
     };
   }
 
-  if (property?.trim().toLowerCase().length < minLength) {
+  if (property?.trim().length < minLength) {
     return {
       isPropertyValid: false,
       message: errors.MIN_LENGTH_ERROR,
     };
   }
 
-  if (property?.trim().toLowerCase().length > maxLength) {
+  if (property?.trim().length > maxLength) {
     return {
       isPropertyValid: false,
       message: errors.MAX_LENGTH_ERROR,
@@ -277,7 +279,7 @@ export const stringPropertiesValidator = (
 
   return {
     isPropertyValid: true,
-    validatedProperty: property?.trim().toLowerCase(),
+    validatedProperty: property?.trim(),
   };
 };
 
@@ -488,8 +490,5 @@ export const addressValidator = (address) => {
     }
   }
 
-  return {
-    isAddressValid: true,
-    validatedAddress,
-  };
+  return validatedAddress;
 };
