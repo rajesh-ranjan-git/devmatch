@@ -61,6 +61,7 @@ const addToValidatedProperties = (
       }
 
       validatedProperties[property] = validatedAge;
+
       return validatedProperties;
     case allowedUpdateProfileProperties.PHONE:
       const {
@@ -100,8 +101,21 @@ const addToValidatedProperties = (
 
       return validatedProperties;
     case allowedUpdateProfileProperties.AVATAR_URL:
-      // Code to execute if expression === value2
-      return;
+      const {
+        isAvatarUrlValid,
+        message: avatarUrlErrorMessage,
+        validatedAvatarUrl,
+      } = ageValidator(properties[property]);
+
+      if (!isAvatarUrlValid) {
+        throw new ValidationError(status.badRequest, avatarUrlErrorMessage, {
+          property: properties[property],
+        });
+      }
+
+      validatedProperties[property] = validatedAvatarUrl;
+
+      return validatedProperties;
     case allowedUpdateProfileProperties.BIO:
       // Code to execute if expression === value2
       return;

@@ -128,6 +128,7 @@ export const errorMessages = {
   INVALID_PHONE_ERROR: "Invalid phone number!",
   INVALID_GENDER_ERROR: "Invalid gender!",
   INVALID_MARITAL_STATUS_ERROR: "Invalid marital status!",
+  INVALID_AVATAR_URL_ERROR: "Invalid avatar url!",
 };
 
 export const successMessages = {

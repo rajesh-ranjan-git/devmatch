@@ -8,6 +8,7 @@ import {
   UPPER_CASE_REGEX,
   userProperties,
   PHONE_REGEX,
+  AVATAR_URL_REGEX,
 } from "../config/config.js";
 import { errorMessages } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
@@ -232,5 +233,19 @@ export const phoneValidator = (phone) => {
   return {
     isPhoneValid: true,
     validatedPhone: Number(phone),
+  };
+};
+
+export const avatarUrlValidator = (avatarUrl) => {
+  if (!AVATAR_URL_REGEX.test(avatarUrl)) {
+    return {
+      isAvatarUrlValid: false,
+      message: errorMessages.INVALID_AVATAR_URL_ERROR,
+    };
+  }
+
+  return {
+    isAvatarUrlValid: true,
+    validatedAvatarUrl: Number(avatarUrl),
   };
 };
