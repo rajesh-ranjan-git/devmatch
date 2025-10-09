@@ -3,6 +3,8 @@ import {
   status,
   actionProperties,
   successMessages,
+  connectionProperties,
+  userProperties,
 } from "../config/config.js";
 import {
   ConnectionError,
@@ -43,7 +45,15 @@ export const request = async (req, res) => {
         { senderId: id, receiverId: receiverId },
         { senderId: receiverId, receiverId: id },
       ],
-    });
+    })
+      .populate({
+        path: connectionProperties.SENDER_ID,
+        select: userProperties.EMAIL,
+      })
+      .populate({
+        path: connectionProperties.RECEIVER_ID,
+        select: userProperties.EMAIL,
+      });
 
     if (connection) {
       if (connection?.action === actionProperties.BLOCKED) {
@@ -82,6 +92,18 @@ export const request = async (req, res) => {
           );
         }
       }
+    }
+
+    if (!connection?.senderId?.email || !connection?.receiverId?.email) {
+      throw new DatabaseError(
+        status.badRequest,
+        errorMessages.USER_NOT_EXIST_ERROR,
+        {
+          sender: connection?.senderId?.email,
+          receiver: connection?.receiverId?.email,
+        },
+        req?.url
+      );
     }
 
     const newConnection = await Connection.create({
@@ -152,13 +174,33 @@ export const review = async (req, res) => {
     const connection = await Connection.findOne({
       senderId: senderId,
       receiverId: id,
-    });
+    })
+      .populate({
+        path: connectionProperties.SENDER_ID,
+        select: userProperties.EMAIL,
+      })
+      .populate({
+        path: connectionProperties.RECEIVER_ID,
+        select: userProperties.EMAIL,
+      });
 
     if (!connection) {
       throw new ConnectionError(
         status.badRequest,
         errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
         { connection: connection },
+        req?.url
+      );
+    }
+
+    if (!connection?.senderId?.email || !connection?.receiverId?.email) {
+      throw new DatabaseError(
+        status.badRequest,
+        errorMessages.USER_NOT_EXIST_ERROR,
+        {
+          sender: connection?.senderId?.email,
+          receiver: connection?.receiverId?.email,
+        },
         req?.url
       );
     }

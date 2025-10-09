@@ -292,6 +292,14 @@ export const propertyConstraints = {
   PIN_CODE_LENGTH: 6,
 };
 
+export const connectionProperties = {
+  SENDER_ID: "senderId",
+  RECEIVER_ID: "receiverId",
+  ACTION: "action",
+  REJECTED_COUNT: "rejectedCount",
+  REJECTED_BY_RECEIVER_COUNT: "rejectedByReceiverCount",
+};
+
 export const actionProperties = {
   PENDING: "pending",
   ACCEPTED: "accepted",
