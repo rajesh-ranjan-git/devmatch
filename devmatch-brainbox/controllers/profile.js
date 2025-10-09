@@ -23,7 +23,7 @@ export const view = async (req, res) => {
     if (params?.id && !isValidMongoDbObjectId(params?.id)) {
       throw new DatabaseError(
         status.forbidden,
-        errorMessages.INVALID_USER_ID_FORMAT,
+        errorMessages.INVALID_USER_ID_FORMAT_ERROR,
         { id: params?.id },
         req?.url
       );

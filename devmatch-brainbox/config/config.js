@@ -54,6 +54,7 @@ export const errorTypes = {
   JWT_ERROR: "JWT_ERROR",
   AUTHENTICATION_ERROR: "AUTHENTICATION_ERROR",
   FORBIDDEN_ERROR: "FORBIDDEN_ERROR",
+  CONNECTION_ERROR: "CONNECTION_ERROR",
 };
 
 export const errorMessages = {
@@ -66,7 +67,7 @@ export const errorMessages = {
   OLD_PASSWORD_REQUIRED_ERROR: "Old Password is required!",
   NEW_PASSWORD_REQUIRED_ERROR: "New Password is required!",
   CONFIRM_PASSWORD_REQUIRED_ERROR: "Confirm password is required!",
-  INVALID_USER_ID_FORMAT: "Invalid user id format!",
+  INVALID_USER_ID_FORMAT_ERROR: "Invalid user id format!",
   INVALID_FIRST_NAME_ERROR:
     "First name must only contain alphabets (a-z or A-Z)!",
   INVALID_MIDDLE_NAME_ERROR:
@@ -174,6 +175,14 @@ export const errorMessages = {
   COUNTRY_MAX_LENGTH_ERROR: "Country must not be longer than 100 characters!",
   INVALID_COUNTRY_CODE_ERROR: "Invalid country code!",
   INVALID_PIN_CODE_ERROR: "Invalid pin code!",
+  INVALID_ACTION_ERROR: "Invalid action!",
+  BLOCKED_ERROR: "Forbidden connection request!",
+  PENDING_CONNECTION_ON_USER_ERROR:
+    "Connection request is already in pending state!",
+  PENDING_CONNECTION_FROM_USER_ERROR: "Connection request is already sent!",
+  CONNECTED_USER_ERROR: "Already connected!",
+  CONNECTION_REQUEST_FAILED_ERROR: "Unable to send connection request!",
+  INVALID_CONNECTION_REQUEST_ERROR: "Invalid connection request!",
 };
 
 export const successMessages = {
@@ -184,6 +193,8 @@ export const successMessages = {
   PASSWORD_UPDATE_SUCCESS: "Password update successful!",
   FETCH_PROFILE_SUCCESS: "Profile fetch successful!",
   USER_UPDATE_SUCCESS: "User update success!",
+  CONNECTION_REQUEST_SUCCESS: "Connection request sent!",
+  CONNECTION_REVIEW_SUCCESS: "Responded to connection request!",
 };
 
 export const jwtKnownErrors = {
@@ -279,4 +290,12 @@ export const propertyConstraints = {
   MAX_STRING_LENGTH: 100,
   PHONE_LENGTH: 10,
   PIN_CODE_LENGTH: 6,
+};
+
+export const actionProperties = {
+  PENDING: "pending",
+  ACCEPTED: "accepted",
+  IGNORED: "ignored",
+  REJECTED: "rejected",
+  BLOCKED: "blocked",
 };

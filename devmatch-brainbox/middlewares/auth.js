@@ -22,7 +22,7 @@ const auth = async (req, res, next) => {
     if (!isValidMongoDbObjectId(decodedUserId)) {
       throw new DatabaseError(
         status.internalServerError,
-        errorMessages.INVALID_USER_ID_FORMAT,
+        errorMessages.INVALID_USER_ID_FORMAT_ERROR,
         { id: decodedUserId },
         req?.url
       );

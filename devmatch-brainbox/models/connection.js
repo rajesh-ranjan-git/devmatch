@@ -12,12 +12,24 @@ const connectionSchema = mongoose.Schema({
     required: true,
     ref: User,
   },
-  status: {
+  action: {
     type: String,
-    enum: ["pending", "accept", "reject", "blocked"],
+    enum: ["pending", "accepted", "ignored", "rejected", "blocked"],
     required: true,
     default: "pending",
     set: (val) => (typeof val === "string" ? val.trim().toLowerCase() : val),
+  },
+  rejectedCount: {
+    type: Number,
+    required: true,
+    default: 0,
+    max: 5,
+  },
+  rejectedByReceiverCount: {
+    type: Number,
+    required: true,
+    default: 0,
+    max: 5,
   },
 });
 
