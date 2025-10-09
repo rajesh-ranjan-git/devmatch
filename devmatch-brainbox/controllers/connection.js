@@ -20,6 +20,15 @@ export const request = async (req, res) => {
     const { id } = await req?.data;
     const { action, id: receiverId } = await req?.params;
 
+    if (id === receiverId) {
+      throw new ConnectionError(
+        status.badRequest,
+        errorMessages.SELF_CONNECTION_ERROR,
+        { sender: id, receiver: receiverId },
+        req?.url
+      );
+    }
+
     if (receiverId && !isValidMongoDbObjectId(receiverId)) {
       throw new ValidationError(
         status.badRequest,
@@ -150,6 +159,15 @@ export const review = async (req, res) => {
   try {
     const { id } = await req?.data;
     const { action, id: senderId } = await req?.params;
+
+    if (id === senderId) {
+      throw new ConnectionError(
+        status.badRequest,
+        errorMessages.SELF_CONNECTION_ERROR,
+        { sender: senderId, receiver: id },
+        req?.url
+      );
+    }
 
     if (senderId && !isValidMongoDbObjectId(senderId)) {
       throw new DatabaseError(

@@ -175,6 +175,7 @@ export const errorMessages = {
   COUNTRY_MAX_LENGTH_ERROR: "Country must not be longer than 100 characters!",
   INVALID_COUNTRY_CODE_ERROR: "Invalid country code!",
   INVALID_PIN_CODE_ERROR: "Invalid pin code!",
+  SELF_CONNECTION_ERROR: "Sender and receiver must be different!",
   INVALID_ACTION_ERROR: "Invalid action!",
   BLOCKED_ERROR: "Forbidden connection request!",
   PENDING_CONNECTION_ON_USER_ERROR:
