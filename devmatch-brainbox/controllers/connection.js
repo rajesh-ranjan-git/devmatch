@@ -22,7 +22,7 @@ export const connect = async (req, res) => {
     const { status: connectionStatus, id: otherUserId } = await req?.params;
 
     if (userId === otherUserId) {
-      throw new ConnectionError(
+      throw new ValidationError(
         status.badRequest,
         errorMessages.SELF_CONNECTION_ERROR,
         { loggedInUserId: userId, otherUserId },
@@ -54,7 +54,7 @@ export const connect = async (req, res) => {
       validateConnectionStatus(connectionStatus);
 
     if (!validatedConnectionStatus) {
-      throw new ConnectionError(
+      throw new ValidationError(
         status.badRequest,
         errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
         { status: connectionStatus },
@@ -434,7 +434,7 @@ export const connect = async (req, res) => {
         );
 
     if (!connection) {
-      throw new ConnectionError(
+      throw new DatabaseError(
         status.internalServerError,
         errorMessages.CONNECTION_REQUEST_FAILED_ERROR,
         { connection },
