@@ -108,7 +108,8 @@ export const connect = async (req, res) => {
         }
 
         connectionToUpdate = {
-          ...existingConnection,
+          senderId: existingConnection?.senderId?.id,
+          receiverId: existingConnection?.receiverId?.id,
           connectionStatus: validatedConnectionStatus,
           rejectedBySenderCount: 0,
           rejectedByReceiverCount: 0,
@@ -123,6 +124,7 @@ export const connect = async (req, res) => {
             connectionStatus: validatedConnectionStatus,
             ...connectionToCreate,
           };
+
           break;
         }
 
@@ -140,7 +142,7 @@ export const connect = async (req, res) => {
 
         if (
           existingConnection?.connectionStatus === "interested" &&
-          existingConnection?.lastActionedBy === userId
+          existingConnection?.lastActionedBy?.toString() === userId
         ) {
           throw new ConnectionError(
             status.forbidden,
@@ -155,7 +157,7 @@ export const connect = async (req, res) => {
 
         if (
           existingConnection?.connectionStatus === "blocked" &&
-          existingConnection?.lastActionedBy !== userId
+          existingConnection?.lastActionedBy?.toString() !== userId
         ) {
           throw new ConnectionError(
             status.forbidden,
@@ -169,7 +171,8 @@ export const connect = async (req, res) => {
         }
 
         connectionToUpdate = {
-          ...existingConnection,
+          senderId: existingConnection?.senderId?.id,
+          receiverId: existingConnection?.receiverId?.id,
           connectionStatus: validatedConnectionStatus,
           ...connectionToUpdate,
         };
@@ -190,7 +193,7 @@ export const connect = async (req, res) => {
 
         if (
           existingConnection?.connectionStatus !== "interested" &&
-          existingConnection?.lastActionedBy !== id
+          existingConnection?.lastActionedBy?.toString() !== userId
         ) {
           throw new ConnectionError(
             status.badRequest,
@@ -204,7 +207,8 @@ export const connect = async (req, res) => {
         }
 
         connectionToUpdate = {
-          ...existingConnection,
+          senderId: existingConnection?.senderId?.id,
+          receiverId: existingConnection?.receiverId?.id,
           connectionStatus: validatedConnectionStatus,
           ...connectionToUpdate,
         };
@@ -239,7 +243,7 @@ export const connect = async (req, res) => {
 
         if (
           existingConnection?.connectionStatus === "interested" &&
-          existingConnection?.lastActionedBy === id
+          existingConnection?.lastActionedBy?.toString() === userId
         ) {
           throw new ConnectionError(
             status.badRequest,
@@ -273,7 +277,8 @@ export const connect = async (req, res) => {
         }
 
         connectionToUpdate = {
-          ...existingConnection,
+          senderId: existingConnection?.senderId?.id,
+          receiverId: existingConnection?.receiverId?.id,
           connectionStatus: validatedConnectionStatus,
           rejectedBySenderCount,
           rejectedByReceiverCount,
@@ -318,7 +323,8 @@ export const connect = async (req, res) => {
         }
 
         connectionToUpdate = {
-          ...existingConnection,
+          senderId: existingConnection?.senderId?.id,
+          receiverId: existingConnection?.receiverId?.id,
           connectionStatus: validatedConnectionStatus,
           ...connectionToUpdate,
         };
@@ -334,9 +340,11 @@ export const connect = async (req, res) => {
       connectionToUpdate
     );
 
-    const connection = connectionToCreate
+    const connection = connectionToCreate?.senderId
       ? await Connection.create(connectionToCreate)
       : "Nothing to show yet!";
+
+    console.log("debug from connection controller connection : ", connection);
 
     if (!connection) {
       throw new ConnectionError(

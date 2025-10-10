@@ -285,7 +285,7 @@ export const connectionProperties = {
 
 export const connectionStatusProperties = {
   INTERESTED: "interested",
-  NOT_INTERESTED: "notInterested",
+  NOT_INTERESTED: "not-interested",
   ACCEPTED: "accepted",
   REJECTED: "rejected",
   BLOCKED: "blocked",

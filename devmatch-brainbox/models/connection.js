@@ -15,7 +15,7 @@ const connectionSchema = mongoose.Schema(
     },
     connectionStatus: {
       type: String,
-      enum: ["interested", "notInterested", "accepted", "rejected", "blocked"],
+      enum: ["interested", "not-interested", "accepted", "rejected", "blocked"],
       required: true,
       default: "interested",
       set: (val) => (typeof val === "string" ? val.trim().toLowerCase() : val),

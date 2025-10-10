@@ -501,7 +501,7 @@ export const validateConnectionStatus = (connectionStatus) => {
   if (
     typeof connectionStatus !== "string" ||
     !Object.values(connectionStatusProperties).includes(
-      connectionStatus?.trim()
+      connectionStatus?.trim().toLowerCase()
     )
   ) {
     throw new ValidationError(
@@ -511,5 +511,5 @@ export const validateConnectionStatus = (connectionStatus) => {
     );
   }
 
-  return connectionStatus?.trim();
+  return connectionStatus?.trim().toLowerCase();
 };
