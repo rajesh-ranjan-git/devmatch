@@ -205,7 +205,7 @@ export const connect = async (req, res) => {
 
         if (
           existingConnection?.connectionStatus !== "interested" &&
-          existingConnection?.lastActionedBy?.toString() !== userId
+          existingConnection?.lastActionedBy?.toString() === userId
         ) {
           throw new ConnectionError(
             status.badRequest,
@@ -337,15 +337,6 @@ export const connect = async (req, res) => {
         break;
     }
 
-    console.log(
-      "debug from connection controller connectionToCreate : ",
-      connectionToCreate
-    );
-    console.log(
-      "debug from connection controller connectionToUpdate : ",
-      connectionToUpdate
-    );
-
     const connection = connectionToCreate?.senderId
       ? await Connection.create(connectionToCreate)
       : await Connection.findOneAndUpdate(
@@ -358,8 +349,6 @@ export const connect = async (req, res) => {
           { $set: connectionToUpdate },
           { new: true, upsert: false }
         );
-
-    console.log("debug from connection controller connection : ", connection);
 
     if (!connection) {
       throw new ConnectionError(
