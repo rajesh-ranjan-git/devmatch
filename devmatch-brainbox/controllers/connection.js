@@ -104,8 +104,8 @@ export const connect = async (req, res) => {
             {
               status: validatedConnectionStatus,
               existingConnection: {
-                senderId: existingConnection?.senderId?.toString(),
-                receiverId: existingConnection?.receiverId?.toString(),
+                senderId: existingConnection?.senderId?.id?.toString(),
+                receiverId: existingConnection?.receiverId?.id?.toString(),
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
@@ -125,8 +125,8 @@ export const connect = async (req, res) => {
             {
               status: validatedConnectionStatus,
               existingConnection: {
-                senderId: existingConnection?.senderId?.toString(),
-                receiverId: existingConnection?.receiverId?.toString(),
+                senderId: existingConnection?.senderId?.id?.toString(),
+                receiverId: existingConnection?.receiverId?.id?.toString(),
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
@@ -136,11 +136,18 @@ export const connect = async (req, res) => {
 
         connectionToUpdate = {
           connectionStatus: validatedConnectionStatus,
-          rejectedBySenderCount: 0,
-          rejectedByReceiverCount: 0,
+          rejectedBySenderCount:
+            existingConnection?.senderId?.id?.toString() === userId
+              ? 0
+              : existingConnection?.rejectedBySenderCount,
+          rejectedByReceiverCount:
+            existingConnection?.receiverId?.id?.toString() === userId
+              ? 0
+              : existingConnection?.rejectedByReceiverCount,
           ...connectionToUpdate,
         };
         break;
+
       case connectionStatusProperties.NOT_INTERESTED:
         if (!existingConnection) {
           connectionToCreate = {
@@ -163,8 +170,8 @@ export const connect = async (req, res) => {
             {
               status: validatedConnectionStatus,
               existingConnection: {
-                senderId: existingConnection?.senderId?.toString(),
-                receiverId: existingConnection?.receiverId?.toString(),
+                senderId: existingConnection?.senderId?.id?.toString(),
+                receiverId: existingConnection?.receiverId?.id?.toString(),
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
@@ -183,8 +190,8 @@ export const connect = async (req, res) => {
             {
               status: validatedConnectionStatus,
               existingConnection: {
-                senderId: existingConnection?.senderId?.toString(),
-                receiverId: existingConnection?.receiverId?.toString(),
+                senderId: existingConnection?.senderId?.id?.toString(),
+                receiverId: existingConnection?.receiverId?.id?.toString(),
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
@@ -203,8 +210,8 @@ export const connect = async (req, res) => {
             {
               status: validatedConnectionStatus,
               existingConnection: {
-                senderId: existingConnection?.senderId?.toString(),
-                receiverId: existingConnection?.receiverId?.toString(),
+                senderId: existingConnection?.senderId?.id?.toString(),
+                receiverId: existingConnection?.receiverId?.id?.toString(),
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
@@ -226,8 +233,8 @@ export const connect = async (req, res) => {
             {
               status: validatedConnectionStatus,
               existingConnection: {
-                senderId: existingConnection?.senderId?.toString(),
-                receiverId: existingConnection?.receiverId?.toString(),
+                senderId: existingConnection?.senderId?.id?.toString(),
+                receiverId: existingConnection?.receiverId?.id?.toString(),
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
@@ -246,8 +253,8 @@ export const connect = async (req, res) => {
             {
               status: validatedConnectionStatus,
               existingConnection: {
-                senderId: existingConnection?.senderId?.toString(),
-                receiverId: existingConnection?.receiverId?.toString(),
+                senderId: existingConnection?.senderId?.id?.toString(),
+                receiverId: existingConnection?.receiverId?.id?.toString(),
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
@@ -260,6 +267,7 @@ export const connect = async (req, res) => {
           ...connectionToUpdate,
         };
         break;
+
       case connectionStatusProperties.REJECTED:
         if (!existingConnection) {
           throw new ConnectionError(
@@ -268,8 +276,8 @@ export const connect = async (req, res) => {
             {
               status: validatedConnectionStatus,
               existingConnection: {
-                senderId: existingConnection?.senderId?.toString(),
-                receiverId: existingConnection?.receiverId?.toString(),
+                senderId: existingConnection?.senderId?.id?.toString(),
+                receiverId: existingConnection?.receiverId?.id?.toString(),
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
@@ -289,8 +297,8 @@ export const connect = async (req, res) => {
             {
               status: validatedConnectionStatus,
               existingConnection: {
-                senderId: existingConnection?.senderId?.toString(),
-                receiverId: existingConnection?.receiverId?.toString(),
+                senderId: existingConnection?.senderId?.id?.toString(),
+                receiverId: existingConnection?.receiverId?.id?.toString(),
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
@@ -309,8 +317,8 @@ export const connect = async (req, res) => {
             {
               status: validatedConnectionStatus,
               existingConnection: {
-                senderId: existingConnection?.senderId?.toString(),
-                receiverId: existingConnection?.receiverId?.toString(),
+                senderId: existingConnection?.senderId?.id?.toString(),
+                receiverId: existingConnection?.receiverId?.id?.toString(),
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
@@ -320,12 +328,13 @@ export const connect = async (req, res) => {
 
         let rejectedBySenderCount = 0;
         let rejectedByReceiverCount = 0;
+        let newConnectionStatus = connectionStatusProperties.REJECTED;
 
         if (existingConnection?.senderId?.id === userId) {
           rejectedBySenderCount = existingConnection?.rejectedBySenderCount + 1;
 
           if (rejectedBySenderCount >= 5) {
-            validatedConnectionStatus = connectionStatusProperties.BLOCKED;
+            newConnectionStatus = connectionStatusProperties.BLOCKED;
             rejectedBySenderCount = 0;
           }
         } else if (existingConnection?.receiverId?.id === userId) {
@@ -333,18 +342,19 @@ export const connect = async (req, res) => {
             existingConnection?.rejectedByReceiverCount + 1;
 
           if (rejectedByReceiverCount >= 5) {
-            validatedConnectionStatus = connectionStatusProperties.BLOCKED;
+            newConnectionStatus = connectionStatusProperties.BLOCKED;
             rejectedByReceiverCount = 0;
           }
         }
 
         connectionToUpdate = {
-          connectionStatus: validatedConnectionStatus,
+          connectionStatus: newConnectionStatus,
           rejectedBySenderCount,
           rejectedByReceiverCount,
           ...connectionToUpdate,
         };
         break;
+
       case connectionStatusProperties.BLOCKED:
         if (!existingConnection) {
           throw new ConnectionError(
@@ -353,8 +363,8 @@ export const connect = async (req, res) => {
             {
               status: validatedConnectionStatus,
               existingConnection: {
-                senderId: existingConnection?.senderId?.toString(),
-                receiverId: existingConnection?.receiverId?.toString(),
+                senderId: existingConnection?.senderId?.id?.toString(),
+                receiverId: existingConnection?.receiverId?.id?.toString(),
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
@@ -374,8 +384,8 @@ export const connect = async (req, res) => {
             {
               status: validatedConnectionStatus,
               existingConnection: {
-                senderId: existingConnection?.senderId?.toString(),
-                receiverId: existingConnection?.receiverId?.toString(),
+                senderId: existingConnection?.senderId?.id?.toString(),
+                receiverId: existingConnection?.receiverId?.id?.toString(),
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
@@ -394,8 +404,8 @@ export const connect = async (req, res) => {
             {
               status: validatedConnectionStatus,
               existingConnection: {
-                senderId: existingConnection?.senderId?.toString(),
-                receiverId: existingConnection?.receiverId?.toString(),
+                senderId: existingConnection?.senderId?.id?.toString(),
+                receiverId: existingConnection?.receiverId?.id?.toString(),
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
