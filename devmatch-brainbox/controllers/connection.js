@@ -93,7 +93,7 @@ export const connect = async (req, res) => {
         }
 
         if (
-          existingConnection?.connectionStatus !== "notInterested" &&
+          existingConnection?.connectionStatus !== "not-interested" &&
           existingConnection?.connectionStatus !== "rejected"
         ) {
           throw new ConnectionError(
@@ -124,8 +124,6 @@ export const connect = async (req, res) => {
         }
 
         connectionToUpdate = {
-          senderId: existingConnection?.senderId?.id,
-          receiverId: existingConnection?.receiverId?.id,
           connectionStatus: validatedConnectionStatus,
           rejectedBySenderCount: 0,
           rejectedByReceiverCount: 0,
@@ -187,8 +185,6 @@ export const connect = async (req, res) => {
         }
 
         connectionToUpdate = {
-          senderId: existingConnection?.senderId?.id,
-          receiverId: existingConnection?.receiverId?.id,
           connectionStatus: validatedConnectionStatus,
           ...connectionToUpdate,
         };
@@ -223,8 +219,6 @@ export const connect = async (req, res) => {
         }
 
         connectionToUpdate = {
-          senderId: existingConnection?.senderId?.id,
-          receiverId: existingConnection?.receiverId?.id,
           connectionStatus: validatedConnectionStatus,
           ...connectionToUpdate,
         };
@@ -275,14 +269,14 @@ export const connect = async (req, res) => {
         let rejectedBySenderCount = 0;
         let rejectedByReceiverCount = 0;
 
-        if (existingConnection?.senderId === userId) {
+        if (existingConnection?.senderId?.id === userId) {
           rejectedBySenderCount = existingConnection?.rejectedBySenderCount + 1;
 
           if (rejectedBySenderCount >= 5) {
             validatedConnectionStatus = "blocked";
             rejectedBySenderCount = 0;
           }
-        } else if (existingConnection?.receiverId === userId) {
+        } else if (existingConnection?.receiverId?.id === userId) {
           rejectedByReceiverCount =
             existingConnection?.rejectedByReceiverCount + 1;
 
@@ -293,8 +287,6 @@ export const connect = async (req, res) => {
         }
 
         connectionToUpdate = {
-          senderId: existingConnection?.senderId?.id,
-          receiverId: existingConnection?.receiverId?.id,
           connectionStatus: validatedConnectionStatus,
           rejectedBySenderCount,
           rejectedByReceiverCount,
@@ -339,8 +331,6 @@ export const connect = async (req, res) => {
         }
 
         connectionToUpdate = {
-          senderId: existingConnection?.senderId?.id,
-          receiverId: existingConnection?.receiverId?.id,
           connectionStatus: validatedConnectionStatus,
           ...connectionToUpdate,
         };
@@ -358,7 +348,16 @@ export const connect = async (req, res) => {
 
     const connection = connectionToCreate?.senderId
       ? await Connection.create(connectionToCreate)
-      : "Nothing to show yet!";
+      : await Connection.findOneAndUpdate(
+          {
+            $or: [
+              { senderId: userId, receiverId: otherUserId },
+              { senderId: otherUserId, receiverId: userId },
+            ],
+          },
+          { $set: connectionToUpdate },
+          { new: true, upsert: false }
+        );
 
     console.log("debug from connection controller connection : ", connection);
 
