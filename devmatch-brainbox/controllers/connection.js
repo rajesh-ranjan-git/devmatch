@@ -93,8 +93,10 @@ export const connect = async (req, res) => {
         }
 
         if (
-          existingConnection?.connectionStatus !== "not-interested" &&
-          existingConnection?.connectionStatus !== "rejected"
+          existingConnection?.connectionStatus !==
+            connectionStatusProperties.NOT_INTERESTED &&
+          existingConnection?.connectionStatus !==
+            connectionStatusProperties.REJECTED
         ) {
           throw new ConnectionError(
             status.forbidden,
@@ -108,7 +110,8 @@ export const connect = async (req, res) => {
         }
 
         if (
-          existingConnection?.connectionStatus === "rejected" &&
+          existingConnection?.connectionStatus ===
+            connectionStatusProperties.REJECTED &&
           (existingConnection?.rejectedBySenderCount >= 5 ||
             existingConnection?.rejectedByReceiverCount >= 5)
         ) {
@@ -142,7 +145,10 @@ export const connect = async (req, res) => {
           break;
         }
 
-        if (existingConnection?.connectionStatus === "accepted") {
+        if (
+          existingConnection?.connectionStatus ===
+          connectionStatusProperties.ACCEPTED
+        ) {
           throw new ConnectionError(
             status.forbidden,
             errorMessages.INVALID_CONNECTION_STATUS_ERROR,
@@ -155,7 +161,8 @@ export const connect = async (req, res) => {
         }
 
         if (
-          existingConnection?.connectionStatus === "interested" &&
+          existingConnection?.connectionStatus ===
+            connectionStatusProperties.INTERESTED &&
           existingConnection?.lastActionedBy?.toString() === userId
         ) {
           throw new ConnectionError(
@@ -170,7 +177,8 @@ export const connect = async (req, res) => {
         }
 
         if (
-          existingConnection?.connectionStatus === "blocked" &&
+          existingConnection?.connectionStatus ===
+            connectionStatusProperties.BLOCKED &&
           existingConnection?.lastActionedBy?.toString() !== userId
         ) {
           throw new ConnectionError(
@@ -204,7 +212,8 @@ export const connect = async (req, res) => {
         }
 
         if (
-          existingConnection?.connectionStatus !== "interested" ||
+          existingConnection?.connectionStatus !==
+            connectionStatusProperties.INTERESTED ||
           existingConnection?.lastActionedBy?.toString() === userId
         ) {
           throw new ConnectionError(
@@ -237,8 +246,10 @@ export const connect = async (req, res) => {
         }
 
         if (
-          existingConnection?.connectionStatus !== "interested" &&
-          existingConnection?.connectionStatus !== "accepted"
+          existingConnection?.connectionStatus !==
+            connectionStatusProperties.INTERESTED &&
+          existingConnection?.connectionStatus !==
+            connectionStatusProperties.ACCEPTED
         ) {
           throw new ConnectionError(
             status.badRequest,
@@ -252,7 +263,8 @@ export const connect = async (req, res) => {
         }
 
         if (
-          existingConnection?.connectionStatus === "interested" &&
+          existingConnection?.connectionStatus ===
+            connectionStatusProperties.INTERESTED &&
           existingConnection?.lastActionedBy?.toString() === userId
         ) {
           throw new ConnectionError(
@@ -273,7 +285,7 @@ export const connect = async (req, res) => {
           rejectedBySenderCount = existingConnection?.rejectedBySenderCount + 1;
 
           if (rejectedBySenderCount >= 5) {
-            validatedConnectionStatus = "blocked";
+            validatedConnectionStatus = connectionStatusProperties.BLOCKED;
             rejectedBySenderCount = 0;
           }
         } else if (existingConnection?.receiverId?.id === userId) {
@@ -281,7 +293,7 @@ export const connect = async (req, res) => {
             existingConnection?.rejectedByReceiverCount + 1;
 
           if (rejectedByReceiverCount >= 5) {
-            validatedConnectionStatus = "blocked";
+            validatedConnectionStatus = connectionStatusProperties.BLOCKED;
             rejectedByReceiverCount = 0;
           }
         }
@@ -307,8 +319,10 @@ export const connect = async (req, res) => {
         }
 
         if (
-          existingConnection?.connectionStatus !== "accepted" &&
-          existingConnection?.connectionStatus !== "interested"
+          existingConnection?.connectionStatus !==
+            connectionStatusProperties.ACCEPTED &&
+          existingConnection?.connectionStatus !==
+            connectionStatusProperties.INTERESTED
         ) {
           throw new ConnectionError(
             status.badRequest,
@@ -322,7 +336,8 @@ export const connect = async (req, res) => {
         }
 
         if (
-          existingConnection?.connectionStatus === "interested" &&
+          existingConnection?.connectionStatus ===
+            connectionStatusProperties.INTERESTED &&
           existingConnection?.lastActionedBy?.toString() === userId
         ) {
           throw new ConnectionError(
