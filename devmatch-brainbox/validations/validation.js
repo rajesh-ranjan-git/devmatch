@@ -199,8 +199,6 @@ export const regexPropertiesValidator = (property, regex, error) => {
     };
   }
 
-  console.log("debug from validations typeof property : ", typeof property);
-
   return {
     isPropertyValid: true,
     validatedProperty: property,
@@ -512,4 +510,28 @@ export const validateConnectionStatus = (connectionStatus) => {
   }
 
   return connectionStatus?.trim().toLowerCase();
+};
+
+export const pageValidator = (page) => {
+  if (page && isNaN(Number(page))) {
+    throw new ValidationError(
+      status.badRequest,
+      errorMessages.INVALID_PAGE_ERROR,
+      { page }
+    );
+  }
+
+  return Number(page);
+};
+
+export const limitValidator = (limit) => {
+  if (limit && isNaN(Number(limit))) {
+    throw new ValidationError(
+      status.badRequest,
+      errorMessages.INVALID_LIMIT_ERROR,
+      { limit }
+    );
+  }
+
+  return Number(limit);
 };

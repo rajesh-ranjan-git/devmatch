@@ -14,7 +14,11 @@ import {
 import Connection from "../models/connection.js";
 import User from "../models/user.js";
 import { isValidMongoDbObjectId } from "../utils/authUtils.js";
-import { validateConnectionStatus } from "../validations/validation.js";
+import {
+  limitValidator,
+  pageValidator,
+  validateConnectionStatus,
+} from "../validations/validation.js";
 
 export const connect = async (req, res) => {
   try {
@@ -447,6 +451,95 @@ export const connect = async (req, res) => {
       statusCode: status.success.statusCode,
       data: { connection },
       message: successMessages.CONNECTION_REQUEST_SUCCESS,
+    });
+  } catch (error) {
+    return res
+      .status(
+        error?.status?.statusCode || status.internalServerError.statusCode
+      )
+      .json({
+        status: error?.status?.message || status.internalServerError.message,
+        statusCode:
+          error?.status?.statusCode || status.internalServerError.statusCode,
+        apiUrl: error?.apiUrl || req?.url,
+        error: {
+          type: error?.type,
+          message: error?.message,
+          data: error?.data,
+        },
+      });
+  }
+};
+
+export const view = async (req, res) => {
+  try {
+    const { id } = await req?.data;
+    const { page, limit } = await req?.query;
+
+    const validatedPage = pageValidator(page);
+
+    const validatedLimit = limitValidator(limit);
+
+    const connections = await Connection.find({
+      $and: [
+        { senderId: { $ne: id } },
+        { receiverId: id },
+        { connectionStatus: connectionStatusProperties.INTERESTED },
+      ],
+    })
+      .select([
+        connectionProperties.SENDER_ID,
+        connectionProperties.RECEIVER_ID,
+        connectionProperties.CONNECTION_STATUS,
+        connectionProperties.UPDATED_AT,
+      ])
+      .populate({
+        path: connectionProperties.SENDER_ID,
+        select: [
+          userProperties.EMAIL,
+          userProperties.FIRST_NAME,
+          userProperties.MIDDLE_NAME,
+          userProperties.LAST_NAME,
+          userProperties.NICK_NAME,
+          userProperties.AVATAR_URL,
+          userProperties.JOB_PROFILE,
+          userProperties.ORGANIZATION,
+        ],
+      })
+      .limit(validatedLimit || 10)
+      .skip(((validatedPage || 1) - 1) * (validatedLimit || 10));
+
+    if (!connections) {
+      throw new DatabaseError(
+        status.internalServerError,
+        errorMessages.VIEW_CONNECTION_REQUEST_FAILED_ERROR,
+        { connections },
+        req?.url
+      );
+    }
+
+    const totalCount = await Connection.countDocuments({
+      senderId: { $ne: id },
+      receiverId: id,
+      connectionStatus: connectionStatusProperties.INTERESTED,
+    });
+
+    return res.status(status.success.statusCode).json({
+      status: status.success.message,
+      statusCode: status.success.statusCode,
+      data: {
+        connections,
+        pagination: {
+          total: totalCount || "",
+          page: validatedPage || "",
+          limit: validatedLimit || "",
+          totalPages:
+            totalCount && validatedLimit
+              ? Math.ceil(totalCount / validatedLimit)
+              : "",
+        },
+      },
+      message: successMessages.VIEW_CONNECTION_REQUEST_SUCCESS,
     });
   } catch (error) {
     return res

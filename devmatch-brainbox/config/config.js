@@ -179,6 +179,9 @@ export const errorMessages = {
   CONNECTION_REQUEST_FAILED_ERROR: "Unable to send connection request!",
   SELF_CONNECTION_ERROR: "Logged in user and other user must be different!",
   INVALID_CONNECTION_REQUEST_ERROR: "Invalid connection request!",
+  VIEW_CONNECTION_REQUEST_FAILED_ERROR: "Unable to get connections requests!",
+  INVALID_PAGE_ERROR: "Invalid page!",
+  INVALID_LIMIT_ERROR: "Invalid limit!",
 };
 
 export const successMessages = {
@@ -190,7 +193,7 @@ export const successMessages = {
   FETCH_PROFILE_SUCCESS: "Profile fetch successful!",
   USER_UPDATE_SUCCESS: "User update success!",
   CONNECTION_REQUEST_SUCCESS: "Connection request sent!",
-  CONNECTION_REVIEW_SUCCESS: "Responded to connection request!",
+  VIEW_CONNECTION_REQUEST_SUCCESS: "Connection requests fetch successful!",
 };
 
 export const jwtKnownErrors = {
@@ -280,6 +283,8 @@ export const connectionProperties = {
   REJECTED_BY_SENDER_COUNT: "rejectedBySenderCount",
   REJECTED_BY_RECEIVER_COUNT: "rejectedByReceiverCount",
   LAST_ACTIONED_BY: "lastActionedBy",
+  UPDATED_AT: "updatedAt",
+  CREATED_AT: "createdAt",
 };
 
 export const connectionStatusProperties = {

@@ -10,7 +10,7 @@ import {
   status,
   WEBSITE_REGEX,
 } from "../config/config.js";
-import { ConnectionError, ValidationError } from "../errors/CustomError.js";
+import { ValidationError } from "../errors/CustomError.js";
 import {
   nameValidator,
   numberPropertiesValidator,
