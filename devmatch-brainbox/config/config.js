@@ -298,30 +298,16 @@ export const propertyConstraints = {
 export const connectionProperties = {
   SENDER_ID: "senderId",
   RECEIVER_ID: "receiverId",
-  ACTION: "action",
-  REJECTED_COUNT: "rejectedCount",
+  CONNECTION_STATUS: "connectionStatus",
+  REJECTED_BY_SENDER_COUNT: "rejectedBySenderCount",
   REJECTED_BY_RECEIVER_COUNT: "rejectedByReceiverCount",
+  LAST_ACTIONED_BY: "lastActionedBy",
 };
 
-export const actionProperties = {
-  PENDING: "pending",
-  ACCEPTED: "accepted",
-  IGNORED: "ignored",
+export const connectionStatusProperties = {
+  INTERESTED: "interested",
+  NOT_INTERESTED: "notInterested",
+  IGNORED: "accepted",
   REJECTED: "rejected",
   BLOCKED: "blocked",
-};
-
-export const requestActionProperties = omitObjectProperties(actionProperties, [
-  "ACCEPTED",
-  "REJECTED",
-  "BLOCKED",
-]);
-
-export const reviewActionProperties = omitObjectProperties(actionProperties, [
-  "PENDING",
-]);
-
-export const connectionTypes = {
-  REQUEST: "request",
-  REVIEW: "review",
 };

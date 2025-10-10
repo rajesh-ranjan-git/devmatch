@@ -5,7 +5,6 @@ import auth from "../middlewares/auth.js";
 
 const connectionRouter = express.Router();
 
-connectionRouter.post("/request/:action/:id", auth, request);
-connectionRouter.post("/review/:action/:id", auth, review);
+connectionRouter.post("/connect/:status/:id", auth, request);
 
 export default connectionRouter;

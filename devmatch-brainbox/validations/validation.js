@@ -499,21 +499,3 @@ export const addressValidator = (address) => {
 
   return validatedAddress;
 };
-
-export const validateAction = (action, type) => {
-  if (
-    !Object.values(
-      type === connectionTypes.REQUEST
-        ? requestActionProperties
-        : reviewActionProperties
-    ).includes(action?.trim().toLowerCase())
-  ) {
-    throw new ValidationError(
-      status.badRequest,
-      errorMessages.INVALID_ACTION_ERROR,
-      { action }
-    );
-  }
-
-  return action?.trim().toLowerCase();
-};
