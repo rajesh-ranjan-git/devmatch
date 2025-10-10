@@ -11,10 +11,7 @@ import {
   addressProperties,
   PIN_CODE_REGEX,
   COUNTRY_CODE_REGEX,
-  actionProperties,
-  connectionTypes,
-  requestActionProperties,
-  reviewActionProperties,
+  connectionStatusProperties,
 } from "../config/config.js";
 import { errorMessages } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
@@ -498,4 +495,21 @@ export const addressValidator = (address) => {
   }
 
   return validatedAddress;
+};
+
+export const validateConnectionStatus = (connectionStatus) => {
+  if (
+    typeof connectionStatus !== "string" ||
+    !Object.values(connectionStatusProperties).includes(
+      connectionStatus?.trim()
+    )
+  ) {
+    throw new ValidationError(
+      status.badRequest,
+      errorMessages.INVALID_CONNECTION_STATUS_ERROR,
+      { connectionStatus }
+    );
+  }
+
+  return connectionStatus?.trim();
 };

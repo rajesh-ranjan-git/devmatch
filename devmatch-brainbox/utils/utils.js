@@ -1,5 +1,4 @@
 import {
-  actionProperties,
   allowedUpdateProfileProperties,
   AVATAR_URL_REGEX,
   errorMessages,

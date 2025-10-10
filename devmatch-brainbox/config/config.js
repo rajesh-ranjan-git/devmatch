@@ -60,6 +60,7 @@ export const errorTypes = {
 export const errorMessages = {
   DB_CONFIG_ERROR: "Database configuration error!",
   DB_CONNECTION_ERROR: "Database connection failed!",
+  INTERNAL_SERVER_ERROR: "Internal Server Error",
   REQUEST_ERROR: "Invalid request!",
   FIRST_NAME_REQUIRED_ERROR: "First name is required!",
   EMAIL_REQUIRED_ERROR: "Email is required!",
@@ -175,17 +176,10 @@ export const errorMessages = {
   COUNTRY_MAX_LENGTH_ERROR: "Country must not be longer than 100 characters!",
   INVALID_COUNTRY_CODE_ERROR: "Invalid country code!",
   INVALID_PIN_CODE_ERROR: "Invalid pin code!",
-  SELF_CONNECTION_ERROR: "Sender and receiver must be different!",
-  INCONSISTENT_CONNECTION_DATA_ERROR: "Inconsistent connection data error!",
-  INVALID_ACTION_ERROR: "Invalid action!",
-  BLOCKED_ERROR: "Forbidden connection request!",
-  PENDING_CONNECTION_ON_USER_ERROR:
-    "Connection request is already in pending state!",
-  PENDING_CONNECTION_FROM_USER_ERROR: "Connection request is already sent!",
-  CONNECTED_USER_ERROR: "Already connected!",
   CONNECTION_REQUEST_FAILED_ERROR: "Unable to send connection request!",
-  INVALID_CONNECTION_REQUEST_ERROR: "Invalid connection request!",
-  INVALID_CONNECTION_REVIEW_ERROR: "Invalid connection review!",
+  SELF_CONNECTION_ERROR: "Sender and receiver must be different!",
+  INVALID_CONNECTION_STATUS_ERROR: "Invalid connection status!",
+  BLOCKED_ERROR: "Forbidden connection request!",
 };
 
 export const successMessages = {
@@ -280,6 +274,23 @@ export const allowedUpdateProfileProperties = omitObjectProperties(
   ]
 );
 
+export const connectionProperties = {
+  SENDER_ID: "senderId",
+  RECEIVER_ID: "receiverId",
+  CONNECTION_STATUS: "connectionStatus",
+  REJECTED_BY_SENDER_COUNT: "rejectedBySenderCount",
+  REJECTED_BY_RECEIVER_COUNT: "rejectedByReceiverCount",
+  LAST_ACTIONED_BY: "lastActionedBy",
+};
+
+export const connectionStatusProperties = {
+  INTERESTED: "interested",
+  NOT_INTERESTED: "notInterested",
+  ACCEPTED: "accepted",
+  REJECTED: "rejected",
+  BLOCKED: "blocked",
+};
+
 export const propertyConstraints = {
   MIN_NAME_LENGTH: 1,
   MAX_NAME_LENGTH: 100,
@@ -293,21 +304,4 @@ export const propertyConstraints = {
   MAX_STRING_LENGTH: 100,
   PHONE_LENGTH: 10,
   PIN_CODE_LENGTH: 6,
-};
-
-export const connectionProperties = {
-  SENDER_ID: "senderId",
-  RECEIVER_ID: "receiverId",
-  CONNECTION_STATUS: "connectionStatus",
-  REJECTED_BY_SENDER_COUNT: "rejectedBySenderCount",
-  REJECTED_BY_RECEIVER_COUNT: "rejectedByReceiverCount",
-  LAST_ACTIONED_BY: "lastActionedBy",
-};
-
-export const connectionStatusProperties = {
-  INTERESTED: "interested",
-  NOT_INTERESTED: "notInterested",
-  IGNORED: "accepted",
-  REJECTED: "rejected",
-  BLOCKED: "blocked",
 };
