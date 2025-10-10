@@ -25,7 +25,7 @@ export const connect = async (req, res) => {
       throw new ConnectionError(
         status.badRequest,
         errorMessages.SELF_CONNECTION_ERROR,
-        { sender: userId, receiver: otherUserId },
+        { loggedInUserId: userId, otherUserId },
         req?.url
       );
     }
@@ -34,7 +34,7 @@ export const connect = async (req, res) => {
       throw new ValidationError(
         status.forbidden,
         errorMessages.INVALID_USER_ID_FORMAT_ERROR,
-        { id: otherUserId },
+        { otherUserId },
         req?.url
       );
     }
@@ -45,7 +45,7 @@ export const connect = async (req, res) => {
       throw new DatabaseError(
         status.notFound,
         errorMessages.USER_NOT_EXIST_ERROR,
-        { id: otherUserId },
+        { otherUserId },
         req?.url
       );
     }
@@ -103,7 +103,11 @@ export const connect = async (req, res) => {
             errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
-              existingConnectionStatus: existingConnection?.connectionStatus,
+              existingConnection: {
+                senderId: existingConnection?.senderId?.toString(),
+                receiverId: existingConnection?.receiverId?.toString(),
+                connectionStatus: existingConnection?.connectionStatus,
+              },
             },
             req?.url
           );
@@ -120,7 +124,11 @@ export const connect = async (req, res) => {
             errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
-              existingConnectionStatus: existingConnection?.connectionStatus,
+              existingConnection: {
+                senderId: existingConnection?.senderId?.toString(),
+                receiverId: existingConnection?.receiverId?.toString(),
+                connectionStatus: existingConnection?.connectionStatus,
+              },
             },
             req?.url
           );
@@ -154,7 +162,11 @@ export const connect = async (req, res) => {
             errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
-              existingConnectionStatus: existingConnection?.connectionStatus,
+              existingConnection: {
+                senderId: existingConnection?.senderId?.toString(),
+                receiverId: existingConnection?.receiverId?.toString(),
+                connectionStatus: existingConnection?.connectionStatus,
+              },
             },
             req?.url
           );
@@ -170,7 +182,11 @@ export const connect = async (req, res) => {
             errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
-              existingConnectionStatus: existingConnection?.connectionStatus,
+              existingConnection: {
+                senderId: existingConnection?.senderId?.toString(),
+                receiverId: existingConnection?.receiverId?.toString(),
+                connectionStatus: existingConnection?.connectionStatus,
+              },
             },
             req?.url
           );
@@ -186,7 +202,11 @@ export const connect = async (req, res) => {
             errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
-              existingConnectionStatus: existingConnection?.connectionStatus,
+              existingConnection: {
+                senderId: existingConnection?.senderId?.toString(),
+                receiverId: existingConnection?.receiverId?.toString(),
+                connectionStatus: existingConnection?.connectionStatus,
+              },
             },
             req?.url
           );
@@ -205,7 +225,11 @@ export const connect = async (req, res) => {
             errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
-              existingConnectionStatus: existingConnection?.connectionStatus,
+              existingConnection: {
+                senderId: existingConnection?.senderId?.toString(),
+                receiverId: existingConnection?.receiverId?.toString(),
+                connectionStatus: existingConnection?.connectionStatus,
+              },
             },
             req?.url
           );
@@ -221,7 +245,11 @@ export const connect = async (req, res) => {
             errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
-              existingConnectionStatus: existingConnection?.connectionStatus,
+              existingConnection: {
+                senderId: existingConnection?.senderId?.toString(),
+                receiverId: existingConnection?.receiverId?.toString(),
+                connectionStatus: existingConnection?.connectionStatus,
+              },
             },
             req?.url
           );
@@ -239,7 +267,11 @@ export const connect = async (req, res) => {
             errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
-              existingConnectionStatus: existingConnection?.connectionStatus,
+              existingConnection: {
+                senderId: existingConnection?.senderId?.toString(),
+                receiverId: existingConnection?.receiverId?.toString(),
+                connectionStatus: existingConnection?.connectionStatus,
+              },
             },
             req?.url
           );
@@ -256,7 +288,11 @@ export const connect = async (req, res) => {
             errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
-              existingConnectionStatus: existingConnection?.connectionStatus,
+              existingConnection: {
+                senderId: existingConnection?.senderId?.toString(),
+                receiverId: existingConnection?.receiverId?.toString(),
+                connectionStatus: existingConnection?.connectionStatus,
+              },
             },
             req?.url
           );
@@ -272,7 +308,11 @@ export const connect = async (req, res) => {
             errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
-              existingConnectionStatus: existingConnection?.connectionStatus,
+              existingConnection: {
+                senderId: existingConnection?.senderId?.toString(),
+                receiverId: existingConnection?.receiverId?.toString(),
+                connectionStatus: existingConnection?.connectionStatus,
+              },
             },
             req?.url
           );
@@ -312,7 +352,11 @@ export const connect = async (req, res) => {
             errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
-              existingConnectionStatus: existingConnection?.connectionStatus,
+              existingConnection: {
+                senderId: existingConnection?.senderId?.toString(),
+                receiverId: existingConnection?.receiverId?.toString(),
+                connectionStatus: existingConnection?.connectionStatus,
+              },
             },
             req?.url
           );
@@ -329,7 +373,11 @@ export const connect = async (req, res) => {
             errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
-              existingConnectionStatus: existingConnection?.connectionStatus,
+              existingConnection: {
+                senderId: existingConnection?.senderId?.toString(),
+                receiverId: existingConnection?.receiverId?.toString(),
+                connectionStatus: existingConnection?.connectionStatus,
+              },
             },
             req?.url
           );
@@ -345,7 +393,11 @@ export const connect = async (req, res) => {
             errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
-              existingConnectionStatus: existingConnection?.connectionStatus,
+              existingConnection: {
+                senderId: existingConnection?.senderId?.toString(),
+                receiverId: existingConnection?.receiverId?.toString(),
+                connectionStatus: existingConnection?.connectionStatus,
+              },
             },
             req?.url
           );
