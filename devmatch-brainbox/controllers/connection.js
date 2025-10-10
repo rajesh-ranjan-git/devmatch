@@ -203,8 +203,16 @@ export const connect = async (req, res) => {
           );
         }
 
+        console.log("debug validatedConnectionStatus : ", validatedConnectionStatus)
+        console.log("debug existingConnection?.connectionStatus : ", existingConnection?.connectionStatus)
+        console.log("debug existingConnection?.connectionStatus !== 'interested' : ", existingConnection?.connectionStatus !== 'interested')
+        console.log("debug existingConnection?.lastActionedBy : ", existingConnection?.lastActionedBy)
+        console.log("debug existingConnection?.lastActionedBy?.toString() : ", existingConnection?.lastActionedBy?.toString())
+        console.log("debug userId : ", userId)
+        console.log("debug existingConnection?.lastActionedBy?.toString() === userId : ", existingConnection?.lastActionedBy?.toString() === userId)
+
         if (
-          existingConnection?.connectionStatus !== "interested" &&
+          existingConnection?.connectionStatus !== "interested" ||
           existingConnection?.lastActionedBy?.toString() === userId
         ) {
           throw new ConnectionError(
