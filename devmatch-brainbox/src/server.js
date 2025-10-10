@@ -53,8 +53,9 @@ server.get("/", (req, res) => {
 });
 
 server.use((err, req, res, next) => {
-  console.error("Global Error :", err?.message);
-  console.error("Global Error Stack:", err.stack);
+  console.error("Global error :", err);
+  console.error("Global error message :", err?.message);
+  console.error("Global error stack:", err.stack);
 
   const statusCode = err?.statusCode || 500;
 
