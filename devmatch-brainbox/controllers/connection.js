@@ -100,7 +100,7 @@ export const connect = async (req, res) => {
             status.forbidden,
             errorMessages.INVALID_CONNECTION_STATUS_ERROR,
             {
-              status: connectionStatus,
+              status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
             },
             req?.url
@@ -116,7 +116,7 @@ export const connect = async (req, res) => {
             status.forbidden,
             errorMessages.BLOCKED_ERROR,
             {
-              status: connectionStatus,
+              status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
             },
             req?.url
@@ -147,7 +147,7 @@ export const connect = async (req, res) => {
             status.forbidden,
             errorMessages.INVALID_CONNECTION_STATUS_ERROR,
             {
-              status: connectionStatus,
+              status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
             },
             req?.url
@@ -162,7 +162,7 @@ export const connect = async (req, res) => {
             status.forbidden,
             errorMessages.INVALID_CONNECTION_STATUS_ERROR,
             {
-              status: connectionStatus,
+              status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
             },
             req?.url
@@ -177,7 +177,7 @@ export const connect = async (req, res) => {
             status.forbidden,
             errorMessages.BLOCKED_ERROR,
             {
-              status: connectionStatus,
+              status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
             },
             req?.url
@@ -196,20 +196,12 @@ export const connect = async (req, res) => {
             status.badRequest,
             errorMessages.INVALID_CONNECTION_STATUS_ERROR,
             {
-              status: connectionStatus,
+              status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
             },
             req?.url
           );
         }
-
-        console.log("debug validatedConnectionStatus : ", validatedConnectionStatus)
-        console.log("debug existingConnection?.connectionStatus : ", existingConnection?.connectionStatus)
-        console.log("debug existingConnection?.connectionStatus !== 'interested' : ", existingConnection?.connectionStatus !== 'interested')
-        console.log("debug existingConnection?.lastActionedBy : ", existingConnection?.lastActionedBy)
-        console.log("debug existingConnection?.lastActionedBy?.toString() : ", existingConnection?.lastActionedBy?.toString())
-        console.log("debug userId : ", userId)
-        console.log("debug existingConnection?.lastActionedBy?.toString() === userId : ", existingConnection?.lastActionedBy?.toString() === userId)
 
         if (
           existingConnection?.connectionStatus !== "interested" ||
@@ -219,7 +211,7 @@ export const connect = async (req, res) => {
             status.badRequest,
             errorMessages.INVALID_CONNECTION_STATUS_ERROR,
             {
-              status: connectionStatus,
+              status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
             },
             req?.url
@@ -237,7 +229,7 @@ export const connect = async (req, res) => {
             status.badRequest,
             errorMessages.INVALID_CONNECTION_STATUS_ERROR,
             {
-              status: connectionStatus,
+              status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
             },
             req?.url
@@ -252,7 +244,7 @@ export const connect = async (req, res) => {
             status.badRequest,
             errorMessages.INVALID_CONNECTION_STATUS_ERROR,
             {
-              status: connectionStatus,
+              status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
             },
             req?.url
@@ -267,7 +259,7 @@ export const connect = async (req, res) => {
             status.badRequest,
             errorMessages.INVALID_CONNECTION_STATUS_ERROR,
             {
-              status: connectionStatus,
+              status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
             },
             req?.url
@@ -307,31 +299,37 @@ export const connect = async (req, res) => {
             status.badRequest,
             errorMessages.INVALID_CONNECTION_STATUS_ERROR,
             {
-              status: connectionStatus,
+              status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
             },
             req?.url
           );
         }
 
-        if (connectionStatus === "blocked") {
+        if (
+          existingConnection?.connectionStatus !== "accepted" &&
+          existingConnection?.connectionStatus !== "interested"
+        ) {
           throw new ConnectionError(
             status.badRequest,
             errorMessages.INVALID_CONNECTION_STATUS_ERROR,
             {
-              status: connectionStatus,
+              status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
             },
             req?.url
           );
         }
 
-        if (connectionStatus === "interested" && lastActionedBy === id) {
+        if (
+          existingConnection?.connectionStatus === "interested" &&
+          existingConnection?.lastActionedBy?.toString() === userId
+        ) {
           throw new ConnectionError(
             status.badRequest,
             errorMessages.INVALID_CONNECTION_STATUS_ERROR,
             {
-              status: connectionStatus,
+              status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
             },
             req?.url
