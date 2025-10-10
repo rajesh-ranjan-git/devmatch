@@ -6,8 +6,13 @@ import {
   successMessages,
   userProperties,
 } from "../config/config.js";
-import { ConnectionError, ValidationError } from "../errors/CustomError.js";
+import {
+  ConnectionError,
+  DatabaseError,
+  ValidationError,
+} from "../errors/CustomError.js";
 import Connection from "../models/connection.js";
+import User from "../models/user.js";
 import { isValidMongoDbObjectId } from "../utils/authUtils.js";
 import { validateConnectionStatus } from "../validations/validation.js";
 
@@ -29,6 +34,17 @@ export const connect = async (req, res) => {
       throw new ValidationError(
         status.badRequest,
         errorMessages.INVALID_USER_ID_FORMAT_ERROR,
+        { id: otherUserId },
+        req?.url
+      );
+    }
+
+    const existingOtherUser = await User.findById(otherUserId);
+
+    if (!existingOtherUser) {
+      throw new DatabaseError(
+        status.badRequest,
+        errorMessages.USER_NOT_EXIST_ERROR,
         { id: otherUserId },
         req?.url
       );
