@@ -177,9 +177,8 @@ export const errorMessages = {
   INVALID_COUNTRY_CODE_ERROR: "Invalid country code!",
   INVALID_PIN_CODE_ERROR: "Invalid pin code!",
   CONNECTION_REQUEST_FAILED_ERROR: "Unable to send connection request!",
-  SELF_CONNECTION_ERROR: "Sender and receiver must be different!",
-  INVALID_CONNECTION_STATUS_ERROR: "Invalid connection status!",
-  BLOCKED_ERROR: "Forbidden connection request!",
+  SELF_CONNECTION_ERROR: "Logged in user and the other user must be different!",
+  INVALID_CONNECTION_REQUEST_ERROR: "Invalid connection request!",
 };
 
 export const successMessages = {

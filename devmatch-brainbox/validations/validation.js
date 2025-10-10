@@ -506,7 +506,7 @@ export const validateConnectionStatus = (connectionStatus) => {
   ) {
     throw new ValidationError(
       status.badRequest,
-      errorMessages.INVALID_CONNECTION_STATUS_ERROR,
+      errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
       { connectionStatus }
     );
   }

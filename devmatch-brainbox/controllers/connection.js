@@ -32,7 +32,7 @@ export const connect = async (req, res) => {
 
     if (otherUserId && !isValidMongoDbObjectId(otherUserId)) {
       throw new ValidationError(
-        status.badRequest,
+        status.forbidden,
         errorMessages.INVALID_USER_ID_FORMAT_ERROR,
         { id: otherUserId },
         req?.url
@@ -43,7 +43,7 @@ export const connect = async (req, res) => {
 
     if (!existingOtherUser) {
       throw new DatabaseError(
-        status.badRequest,
+        status.notFound,
         errorMessages.USER_NOT_EXIST_ERROR,
         { id: otherUserId },
         req?.url
@@ -56,7 +56,7 @@ export const connect = async (req, res) => {
     if (!validatedConnectionStatus) {
       throw new ConnectionError(
         status.badRequest,
-        errorMessages.INVALID_CONNECTION_STATUS_ERROR,
+        errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
         { status: connectionStatus },
         req?.url
       );
@@ -99,8 +99,8 @@ export const connect = async (req, res) => {
             connectionStatusProperties.REJECTED
         ) {
           throw new ConnectionError(
-            status.forbidden,
-            errorMessages.INVALID_CONNECTION_STATUS_ERROR,
+            status.badRequest,
+            errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
@@ -116,8 +116,8 @@ export const connect = async (req, res) => {
             existingConnection?.rejectedByReceiverCount >= 5)
         ) {
           throw new ConnectionError(
-            status.forbidden,
-            errorMessages.BLOCKED_ERROR,
+            status.badRequest,
+            errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
@@ -150,8 +150,8 @@ export const connect = async (req, res) => {
           connectionStatusProperties.ACCEPTED
         ) {
           throw new ConnectionError(
-            status.forbidden,
-            errorMessages.INVALID_CONNECTION_STATUS_ERROR,
+            status.badRequest,
+            errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
@@ -166,8 +166,8 @@ export const connect = async (req, res) => {
           existingConnection?.lastActionedBy?.toString() === userId
         ) {
           throw new ConnectionError(
-            status.forbidden,
-            errorMessages.INVALID_CONNECTION_STATUS_ERROR,
+            status.badRequest,
+            errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
@@ -182,8 +182,8 @@ export const connect = async (req, res) => {
           existingConnection?.lastActionedBy?.toString() !== userId
         ) {
           throw new ConnectionError(
-            status.forbidden,
-            errorMessages.BLOCKED_ERROR,
+            status.badRequest,
+            errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
@@ -202,7 +202,7 @@ export const connect = async (req, res) => {
         if (!existingConnection) {
           throw new ConnectionError(
             status.badRequest,
-            errorMessages.INVALID_CONNECTION_STATUS_ERROR,
+            errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
@@ -218,7 +218,7 @@ export const connect = async (req, res) => {
         ) {
           throw new ConnectionError(
             status.badRequest,
-            errorMessages.INVALID_CONNECTION_STATUS_ERROR,
+            errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
@@ -236,7 +236,7 @@ export const connect = async (req, res) => {
         if (!existingConnection) {
           throw new ConnectionError(
             status.badRequest,
-            errorMessages.INVALID_CONNECTION_STATUS_ERROR,
+            errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
@@ -253,7 +253,7 @@ export const connect = async (req, res) => {
         ) {
           throw new ConnectionError(
             status.badRequest,
-            errorMessages.INVALID_CONNECTION_STATUS_ERROR,
+            errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
@@ -269,7 +269,7 @@ export const connect = async (req, res) => {
         ) {
           throw new ConnectionError(
             status.badRequest,
-            errorMessages.INVALID_CONNECTION_STATUS_ERROR,
+            errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
@@ -309,7 +309,7 @@ export const connect = async (req, res) => {
         if (!existingConnection) {
           throw new ConnectionError(
             status.badRequest,
-            errorMessages.INVALID_CONNECTION_STATUS_ERROR,
+            errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
@@ -326,7 +326,7 @@ export const connect = async (req, res) => {
         ) {
           throw new ConnectionError(
             status.badRequest,
-            errorMessages.INVALID_CONNECTION_STATUS_ERROR,
+            errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
@@ -342,7 +342,7 @@ export const connect = async (req, res) => {
         ) {
           throw new ConnectionError(
             status.badRequest,
-            errorMessages.INVALID_CONNECTION_STATUS_ERROR,
+            errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
             {
               status: validatedConnectionStatus,
               existingConnectionStatus: existingConnection?.connectionStatus,
