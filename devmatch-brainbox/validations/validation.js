@@ -12,6 +12,9 @@ import {
   PIN_CODE_REGEX,
   COUNTRY_CODE_REGEX,
   actionProperties,
+  connectionTypes,
+  requestActionProperties,
+  reviewActionProperties,
 } from "../config/config.js";
 import { errorMessages } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
@@ -24,7 +27,10 @@ export const requestValidator = (req, res) => {
     });
   }
 
-  if (req?.method === "GET" || req?.params) {
+  if (
+    req?.method === "GET" ||
+    (req?.params && Object.keys(req.params).length > 0)
+  ) {
     return;
   } else {
     const body = requestBodyValidator(req, res);
@@ -494,8 +500,14 @@ export const addressValidator = (address) => {
   return validatedAddress;
 };
 
-export const validateAction = (action) => {
-  if (!Object.values(actionProperties).includes(action?.trim().toLowerCase())) {
+export const validateAction = (action, type) => {
+  if (
+    !Object.values(
+      type === connectionTypes.REQUEST
+        ? requestActionProperties
+        : reviewActionProperties
+    ).includes(action?.trim().toLowerCase())
+  ) {
     throw new ValidationError(
       status.badRequest,
       errorMessages.INVALID_ACTION_ERROR,

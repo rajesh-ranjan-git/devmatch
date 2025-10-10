@@ -1,4 +1,5 @@
 import {
+  actionProperties,
   allowedUpdateProfileProperties,
   AVATAR_URL_REGEX,
   errorMessages,
@@ -10,7 +11,7 @@ import {
   status,
   WEBSITE_REGEX,
 } from "../config/config.js";
-import { ValidationError } from "../errors/CustomError.js";
+import { ConnectionError, ValidationError } from "../errors/CustomError.js";
 import {
   nameValidator,
   numberPropertiesValidator,
@@ -363,4 +364,114 @@ export const validatePropertiesToUpdate = (properties) => {
   }
 
   return validatedProperties;
+};
+
+export const getActionToUpdate = (
+  connection,
+  action,
+  loggedInUserId,
+  otherUserId
+) => {
+  switch (connection?.action) {
+    case actionProperties.BLOCKED:
+      if (connection?.lastActionBy !== loggedInUserId) {
+        throw new ConnectionError(
+          status.forbidden,
+          errorMessages.BLOCKED_ERROR,
+          { connection }
+        );
+      }
+
+      if (action !== actionProperties.IGNORED) {
+        throw new ConnectionError(
+          status.badRequest,
+          errorMessages.INVALID_ACTION_ERROR,
+          { connection }
+        );
+      }
+
+      return action;
+    case actionProperties.REJECTED:
+      if (connection?.lastActionBy === loggedInUserId) {
+        throw new ConnectionError(
+          status.forbidden,
+          errorMessages.INVALID_ACTION_ERROR,
+          { connection }
+        );
+      }
+
+      if (
+        connection?.rejectedCount >= 5 ||
+        connection?.rejectedByReceiverCount >= 5
+      ) {
+        throw new ConnectionError(
+          status.forbidden,
+          errorMessages.INVALID_ACTION_ERROR,
+          { connection }
+        );
+      }
+
+      if (action !== actionProperties.PENDING) {
+        throw new ConnectionError(
+          status.badRequest,
+          errorMessages.INVALID_ACTION_ERROR,
+          { connection }
+        );
+      }
+
+      return action;
+    case actionProperties.IGNORED:
+      if (connection?.lastActionBy === loggedInUserId) {
+        throw new ConnectionError(
+          status.forbidden,
+          errorMessages.INVALID_ACTION_ERROR,
+          { connection }
+        );
+      }
+
+      if (action !== actionProperties.PENDING) {
+        throw new ConnectionError(
+          status.badRequest,
+          errorMessages.INVALID_ACTION_ERROR,
+          { connection }
+        );
+      }
+
+      return action;
+    case actionProperties.ACCEPTED:
+      if (
+        action !== actionProperties.REJECTED &&
+        action !== actionProperties.BLOCKED
+      ) {
+        throw new ConnectionError(
+          status.badRequest,
+          errorMessages.INVALID_ACTION_ERROR,
+          { connection }
+        );
+      }
+
+      return action;
+    case actionProperties.PENDING:
+      if (connection?.lastActionBy === loggedInUserId) {
+        if (action !== actionProperties.IGNORED) {
+          throw new ConnectionError(
+            status.badRequest,
+            errorMessages.INVALID_ACTION_ERROR,
+            { connection }
+          );
+        }
+
+        return action;
+      }
+
+      if (action !== actionProperties.PENDING) {
+        throw new ConnectionError(
+          status.badRequest,
+          errorMessages.INVALID_ACTION_ERROR,
+          { connection }
+        );
+      }
+  }
+
+  return action;
 };

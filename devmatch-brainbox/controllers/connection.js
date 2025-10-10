@@ -5,6 +5,8 @@ import {
   successMessages,
   connectionProperties,
   userProperties,
+  connectionTypes,
+  reviewActionProperties,
 } from "../config/config.js";
 import {
   ConnectionError,
@@ -13,6 +15,7 @@ import {
 } from "../errors/CustomError.js";
 import Connection from "../models/connection.js";
 import { isValidMongoDbObjectId } from "../utils/authUtils.js";
+import { getActionToUpdate } from "../utils/utils.js";
 import { validateAction } from "../validations/validation.js";
 
 export const request = async (req, res) => {
@@ -38,7 +41,7 @@ export const request = async (req, res) => {
       );
     }
 
-    const validatedAction = validateAction(action);
+    const validatedAction = validateAction(action, connectionTypes.REQUEST);
 
     if (!validatedAction) {
       throw new ValidationError(
@@ -64,55 +67,77 @@ export const request = async (req, res) => {
         select: userProperties.EMAIL,
       });
 
-    if (connection) {
-      if (connection?.action === actionProperties.BLOCKED) {
-        throw new ConnectionError(
-          status.forbidden,
-          errorMessages.BLOCKED_ERROR,
-          { connection },
-          req?.url
-        );
-      } else if (connection?.action === actionProperties.PENDING) {
-        throw new ConnectionError(
-          status.forbidden,
-          connection?.senderId === id
-            ? errorMessages.PENDING_CONNECTION_FROM_USER_ERROR
-            : errorMessages.PENDING_CONNECTION_ON_USER_ERROR,
-          { connection },
-          req?.url
-        );
-      } else if (connection?.action === actionProperties.ACCEPTED) {
-        throw new ConnectionError(
-          status.forbidden,
-          errorMessages.CONNECTED_USER_ERROR,
-          { connection },
-          req?.url
-        );
-      } else if (connection?.action === actionProperties.REJECTED) {
-        if (
-          connection?.rejectedCount >= 5 ||
-          connection?.rejectedByCount >= 5
-        ) {
-          throw new ConnectionError(
-            status.forbidden,
-            errorMessages.BLOCKED_ERROR,
-            { connection },
-            req?.url
-          );
-        }
-      }
-    }
+    console.log(
+      "debug from connection controller request connection : ",
+      connection
+    );
 
-    if (!connection?.senderId?.email || !connection?.receiverId?.email) {
-      throw new DatabaseError(
-        status.badRequest,
-        errorMessages.USER_NOT_EXIST_ERROR,
-        {
-          sender: connection?.senderId?.email,
-          receiver: connection?.receiverId?.email,
-        },
-        req?.url
+    if (connection) {
+      if (!connection?.senderId?.email || !connection?.receiverId?.email) {
+        throw new DatabaseError(
+          status.badRequest,
+          errorMessages.USER_NOT_EXIST_ERROR,
+          {
+            sender: connection?.senderId?.email,
+            receiver: connection?.receiverId?.email,
+          },
+          req?.url
+        );
+      }
+
+      if (
+        connection?.lastActionBy !== connection?.senderId &&
+        connection?.lastActionBy !== connection?.receiverId
+      ) {
+        throw new DatabaseError(
+          status.internalServerError,
+          errorMessages.INCONSISTENT_CONNECTION_DATA_ERROR,
+          { connection },
+          req?.url
+        );
+      }
+
+      if (validatedAction === connection?.action) {
+        throw new ConnectionError(
+          status.badRequest,
+          errorMessages.INVALID_ACTION_ERROR,
+          { action: validatedAction },
+          req?.url
+        );
+      }
+
+      const actionToUpdate = getActionToUpdate(
+        connection,
+        validatedAction,
+        id,
+        receiverId
       );
+
+      const result = await Connection.updateOne(
+        {
+          $or: [
+            { senderId: id, receiverId: receiverId },
+            { senderId: receiverId, receiverId: id },
+          ],
+        },
+        { action: actionToUpdate, lastActionBy: id, connection?.senderId === id ? actionToUpdate !== actionProperties.REJECTED ? {rejectedCount : connection?.rejectedCount + 1} : {rejectedCount : 0} : {rejectedByReceiverCount : connection?.rejectedByReceiverCount + 1} : {rejectedByReceiverCount : 0} }
+      );
+
+      if (!result || result.matchedCount === 0 || result.modifiedCount === 0) {
+        throw new ConnectionError(
+          status.internalServerError,
+          errorMessages.CONNECTION_REQUEST_FAILED_ERROR,
+          { result },
+          req?.url
+        );
+      }
+
+      return res.status(status.success.statusCode).json({
+        status: status.success.message,
+        statusCode: status.success.statusCode,
+        data: { newConnection },
+        message: successMessages.CONNECTION_REQUEST_SUCCESS,
+      });
     }
 
     const newConnection = await Connection.create({
@@ -178,7 +203,7 @@ export const review = async (req, res) => {
       );
     }
 
-    const validatedAction = validateAction(action);
+    const validatedAction = validateAction(action, connectionTypes.REVIEW);
 
     if (!validatedAction) {
       throw new ValidationError(
@@ -190,8 +215,10 @@ export const review = async (req, res) => {
     }
 
     const connection = await Connection.findOne({
-      senderId: senderId,
-      receiverId: id,
+      $or: [
+        { senderId: senderId, receiverId: id },
+        { senderId: id, receiverId: senderId },
+      ],
     })
       .populate({
         path: connectionProperties.SENDER_ID,
@@ -223,9 +250,53 @@ export const review = async (req, res) => {
       );
     }
 
+    if (connection?.senderId !== senderId) {
+      throw new ConnectionError(
+        status.internalServerError,
+        errorMessages.INVALID_CONNECTION_REVIEW_ERROR,
+        { connection: connection },
+        req?.url
+      );
+    }
+
+    let actionToUpdate;
+
+    switch (validatedAction) {
+      case reviewActionProperties.ACCEPTED:
+        if (connection?.action !== actionProperties.PENDING) {
+          throw new ConnectionError(
+            status.badRequest,
+            errorMessages.INVALID_CONNECTION_REVIEW_ERROR,
+            { connection: connection },
+            req?.url
+          );
+        }
+        break;
+      case reviewActionProperties.IGNORED:
+        if (connection?.action !== actionProperties.PENDING) {
+          throw new ConnectionError(
+            status.badRequest,
+            errorMessages.INVALID_CONNECTION_REVIEW_ERROR,
+            { connection: connection },
+            req?.url
+          );
+        }
+        break;
+      case reviewActionProperties.REJECTED:
+        if (connection?.action !== actionProperties.PENDING) {
+          throw new ConnectionError(
+            status.badRequest,
+            errorMessages.INVALID_CONNECTION_REVIEW_ERROR,
+            { connection: connection },
+            req?.url
+          );
+        }
+        break;
+    }
+
     const result = await Connection.updateOne(
       { senderId, receiverId: id },
-      { validatedAction }
+      { action: validatedAction }
     );
 
     if (!result || result.matchedCount === 0 || result.modifiedCount === 0) {

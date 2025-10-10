@@ -176,6 +176,7 @@ export const errorMessages = {
   INVALID_COUNTRY_CODE_ERROR: "Invalid country code!",
   INVALID_PIN_CODE_ERROR: "Invalid pin code!",
   SELF_CONNECTION_ERROR: "Sender and receiver must be different!",
+  INCONSISTENT_CONNECTION_DATA_ERROR: "Inconsistent connection data error!",
   INVALID_ACTION_ERROR: "Invalid action!",
   BLOCKED_ERROR: "Forbidden connection request!",
   PENDING_CONNECTION_ON_USER_ERROR:
@@ -184,6 +185,7 @@ export const errorMessages = {
   CONNECTED_USER_ERROR: "Already connected!",
   CONNECTION_REQUEST_FAILED_ERROR: "Unable to send connection request!",
   INVALID_CONNECTION_REQUEST_ERROR: "Invalid connection request!",
+  INVALID_CONNECTION_REVIEW_ERROR: "Invalid connection review!",
 };
 
 export const successMessages = {
@@ -307,4 +309,19 @@ export const actionProperties = {
   IGNORED: "ignored",
   REJECTED: "rejected",
   BLOCKED: "blocked",
+};
+
+export const requestActionProperties = omitObjectProperties(actionProperties, [
+  "ACCEPTED",
+  "REJECTED",
+  "BLOCKED",
+]);
+
+export const reviewActionProperties = omitObjectProperties(actionProperties, [
+  "PENDING",
+]);
+
+export const connectionTypes = {
+  REQUEST: "request",
+  REVIEW: "review",
 };
