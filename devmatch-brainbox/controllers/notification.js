@@ -7,7 +7,12 @@ import {
 } from "../config/config.js";
 import { NotificationError } from "../errors/CustomError.js";
 import Notification from "../models/notification.js";
-import { limitValidator, pageValidator } from "../validations/validation.js";
+import { isValidMongoDbObjectId } from "../utils/authUtils.js";
+import {
+  limitValidator,
+  pageValidator,
+  validateNotificationStatus,
+} from "../validations/validation.js";
 
 export const view = async (req, res) => {
   try {
@@ -24,6 +29,7 @@ export const view = async (req, res) => {
         notificationProperties.FROM,
         notificationProperties.TITLE,
         notificationProperties.BODY,
+        notificationProperties.STATUS,
       ])
       .populate({
         path: notificationProperties.FROM,
@@ -79,10 +85,58 @@ export const view = async (req, res) => {
 };
 
 export const mark = async (req, res) => {
-  console.log("debug body : ", req.body);
-  return res.status(status.success.statusCode).json({
-    status: status.success.message,
-    statusCode: status.success.statusCode,
-    message: "Request received",
-  });
+  try {
+    const { status: notificationStatus, id: notificationId } =
+      await req?.params;
+
+    if (notificationId && !isValidMongoDbObjectId(notificationId)) {
+      throw new ValidationError(
+        status.forbidden,
+        errorMessages.INVALID_NOTIFICATION_ID_FORMAT_ERROR,
+        { otherUserId },
+        req?.url
+      );
+    }
+
+    const validatedNotificationStatus =
+      validateNotificationStatus(notificationStatus);
+
+    const notification = await Notification.findByIdAndUpdate(
+      notificationId,
+      { status: validatedNotificationStatus },
+      { new: true }
+    );
+
+    if (!notification) {
+      throw new NotificationError(
+        status.internalServerError,
+        errorMessages.NOTIFICATION_READ_FAILED_ERROR,
+        { notification },
+        req?.url
+      );
+    }
+
+    return res.status(status.success.statusCode).json({
+      status: status.success.message,
+      statusCode: status.success.statusCode,
+      data: { notification },
+      message: successMessages.NOTIFICATION_READ_SUCCESS,
+    });
+  } catch (error) {
+    return res
+      .status(
+        error?.status?.statusCode || status.internalServerError.statusCode
+      )
+      .json({
+        status: error?.status?.message || status.internalServerError.message,
+        statusCode:
+          error?.status?.statusCode || status.internalServerError.statusCode,
+        apiUrl: error?.apiUrl || req?.url,
+        error: {
+          type: error?.type,
+          message: error?.message,
+          data: error?.data,
+        },
+      });
+  }
 };

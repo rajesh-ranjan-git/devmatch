@@ -6,6 +6,6 @@ import auth from "../middlewares/auth.js";
 const notificationRouter = express.Router();
 
 notificationRouter.get("/view", auth, view);
-notificationRouter.post("/mark/:status", auth, mark);
+notificationRouter.post("/mark/:status/:id", auth, mark);
 
 export default notificationRouter;

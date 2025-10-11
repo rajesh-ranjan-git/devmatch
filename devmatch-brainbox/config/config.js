@@ -188,6 +188,9 @@ export const errorMessages = {
   INVALID_LIMIT_ERROR: "Invalid limit!",
   NOTIFICATION_CREATION_FAILED_ERROR: "Unable to create notification!",
   NOTIFICATION_FAILED_ERROR: "Unable to send notification!",
+  INVALID_NOTIFICATION_ID_FORMAT_ERROR: "Invalid notification id format!",
+  INVALID_NOTIFICATION_STATUS_ERROR: "Invalid notification status!",
+  NOTIFICATION_READ_FAILED_ERROR: "Unable to mark notification as read!"
 };
 
 export const successMessages = {
@@ -202,6 +205,7 @@ export const successMessages = {
   VIEW_CONNECTION_REQUEST_SUCCESS: "Connection requests fetch successful!",
   EXPLORE_DATA_FETCH_SUCCESS: "Explore data fetch successful!",
   NOTIFICATION_FETCH_SUCCESS: "Notifications fetch successful!",
+  NOTIFICATION_READ_SUCCESS: "Notifications read successful!",
 };
 
 export const jwtKnownErrors = {
@@ -351,7 +355,7 @@ export const notificationTypes = {
   CHAT: "chat",
 };
 
-export const notificationStatus = {
+export const notificationStatusProperties = {
   READ: "read",
   UNREAD: "unread",
 };

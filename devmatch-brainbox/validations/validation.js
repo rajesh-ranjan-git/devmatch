@@ -12,6 +12,7 @@ import {
   PIN_CODE_REGEX,
   COUNTRY_CODE_REGEX,
   connectionStatusProperties,
+  notificationStatusProperties,
 } from "../config/config.js";
 import { errorMessages } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
@@ -510,6 +511,23 @@ export const validateConnectionStatus = (connectionStatus) => {
   }
 
   return connectionStatus?.trim().toLowerCase();
+};
+
+export const validateNotificationStatus = (notificationStatus) => {
+  if (
+    typeof notificationStatus !== "string" ||
+    !Object.values(notificationStatusProperties).includes(
+      notificationStatus?.trim().toLowerCase()
+    )
+  ) {
+    throw new ValidationError(
+      status.badRequest,
+      errorMessages.INVALID_NOTIFICATION_STATUS_ERROR,
+      { notificationStatus }
+    );
+  }
+
+  return notificationStatus?.trim().toLowerCase();
 };
 
 export const pageValidator = (page) => {
