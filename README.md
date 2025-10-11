@@ -7,55 +7,63 @@
 ## 🚀 Tech Stack
 
 ### Frontend:
+
 - **[Next.js](https://nextjs.org/)** – React-based framework for server-side rendering and routing.
 - **[Tailwind CSS](https://tailwindcss.com/)** – Utility-first CSS framework for rapid UI development.
 - **[Shadcn UI](https://ui.shadcn.com/)** – Beautifully designed UI components built on top of Tailwind CSS and Radix UI.
 - **[Zustand](https://github.com/pmndrs/zustand)** – Lightweight state management solution for React.
 
 ### Backend:
+
 - **[Node.js](https://nodejs.org/)** – JavaScript runtime environment.
 - **[Express.js](https://expressjs.com/)** – Fast and minimalist web framework for Node.js.
 - **[MongoDB](https://www.mongodb.com/)** – NoSQL database for scalable and flexible data storage.
 
 ---
 
-## 🔥 Features (Planned & In Progress)
+<!-- ## 🔥 Features (Planned & In Progress)
 
-- [x] User registration & login
-- [x] Developer profile creation
-- [x] Swipe-based match interface
+- [ ] User registration & login
+- [ ] Developer profile creation
+- [ ] Swipe-based match interface
 - [ ] Skill-based match suggestions
 - [ ] In-app messaging between matched users
 - [ ] Real-time notifications
 - [ ] Block/report functionality
 - [ ] Profile visibility controls
 - [ ] GitHub/LinkedIn integration (future)
-- [ ] Admin dashboard for moderation (future)
+- [ ] Admin dashboard for moderation (future) -->
 
 ---
 
-## 📁 Folder Structure (Simplified)
+## 📁 Folder Structure
 
 ```bash
 devmatch/
 │
-├── frontend/             # Next.js app
-│   ├── components/       # Reusable UI components (Shadcn UI + Tailwind)
-│   ├── pages/            # Next.js routes
-│   ├── store/            # Zustand state management
-│   ├── styles/           # Global styles
-│   └── public/           # Static assets
+├── devmatch-visualcortex/
+│   ├── .gitignore
+│   └── package.json
 │
-├── backend/              # Node.js + Express server
-│   ├── controllers/      # Request handlers
-│   ├── models/           # Mongoose schemas
-│   ├── routes/           # API routes
-│   ├── middleware/       # Auth, validation, error handlers
-│   └── config/           # DB connection, environment configs
+├── devmatch-brainbox/
+│   ├── config/
+│   ├── controllers/
+│   ├── db/
+│   ├── env/
+│   ├── errors/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── src/
+│   ├── utils/
+│   ├── validations/
+│   ├── .gitignore
+│   ├── package-lock.json
+│   ├── package.json
+│   └── README.md
 │
-├── .env                  # Environment variables
-├── README.md             # You're here!
-└── package.json
+├── .vscode
+└── README.md
 ```
 
 ---
@@ -80,18 +88,40 @@ cd devmatch
 
 ### 2. Setup Environment Variables
 
-Create two `.env` files:
+Create `.env` files:
 
-- `frontend/.env.local`
+- `devmatch-visualcortex/env/.env-development`
+
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5000/api
 ```
 
-- `backend/.env`
+- `devmatch-brainbox/env/.env-development`
+
 ```env
-PORT=5000
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_super_secret
+# Environment
+NODE_ENV=development
+
+# Ports
+BRAINBOX_PORT=5000
+VISUALCORTEX_PORT=3000
+
+# Host URLs
+BRAINBOX_HOST_URL=http://localhost:5000
+VISUALCORTEX_HOST_URL=http://localhost:3000
+
+# Secret Keys
+BRAINBOX_SESSION_SECRET_KEY=
+BRAINBOX_JWT_SECRET_KEY=
+
+# Database Configurations
+DB_LOCAL_URI=mongodb://localhost:27017
+DB_LOCAL_NAME=devmatch-local
+DB_BASE_URI=
+DB_CLUSTER=
+DB_NAME=
+DB_USER=
+DB_PASSWORD=
 ```
 
 ---
@@ -100,11 +130,11 @@ JWT_SECRET=your_super_secret
 
 ```bash
 # Frontend
-cd frontend
+cd devmatch-visualcortex
 npm install
 
 # Backend
-cd ../backend
+cd ../devmatch-brainbox
 npm install
 ```
 
@@ -114,11 +144,11 @@ npm install
 
 ```bash
 # Start backend
-cd backend
+cd devmatch-brainbox
 npm run dev
 
 # Start frontend
-cd ../frontend
+cd ../devmatch-visualcortex
 npm run dev
 ```
 
@@ -126,10 +156,10 @@ npm run dev
 
 ## 🛠️ Dev Tools & Libraries
 
-- **Authentication:** JSON Web Tokens (JWT)
+- **Authentication:** JSON Web Tokens (JWT), Bcrypt JS
 - **Database ORM:** Mongoose
 - **API Testing:** Postman
-- **UI Dev:** Radix UI, Shadcn UI
+- **UI Dev:** Shadcn UI
 - **State Management:** Zustand
 - **Future Upgrades:** WebSockets for chat, Docker, CI/CD pipelines
 
