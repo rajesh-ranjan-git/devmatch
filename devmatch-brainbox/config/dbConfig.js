@@ -14,7 +14,7 @@ dotenv.config({
 });
 
 const DB_LOCAL_URI = process.env.DB_LOCAL_URI;
-const DB_LOCAL_NAME = process.env.DB_NAME;
+const DB_LOCAL_NAME = process.env.DB_LOCAL_NAME;
 const DB_BASE_URI = process.env.DB_BASE_URI;
 const DB_CLUSTER = process.env.DB_CLUSTER;
 const DB_NAME = process.env.DB_NAME;
