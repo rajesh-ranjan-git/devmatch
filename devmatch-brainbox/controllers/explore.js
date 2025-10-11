@@ -65,7 +65,7 @@ export const explore = async (req, res) => {
               : "",
         },
       },
-      message: successMessages.VIEW_CONNECTION_REQUEST_SUCCESS,
+      message: successMessages.EXPLORE_DATA_FETCH_SUCCESS,
     });
   } catch (error) {
     return res

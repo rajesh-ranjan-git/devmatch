@@ -194,6 +194,7 @@ export const successMessages = {
   USER_UPDATE_SUCCESS: "User update success!",
   CONNECTION_REQUEST_SUCCESS: "Connection request sent!",
   VIEW_CONNECTION_REQUEST_SUCCESS: "Connection requests fetch successful!",
+  EXPLORE_DATA_FETCH_SUCCESS: "Explore data fetch successful!",
 };
 
 export const jwtKnownErrors = {
