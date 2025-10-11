@@ -6,14 +6,14 @@
 
 ## 🚀 Tech Stack
 
-### Frontend:
+### Frontend (devmatch-visualcortex):
 
 - **[Next.js](https://nextjs.org/)** – React-based framework for server-side rendering and routing.
 - **[Tailwind CSS](https://tailwindcss.com/)** – Utility-first CSS framework for rapid UI development.
 - **[Shadcn UI](https://ui.shadcn.com/)** – Beautifully designed UI components built on top of Tailwind CSS and Radix UI.
 - **[Zustand](https://github.com/pmndrs/zustand)** – Lightweight state management solution for React.
 
-### Backend:
+### Backend (devmatch-brainbox):
 
 - **[Node.js](https://nodejs.org/)** – JavaScript runtime environment.
 - **[Express.js](https://expressjs.com/)** – Fast and minimalist web framework for Node.js.
@@ -21,7 +21,9 @@
 
 ---
 
-<!-- ## 🔥 Features (Planned & In Progress)
+## 🔥 Features (Planned & In Progress)
+
+### Frontend (devmatch-visualcortex):
 
 - [ ] User registration & login
 - [ ] Developer profile creation
@@ -32,7 +34,21 @@
 - [ ] Block/report functionality
 - [ ] Profile visibility controls
 - [ ] GitHub/LinkedIn integration (future)
-- [ ] Admin dashboard for moderation (future) -->
+- [ ] Admin dashboard for moderation (future)
+
+### Backend (devmatch-brainbox):
+
+- [x] User registration, login, logout, forgot password
+- [x] Authentication
+- [x] Real-time notifications
+- [x] Explore and connect with fellow developers
+- [x] Block/report functionality
+- [x] Profile visibility controls
+- [ ] Google Authentication integration
+- [ ] Skill-based match suggestions
+- [ ] In-app messaging between matched users
+- [ ] GitHub/LinkedIn integration (future)
+- [ ] Admin dashboard for moderation (future)
 
 ---
 
