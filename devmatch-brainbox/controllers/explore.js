@@ -2,6 +2,7 @@ import { ObjectId } from "mongodb";
 import {
   connectionProperties,
   connectionStatusProperties,
+  errorMessages,
   publicProfilePropertiesForExplore,
   status,
   successMessages,
@@ -9,6 +10,7 @@ import {
 import Connection from "../models/connection.js";
 import User from "../models/user.js";
 import { limitValidator, pageValidator } from "../validations/validation.js";
+import { DatabaseError } from "../errors/CustomError.js";
 
 export const explore = async (req, res) => {
   try {
@@ -38,7 +40,19 @@ export const explore = async (req, res) => {
       connectionProperties.UPDATED_AT,
     ]);
 
-    const acceptedOrBlockedUsers = connections.map((user) =>
+    if (!connections) {
+      throw new DatabaseError(
+        status.internalServerError,
+        errorMessages.INTERNAL_SERVER_ERROR,
+        {
+          status: status.internalServerError,
+          connections,
+        },
+        req?.url
+      );
+    }
+
+    const acceptedOrBlockedUsers = connections?.map((user) =>
       user?.senderId?.toString()
     );
 
@@ -88,6 +102,18 @@ export const explore = async (req, res) => {
         ),
       },
     ]);
+
+    if (!users) {
+      throw new DatabaseError(
+        status.internalServerError,
+        errorMessages.INTERNAL_SERVER_ERROR,
+        {
+          status: status.internalServerError,
+          users,
+        },
+        req?.url
+      );
+    }
 
     const totalCount = users?.length;
 
