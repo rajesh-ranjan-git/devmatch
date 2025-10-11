@@ -6,17 +6,16 @@
 devmatch/
 │
 ├── User APIs
-│   ├── POST -> String
+│   ├── POST -> /user/register
 │   ├── POST -> /user/login
 │   ├── POST -> /user/logout
-│   ├── POST -> String
 │   └── POST -> /user/forgotPassword
 │
 ├── Profile APIs
-│   ├── GET -> String
-│   ├── GET -> String/:id
-│   ├── POST -> String
-│   └── POST -> StringPassword
+│   ├── GET -> /profile/view
+│   ├── GET -> /profile/view:id
+│   ├── POST -> /profile/update
+│   └── POST -> /profile/updatePassword
 │
 ├── Explore API
 │   └── GET -> /explore
