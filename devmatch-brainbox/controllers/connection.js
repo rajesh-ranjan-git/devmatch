@@ -3,11 +3,9 @@ import {
   connectionStatusProperties,
   errorMessages,
   notificationProperties,
-  notificationStatus,
   notificationTitles,
   notificationTypes,
   publicProfilePropertiesForExplore,
-  publicProfilePropertiesForNotification,
   status,
   successMessages,
   userProperties,
@@ -15,7 +13,7 @@ import {
 import {
   ConnectionError,
   DatabaseError,
-  NetworkError,
+  NotificationError,
   ValidationError,
 } from "../errors/CustomError.js";
 import Connection from "../models/connection.js";
@@ -497,7 +495,7 @@ export const connect = async (req, res) => {
       const notifications = await Notification.create(notificationObject);
 
       if (!notifications) {
-        throw new NetworkError(
+        throw new NotificationError(
           status.internalServerError,
           errorMessages.NOTIFICATION_FAILED_ERROR,
           { notifications },

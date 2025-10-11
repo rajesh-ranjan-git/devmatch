@@ -186,6 +186,7 @@ export const errorMessages = {
   VIEW_CONNECTION_REQUEST_FAILED_ERROR: "Unable to get connections requests!",
   INVALID_PAGE_ERROR: "Invalid page!",
   INVALID_LIMIT_ERROR: "Invalid limit!",
+  NOTIFICATION_CREATION_FAILED_ERROR: "Unable to create notification!",
   NOTIFICATION_FAILED_ERROR: "Unable to send notification!",
 };
 
@@ -200,6 +201,7 @@ export const successMessages = {
   CONNECTION_REQUEST_SUCCESS: "Connection request sent!",
   VIEW_CONNECTION_REQUEST_SUCCESS: "Connection requests fetch successful!",
   EXPLORE_DATA_FETCH_SUCCESS: "Explore data fetch successful!",
+  NOTIFICATION_FETCH_SUCCESS: "Notifications fetch successful!",
 };
 
 export const jwtKnownErrors = {

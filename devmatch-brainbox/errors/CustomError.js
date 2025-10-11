@@ -179,6 +179,7 @@ export {
   AuthenticationError,
   ForbiddenError,
   ConnectionError,
+  NotificationError,
   errorManager,
 };
 
