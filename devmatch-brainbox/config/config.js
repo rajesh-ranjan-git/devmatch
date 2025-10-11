@@ -58,6 +58,7 @@ export const errorTypes = {
   AUTHENTICATION_ERROR: "AUTHENTICATION_ERROR",
   FORBIDDEN_ERROR: "FORBIDDEN_ERROR",
   CONNECTION_ERROR: "CONNECTION_ERROR",
+  NOTIFICATION_ERROR: "NOTIFICATION_ERROR",
 };
 
 export const errorMessages = {
@@ -185,6 +186,7 @@ export const errorMessages = {
   VIEW_CONNECTION_REQUEST_FAILED_ERROR: "Unable to get connections requests!",
   INVALID_PAGE_ERROR: "Invalid page!",
   INVALID_LIMIT_ERROR: "Invalid limit!",
+  NOTIFICATION_FAILED_ERROR: "Unable to send notification!",
 };
 
 export const successMessages = {
@@ -277,6 +279,11 @@ export const publicProfilePropertiesForExplore = selectObjectProperties(
   ]
 );
 
+export const publicProfilePropertiesForNotification = selectObjectProperties(
+  userProperties,
+  ["EMAIL", "FIRST_NAME", "MIDDLE_NAME", "LAST_NAME", "AVATAR_URL"]
+);
+
 export const privateProfileProperties = omitObjectProperties(userProperties, [
   "PASSWORD",
   "PREVIOUS_PASSWORD",
@@ -326,4 +333,28 @@ export const propertyConstraints = {
   MAX_STRING_LENGTH: 100,
   PHONE_LENGTH: 10,
   PIN_CODE_LENGTH: 6,
+};
+
+export const notificationProperties = {
+  TYPE: "type",
+  TO: "to",
+  FROM: "from",
+  TITLE: "title",
+  BODY: "body",
+  STATUS: "status",
+};
+
+export const notificationTypes = {
+  CONNECTION: "connection",
+  CHAT: "chat",
+};
+
+export const notificationStatus = {
+  READ: "read",
+  UNREAD: "unread",
+};
+
+export const notificationTitles = {
+  CONNECTION: "You have a new connection request!",
+  CHAT: "You have a new chat message!",
 };

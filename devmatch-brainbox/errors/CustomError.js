@@ -162,6 +162,12 @@ class ConnectionError extends CustomError {
   }
 }
 
+class NotificationError extends CustomError {
+  constructor(status, message, data = null, apiUrl) {
+    super(status, errorTypes.CONNECTION_ERROR, message, data, apiUrl);
+  }
+}
+
 export {
   CustomError,
   NetworkError,

@@ -2,7 +2,12 @@ import {
   connectionProperties,
   connectionStatusProperties,
   errorMessages,
+  notificationProperties,
+  notificationStatus,
+  notificationTitles,
+  notificationTypes,
   publicProfilePropertiesForExplore,
+  publicProfilePropertiesForNotification,
   status,
   successMessages,
   userProperties,
@@ -10,11 +15,14 @@ import {
 import {
   ConnectionError,
   DatabaseError,
+  NetworkError,
   ValidationError,
 } from "../errors/CustomError.js";
 import Connection from "../models/connection.js";
+import Notification from "../models/notification.js";
 import User from "../models/user.js";
 import { isValidMongoDbObjectId } from "../utils/authUtils.js";
+import { getNotificationBody, toTitleCase } from "../utils/utils.js";
 import {
   limitValidator,
   pageValidator,
@@ -84,6 +92,7 @@ export const connect = async (req, res) => {
 
     let connectionToCreate = { lastActionedBy: userId };
     let connectionToUpdate = { lastActionedBy: userId };
+    let notificationObject = {};
 
     switch (validatedConnectionStatus) {
       case connectionStatusProperties.INTERESTED:
@@ -93,6 +102,14 @@ export const connect = async (req, res) => {
             receiverId: otherUserId,
             connectionStatus: validatedConnectionStatus,
             ...connectionToCreate,
+          };
+
+          notificationObject = {
+            [notificationProperties.TYPE]: notificationTypes.CONNECTION,
+            [notificationProperties.TITLE]: notificationTitles.CONNECTION,
+            [notificationProperties.TO]: otherUserId,
+            [notificationProperties.FROM]: userId,
+            connectionStatus: validatedConnectionStatus,
           };
           break;
         }
@@ -151,6 +168,7 @@ export const connect = async (req, res) => {
               : existingConnection?.rejectedByReceiverCount,
           ...connectionToUpdate,
         };
+
         break;
 
       case connectionStatusProperties.NOT_INTERESTED:
@@ -228,6 +246,7 @@ export const connect = async (req, res) => {
           connectionStatus: validatedConnectionStatus,
           ...connectionToUpdate,
         };
+
         break;
 
       case connectionStatusProperties.ACCEPTED:
@@ -271,6 +290,15 @@ export const connect = async (req, res) => {
           connectionStatus: validatedConnectionStatus,
           ...connectionToUpdate,
         };
+
+        notificationObject = {
+          [notificationProperties.TYPE]: notificationTypes.CONNECTION,
+          [notificationProperties.TITLE]: notificationTitles.CONNECTION,
+          [notificationProperties.TO]: otherUserId,
+          [notificationProperties.FROM]: userId,
+          connectionStatus: validatedConnectionStatus,
+        };
+
         break;
 
       case connectionStatusProperties.REJECTED:
@@ -358,6 +386,7 @@ export const connect = async (req, res) => {
           rejectedByReceiverCount,
           ...connectionToUpdate,
         };
+
         break;
 
       case connectionStatusProperties.BLOCKED:
@@ -422,6 +451,7 @@ export const connect = async (req, res) => {
           connectionStatus: validatedConnectionStatus,
           ...connectionToUpdate,
         };
+
         break;
     }
 
@@ -445,6 +475,35 @@ export const connect = async (req, res) => {
         { connection },
         req?.url
       );
+    }
+
+    if (notificationObject && Object.values(notificationObject).length > 0) {
+      const connectionForFirstName = await Connection.findById(connection.id)
+        .populate({
+          path: connectionProperties.SENDER_ID,
+          select: userProperties.FIRST_NAME,
+        })
+        .populate({
+          path: connectionProperties.RECEIVER_ID,
+          select: userProperties.FIRST_NAME,
+        });
+
+      notificationObject[notificationProperties.BODY] = getNotificationBody(
+        connectionForFirstName?.senderId?.firstName,
+        notificationObject[notificationProperties.TYPE],
+        notificationObject.connectionStatus
+      );
+
+      const notifications = await Notification.create(notificationObject);
+
+      if (!notifications) {
+        throw new NetworkError(
+          status.internalServerError,
+          errorMessages.NOTIFICATION_FAILED_ERROR,
+          { notifications },
+          req?.url
+        );
+      }
     }
 
     return res.status(status.success.statusCode).json({

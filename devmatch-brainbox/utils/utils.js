@@ -1,10 +1,12 @@
 import {
   allowedUpdateProfileProperties,
   AVATAR_URL_REGEX,
+  connectionStatusProperties,
   errorMessages,
   genderProperties,
   GITHUB_REGEX,
   maritalStatusProperties,
+  notificationTypes,
   PHONE_REGEX,
   propertyConstraints,
   status,
@@ -34,6 +36,19 @@ export const selectObjectProperties = (obj, keysToSelect) => {
   return Object.fromEntries(
     Object.entries(obj).filter(([key]) => keysToSelect.includes(key))
   );
+};
+
+export const toTitleCase = (str) => {
+  if (!str) {
+    return "";
+  }
+  return str
+    .toLowerCase()
+    .split(" ")
+    .map(function (word) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(" ");
 };
 
 const addToValidatedProperties = (
@@ -369,4 +384,16 @@ export const validatePropertiesToUpdate = (properties) => {
   }
 
   return validatedProperties;
+};
+
+export const getNotificationBody = (name, type, connectionStatus) => {
+  if (type === notificationTypes.CONNECTION) {
+    if (connectionStatus === connectionStatusProperties.INTERESTED) {
+      return `${toTitleCase(name)} sent you a connection request!`;
+    } else {
+      return `${toTitleCase(name)} accepted your connection request!`;
+    }
+  } else {
+    return "Chat feature is not built yet!";
+  }
 };
