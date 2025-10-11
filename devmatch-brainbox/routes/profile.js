@@ -9,9 +9,9 @@ import {
 
 const profileRouter = express.Router();
 
-profileRouter.get("/view/:id", auth, view);
-
 profileRouter.get("/view", auth, view);
+
+profileRouter.get("/view/:id", auth, view);
 
 profileRouter.post("/update", auth, updateProfileRequestMiddleware, update);
 
