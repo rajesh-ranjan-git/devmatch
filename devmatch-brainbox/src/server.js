@@ -6,7 +6,6 @@ import cookieParser from "cookie-parser";
 
 import { status } from "../config/config.js";
 import connectDB from "../db/connectDB.js";
-
 import userRouter from "../routes/user.js";
 import profileRouter from "../routes/profile.js";
 import connectionRouter from "../routes/connection.js";

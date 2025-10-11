@@ -1,12 +1,14 @@
-import { allowedUpdateProfileProperties, status } from "../config/config.js";
-import { errorMessages } from "../config/config.js";
+import {
+  allowedUpdateProfileProperties,
+  status,
+  errorMessages,
+} from "../config/config.js";
 import { ForbiddenError, ValidationError } from "../errors/CustomError.js";
 import {
   requestValidator,
   emailValidator,
   passwordValidator,
   firstNameValidator,
-  requestBodyValidator,
 } from "../validations/validation.js";
 
 export const requestMiddleware = (req, res, next) => {
