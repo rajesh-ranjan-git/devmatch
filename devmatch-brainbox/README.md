@@ -63,14 +63,14 @@ devmatch/
 │   ├── skills -> [String]
 │   ├── interests -> [String]
 │   ├── address
-│   ├   └── street -> String
-│   ├   └── landmark -> String
-│   ├   └── city -> String
-│   ├   └── state -> String
-│   ├   └── countryCode -> Number
-│   ├   └── country -> String
-│   ├   └── pinCode -> Number
-│   ├
+│   │   ├── street -> String
+│   │   ├── landmark -> String
+│   │   ├── city -> String
+│   │   ├── state -> String
+│   │   ├── countryCode -> Number
+│   │   ├── country -> String
+│   │   └── pinCode -> Number
+│   │
 │   └── timestamps -> true
 │
 ├── Connection Model
