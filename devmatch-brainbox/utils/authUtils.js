@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { ObjectId } from "mongodb";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -6,7 +6,7 @@ import { errorMessages, jwtKnownErrors, status } from "../config/config.js";
 import { BcryptError, JwtError } from "../errors/CustomError.js";
 
 export const isValidMongoDbObjectId = (id) => {
-  return mongoose.Types.ObjectId.isValid(id);
+  return ObjectId.isValid(id);
 };
 
 export const getEncryptedPassword = async (password) => {

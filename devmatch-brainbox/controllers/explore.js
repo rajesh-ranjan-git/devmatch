@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import {
   connectionProperties,
   connectionStatusProperties,
@@ -5,7 +6,6 @@ import {
   status,
   successMessages,
 } from "../config/config.js";
-import { DatabaseError } from "../errors/CustomError.js";
 import Connection from "../models/connection.js";
 import User from "../models/user.js";
 import { limitValidator, pageValidator } from "../validations/validation.js";
@@ -44,9 +44,50 @@ export const explore = async (req, res) => {
 
     acceptedOrBlockedUsers.push(id);
 
-    const users = await User.find({
-      _id: { $nin: Array.from(acceptedOrBlockedUsers) },
-    }).select(publicProfilePropertiesForExplore);
+    const users = await User.aggregate([
+      {
+        $match: {
+          _id: {
+            $nin: Array.from(acceptedOrBlockedUsers).map(
+              (id) => new ObjectId(id)
+            ),
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "connections",
+          let: { userId: "$_id" },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ["$senderId", "$$userId"] },
+                    {
+                      $eq: ["$receiverId", new ObjectId(id)],
+                    },
+                    { $eq: ["$connectionStatus", "interested"] },
+                  ],
+                },
+              },
+            },
+          ],
+          as: "sentRequest",
+        },
+      },
+      {
+        $addFields: {
+          hasSentRequest: { $gt: [{ $size: "$sentRequest" }, 0] },
+        },
+      },
+      {
+        $project: Object.values(publicProfilePropertiesForExplore).reduce(
+          (acc, field) => ({ ...acc, [field]: 1 }),
+          { hasSentRequest: 1 }
+        ),
+      },
+    ]);
 
     const totalCount = users?.length;
 

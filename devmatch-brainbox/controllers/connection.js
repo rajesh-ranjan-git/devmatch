@@ -496,7 +496,7 @@ export const view = async (req, res) => {
       ])
       .populate({
         path: connectionProperties.SENDER_ID,
-        select: publicProfilePropertiesForExplore,
+        select: Object.values(publicProfilePropertiesForExplore),
       })
       .limit(validatedLimit || 10)
       .skip(((validatedPage || 1) - 1) * (validatedLimit || 10));

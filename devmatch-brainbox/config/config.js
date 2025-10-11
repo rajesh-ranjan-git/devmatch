@@ -1,4 +1,7 @@
-import { omitObjectProperties } from "../utils/utils.js";
+import {
+  omitObjectProperties,
+  selectObjectProperties,
+} from "../utils/utils.js";
 
 export const NAME_REGEX = /^[A-Za-z]+$/;
 export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -260,16 +263,19 @@ export const publicProfileProperties = omitObjectProperties(userProperties, [
   "UPDATED_AT",
 ]);
 
-export const publicProfilePropertiesForExplore = [
-  userProperties.EMAIL,
-  userProperties.FIRST_NAME,
-  userProperties.MIDDLE_NAME,
-  userProperties.LAST_NAME,
-  userProperties.NICK_NAME,
-  userProperties.AVATAR_URL,
-  userProperties.JOB_PROFILE,
-  userProperties.ORGANIZATION,
-];
+export const publicProfilePropertiesForExplore = selectObjectProperties(
+  userProperties,
+  [
+    "EMAIL",
+    "FIRST_NAME",
+    "MIDDLE_NAME",
+    "LAST_NAME",
+    "NICK_NAME",
+    "AVATAR_URL",
+    "JOB_PROFILE",
+    "ORGANIZATION",
+  ]
+);
 
 export const privateProfileProperties = omitObjectProperties(userProperties, [
   "PASSWORD",

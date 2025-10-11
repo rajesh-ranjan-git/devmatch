@@ -30,6 +30,12 @@ export const omitObjectProperties = (obj, keysToOmit) => {
   );
 };
 
+export const selectObjectProperties = (obj, keysToSelect) => {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([key]) => keysToSelect.includes(key))
+  );
+};
+
 const addToValidatedProperties = (
   properties,
   validatedProperties = {},
