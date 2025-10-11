@@ -259,6 +259,17 @@ export const publicProfileProperties = omitObjectProperties(userProperties, [
   "UPDATED_AT",
 ]);
 
+export const publicProfilePropertiesForExplore = [
+  userProperties.EMAIL,
+  userProperties.FIRST_NAME,
+  userProperties.MIDDLE_NAME,
+  userProperties.LAST_NAME,
+  userProperties.NICK_NAME,
+  userProperties.AVATAR_URL,
+  userProperties.JOB_PROFILE,
+  userProperties.ORGANIZATION,
+];
+
 export const privateProfileProperties = omitObjectProperties(userProperties, [
   "PASSWORD",
   "PREVIOUS_PASSWORD",

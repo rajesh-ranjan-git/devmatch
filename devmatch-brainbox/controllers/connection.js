@@ -2,6 +2,7 @@ import {
   connectionProperties,
   connectionStatusProperties,
   errorMessages,
+  publicProfilePropertiesForExplore,
   status,
   successMessages,
   userProperties,
@@ -495,16 +496,7 @@ export const view = async (req, res) => {
       ])
       .populate({
         path: connectionProperties.SENDER_ID,
-        select: [
-          userProperties.EMAIL,
-          userProperties.FIRST_NAME,
-          userProperties.MIDDLE_NAME,
-          userProperties.LAST_NAME,
-          userProperties.NICK_NAME,
-          userProperties.AVATAR_URL,
-          userProperties.JOB_PROFILE,
-          userProperties.ORGANIZATION,
-        ],
+        select: publicProfilePropertiesForExplore,
       })
       .limit(validatedLimit || 10)
       .skip(((validatedPage || 1) - 1) * (validatedLimit || 10));
