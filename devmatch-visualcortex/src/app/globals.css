@@ -285,7 +285,7 @@ html {
     background-color: var(--glass-bg);
     border: 1px solid var(--glass-border);
     backdrop-filter: blur(16px);
-    border-radius: 1rem;
+    border-radius: 1rem 0 0 1rem;
     box-shadow: -10px 0 30px -5px rgb(0 0 0 / 0.2),
       -5px 0 15px -3px rgb(0 0 0 / 0.1);
     position: fixed;

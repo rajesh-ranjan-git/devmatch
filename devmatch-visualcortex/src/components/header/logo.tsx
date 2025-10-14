@@ -1,8 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Logo = () => {
   return (
-    <div className="flex justify-center items-center font-bold text-2xl cursor-pointer">
+    <Link
+      href="/"
+      className="flex justify-center items-center font-bold text-2xl"
+    >
       <div className="w-16 h-16 object-cover">
         <Image
           src={"/assets/logo/devmatch-logo-transparent-circular.webp"}
@@ -12,7 +16,7 @@ const Logo = () => {
         />
       </div>
       <span>DevMatch</span>
-    </div>
+    </Link>
   );
 };
 
