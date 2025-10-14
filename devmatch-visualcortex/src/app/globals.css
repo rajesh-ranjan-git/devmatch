@@ -202,7 +202,9 @@ html {
   .glass-interactive:active {
     transform: scale(0.95);
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  } /* Glass Card - Elevated content container */
+  }
+
+  /* Glass Card - Elevated content container */
   .glass-card {
     background-color: var(--glass-bg);
     border: 1px solid var(--glass-border);
