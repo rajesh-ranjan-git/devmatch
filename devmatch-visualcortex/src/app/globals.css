@@ -938,3 +938,51 @@ html {
     }
   }
 }
+.blob-outer-container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+  inset: 0;
+  margin: auto;
+  filter: blur(100px);
+  opacity: 0.2;
+}
+.blob-inner-container {
+  border-radius: 99999px;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: 0;
+  inset: 0;
+  margin: auto;
+  min-width: 1000px;
+  overflow: hidden;
+  background-color: #fff;
+  transform: scale(0.8);
+}
+.blob {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  inset: 0;
+  margin: auto;
+  background: conic-gradient(
+    from 0deg,
+    #08f,
+    #f60,
+    #bbffa1,
+    #4c00ff,
+    #ab2666,
+    #09f
+  );
+  animation: spinBlob 8s linear infinite;
+}
+@keyframes spinBlob {
+  0% {
+    transform: rotate(0deg) scale(2);
+  }
+  100% {
+    transform: rotate(1turn) scale(2);
+  }
+}
