@@ -202,34 +202,107 @@ html {
   .glass-interactive:active {
     transform: scale(0.95);
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  } /* Glass Card - Elevated content container */
+  .glass-card {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.15),
+      0 10px 10px -5px rgb(0 0 0 / 0.08);
+    padding: 1.5rem;
   }
 
-  /* Slight hover lift to emphasize elevation */
   .glass-card:hover {
-    transform: translateY(-4px); /* subtle lift */
-  }
-
-  /* Dark-mode/light-mode tweaks (optional) */
-  /* If your glass sits on a dark background, the above is fine.
-   For bright backgrounds, adjust the shadow color to a light tint. */
-
-  .light-bg .glass-card {
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.85);
-    color: #0b1220;
-    backdrop-filter: blur(6px);
-  }
-  .light-bg .shadow-top::before,
-  .light-bg .shadow-bottom::after {
-    /* use a soft light shadow (glow) instead of dark one when on bright backgrounds */
-    background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.08) 0%,
-      rgba(0, 0, 0, 0.04) 40%,
-      rgba(0, 0, 0, 0) 100%
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.2),
+      0 15px 15px -8px rgb(0 0 0 / 0.12);
+    border-color: color-mix(
+      in srgb,
+      var(--glass-border) 80%,
+      var(--glass-accent)
     );
-    filter: blur(10px);
-    opacity: 0.9;
+  }
+
+  /* Glass Modal - Full overlay dialog with prominent elevation */
+  .glass-modal {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25),
+      0 15px 20px -10px rgb(0 0 0 / 0.15), 0 0 0 1px rgb(0 0 0 / 0.05);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 50;
+  }
+
+  /* Glass Modal Backdrop */
+  .glass-modal::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(0 0 0 / 30%);
+    backdrop-filter: blur(4px);
+    z-index: -1;
+  }
+
+  /* Glass Popup - Floating notification/tooltip with strong elevation */
+  .glass-popup {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(14px);
+    border-radius: 0.875rem;
+    box-shadow: 0 20px 40px -10px rgb(0 0 0 / 0.3),
+      0 10px 15px -8px rgb(0 0 0 / 0.2), inset 0 1px 0 0 rgb(255 255 255 / 0.1);
+    padding: 1rem;
+    position: fixed;
+    max-width: 420px;
+  }
+
+  .glass-popup::after {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid var(--glass-bg);
+    filter: drop-shadow(0 -2px 4px rgb(0 0 0 / 0.1));
+  }
+
+  /* Glass Sheet - Side panel/drawer with elevated appearance */
+  .glass-sheet {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+    border-radius: 1rem;
+    box-shadow: -10px 0 30px -5px rgb(0 0 0 / 0.2),
+      -5px 0 15px -3px rgb(0 0 0 / 0.1);
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100%;
+    max-width: 450px;
+    z-index: 40;
+    overflow-y: auto;
+  }
+
+  /* Glass Sheet from left side */
+  .glass-sheet.from-left {
+    right: auto;
+    left: 0;
+    border-radius: 0 1rem 1rem 0;
+    box-shadow: 10px 0 30px -5px rgb(0 0 0 / 0.2),
+      5px 0 15px -3px rgb(0 0 0 / 0.1);
   }
 }
 
