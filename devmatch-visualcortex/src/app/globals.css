@@ -1,0 +1,867 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  --radius: 0.625rem;
+  /* Light theme - Modern minimalist palette */
+  --background: oklch(0.98 0 0);
+  --foreground: oklch(0.15 0 0);
+  --card: oklch(0.99 0 0 / 95%);
+  --card-foreground: oklch(0.15 0 0);
+  --popover: oklch(0.99 0 0);
+  --popover-foreground: oklch(0.15 0 0);
+  --primary: oklch(0.45 0.15 280);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.92 0.02 180);
+  --secondary-foreground: oklch(0.2 0 0);
+  --muted: oklch(0.9 0 0);
+  --muted-foreground: oklch(0.55 0 0);
+  --accent: oklch(0.65 0.18 40);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.62 0.22 27.32);
+  --border: oklch(0.92 0 0);
+  --input: oklch(0.96 0 0);
+  --ring: oklch(0.45 0.15 280 / 50%);
+  /* Glassmorphism colors for light theme */
+  --glass-bg: oklch(1 0 0 / 75%);
+  --glass-border: oklch(1 0 0 / 25%);
+  --glass-accent: oklch(0.45 0.15 280 / 15%);
+  /* Chart colors */
+  --chart-1: oklch(0.55 0.25 280);
+  --chart-2: oklch(0.6 0.2 180);
+  --chart-3: oklch(0.7 0.18 40);
+  --chart-4: oklch(0.5 0.22 340);
+  --chart-5: oklch(0.65 0.18 120);
+  /* Sidebar colors */
+  --sidebar: oklch(0.99 0 0);
+  --sidebar-foreground: oklch(0.15 0 0);
+  --sidebar-primary: oklch(0.45 0.15 280);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.92 0.02 180);
+  --sidebar-accent-foreground: oklch(0.2 0 0);
+  --sidebar-border: oklch(0.92 0 0);
+  --sidebar-ring: oklch(0.45 0.15 280 / 50%);
+}
+
+.dark {
+  /* Dark theme - Deep, modern palette (default) */
+  --background: oklch(0.12 0 0);
+  --foreground: oklch(0.95 0 0);
+  --card: oklch(0.18 0.01 280);
+  --card-foreground: oklch(0.95 0 0);
+  --popover: oklch(0.18 0.01 280);
+  --popover-foreground: oklch(0.95 0 0);
+  --primary: oklch(0.65 0.2 280);
+  --primary-foreground: oklch(0.12 0 0);
+  --secondary: oklch(0.28 0.03 180);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.28 0.02 0);
+  --muted-foreground: oklch(0.7 0 0);
+  --accent: oklch(0.75 0.22 40);
+  --accent-foreground: oklch(0.12 0 0);
+  --destructive: oklch(0.7 0.2 22.22);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 18%);
+  --ring: oklch(0.65 0.2 280 / 40%);
+  /* Glassmorphism colors for dark theme */
+  --glass-bg: oklch(0.18 0.01 280 / 65%);
+  --glass-border: oklch(1 0 0 / 15%);
+  --glass-accent: oklch(0.65 0.2 280 / 20%);
+  /* Chart colors */
+  --chart-1: oklch(0.65 0.2 280);
+  --chart-2: oklch(0.6 0.18 180);
+  --chart-3: oklch(0.72 0.22 40);
+  --chart-4: oklch(0.58 0.2 340);
+  --chart-5: oklch(0.68 0.19 120);
+  /* Sidebar colors */
+  --sidebar: oklch(0.18 0.01 280);
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-primary: oklch(0.65 0.2 280);
+  --sidebar-primary-foreground: oklch(0.95 0 0);
+  --sidebar-accent: oklch(0.28 0.03 180);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: oklch(0.65 0.2 280 / 40%);
+}
+
+/* Enable dark theme by default */
+html {
+  @layer base {
+    &:not(.light) {
+      color-scheme: dark;
+    }
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    outline-color: color-mix(in srgb, var(--ring) 50%, transparent);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}
+
+/* ========================================
+   Glassmorphism Utility Classes
+   ======================================== */
+
+@layer components {
+  /* Glass effect - frosted glass with backdrop blur */
+  .glass {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  }
+
+  .glass-sm {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(4px);
+    border-radius: 0.375rem;
+  }
+
+  .glass-lg {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  }
+
+  .glass-xl {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(24px);
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  }
+
+  /* Glass with accent highlight */
+  .glass-accent {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    background: linear-gradient(
+      to bottom right,
+      var(--glass-bg),
+      var(--glass-accent)
+    );
+  }
+
+  /* Glass interactive states */
+  .glass-hover {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+
+  .glass-hover:hover {
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    border-color: color-mix(
+      in srgb,
+      var(--glass-accent) 50%,
+      var(--glass-border)
+    );
+    background-color: color-mix(in srgb, var(--glass-bg) 90%, transparent);
+  }
+
+  .glass-interactive {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    cursor: pointer;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+
+  .glass-interactive:hover {
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    border-color: color-mix(
+      in srgb,
+      var(--glass-accent) 50%,
+      var(--glass-border)
+    );
+    background-color: color-mix(in srgb, var(--glass-bg) 90%, transparent);
+  }
+
+  .glass-interactive:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  }
+
+  /* Slight hover lift to emphasize elevation */
+  .glass-card:hover {
+    transform: translateY(-4px); /* subtle lift */
+  }
+
+  /* Dark-mode/light-mode tweaks (optional) */
+  /* If your glass sits on a dark background, the above is fine.
+   For bright backgrounds, adjust the shadow color to a light tint. */
+
+  .light-bg .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    color: #0b1220;
+    backdrop-filter: blur(6px);
+  }
+  .light-bg .shadow-top::before,
+  .light-bg .shadow-bottom::after {
+    /* use a soft light shadow (glow) instead of dark one when on bright backgrounds */
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.08) 0%,
+      rgba(0, 0, 0, 0.04) 40%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    filter: blur(10px);
+    opacity: 0.9;
+  }
+}
+
+/* ========================================
+   Bootstrap-like Layout Utilities (Tailwind v4)
+   ======================================== */
+
+@layer utilities {
+  /* Container utilities */
+  .container-fluid {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-fluid {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-fluid {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  .container {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80rem;
+  }
+
+  .container-sm {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 42rem;
+  }
+
+  .container-md {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 56rem;
+  }
+
+  .container-lg {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 64rem;
+  }
+
+  .container-xl {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80rem;
+  }
+
+  .container-2xl {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 96rem;
+  }
+
+  /* Row utilities */
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+  }
+
+  .row-no-gutters {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  /* Column utilities - Basic col class */
+  .col {
+    flex: 1 1 auto;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    min-width: 0;
+  }
+
+  .col-auto {
+    flex: 0 0 auto;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    width: auto;
+  }
+
+  /* Column utilities - Fixed widths */
+  .col-1 {
+    flex-basis: 8.333%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .col-2 {
+    flex-basis: 16.666%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .col-3 {
+    flex-basis: 25%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .col-4 {
+    flex-basis: 33.333%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .col-5 {
+    flex-basis: 41.666%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .col-6 {
+    flex-basis: 50%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .col-7 {
+    flex-basis: 58.333%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .col-8 {
+    flex-basis: 66.666%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .col-9 {
+    flex-basis: 75%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .col-10 {
+    flex-basis: 83.333%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .col-11 {
+    flex-basis: 91.666%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .col-12 {
+    flex-basis: 100%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  /* Small screen column utilities */
+  @media (min-width: 640px) {
+    .col-sm-1 {
+      flex-basis: 8.333%;
+    }
+    .col-sm-2 {
+      flex-basis: 16.666%;
+    }
+    .col-sm-3 {
+      flex-basis: 25%;
+    }
+    .col-sm-4 {
+      flex-basis: 33.333%;
+    }
+    .col-sm-5 {
+      flex-basis: 41.666%;
+    }
+    .col-sm-6 {
+      flex-basis: 50%;
+    }
+    .col-sm-7 {
+      flex-basis: 58.333%;
+    }
+    .col-sm-8 {
+      flex-basis: 66.666%;
+    }
+    .col-sm-9 {
+      flex-basis: 75%;
+    }
+    .col-sm-10 {
+      flex-basis: 83.333%;
+    }
+    .col-sm-11 {
+      flex-basis: 91.666%;
+    }
+    .col-sm-12 {
+      flex-basis: 100%;
+    }
+  }
+
+  /* Medium screen column utilities */
+  @media (min-width: 768px) {
+    .col-md-1 {
+      flex-basis: 8.333%;
+    }
+    .col-md-2 {
+      flex-basis: 16.666%;
+    }
+    .col-md-3 {
+      flex-basis: 25%;
+    }
+    .col-md-4 {
+      flex-basis: 33.333%;
+    }
+    .col-md-5 {
+      flex-basis: 41.666%;
+    }
+    .col-md-6 {
+      flex-basis: 50%;
+    }
+    .col-md-7 {
+      flex-basis: 58.333%;
+    }
+    .col-md-8 {
+      flex-basis: 66.666%;
+    }
+    .col-md-9 {
+      flex-basis: 75%;
+    }
+    .col-md-10 {
+      flex-basis: 83.333%;
+    }
+    .col-md-11 {
+      flex-basis: 91.666%;
+    }
+    .col-md-12 {
+      flex-basis: 100%;
+    }
+  }
+
+  /* Large screen column utilities */
+  @media (min-width: 1024px) {
+    .col-lg-1 {
+      flex-basis: 8.333%;
+    }
+    .col-lg-2 {
+      flex-basis: 16.666%;
+    }
+    .col-lg-3 {
+      flex-basis: 25%;
+    }
+    .col-lg-4 {
+      flex-basis: 33.333%;
+    }
+    .col-lg-5 {
+      flex-basis: 41.666%;
+    }
+    .col-lg-6 {
+      flex-basis: 50%;
+    }
+    .col-lg-7 {
+      flex-basis: 58.333%;
+    }
+    .col-lg-8 {
+      flex-basis: 66.666%;
+    }
+    .col-lg-9 {
+      flex-basis: 75%;
+    }
+    .col-lg-10 {
+      flex-basis: 83.333%;
+    }
+    .col-lg-11 {
+      flex-basis: 91.666%;
+    }
+    .col-lg-12 {
+      flex-basis: 100%;
+    }
+  }
+
+  /* Extra large screen column utilities */
+  @media (min-width: 1280px) {
+    .col-xl-1 {
+      flex-basis: 8.333%;
+    }
+    .col-xl-2 {
+      flex-basis: 16.666%;
+    }
+    .col-xl-3 {
+      flex-basis: 25%;
+    }
+    .col-xl-4 {
+      flex-basis: 33.333%;
+    }
+    .col-xl-5 {
+      flex-basis: 41.666%;
+    }
+    .col-xl-6 {
+      flex-basis: 50%;
+    }
+    .col-xl-7 {
+      flex-basis: 58.333%;
+    }
+    .col-xl-8 {
+      flex-basis: 66.666%;
+    }
+    .col-xl-9 {
+      flex-basis: 75%;
+    }
+    .col-xl-10 {
+      flex-basis: 83.333%;
+    }
+    .col-xl-11 {
+      flex-basis: 91.666%;
+    }
+    .col-xl-12 {
+      flex-basis: 100%;
+    }
+  }
+
+  /* 2XL screen column utilities */
+  @media (min-width: 1536px) {
+    .col-2xl-1 {
+      flex-basis: 8.333%;
+    }
+    .col-2xl-2 {
+      flex-basis: 16.666%;
+    }
+    .col-2xl-3 {
+      flex-basis: 25%;
+    }
+    .col-2xl-4 {
+      flex-basis: 33.333%;
+    }
+    .col-2xl-5 {
+      flex-basis: 41.666%;
+    }
+    .col-2xl-6 {
+      flex-basis: 50%;
+    }
+    .col-2xl-7 {
+      flex-basis: 58.333%;
+    }
+    .col-2xl-8 {
+      flex-basis: 66.666%;
+    }
+    .col-2xl-9 {
+      flex-basis: 75%;
+    }
+    .col-2xl-10 {
+      flex-basis: 83.333%;
+    }
+    .col-2xl-11 {
+      flex-basis: 91.666%;
+    }
+    .col-2xl-12 {
+      flex-basis: 100%;
+    }
+  }
+
+  /* Offset utilities */
+  .offset-1 {
+    margin-left: 8.333%;
+  }
+  .offset-2 {
+    margin-left: 16.666%;
+  }
+  .offset-3 {
+    margin-left: 25%;
+  }
+  .offset-4 {
+    margin-left: 33.333%;
+  }
+  .offset-5 {
+    margin-left: 41.666%;
+  }
+  .offset-6 {
+    margin-left: 50%;
+  }
+  .offset-7 {
+    margin-left: 58.333%;
+  }
+  .offset-8 {
+    margin-left: 66.666%;
+  }
+  .offset-9 {
+    margin-left: 75%;
+  }
+  .offset-10 {
+    margin-left: 83.333%;
+  }
+  .offset-11 {
+    margin-left: 91.666%;
+  }
+
+  @media (min-width: 640px) {
+    .offset-sm-1 {
+      margin-left: 8.333%;
+    }
+    .offset-sm-2 {
+      margin-left: 16.666%;
+    }
+    .offset-sm-3 {
+      margin-left: 25%;
+    }
+    .offset-sm-4 {
+      margin-left: 33.333%;
+    }
+    .offset-sm-5 {
+      margin-left: 41.666%;
+    }
+    .offset-sm-6 {
+      margin-left: 50%;
+    }
+    .offset-sm-7 {
+      margin-left: 58.333%;
+    }
+    .offset-sm-8 {
+      margin-left: 66.666%;
+    }
+    .offset-sm-9 {
+      margin-left: 75%;
+    }
+    .offset-sm-10 {
+      margin-left: 83.333%;
+    }
+    .offset-sm-11 {
+      margin-left: 91.666%;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .offset-md-1 {
+      margin-left: 8.333%;
+    }
+    .offset-md-2 {
+      margin-left: 16.666%;
+    }
+    .offset-md-3 {
+      margin-left: 25%;
+    }
+    .offset-md-4 {
+      margin-left: 33.333%;
+    }
+    .offset-md-5 {
+      margin-left: 41.666%;
+    }
+    .offset-md-6 {
+      margin-left: 50%;
+    }
+    .offset-md-7 {
+      margin-left: 58.333%;
+    }
+    .offset-md-8 {
+      margin-left: 66.666%;
+    }
+    .offset-md-9 {
+      margin-left: 75%;
+    }
+    .offset-md-10 {
+      margin-left: 83.333%;
+    }
+    .offset-md-11 {
+      margin-left: 91.666%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .offset-lg-1 {
+      margin-left: 8.333%;
+    }
+    .offset-lg-2 {
+      margin-left: 16.666%;
+    }
+    .offset-lg-3 {
+      margin-left: 25%;
+    }
+    .offset-lg-4 {
+      margin-left: 33.333%;
+    }
+    .offset-lg-5 {
+      margin-left: 41.666%;
+    }
+    .offset-lg-6 {
+      margin-left: 50%;
+    }
+    .offset-lg-7 {
+      margin-left: 58.333%;
+    }
+    .offset-lg-8 {
+      margin-left: 66.666%;
+    }
+    .offset-lg-9 {
+      margin-left: 75%;
+    }
+    .offset-lg-10 {
+      margin-left: 83.333%;
+    }
+    .offset-lg-11 {
+      margin-left: 91.666%;
+    }
+  }
+
+  /* Gutter utilities */
+  .g-0 {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .g-1 {
+    margin-left: -0.25rem;
+    margin-right: -0.25rem;
+  }
+  .g-2 {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+  }
+  .g-3 {
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+  }
+  .g-4 {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+  .g-5 {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+  }
+
+  /* Alignment utilities */
+  .row-start {
+    justify-content: flex-start;
+  }
+  .row-center {
+    justify-content: center;
+  }
+  .row-end {
+    justify-content: flex-end;
+  }
+  .row-between {
+    justify-content: space-between;
+  }
+  .row-around {
+    justify-content: space-around;
+  }
+  .row-evenly {
+    justify-content: space-evenly;
+  }
+
+  /* Text utilities */
+  .text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .text-break {
+    word-break: break-word;
+  }
+
+  /* Visibility utilities */
+  .visible-xs {
+    display: block;
+  }
+  .hidden-xs {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .visible-xs {
+      display: none;
+    }
+    .hidden-xs {
+      display: block;
+    }
+    .visible-sm {
+      display: none;
+    }
+    .hidden-sm {
+      display: block;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .visible-sm {
+      display: block;
+    }
+    .hidden-sm {
+      display: none;
+    }
+    .visible-md {
+      display: none;
+    }
+    .hidden-md {
+      display: block;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .visible-md {
+      display: block;
+    }
+    .hidden-md {
+      display: none;
+    }
+    .visible-lg {
+      display: none;
+    }
+    .hidden-lg {
+      display: block;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .visible-lg {
+      display: block;
+    }
+    .hidden-lg {
+      display: none;
+    }
+  }
+}
