@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import ThemeLayout from "@/components/theme/themeLayout";
+import ThemeManager from "@/components/theme/themeManager";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -30,7 +30,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased  max-h-screen h-screen overflow-hidden glass-bg dark`}
         suppressHydrationWarning
       >
-        <ThemeLayout>{children}</ThemeLayout>
+        <ThemeManager />
+        {children}
       </body>
     </html>
   );

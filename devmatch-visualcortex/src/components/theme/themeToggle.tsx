@@ -5,17 +5,17 @@ const ThemeToggle = () => {
   const switchTheme = useDevMatchAppStore((state) => state.switchTheme);
   const setSwitchTheme = useDevMatchAppStore((state) => state.setSwitchTheme);
 
-  const handleSwitchTheme = (e) => {
-    setSwitchTheme(!switchTheme);
-    e.stopPropagation();
+  const handleSwitchTheme = () => {
+    if (switchTheme === "dark") {
+      setSwitchTheme("light");
+    } else {
+      setSwitchTheme("dark");
+    }
   };
 
   return (
-    <div
-      className="flex items-center p-1 border-1 hover:border-white rounded-full transition-all ease-in-out theme-toggle"
-      onClick={(e) => handleSwitchTheme(e)}
-    >
-      <input type="checkbox" id="theme-toggle" />
+    <div className="flex items-center p-1 border-1 hover:border-white rounded-full transition-all ease-in-out theme-toggle">
+      <input type="checkbox" id="theme-toggle" onChange={handleSwitchTheme} />
       <label htmlFor="theme-toggle">
         <svg
           className="sun"

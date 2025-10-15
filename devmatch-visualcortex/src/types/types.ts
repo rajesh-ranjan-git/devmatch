@@ -1,6 +1,6 @@
 export type DevMatchAppState = {
-  switchTheme: boolean;
-  setSwitchTheme: (value: boolean) => void;
+  switchTheme: String;
+  setSwitchTheme: (value: String) => void;
   showProfileDropdown: boolean;
   setShowProfileDropdown: (value: boolean) => void;
 };
