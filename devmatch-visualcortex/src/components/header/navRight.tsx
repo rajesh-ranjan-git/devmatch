@@ -1,12 +1,9 @@
 "use client";
 
 import { useDevMatchAppStore } from "@/store/store";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bell, BellDot, ChevronUp } from "lucide-react";
 import ConnectionRequests from "@/components/connections/connectionRequests";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,6 +12,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import Connections from "@/components/connections/connections";
 import ThemeToggle from "../theme/themeToggle";
 
@@ -31,10 +33,18 @@ const NavRight = () => {
       <ThemeToggle />
       <ConnectionRequests />
       <Connections />
-      <div className="flex justify-center items-center gap-2 p-2 border-1 hover:border-white rounded-lg font-semibold transition-all ease-in-out cursor-pointer">
-        {/* <Bell /> */}
-        <BellDot />
-      </div>
+
+      <Popover>
+        <PopoverTrigger>
+          <div className="flex justify-center items-center gap-2 p-2 border-1 hover:border-white rounded-lg font-semibold transition-all ease-in-out cursor-pointer">
+            {/* <Bell /> */}
+            <BellDot />
+          </div>
+        </PopoverTrigger>
+        <PopoverContent className="glass-interactive">
+          Place content for the popover here.
+        </PopoverContent>
+      </Popover>
 
       <DropdownMenu>
         <DropdownMenuTrigger>
