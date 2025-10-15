@@ -1,11 +1,17 @@
 "use client";
 
-import { Bell, BellDot, ChevronUp } from "lucide-react";
-import { navbarMenuItems } from "@/config/config";
+import { Bell, BellDot, ChevronDown } from "lucide-react";
+import { navbarMenuItems, profileDropdownItems } from "@/config/config";
 import { useDevMatchAppStore } from "@/store/store";
 import Connections from "@/components/connections/connections";
 import ThemeToggle from "@/components/theme/themeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,14 +20,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { useEffect } from "react";
 
 const NavRight = () => {
   const switchTheme = useDevMatchAppStore((state) => state.switchTheme);
+  const showProfileDropdown = useDevMatchAppStore(
+    (state) => state.showProfileDropdown
+  );
+  const setShowProfileDropdown = useDevMatchAppStore(
+    (state) => state.setShowProfileDropdown
+  );
+
+  const handleArrowRotate = () => {
+    setShowProfileDropdown(!showProfileDropdown);
+  };
 
   return (
     <div className="flex justify-center items-center gap-2">
@@ -55,9 +67,13 @@ const NavRight = () => {
       </Popover>
 
       <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger
+          className="cursor-pointer"
+          onPointerDown={handleArrowRotate}
+          onPointerUp={handleArrowRotate}
+        >
           <div
-            className={`flex justify-center items-center gap-2 p-1 border-1  rounded-lg font-semibold cursor-pointer ${
+            className={`flex justify-center items-center gap-2 p-1 border-1  rounded-lg font-semibold ${
               switchTheme === "dark"
                 ? "hover:border-white"
                 : "hover:border-black"
@@ -68,18 +84,25 @@ const NavRight = () => {
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <span>Profile</span>
-            <ChevronUp />
+            <ChevronDown
+              className={`${
+                showProfileDropdown && "rotate-180"
+              } transition-all ease-in-out duration-300`}
+            />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="glass-interactive">
+        <DropdownMenuContent className="cursor-default glass-interactive">
           <DropdownMenuLabel>Rajesh Ranjan</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="opacity-80 hover:opacity-100 cursor-pointer">
-            Profile
-          </DropdownMenuItem>
-          <DropdownMenuItem className="opacity-80 hover:opacity-100 cursor-pointer">
-            Logout
-          </DropdownMenuItem>
+          {profileDropdownItems.map((item, idx) => (
+            <div key={idx}>
+              <DropdownMenuItem className="flex justify-between items-center opacity-80 hover:opacity-100 cursor-pointer">
+                <span>{item.label}</span>
+                <span>{item.icon}</span>
+              </DropdownMenuItem>
+              <Separator />
+            </div>
+          ))}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

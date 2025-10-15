@@ -7,7 +7,7 @@ export type DevMatchAppState = {
   setShowProfileDropdown: (value: boolean) => void;
 };
 
-export type NavbarMenuItem = {
+export type MenuItem = {
   name: String;
   icon: ReactElement;
   label: String;

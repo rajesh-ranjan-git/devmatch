@@ -1,7 +1,7 @@
-import { UserPlus, Handshake } from "lucide-react";
-import { NavbarMenuItem } from "@/types/types";
+import { UserPlus, Handshake, User, LogOut } from "lucide-react";
+import { MenuItem } from "@/types/types";
 
-export const navbarMenuItems: NavbarMenuItem[] = [
+export const navbarMenuItems: MenuItem[] = [
   {
     name: "REQUESTS",
     icon: <UserPlus />,
@@ -11,5 +11,18 @@ export const navbarMenuItems: NavbarMenuItem[] = [
     name: "CONNECTIONS",
     icon: <Handshake />,
     label: "Connections",
+  },
+];
+
+export const profileDropdownItems: MenuItem[] = [
+  {
+    name: "PROFILE",
+    icon: <User />,
+    label: "Profile",
+  },
+  {
+    name: "Logout",
+    icon: <LogOut />,
+    label: "Logout",
   },
 ];
