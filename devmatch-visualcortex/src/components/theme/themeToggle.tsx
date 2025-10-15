@@ -12,7 +12,7 @@ const ThemeToggle = () => {
 
   return (
     <div
-      className="flex items-center theme-toggle"
+      className="flex items-center p-1 border-1 hover:border-white rounded-full transition-all ease-in-out theme-toggle"
       onClick={(e) => handleSwitchTheme(e)}
     >
       <input type="checkbox" id="theme-toggle" />

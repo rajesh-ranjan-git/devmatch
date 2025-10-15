@@ -14,5 +14,9 @@ export default function ThemeLayout({
     console.log("debug switchTheme : ", switchTheme);
   }, [switchTheme]);
 
-  return <div className={switchTheme ? "dark" : ""}>{children}</div>;
+  return (
+    <div className={`${switchTheme ? "dark" : ""} h-full w-full`}>
+      {children}
+    </div>
+  );
 }
