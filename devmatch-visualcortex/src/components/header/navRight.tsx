@@ -3,7 +3,6 @@
 import { useDevMatchAppStore } from "@/store/store";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bell, BellDot, ChevronUp } from "lucide-react";
-import ConnectionRequests from "@/components/connections/connectionRequests";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,7 +17,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import Connections from "@/components/connections/connections";
-import ThemeToggle from "../theme/themeToggle";
+import ThemeToggle from "@/components/theme/themeToggle";
+import { navbarMenuItems } from "@/config/config";
 
 const NavRight = () => {
   const switchTheme = useDevMatchAppStore((state) => state.switchTheme);
@@ -26,13 +26,20 @@ const NavRight = () => {
   return (
     <div className="flex justify-center items-center gap-2">
       <ThemeToggle />
-      <ConnectionRequests />
-      <Connections />
+
+      {navbarMenuItems.map((item, idx) => (
+        <Connections
+          key={idx}
+          name={item.name}
+          icon={item.icon}
+          label={item.label}
+        />
+      ))}
 
       <Popover>
         <PopoverTrigger>
           <div
-            className={`flex justify-center items-center gap-2 p-2 border-1  rounded-lg font-semibold transition-all ease-in-out cursor-pointer ${
+            className={`flex justify-center items-center gap-2 p-2 border-1 rounded-lg font-semibold transition-all ease-in-out cursor-pointer ${
               switchTheme === "dark"
                 ? "hover:border-white"
                 : "hover:border-black"

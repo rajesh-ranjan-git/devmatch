@@ -7,9 +7,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useDevMatchAppStore } from "@/store/store";
-import { Handshake } from "lucide-react";
+import { ConnectionProps } from "@/types/propTypes";
 
-const Connections = () => {
+const Connections = ({ name, icon, label }: ConnectionProps) => {
   const switchTheme = useDevMatchAppStore((state) => state.switchTheme);
 
   return (
@@ -19,12 +19,12 @@ const Connections = () => {
           switchTheme === "dark" ? "hover:border-white" : "hover:border-black"
         }`}
       >
-        <Handshake />
-        <span>Connections</span>
+        {icon}
+        <span>{label}</span>
       </SheetTrigger>
       <SheetContent className="glass-sheet">
         <SheetHeader>
-          <SheetTitle>Connections</SheetTitle>
+          <SheetTitle>{name}</SheetTitle>
           <SheetDescription>
             This action cannot be undone. This will permanently delete your
             account and remove your data from our servers.
