@@ -1,5 +1,5 @@
 import { useDevMatchAppStore } from "@/store/store";
-import "./themeToggle.css";
+import "@/style/themeToggle.css";
 
 const ThemeToggle = () => {
   const switchTheme = useDevMatchAppStore((state) => state.switchTheme);

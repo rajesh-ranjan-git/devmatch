@@ -1,8 +1,11 @@
 "use client";
 
-import { useDevMatchAppStore } from "@/store/store";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Bell, BellDot, ChevronUp } from "lucide-react";
+import { navbarMenuItems } from "@/config/config";
+import { useDevMatchAppStore } from "@/store/store";
+import Connections from "@/components/connections/connections";
+import ThemeToggle from "@/components/theme/themeToggle";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,9 +19,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import Connections from "@/components/connections/connections";
-import ThemeToggle from "@/components/theme/themeToggle";
-import { navbarMenuItems } from "@/config/config";
 
 const NavRight = () => {
   const switchTheme = useDevMatchAppStore((state) => state.switchTheme);

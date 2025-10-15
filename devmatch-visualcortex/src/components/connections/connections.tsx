@@ -1,3 +1,5 @@
+import { useDevMatchAppStore } from "@/store/store";
+import { ConnectionProps } from "@/types/propTypes";
 import {
   Sheet,
   SheetContent,
@@ -6,8 +8,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useDevMatchAppStore } from "@/store/store";
-import { ConnectionProps } from "@/types/propTypes";
 
 const Connections = ({ name, icon, label }: ConnectionProps) => {
   const switchTheme = useDevMatchAppStore((state) => state.switchTheme);
