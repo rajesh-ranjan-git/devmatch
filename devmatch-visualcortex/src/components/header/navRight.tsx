@@ -1,8 +1,10 @@
 "use client";
 
 import { useDevMatchAppStore } from "@/store/store";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Bell, BellDot, ChevronUp, Handshake, UserPlus } from "lucide-react";
+import { Bell, BellDot, ChevronUp } from "lucide-react";
 import ConnectionRequests from "@/components/connections/connectionRequests";
 
 import {
@@ -14,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Connections from "@/components/connections/connections";
+import ThemeToggle from "../themeToggle/themeToggle";
 
 const NavRight = () => {
   const showProfileDropdown = useDevMatchAppStore(
@@ -25,6 +28,7 @@ const NavRight = () => {
 
   return (
     <div className="flex justify-center items-center gap-2">
+      <ThemeToggle />
       <ConnectionRequests />
       <Connections />
       <div className="flex justify-center items-center gap-2 p-2 border-1 hover:border-white rounded-lg font-semibold transition-all ease-in-out cursor-pointer">
