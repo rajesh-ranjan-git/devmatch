@@ -16,7 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Connections from "@/components/connections/connections";
-import ThemeToggle from "../themeToggle/themeToggle";
+import ThemeToggle from "../theme/themeToggle";
 
 const NavRight = () => {
   const showProfileDropdown = useDevMatchAppStore(
