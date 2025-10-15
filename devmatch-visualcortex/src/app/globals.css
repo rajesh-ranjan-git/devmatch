@@ -195,13 +195,18 @@ html {
     transition-property: all;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
+    border-color: color-mix(
+      in srgb,
+      var(--glass-accent) 80%,
+      var(--glass-border)
+    );
   }
 
   .glass-interactive:hover {
     box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
     border-color: color-mix(
       in srgb,
-      var(--glass-accent) 50%,
+      var(--glass-accent),
       var(--glass-border)
     );
     background-color: color-mix(in srgb, var(--glass-bg) 90%, transparent);
