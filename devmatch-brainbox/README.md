@@ -52,6 +52,7 @@ devmatch/
 │   ├── phone -> Number
 │   ├── gender -> String
 │   ├── avatarUrl -> String
+│   ├── coverPhotoUrl -> String
 │   ├── bio -> String
 │   ├── maritalStatus -> String
 │   ├── jobProfile -> String

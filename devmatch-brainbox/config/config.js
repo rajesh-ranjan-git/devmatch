@@ -281,6 +281,7 @@ export const publicProfilePropertiesForExplore = selectObjectProperties(
     "LAST_NAME",
     "NICK_NAME",
     "AVATAR_URL",
+    "COVER_PHOTO_URL",
     "JOB_PROFILE",
     "ORGANIZATION",
   ]
@@ -288,7 +289,7 @@ export const publicProfilePropertiesForExplore = selectObjectProperties(
 
 export const publicProfilePropertiesForNotification = selectObjectProperties(
   userProperties,
-  ["EMAIL", "FIRST_NAME", "MIDDLE_NAME", "LAST_NAME", "AVATAR_URL"]
+  ["EMAIL", "FIRST_NAME", "MIDDLE_NAME", "LAST_NAME", "AVATAR_URL", "COVER_PHOTO_URL"]
 );
 
 export const privateProfileProperties = omitObjectProperties(userProperties, [
