@@ -12,7 +12,7 @@ export const LOWER_CASE_REGEX = /[a-z]/;
 export const NUMBER_REGEX = /\d/;
 export const ALLOWED_SPECIAL_CHARACTERS_REGEX = /[@#$%&]/;
 export const PHONE_REGEX = /^\d{10}$/;
-export const AVATAR_URL_REGEX =
+export const PHOTO_URL_REGEX =
   /^(https?:\/\/)([a-zA-Z0-9\-._~%]+@)?([a-zA-Z0-9\-._~%]+\.)+[a-zA-Z]{2,}(\/[^\s?#]*)*(\.(jpg|jpeg|png|gif|webp|svg))?(\?[^\s]*)?$/i;
 export const GITHUB_REGEX =
   /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9-]{1,39}\/?$/;
@@ -140,7 +140,7 @@ export const errorMessages = {
   INVALID_PHONE_ERROR: "Invalid phone number!",
   INVALID_GENDER_ERROR: "Invalid gender!",
   INVALID_MARITAL_STATUS_ERROR: "Invalid marital status!",
-  INVALID_AVATAR_URL_ERROR: "Invalid avatar url!",
+  INVALID_PHOTO_URL_ERROR: "Invalid photo url!",
   INVALID_BIO_ERROR: "Invalid Bio!",
   BIO_MIN_LENGTH_ERROR: "Bio must be at least 2 characters long!",
   BIO_MAX_LENGTH_ERROR: "Bio must not be longer than 100 characters!",
@@ -190,7 +190,7 @@ export const errorMessages = {
   NOTIFICATION_FAILED_ERROR: "Unable to send notification!",
   INVALID_NOTIFICATION_ID_FORMAT_ERROR: "Invalid notification id format!",
   INVALID_NOTIFICATION_STATUS_ERROR: "Invalid notification status!",
-  NOTIFICATION_READ_FAILED_ERROR: "Unable to mark notification as read!"
+  NOTIFICATION_READ_FAILED_ERROR: "Unable to mark notification as read!",
 };
 
 export const successMessages = {
@@ -228,6 +228,7 @@ export const userProperties = {
   PHONE: "phone",
   GENDER: "gender",
   AVATAR_URL: "avatarUrl",
+  COVER_PHOTO_URL: "coverPhotoUrl",
   BIO: "bio",
   MARITAL_STATUS: "maritalStatus",
   JOB_PROFILE: "jobProfile",

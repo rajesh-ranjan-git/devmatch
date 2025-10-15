@@ -90,6 +90,10 @@ const userSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    coverPhotoUrl: {
+      type: String,
+      required: false,
+    },
     bio: {
       type: String,
       required: false,

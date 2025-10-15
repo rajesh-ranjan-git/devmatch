@@ -1,6 +1,6 @@
 import {
   allowedUpdateProfileProperties,
-  AVATAR_URL_REGEX,
+  PHOTO_URL_REGEX,
   connectionStatusProperties,
   errorMessages,
   genderProperties,
@@ -153,8 +153,8 @@ const addToValidatedProperties = (
         validatedAvatarUrl,
       } = regexPropertiesValidator(
         properties[property],
-        AVATAR_URL_REGEX,
-        errorMessages.INVALID_AVATAR_URL_ERROR
+        PHOTO_URL_REGEX,
+        errorMessages.INVALID_PHOTO_URL_ERROR
       );
 
       if (!isAvatarUrlValid) {
@@ -164,6 +164,30 @@ const addToValidatedProperties = (
       }
 
       validatedProperties[property] = validatedAvatarUrl;
+
+      return validatedProperties;
+    case allowedUpdateProfileProperties.COVER_PHOTO_URL:
+      const {
+        isCoverPhotoUrlValid,
+        message: coverPhotoUrlErrorMessage,
+        validatedCoverPhotoUrl,
+      } = regexPropertiesValidator(
+        properties[property],
+        PHOTO_URL_REGEX,
+        errorMessages.INVALID_PHOTO_URL_ERROR
+      );
+
+      if (!isCoverPhotoUrlValid) {
+        throw new ValidationError(
+          status.badRequest,
+          coverPhotoUrlErrorMessage,
+          {
+            property: properties[property],
+          }
+        );
+      }
+
+      validatedProperties[property] = validatedCoverPhotoUrl;
 
       return validatedProperties;
     case allowedUpdateProfileProperties.BIO:
