@@ -14,7 +14,11 @@ const ThemeToggle = () => {
   };
 
   return (
-    <div className="flex items-center p-1 border-1 hover:border-white rounded-full transition-all ease-in-out theme-toggle">
+    <div
+      className={`flex items-center p-1 border-1  rounded-full transition-all ease-in-out theme-toggle ${
+        switchTheme === "dark" ? "hover:border-white" : "hover:border-black"
+      }`}
+    >
       <input type="checkbox" id="theme-toggle" onChange={handleSwitchTheme} />
       <label htmlFor="theme-toggle">
         <svg

@@ -6,12 +6,19 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useDevMatchAppStore } from "@/store/store";
 import { UserPlus } from "lucide-react";
 
 const ConnectionRequests = () => {
+  const switchTheme = useDevMatchAppStore((state) => state.switchTheme);
+
   return (
     <Sheet>
-      <SheetTrigger className="flex justify-center items-center gap-2 p-2 border-1 hover:border-white rounded-lg font-semibold transition-all ease-in-out cursor-pointer">
+      <SheetTrigger
+        className={`flex justify-center items-center gap-2 p-2 border-1  rounded-lg font-semibold transition-all ease-in-out cursor-pointer ${
+          switchTheme === "dark" ? "hover:border-white" : "hover:border-black"
+        }`}
+      >
         <UserPlus />
         <span>Requests</span>
       </SheetTrigger>

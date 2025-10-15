@@ -21,12 +21,7 @@ import Connections from "@/components/connections/connections";
 import ThemeToggle from "../theme/themeToggle";
 
 const NavRight = () => {
-  const showProfileDropdown = useDevMatchAppStore(
-    (state) => state.showProfileDropdown
-  );
-  const setShowProfileDropdown = useDevMatchAppStore(
-    (state) => state.setShowProfileDropdown
-  );
+  const switchTheme = useDevMatchAppStore((state) => state.switchTheme);
 
   return (
     <div className="flex justify-center items-center gap-2">
@@ -36,7 +31,13 @@ const NavRight = () => {
 
       <Popover>
         <PopoverTrigger>
-          <div className="flex justify-center items-center gap-2 p-2 border-1 hover:border-white rounded-lg font-semibold transition-all ease-in-out cursor-pointer">
+          <div
+            className={`flex justify-center items-center gap-2 p-2 border-1  rounded-lg font-semibold transition-all ease-in-out cursor-pointer ${
+              switchTheme === "dark"
+                ? "hover:border-white"
+                : "hover:border-black"
+            }`}
+          >
             {/* <Bell /> */}
             <BellDot />
           </div>
@@ -48,7 +49,13 @@ const NavRight = () => {
 
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <div className="flex justify-center items-center gap-2 p-1 border-1 hover:border-white rounded-lg cursor-pointer">
+          <div
+            className={`flex justify-center items-center gap-2 p-1 border-1  rounded-lg font-semibold cursor-pointer ${
+              switchTheme === "dark"
+                ? "hover:border-white"
+                : "hover:border-black"
+            }`}
+          >
             <Avatar className="hover:glass-border border-1 border-transparent active:scale-95 transition-all ease-in-out">
               <AvatarImage src="assets/avatar/default-avatar-profile-picture-male-icon.webp" />
               <AvatarFallback>CN</AvatarFallback>
