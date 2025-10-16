@@ -58,6 +58,8 @@
 devmatch/
 │
 ├── devmatch-visualcortex/
+│   ├── config
+│   ├── components
 │   ├── .gitignore
 │   └── package.json
 │
