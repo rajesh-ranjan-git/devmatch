@@ -21,6 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useEffect } from "react";
+import { Button } from "../ui/button";
 
 const NavRight = () => {
   const switchTheme = useDevMatchAppStore((state) => state.switchTheme);
@@ -38,6 +39,7 @@ const NavRight = () => {
   return (
     <div className="flex justify-center items-center gap-2">
       <ThemeToggle />
+      <Button className="border-none glass-btn">Button</Button>
 
       {navbarMenuItems.map((item, idx) => (
         <Connections

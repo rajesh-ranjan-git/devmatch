@@ -204,18 +204,14 @@ html {
 
   .glass-interactive:hover {
     box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-    border-color: color-mix(
-      in srgb,
-      var(--glass-accent),
-      var(--glass-border)
-    );
+    border-color: color-mix(in srgb, var(--glass-accent), var(--glass-border));
     background-color: color-mix(in srgb, var(--glass-bg) 90%, transparent);
   }
 
-  .glass-interactive:active {
+  /* .glass-interactive:active {
     transform: scale(0.95);
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  }
+  } */
 
   /* Glass Card - Elevated content container */
   .glass-card {
@@ -318,6 +314,39 @@ html {
     border-radius: 0 1rem 1rem 0;
     box-shadow: 10px 0 30px -5px rgb(0 0 0 / 0.2),
       5px 0 15px -3px rgb(0 0 0 / 0.1);
+  }
+
+  .glass-btn {
+    padding: 12px 28px;
+    /* border: 1px solid rgba(255, 255, 255, 0.3); */
+    border: 1px solid oklab(0 none none / 0.3);
+    /* background: rgba(255, 255, 255, 0.15); */
+    background-color: oklab(0 none none / 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .glass-btn:hover {
+    /* background: rgba(255, 255, 255, 0.25); */
+    background-color: oklab(0 none none / 0.3);
+    /* border-color: rgba(255, 255, 255, 0.5); */
+    border-color: oklab(0 none none / 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .glass-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   }
 }
 

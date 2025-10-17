@@ -7,12 +7,6 @@ export default function ThemeManager() {
   const switchTheme = useDevMatchAppStore((state) => state.switchTheme);
 
   useEffect(() => {
-    document.body.style.backgroundImage = "url('/assets/IMG_8.JPG')";
-    document.body.style.backdropFilter = "12px";
-    document.body.style.backgroundPosition = "start";
-    document.body.style.backgroundRepeat = "no-repeat";
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundOrigin = "content-box";
     if (switchTheme === "dark") {
       document.body.classList.add("dark");
     } else {

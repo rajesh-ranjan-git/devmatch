@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 const Explore = () => {
   return (
@@ -12,10 +13,13 @@ const Explore = () => {
             height={500}
             className="rounded-md w-full h-full object-cover pointer-events-none"
           />
-          <div className="bottom-0 absolute backdrop-blur-xs hover:backdrop-blur-sm p-4 rounded-md w-full glass-interactive">
-            <p>Rajesh Ranjan</p>
-            <p>Full Stack Developer</p>
-            <p>India Today Group</p>
+          <div className="bottom-0 absolute flex justify-center items-center rounded-md w-full">
+            <div className="backdrop-blur-xs hover:backdrop-blur-sm m-1 p-4 w-full h-full glass-interactive">
+              <p>Rajesh Ranjan</p>
+              <p>Full Stack Developer</p>
+              <p>India Today Group</p>
+              <Button className="border-none glass-btn">Button</Button>
+            </div>
           </div>
         </div>
       </div>
