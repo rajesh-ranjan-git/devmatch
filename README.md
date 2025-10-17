@@ -57,11 +57,7 @@
 ```bash
 devmatch/
 │
-├── devmatch-visualcortex/
-│   ├── config
-│   ├── components
-│   ├── .gitignore
-│   └── package.json
+├── .vscode
 │
 ├── devmatch-brainbox/
 │   ├── config/
@@ -80,7 +76,35 @@ devmatch/
 │   ├── package.json
 │   └── README.md
 │
-├── .vscode
+├── devmatch-visualcortex/
+│   ├── public
+│   ├── src
+│   │   ├── app
+│   │   ├── components
+│   │   │   ├── background
+│   │   │   ├── connections
+│   │   │   ├── explore
+│   │   │   ├── header
+│   │   │   ├── main
+│   │   │   ├── theme
+│   │   │   └── ui
+│   │   │
+│   │   ├── config
+│   │   ├── helpers
+│   │   ├── lib
+│   │   ├── store
+│   │   ├── style
+│   │   └── types
+│   │
+│   ├── .gitignore
+│   ├── components.json
+│   ├── eslint.config.mjs
+│   ├── next.config.ts
+│   ├── package.json
+│   ├── postcss.config.mjs
+│   ├── README.md
+│   └── tsconfig.json
+│
 └── README.md
 ```
 
@@ -147,12 +171,12 @@ DB_PASSWORD=
 ### 3. Install Dependencies
 
 ```bash
-# Frontend
-cd devmatch-visualcortex
-npm install
-
 # Backend
 cd ../devmatch-brainbox
+npm install
+
+# Frontend
+cd devmatch-visualcortex
 npm install
 ```
 
