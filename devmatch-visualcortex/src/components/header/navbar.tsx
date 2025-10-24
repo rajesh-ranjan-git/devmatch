@@ -3,7 +3,7 @@ import NavRight from "@/components/header/navRight";
 
 const Navbar = () => {
   return (
-    <div className="flex justify-between items-center glass-border border-1 w-full h-full glass-md container">
+    <div className="flex justify-between items-center border w-full h-full container">
       <Logo />
       <NavRight />
     </div>

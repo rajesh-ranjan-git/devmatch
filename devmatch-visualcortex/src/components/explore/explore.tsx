@@ -1,10 +1,9 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 
 const Explore = () => {
   return (
     <div className="relative flex justify-center items-center h-[80vh] container">
-      <div className="h-full object-cover glass-card col-5">
+      <div className="h-full object-cover col-5">
         <div className="top-0 left-0 absolute w-full h-full">
           <Image
             src={"/assets/profile_photo_square.png"}
@@ -14,11 +13,11 @@ const Explore = () => {
             className="rounded-md w-full h-full object-cover pointer-events-none"
           />
           <div className="bottom-0 absolute flex justify-center items-center rounded-md w-full">
-            <div className="backdrop-blur-xs hover:backdrop-blur-sm m-1 p-4 w-full h-full glass-interactive">
+            <div className="backdrop-blur-xs hover:backdrop-blur-sm m-1 p-4 w-full h-full">
               <p>Rajesh Ranjan</p>
               <p>Full Stack Developer</p>
               <p>India Today Group</p>
-              <Button className="border-none glass-btn">Button</Button>
+              <div className="border-none">Button</div>
             </div>
           </div>
         </div>

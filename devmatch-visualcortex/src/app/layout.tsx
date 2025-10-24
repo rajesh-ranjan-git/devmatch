@@ -1,17 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { alkatra, arima, tourney } from "@/config/config";
+import "./globals.css";
 import ThemeManager from "@/components/theme/themeManager";
-import "@/app/globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "DevMatch",
@@ -27,8 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased  max-h-screen h-screen overflow-hidden glass-bg dark`}
-        suppressHydrationWarning
+        className={`${alkatra.variable} ${arima.variable} ${tourney.variable} antialiased max-h-screen h-screen overflow-hidden`}
       >
         <ThemeManager />
         {children}
