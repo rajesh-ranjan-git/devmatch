@@ -1,5 +1,6 @@
 import { Alkatra, Arima, Tourney } from "next/font/google";
 import { MenuItem } from "@/types/types";
+import { LuHandshake, LuLogOut, LuUser, LuUserPlus } from "react-icons/lu";
 
 // * --- Google Fonts --- * //
 
@@ -19,12 +20,12 @@ export const tourney = Tourney({
 export const navbarMenuItems: MenuItem[] = [
   {
     name: "REQUESTS",
-    icon: <></>,
+    icon: <LuUserPlus />,
     label: "Requests",
   },
   {
     name: "CONNECTIONS",
-    icon: <></>,
+    icon: <LuHandshake />,
     label: "Connections",
   },
 ];
@@ -32,12 +33,12 @@ export const navbarMenuItems: MenuItem[] = [
 export const profileDropdownItems: MenuItem[] = [
   {
     name: "PROFILE",
-    icon: <></>,
+    icon: <LuUser />,
     label: "Profile",
   },
   {
     name: "Logout",
-    icon: <></>,
+    icon: <LuLogOut />,
     label: "Logout",
   },
 ];

@@ -5,7 +5,7 @@ const Logo = () => {
   return (
     <Link
       href="/"
-      className="flex justify-center items-center font-bold text-2xl"
+      className="flex justify-center items-center text-3xl cursor-pointer"
     >
       <div className="w-16 h-16 object-cover">
         <Image
@@ -15,7 +15,7 @@ const Logo = () => {
           alt="devmatch-logo"
         />
       </div>
-      <span>DevMatch</span>
+      <span className="font-tourney tracking-wider">DevMatch</span>
     </Link>
   );
 };

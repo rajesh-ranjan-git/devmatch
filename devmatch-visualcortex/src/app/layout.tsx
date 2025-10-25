@@ -17,7 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${alkatra.variable} ${arima.variable} ${tourney.variable} antialiased max-h-screen h-screen overflow-hidden`}
+        className={`${alkatra.variable} ${arima.variable} ${tourney.variable} antialiased max-h-screen h-screen overflow-hidden bg-glass-accent-cyan`}
+        suppressHydrationWarning
       >
         <ThemeManager />
         {children}

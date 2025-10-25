@@ -8,13 +8,15 @@ export default function ThemeManager() {
 
   useEffect(() => {
     if (switchTheme === "dark") {
-      document.body.classList.add("dark");
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
     } else {
-      document.body.classList.remove("dark");
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
     }
 
     return () => {
-      document.body.classList.remove("dark");
+      document.documentElement.classList.remove("dark");
     };
   }, [switchTheme]);
 

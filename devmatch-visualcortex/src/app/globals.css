@@ -1,33 +1,123 @@
 @import "tailwindcss";
 
+/* Light Theme */
 :root {
-  --background: #fff;
-  --foreground: #000;
+  /* Glass surfaces */
+  --glass-surface: rgba(255, 255, 255, 0.7);
+  --glass-surface-light: rgba(255, 255, 255, 0.5);
+  --glass-surface-lighter: rgba(255, 255, 255, 0.3);
+  --glass-surface-heavy: rgba(255, 255, 255, 0.9);
+
+  /* Borders */
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-border-subtle: rgba(255, 255, 255, 0.4);
+  --glass-border-bright: rgba(255, 255, 255, 0.95);
+
+  /* Shadows */
+  --glass-shadow: rgba(0, 0, 0, 0.1);
+  --glass-shadow-medium: rgba(0, 0, 0, 0.15);
+  --glass-shadow-heavy: rgba(0, 0, 0, 0.2);
+
+  /* Text colors */
+  --glass-text-primary: rgba(0, 0, 0, 0.9);
+  --glass-text-secondary: rgba(0, 0, 0, 0.7);
+  --glass-text-tertiary: rgba(0, 0, 0, 0.5);
+
+  /* Accent overlays */
+  --glass-accent-blue: rgba(59, 130, 246, 0.15);
+  --glass-accent-purple: rgba(139, 92, 246, 0.15);
+  --glass-accent-pink: rgba(236, 72, 153, 0.15);
+  --glass-accent-cyan: rgba(6, 182, 212, 0.15);
+  --glass-accent-green: rgba(34, 197, 94, 0.15);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-alkatra: var(--font-alkatra);
-  --font-arima: var(--font-arima);
-  --font-tourney: var(--font-tourney);
+/* Dark Theme */
+.dark {
+  /* Glass surfaces */
+  --glass-surface: rgba(255, 255, 255, 0.1);
+  --glass-surface-light: rgba(255, 255, 255, 0.05);
+  --glass-surface-lighter: rgba(255, 255, 255, 0.03);
+  --glass-surface-heavy: rgba(255, 255, 255, 0.15);
+
+  /* Borders */
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-border-subtle: rgba(255, 255, 255, 0.1);
+  --glass-border-bright: rgba(255, 255, 255, 0.3);
+
+  /* Shadows */
+  --glass-shadow: rgba(0, 0, 0, 0.3);
+  --glass-shadow-medium: rgba(0, 0, 0, 0.5);
+  --glass-shadow-heavy: rgba(0, 0, 0, 0.7);
+
+  /* Text colors */
+  --glass-text-primary: rgba(255, 255, 255, 0.95);
+  --glass-text-secondary: rgba(255, 255, 255, 0.75);
+  --glass-text-tertiary: rgba(255, 255, 255, 0.5);
+
+  /* Accent overlays */
+  --glass-accent-blue: rgba(96, 165, 250, 0.2);
+  --glass-accent-purple: rgba(168, 85, 247, 0.2);
+  --glass-accent-pink: rgba(244, 114, 182, 0.2);
+  --glass-accent-cyan: rgba(34, 211, 238, 0.2);
+  --glass-accent-green: rgba(74, 222, 128, 0.2);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000;
-    --foreground: #fff;
+/* Enable dark theme by default */
+html:not(.light) {
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    border-color: var(--glass-border);
+    outline-color: color-mix(
+      in srgb,
+      var(--glass-border-subtle) 50%,
+      transparent
+    );
+  }
+
+  body {
+    background-color: var(--glass-surface);
+    color: var(--glass-text-primary);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@theme {
+  --font-alkatra: var(--font-alkatra);
+  --font-arima: var(--font-arima);
+  --font-tourney: var(--font-tourney);
+
+  /* Glass surfaces */
+  --color-glass-surface: var(--glass-surface);
+  --color-glass-surface-light: var(--glass-surface-light);
+  --color-glass-surface-lighter: var(--glass-surface-lighter);
+  --color-glass-surface-heavy: var(--glass-surface-heavy);
+
+  /* Borders */
+  --color-glass-border: var(--glass-border);
+  --color-glass-border-subtle: var(--glass-border-subtle);
+  --color-glass-border-bright: var(--glass-border-bright);
+
+  /* Shadows */
+  --color-glass-shadow: var(--glass-shadow);
+  --color-glass-shadow-medium: var(--glass-shadow-medium);
+  --color-glass-shadow-heavy: var(--glass-shadow-heavy);
+
+  /* Text colors */
+  --color-glass-text-primary: var(--glass-text-primary);
+  --color-glass-text-secondary: var(--glass-text-secondary);
+  --color-glass-text-tertiary: var(--glass-text-tertiary);
+
+  /* Accent overlays */
+  --color-glass-accent-blue: var(--glass-accent-blue);
+  --color-glass-accent-purple: var(--glass-accent-purple);
+  --color-glass-accent-pink: var(--glass-accent-pink);
+  --color-glass-accent-cyan: var(--glass-accent-cyan);
+  --color-glass-accent-green: var(--glass-accent-green);
 }
 
 /* --- Animations --- */
-
 @keyframes spinBlob {
   0% {
     transform: rotate(0deg) scale(2);

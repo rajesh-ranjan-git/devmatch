@@ -5,10 +5,9 @@ import DefaultAnimatedBackground from "@/components/background/defaultAnimatedBa
 export default function Home() {
   return (
     <>
-      <div className="absolute backdrop-blur-xs w-full h-full font-arima"></div>
       <DefaultAnimatedBackground />
-      {/* <Header /> */}
-      {/* <Main /> */}
+      <Header />
+      <Main />
     </>
   );
 }
