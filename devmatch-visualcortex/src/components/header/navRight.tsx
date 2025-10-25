@@ -25,10 +25,6 @@ const NavRight = () => {
     (state) => state.setShowProfileDropdown
   );
 
-  const handleArrowRotate = () => {
-    setShowProfileDropdown(!showProfileDropdown);
-  };
-
   return (
     <div className="flex justify-center items-center">
       <ThemeToggle />

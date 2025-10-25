@@ -1,6 +1,6 @@
 import { useDevMatchAppStore } from "@/store/store";
 import { ConnectionProps } from "@/types/propTypes";
-import Button2 from "@/components/ui/buttons/Button2";
+import ConnectionButton from "@/components/ui/buttons/ConnectionButton";
 import Sheet from "@/components/ui/sheet/sheet";
 
 const Connections = ({ name, icon, label }: ConnectionProps) => {
@@ -15,7 +15,7 @@ const Connections = ({ name, icon, label }: ConnectionProps) => {
 
   return (
     <>
-      <Button2
+      <ConnectionButton
         name={name}
         icon={icon}
         label={label}
