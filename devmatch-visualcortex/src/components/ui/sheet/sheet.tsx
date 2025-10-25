@@ -1,5 +1,5 @@
-import { IoClose } from "react-icons/io5";
 import { useState, useEffect } from "react";
+import { IoClose } from "react-icons/io5";
 
 interface SheetProps {
   open: boolean;
