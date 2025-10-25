@@ -41,7 +41,7 @@ const NavRight = () => {
       <Button8
         child={
           <div className="flex justify-center items-center gap-2 p-3">
-            <div className="w-full">
+            <div className="w-full object-contain">
               <Image
                 src="/assets/avatar/default-avatar-profile-picture-male-icon.webp"
                 alt="avatar-icon"
