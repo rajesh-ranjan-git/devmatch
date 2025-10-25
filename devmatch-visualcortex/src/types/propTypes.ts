@@ -11,4 +11,11 @@ export interface ButtonProps {
   icon?: ReactElement;
   label?: String;
   child?: ReactElement;
+  onClick?: () => void;
+}
+
+export interface SheetProps {
+  open: boolean;
+  onClose: () => void;
+  children?: React.ReactNode;
 }

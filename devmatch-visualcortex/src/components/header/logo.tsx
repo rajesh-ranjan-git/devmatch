@@ -15,7 +15,9 @@ const Logo = () => {
           alt="devmatch-logo"
         />
       </div>
-      <span className="font-tourney tracking-wider">DevMatch</span>
+      <span className="font-tourney text-glass-text-primary tracking-wider">
+        DevMatch
+      </span>
     </Link>
   );
 };

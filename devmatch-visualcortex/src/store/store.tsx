@@ -6,4 +6,6 @@ export const useDevMatchAppStore = create<DevMatchAppState>((set) => ({
   setSwitchTheme: (value) => set({ switchTheme: value }),
   showProfileDropdown: false,
   setShowProfileDropdown: (value) => set({ showProfileDropdown: value }),
+  toggleConnectionSheet: false,
+  setToggleConnectionSheet: (value) => set({ toggleConnectionSheet: value }),
 }));

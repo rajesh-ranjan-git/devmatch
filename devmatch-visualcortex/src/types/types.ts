@@ -5,6 +5,8 @@ export type DevMatchAppState = {
   setSwitchTheme: (value: String) => void;
   showProfileDropdown: boolean;
   setShowProfileDropdown: (value: boolean) => void;
+  toggleConnectionSheet: boolean;
+  setToggleConnectionSheet: (value: boolean) => void;
 };
 
 export type MenuItem = {
