@@ -24,7 +24,7 @@ const Sheet = ({ open, onClose, children }: SheetProps) => {
   return (
     <>
       <div
-        className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-500 animate-[fadeIn_0.5s_ease-in-out] ${
+        className={`fixed inset-0 bg-black/50 z-50 transition-opacity duration-500 animate-[fadeIn_0.5s_ease-in-out] ${
           open ? "opacity-100" : "opacity-0"
         }`}
         onClick={onClose}
