@@ -4,13 +4,14 @@ import Button2 from "@/components/ui/buttons/Button2";
 import Sheet from "@/components/ui/sheet/sheet";
 
 const Connections = ({ name, icon, label }: ConnectionProps) => {
-  const switchTheme = useDevMatchAppStore((state) => state.switchTheme);
-  const toggleConnectionSheet = useDevMatchAppStore(
-    (state) => state.toggleConnectionSheet
+  const activeConnectionSheet = useDevMatchAppStore(
+    (state) => state.activeConnectionSheet
   );
-  const setToggleConnectionSheet = useDevMatchAppStore(
-    (state) => state.setToggleConnectionSheet
+  const setActiveConnectionSheet = useDevMatchAppStore(
+    (state) => state.setActiveConnectionSheet
   );
+
+  const isOpen = activeConnectionSheet === name;
 
   return (
     <>
@@ -18,13 +19,10 @@ const Connections = ({ name, icon, label }: ConnectionProps) => {
         name={name}
         icon={icon}
         label={label}
-        onClick={() => setToggleConnectionSheet(!toggleConnectionSheet)}
+        onClick={() => setActiveConnectionSheet(name)}
       />
-      <Sheet
-        open={toggleConnectionSheet}
-        onClose={() => setToggleConnectionSheet(false)}
-      >
-        Sheet
+      <Sheet open={isOpen} onClose={() => setActiveConnectionSheet(null)}>
+        {label}
       </Sheet>
     </>
   );

@@ -1,16 +1,18 @@
 import { ReactElement } from "react";
 
 export type DevMatchAppState = {
-  switchTheme: String;
-  setSwitchTheme: (value: String) => void;
+  switchTheme: string;
+  setSwitchTheme: (value: string) => void;
   showProfileDropdown: boolean;
   setShowProfileDropdown: (value: boolean) => void;
   toggleConnectionSheet: boolean;
   setToggleConnectionSheet: (value: boolean) => void;
+  activeConnectionSheet: string | null;
+  setActiveConnectionSheet: (name: string | null) => void;
 };
 
 export type MenuItem = {
-  name: String;
+  name: string;
   icon: ReactElement;
-  label: String;
+  label: string;
 };

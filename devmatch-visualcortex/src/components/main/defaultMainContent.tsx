@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const DefaultMainContent = () => {
   return (
-    <div className="flex flex-col justify-center items-center gap-4 pb-10 w-full h-full font-arima font-bold text-glass-text-primary container">
+    <div className="flex flex-col justify-center items-center gap-4 pb-10 w-full h-full font-arima font-bold text-glass-text-primary select-none container">
       <div className="z-16 w-24 h-24 object-cover">
         <Image
           src={"/assets/logo/devmatch-logo-white-circular.webp"}

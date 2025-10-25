@@ -8,4 +8,6 @@ export const useDevMatchAppStore = create<DevMatchAppState>((set) => ({
   setShowProfileDropdown: (value) => set({ showProfileDropdown: value }),
   toggleConnectionSheet: false,
   setToggleConnectionSheet: (value) => set({ toggleConnectionSheet: value }),
+  activeConnectionSheet: null,
+  setActiveConnectionSheet: (name) => set({ activeConnectionSheet: name }),
 }));
