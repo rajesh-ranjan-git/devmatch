@@ -5,7 +5,7 @@ const Logo = () => {
   return (
     <Link
       href="/"
-      className="flex justify-center items-center text-3xl cursor-pointer"
+      className="flex justify-center items-center gap-2 text-3xl cursor-pointer"
     >
       <div className="w-16 h-16 object-cover">
         <Image

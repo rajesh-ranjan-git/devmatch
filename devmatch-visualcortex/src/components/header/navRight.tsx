@@ -47,7 +47,7 @@ const NavRight = () => {
                 alt="avatar-icon"
                 width={50}
                 height={50}
-                className="rounded-full w-full object-contain"
+                className="rounded-full w-full"
               />
             </div>
             <FaChevronDown
