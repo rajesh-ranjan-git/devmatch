@@ -10,7 +10,8 @@ export interface ButtonProps {
   name?: string;
   icon?: ReactElement;
   label?: string;
-  child?: ReactElement;
+  children?: ReactElement;
+  className?: string;
   onClick?: () => void;
 }
 

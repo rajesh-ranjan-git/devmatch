@@ -7,11 +7,18 @@ import { useDevMatchAppStore } from "@/store/store";
 import Connections from "@/components/connections/connections";
 import ThemeToggle from "@/components/theme/themeToggle";
 import { FaChevronDown } from "react-icons/fa6";
-import Button7 from "@/components/ui/buttons/Button7";
+import NotificationsButton from "@/components/ui/buttons/NotificationsButton";
 import Button8 from "@/components/ui/buttons/Button8";
+import ContextMenu from "@/components/ui/contextMenu/contextMenu";
+import { useEffect } from "react";
 
 const NavRight = () => {
-  const switchTheme = useDevMatchAppStore((state) => state.switchTheme);
+  const showNotifications = useDevMatchAppStore(
+    (state) => state.showNotifications
+  );
+  const setShowNotifications = useDevMatchAppStore(
+    (state) => state.setShowNotifications
+  );
   const showProfileDropdown = useDevMatchAppStore(
     (state) => state.showProfileDropdown
   );
@@ -36,10 +43,22 @@ const NavRight = () => {
         />
       ))}
 
-      <Button7 icon={<LuBellDot />} />
+      <div className="relative overflow-visible">
+        <NotificationsButton
+          icon={<LuBellDot />}
+          className={`${showNotifications && "z-100"}`}
+          onClick={() => setShowNotifications(!showNotifications)}
+        />
+        <ContextMenu
+          open={showNotifications}
+          onClose={() => setShowNotifications(false)}
+        >
+          Notifications
+        </ContextMenu>
+      </div>
 
       <Button8
-        child={
+        children={
           <div className="flex justify-center items-center gap-2 p-3">
             <div className="w-full object-contain">
               <Image
