@@ -1,6 +1,6 @@
 import { ButtonProps } from "@/types/propTypes";
 
-const Button8 = ({
+const ProfileButton = ({
   name,
   icon,
   label,
@@ -22,4 +22,4 @@ const Button8 = ({
   );
 };
 
-export default Button8;
+export default ProfileButton;

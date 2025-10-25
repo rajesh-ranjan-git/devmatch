@@ -2,15 +2,14 @@
 
 import Image from "next/image";
 import { LuBell, LuBellDot } from "react-icons/lu";
+import { FaChevronDown } from "react-icons/fa6";
 import { navbarMenuItems, profileDropdownItems } from "@/config/config";
 import { useDevMatchAppStore } from "@/store/store";
 import Connections from "@/components/connections/connections";
 import ThemeToggle from "@/components/theme/themeToggle";
-import { FaChevronDown } from "react-icons/fa6";
-import NotificationsButton from "@/components/ui/buttons/NotificationsButton";
-import Button8 from "@/components/ui/buttons/Button8";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
-import { useEffect } from "react";
+import NotificationsButton from "@/components/ui/buttons/NotificationsButton";
+import ProfileButton from "@/components/ui/buttons/ProfileButton";
 
 const NavRight = () => {
   const showNotifications = useDevMatchAppStore(
@@ -43,7 +42,7 @@ const NavRight = () => {
         />
       ))}
 
-      <div className="relative overflow-visible">
+      <div className="relative">
         <NotificationsButton
           icon={<LuBellDot />}
           className={`${showNotifications && "z-100"}`}
@@ -57,8 +56,11 @@ const NavRight = () => {
         </ContextMenu>
       </div>
 
-      <Button8
-        children={
+      <div className="relative">
+        <ProfileButton
+          onClick={() => setShowProfileDropdown(!showProfileDropdown)}
+          className={`${showProfileDropdown && "z-100"}`}
+        >
           <div className="flex justify-center items-center gap-2 p-3">
             <div className="w-full object-contain">
               <Image
@@ -72,11 +74,17 @@ const NavRight = () => {
             <FaChevronDown
               className={`${
                 showProfileDropdown && "rotate-180"
-              } transition-all ease-in-out duration-300`}
+              } transition-all ease-in-out duration-500`}
             />
           </div>
-        }
-      />
+        </ProfileButton>
+        <ContextMenu
+          open={showProfileDropdown}
+          onClose={() => setShowProfileDropdown(false)}
+        >
+          Profile
+        </ContextMenu>
+      </div>
     </div>
   );
 };
