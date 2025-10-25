@@ -1,6 +1,6 @@
-import { SheetProps } from "@/types/propTypes";
 import { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
+import { SheetProps } from "@/types/propTypes";
 
 const Sheet = ({ open, onClose, children }: SheetProps) => {
   const [isVisible, setIsVisible] = useState(false);
