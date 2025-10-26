@@ -1,5 +1,5 @@
 import Image from "next/image";
-import NameCardContent from "./nameCardContent";
+import NameCardContent from "@/components/cards/nameCardContent";
 import UserDetailsCardContent from "@/components/cards/userDetailsCardContent";
 import UserInfoButton from "@/components/ui/buttons/userInfoButton";
 

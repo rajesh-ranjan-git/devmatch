@@ -1,4 +1,4 @@
-const AnimatedBackground = () => {
+const DefaultAnimatedBackground = () => {
   return (
     <div className="-z-1 fixed inset-0 opacity-[0.3] blur-[80px] m-auto w-full h-full">
       <div className="absolute inset-0 m-auto rounded-full w-screen min-w-screen h-screen overflow-hidden scale-80">
@@ -8,4 +8,4 @@ const AnimatedBackground = () => {
   );
 };
 
-export default AnimatedBackground;
+export default DefaultAnimatedBackground;

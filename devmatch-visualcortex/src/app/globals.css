@@ -127,15 +127,6 @@ html:not(.light) {
   }
 }
 
-@keyframes spinBlob {
-  0% {
-    transform: rotate(0deg) scale(2);
-  }
-  100% {
-    transform: rotate(1turn) scale(2);
-  }
-}
-
 @keyframes slideInFromRight {
   from {
     transform: translateX(100%);
@@ -155,5 +146,25 @@ html:not(.light) {
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+@keyframes spinBlob {
+  0% {
+    transform: rotate(0deg) scale(2);
+  }
+  100% {
+    transform: rotate(1turn) scale(2);
+  }
+}
+
+@keyframes floatingSquares {
+  0%,
+  100% {
+    transform: translateY(-2.5rem);
+  }
+
+  50% {
+    transform: translateY(2.5rem);
   }
 }
