@@ -27,6 +27,10 @@ export interface ContextMenuProps {
   children?: React.ReactNode;
 }
 
+export interface NameCardContentProps {
+  name: string;
+}
+
 export interface UserDetailsCardContentProps {
   name: string;
   designation: string;

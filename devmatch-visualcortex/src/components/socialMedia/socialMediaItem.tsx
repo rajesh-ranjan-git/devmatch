@@ -17,7 +17,7 @@ const SocialMediaItem = ({
         transitionDelay: `${0.2 * idx}s`,
       }}
     >
-      <Link href={url} className="text-white text-2xl">
+      <Link href={url} className="text-glass-text-primary text-2xl">
         <Icon />
       </Link>
     </li>

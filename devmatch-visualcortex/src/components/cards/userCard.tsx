@@ -1,4 +1,5 @@
 import Image from "next/image";
+import NameCardContent from "./nameCardContent";
 import UserDetailsCardContent from "@/components/cards/userDetailsCardContent";
 import UserInfoButton from "@/components/ui/buttons/userInfoButton";
 
@@ -14,6 +15,8 @@ const UserCard = () => {
         height={400}
         className="w-full h-full object-cover select-none"
       />
+
+      <NameCardContent name="Rajesh Ranjan" />
 
       <UserDetailsCardContent
         name="Rajesh Ranjan"
