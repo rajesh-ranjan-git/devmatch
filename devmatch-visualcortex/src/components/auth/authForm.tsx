@@ -1,6 +1,6 @@
 import { LuLogIn } from "react-icons/lu";
 import Input from "@/components/auth/input";
-import SubmitButton from "../ui/buttons/submitButton";
+import SubmitButton from "@/components/ui/buttons/submitButton";
 
 const AuthForm = () => {
   return (

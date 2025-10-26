@@ -1,6 +1,7 @@
 import DefaultMainContent from "@/components/main/defaultMainContent";
 import Explore from "@/components/explore/explore";
 import Auth from "@/components/auth/auth";
+import Profile from "@/components/profile/profile";
 
 const main = () => {
   return (
@@ -9,7 +10,9 @@ const main = () => {
 
       {/* <Explore /> */}
 
-      <Auth />
+      {/* <Auth /> */}
+
+      <Profile />
     </main>
   );
 };
