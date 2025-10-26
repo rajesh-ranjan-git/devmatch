@@ -26,3 +26,9 @@ export interface ContextMenuProps {
   onClose: () => void;
   children?: React.ReactNode;
 }
+
+export interface UserDetailsCardContentProps {
+  name: string;
+  designation: string;
+  company: string;
+}
