@@ -3,10 +3,10 @@
 /* Light Theme */
 :root {
   /* Glass surfaces */
-  --glass-surface: rgba(255, 255, 255, 0.7);
-  --glass-surface-light: rgba(255, 255, 255, 0.5);
-  --glass-surface-lighter: rgba(255, 255, 255, 0.3);
-  --glass-surface-heavy: rgba(255, 255, 255, 0.9);
+  --glass-surface: rgba(255, 255, 255, 0.1);
+  --glass-surface-light: rgba(255, 255, 255, 0.2);
+  --glass-surface-lighter: rgba(255, 255, 255, 0.09);
+  --glass-surface-heavy: rgba(255, 255, 255, 0.3);
 
   /* Borders */
   --glass-border: rgba(255, 255, 255, 0.8);

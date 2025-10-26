@@ -4,11 +4,11 @@ import SubmitButton from "../ui/buttons/submitButton";
 
 const AuthForm = () => {
   return (
-    <div className="relative p-10 w-full h-full">
-      <h2 className="before:-bottom-2.5 before:left-0 before:absolute relative before:rounded-full before:w-20 before:h-1 font-arima font-extrabold text-glass-text-primary before:bg-glass-text-primary text-2xl before:content-[''] tracking-wider">
+    <div className="relative flex flex-col justify-center items-center p-10 w-full h-full">
+      <h2 className="before:-bottom-2.5 before:left-0 before:absolute relative before:rounded-full w-full before:w-20 before:h-1 font-arima font-extrabold text-glass-text-primary before:bg-glass-text-primary text-2xl before:content-[''] tracking-wider">
         Login Form
       </h2>
-      <form className="text-md">
+      <form className="w-full text-md">
         <div className="mt-5 w-full">
           <Input type="text" placeholder="Username" />
         </div>
