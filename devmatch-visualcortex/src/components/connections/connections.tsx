@@ -1,6 +1,6 @@
 import { useDevMatchAppStore } from "@/store/store";
 import { ConnectionProps } from "@/types/propTypes";
-import ConnectionButton from "@/components/ui/buttons/ConnectionButton";
+import ConnectionButton from "@/components/ui/buttons/connectionButton";
 import Sheet from "@/components/ui/sheet/sheet";
 
 const Connections = ({ name, icon, label }: ConnectionProps) => {

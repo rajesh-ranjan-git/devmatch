@@ -8,8 +8,8 @@ import { useDevMatchAppStore } from "@/store/store";
 import Connections from "@/components/connections/connections";
 import ThemeToggle from "@/components/theme/themeToggle";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
-import NotificationsButton from "@/components/ui/buttons/NotificationsButton";
-import ProfileButton from "@/components/ui/buttons/ProfileButton";
+import NotificationsButton from "@/components/ui/buttons/notificationsButton";
+import ProfileButton from "@/components/ui/buttons/profileButton";
 
 const NavRight = () => {
   const showNotifications = useDevMatchAppStore(
