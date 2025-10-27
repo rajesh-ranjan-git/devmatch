@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { alkatra, arima, tourney } from "@/config/config";
+import { alkatra, arima, inter, tourney } from "@/config/config";
 import "./globals.css";
 import ThemeManager from "@/components/theme/themeManager";
 
@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${alkatra.variable} ${arima.variable} ${tourney.variable} antialiased max-h-screen h-screen overflow-hidden bg-glass-accent-cyan`}
+        className={`${alkatra.variable} ${arima.variable} ${inter.variable} ${tourney.variable} max-h-screen h-screen overflow-hidden bg-glass-accent-cyan`}
         suppressHydrationWarning
       >
         <ThemeManager />

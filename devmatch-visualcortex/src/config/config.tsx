@@ -1,4 +1,4 @@
-import { Alkatra, Arima, Tourney } from "next/font/google";
+import { Alkatra, Arima, Inter, Tourney } from "next/font/google";
 import { MenuItem } from "@/types/types";
 import { LuHandshake, LuLogOut, LuUser, LuUserPlus } from "react-icons/lu";
 
@@ -10,6 +10,10 @@ export const alkatra = Alkatra({
 
 export const arima = Arima({
   variable: "--font-arima",
+});
+
+export const inter = Inter({
+  variable: "--font-inter",
 });
 
 export const tourney = Tourney({
