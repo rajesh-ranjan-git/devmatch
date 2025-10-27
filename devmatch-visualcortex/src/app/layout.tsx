@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 import { alkatra, arima, inter, tourney } from "@/config/config";
-import "./globals.css";
 import ThemeManager from "@/components/theme/themeManager";
+import ErrorWrapper from "@/app/error-wrapper";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "DevMatch",
+  title: {
+    absolute: "",
+    default: "DevMatch",
+    template: "%s | DevMatch",
+  },
   description:
     "DevMatch is a social platform where developers connect, collaborate, and grow together. Discover like-minded peers, participate in friendly competitions, find collaborators for projects, and build meaningful professional relationships with the developer community.",
 };
@@ -21,7 +26,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ThemeManager />
-        {children}
+        <ErrorWrapper>{children}</ErrorWrapper>
       </body>
     </html>
   );
