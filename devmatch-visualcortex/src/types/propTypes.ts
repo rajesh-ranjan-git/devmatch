@@ -1,5 +1,9 @@
 import { ReactElement } from "react";
 
+export interface WrapperProps {
+  children: React.ReactNode;
+}
+
 export interface ConnectionProps {
   name: string;
   icon: ReactElement;

@@ -30,6 +30,21 @@
   --glass-accent-cyan: rgba(6, 182, 212, 0.15);
   --glass-accent-green: rgba(34, 197, 94, 0.15);
 
+  /* ⚠️ Warning (Yellow) */
+  --glass-warning: rgba(255, 213, 79, 0.25);
+  --glass-warning-border: rgba(255, 193, 7, 0.4);
+  --glass-warning-text: rgba(102, 75, 0, 0.8);
+
+  /* ❌ Error (Red) */
+  --glass-error: rgba(244, 67, 54, 0.25);
+  --glass-error-border: rgba(229, 57, 53, 0.4);
+  --glass-error-text: rgba(120, 20, 20, 0.85);
+
+  /* ✅ Success (Green) */
+  --glass-success: rgba(76, 175, 80, 0.25);
+  --glass-success-border: rgba(67, 160, 71, 0.4);
+  --glass-success-text: rgba(30, 70, 32, 0.85);
+
   font-family: Inter, system-ui, Helvetica, Arial, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -66,6 +81,21 @@
   --glass-accent-pink: rgba(244, 114, 182, 0.2);
   --glass-accent-cyan: rgba(34, 211, 238, 0.2);
   --glass-accent-green: rgba(74, 222, 128, 0.2);
+
+  /* ⚠️ Warning (Yellow) */
+  --glass-warning: rgba(255, 193, 7, 0.15);
+  --glass-warning-border: rgba(255, 214, 10, 0.35);
+  --glass-warning-text: rgba(255, 214, 10, 0.85);
+
+  /* ❌ Error (Red) */
+  --glass-error: rgba(244, 67, 54, 0.15);
+  --glass-error-border: rgba(239, 83, 80, 0.35);
+  --glass-error-text: rgba(255, 138, 128, 0.85);
+
+  /* ✅ Success (Green) */
+  --glass-success: rgba(76, 175, 80, 0.15);
+  --glass-success-border: rgba(129, 199, 132, 0.35);
+  --glass-success-text: rgba(185, 246, 202, 0.85);
 }
 
 /* Enable dark theme by default */
@@ -93,6 +123,7 @@ html:not(.light) {
   --font-alkatra: var(--font-alkatra);
   --font-arima: var(--font-arima);
   --font-tourney: var(--font-tourney);
+  --font-inter: var(--font-inter);
 
   /* Glass surfaces */
   --color-glass-surface: var(--glass-surface);
@@ -121,6 +152,21 @@ html:not(.light) {
   --color-glass-accent-pink: var(--glass-accent-pink);
   --color-glass-accent-cyan: var(--glass-accent-cyan);
   --color-glass-accent-green: var(--glass-accent-green);
+
+  /* ⚠️ Warning (Yellow) */
+  --color-glass-warning: var(--glass-warning);
+  --color-glass-warning-border: var(--glass-warning-border);
+  --color-glass-warning-text: var(--glass-warning-text);
+
+  /* ❌ Error (Red) */
+  --color-glass-error: var(--glass-error);
+  --color-glass-error-border: var(--glass-error-border);
+  --color-glass-error-text: var(--glass-error-text);
+
+  /* ✅ Success (Green) */
+  --color-glass-success: var(--glass-success);
+  --color-glass-success-border: var(--glass-success-border);
+  --color-glass-success-text: var(--glass-success-text);
 }
 
 /* --- Animations --- */

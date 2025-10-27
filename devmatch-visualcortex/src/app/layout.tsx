@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { alkatra, arima, inter, tourney } from "@/config/config";
 import ThemeManager from "@/components/theme/themeManager";
-import ErrorWrapper from "@/app/error-wrapper";
+import ErrorWrapper from "@/components/errors/errorWrapper";
 import "./globals.css";
 
 export const metadata: Metadata = {
