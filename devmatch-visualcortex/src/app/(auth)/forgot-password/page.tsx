@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import Main from "@/components/main/main";
+import Auth from "@/components/auth/auth";
 
 export const metadata: Metadata = {
   title: "Forgot Password",
@@ -6,9 +8,9 @@ export const metadata: Metadata = {
 
 const ForgotPassword = () => {
   return (
-    <div className="flex justify-center items-center text-5xl">
-      Forgot Password Page
-    </div>
+    <Main>
+      <Auth />
+    </Main>
   );
 };
 
