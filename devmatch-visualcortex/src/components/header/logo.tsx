@@ -4,7 +4,7 @@ import Link from "next/link";
 const Logo = () => {
   return (
     <Link
-      href="/"
+      href="/explore"
       className="flex justify-center items-center gap-2 text-3xl cursor-pointer"
     >
       <div className="w-16 h-16 object-cover">

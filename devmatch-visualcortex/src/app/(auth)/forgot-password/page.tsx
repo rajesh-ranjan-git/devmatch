@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   title: "Forgot Password",
 };
 
-const ForgotPassword = () => {
+const ForgotPasswordPage = () => {
   return (
     <Main>
-      <Auth />
+      <Auth type="forgotPassword" />
     </Main>
   );
 };
 
-export default ForgotPassword;
+export default ForgotPasswordPage;

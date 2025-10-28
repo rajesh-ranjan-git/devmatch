@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   title: "Login",
 };
 
-const Login = () => {
+const LoginPage = () => {
   return (
     <Main>
-      <Auth />
+      <Auth type="login" />
     </Main>
   );
 };
 
-export default Login;
+export default LoginPage;

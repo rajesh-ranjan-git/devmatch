@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   title: "Register",
 };
 
-const Register = () => {
+const RegisterPage = () => {
   return (
     <Main>
-      <Auth />
+      <Auth type="register" />
     </Main>
   );
 };
 
-export default Register;
+export default RegisterPage;

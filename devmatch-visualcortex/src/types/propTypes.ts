@@ -44,3 +44,7 @@ export interface UserDetailsCardContentProps {
   designation: string;
   company: string;
 }
+
+export interface AuthProps {
+  type: string;
+}
