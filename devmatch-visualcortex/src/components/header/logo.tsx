@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { staticImages } from "@/config/config";
 
 const Logo = () => {
   return (
@@ -9,10 +10,10 @@ const Logo = () => {
     >
       <div className="w-16 h-16 object-cover">
         <Image
-          src={"/assets/logo/devmatch-logo-transparent-circular.webp"}
+          src={staticImages.navLogo.src}
+          alt={staticImages.navLogo.alt}
           width={200}
           height={200}
-          alt="devmatch-logo"
         />
       </div>
       <span className="font-tourney text-glass-text-primary tracking-wider">

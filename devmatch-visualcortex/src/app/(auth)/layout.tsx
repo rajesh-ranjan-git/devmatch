@@ -1,8 +1,6 @@
-const AuthLayout = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
+import { ReactNodeProps } from "@/types/propTypes";
+
+const AuthLayout = ({ children }: Readonly<ReactNodeProps>) => {
   return <>{children}</>;
 };
 

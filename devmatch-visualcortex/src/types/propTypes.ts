@@ -1,10 +1,7 @@
 import { ReactElement } from "react";
+import { IconType } from "react-icons";
 
-export interface WrapperProps {
-  children: React.ReactNode;
-}
-
-export interface MainProps {
+export interface ReactNodeProps {
   children: React.ReactNode;
 }
 
@@ -47,4 +44,15 @@ export interface UserDetailsCardContentProps {
 
 export interface AuthProps {
   type: string;
+}
+
+export interface InputProps {
+  type: string;
+  placeholder: string;
+}
+
+export interface SocialMediaItemProps {
+  url: string;
+  Icon: IconType;
+  idx: number;
 }

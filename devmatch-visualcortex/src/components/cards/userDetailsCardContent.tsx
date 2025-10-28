@@ -1,5 +1,5 @@
-import SocialMedia from "@/components/socialMedia/socialMedia";
 import { UserDetailsCardContentProps } from "@/types/propTypes";
+import SocialMedia from "@/components/socialMedia/socialMedia";
 
 const UserDetailsCardContent = ({
   name,

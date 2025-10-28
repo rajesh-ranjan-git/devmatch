@@ -1,10 +1,6 @@
-const Input = ({
-  type,
-  placeholder,
-}: {
-  type: string;
-  placeholder: string;
-}) => {
+import { InputProps } from "@/types/propTypes";
+
+const Input = ({ type, placeholder }: InputProps) => {
   return (
     <input
       type={type}

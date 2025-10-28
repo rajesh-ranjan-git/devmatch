@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { MdEdit, MdOutlineEdit } from "react-icons/md";
+import { staticImages } from "@/config/config";
 
 const ProfileDetails = () => {
   return (
@@ -10,8 +11,8 @@ const ProfileDetails = () => {
             <MdEdit />
           </div>
           <Image
-            src="/assets/profile_photo_square.png"
-            alt="pic"
+            src={staticImages.profilePlaceholder.src}
+            alt={staticImages.profilePlaceholder.alt}
             width={100}
             height={100}
             className="rounded-full w-full h-full object-cover select-none"

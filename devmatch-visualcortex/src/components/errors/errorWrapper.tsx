@@ -1,6 +1,6 @@
-import { WrapperProps } from "@/types/propTypes";
+import { ReactNodeProps } from "@/types/propTypes";
 
-const ErrorWrapper = ({ children }: WrapperProps) => {
+const ErrorWrapper = ({ children }: ReactNodeProps) => {
   return <>{children}</>;
 };
 

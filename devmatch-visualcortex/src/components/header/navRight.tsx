@@ -3,7 +3,11 @@
 import Image from "next/image";
 import { LuBell, LuBellDot } from "react-icons/lu";
 import { FaChevronDown } from "react-icons/fa6";
-import { navbarMenuItems, profileDropdownItems } from "@/config/config";
+import {
+  navbarMenuItems,
+  profileDropdownItems,
+  staticImages,
+} from "@/config/config";
 import { useDevMatchAppStore } from "@/store/store";
 import Connections from "@/components/connections/connections";
 import ThemeToggle from "@/components/theme/themeToggle";
@@ -60,8 +64,8 @@ const NavRight = () => {
           <div className="flex justify-center items-center gap-2 p-3">
             <div className="w-full object-contain">
               <Image
-                src="/assets/avatar/default-avatar-profile-picture-male-icon.webp"
-                alt="avatar-icon"
+                src={staticImages.avatarPlaceholder.src}
+                alt={staticImages.avatarPlaceholder.alt}
                 width={50}
                 height={50}
                 className="rounded-full w-full"

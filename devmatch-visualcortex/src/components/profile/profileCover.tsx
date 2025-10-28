@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { staticImages } from "@/config/config";
 import NameCardContent from "@/components/cards/nameCardContent";
 import ProfileCoverEditButton from "@/components/ui/buttons/profileCoverEditButton";
 
@@ -8,8 +9,8 @@ const ProfileCover = () => {
       <ProfileCoverEditButton />
 
       <Image
-        src="/assets/profile_photo_square.png"
-        alt="pic"
+        src={staticImages.profilePlaceholder.src}
+        alt={staticImages.profilePlaceholder.alt}
         width={600}
         height={400}
         className="w-full h-full object-cover select-none"
