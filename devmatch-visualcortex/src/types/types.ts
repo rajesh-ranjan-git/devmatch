@@ -14,5 +14,6 @@ export type DevMatchAppState = {
 export type MenuItem = {
   name: string;
   icon: ReactElement;
+  url?: string;
   label: string;
 };

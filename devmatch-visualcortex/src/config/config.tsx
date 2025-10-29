@@ -61,11 +61,13 @@ export const profileDropdownItems: MenuItem[] = [
   {
     name: "PROFILE",
     label: "Profile",
+    url: "/profile",
     icon: <LuUser />,
   },
   {
     name: "LOGOUT",
     label: "Logout",
+    url: "/logout",
     icon: <LuLogOut />,
   },
 ];
