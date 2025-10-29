@@ -6,7 +6,7 @@ import Separator from "@/components/ui/separator/separator";
 
 const Auth = ({ type }: AuthProps) => {
   return (
-    <div className="relative flex justify-center items-center w-full h-[80vh]">
+    <div className="relative flex justify-center items-center w-full h-[85vh] overflow-hidden">
       <div className="relative flex bg-glass-surface border border-glass-border-bright rounded-xl w-full max-w-7xl h-[95%]">
         <AnimatedFloatingSquares />
         <DefaultMainContent />
