@@ -4,6 +4,7 @@ import Image from "next/image";
 import { LuBell, LuBellDot } from "react-icons/lu";
 import { FaChevronDown } from "react-icons/fa6";
 import {
+  contextMenus,
   navbarMenuItems,
   profileDropdownItems,
   staticImages,
@@ -13,7 +14,7 @@ import Connections from "@/components/connections/connections";
 import ThemeToggle from "@/components/theme/themeToggle";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import NotificationsButton from "@/components/ui/buttons/notificationsButton";
-import ProfileButton from "@/components/ui/buttons/profileButton";
+import AccountOptionsButton from "@/components/ui/buttons/accountOptionsButton";
 import HorizontalSeparator from "@/components/ui/separator/horizontalSeparator";
 
 const NavRight = () => {
@@ -50,6 +51,7 @@ const NavRight = () => {
           onClick={() => setShowNotifications(!showNotifications)}
         />
         <ContextMenu
+          type={contextMenus.notifications.type}
           open={showNotifications}
           onClose={() => setShowNotifications(false)}
         >
@@ -58,7 +60,7 @@ const NavRight = () => {
       </div>
 
       <div className="relative">
-        <ProfileButton
+        <AccountOptionsButton
           onClick={() => setShowProfileDropdown(!showProfileDropdown)}
           className={`${showProfileDropdown && "z-100"}`}
         >
@@ -78,8 +80,9 @@ const NavRight = () => {
               } transition-all ease-in-out duration-500`}
             />
           </div>
-        </ProfileButton>
+        </AccountOptionsButton>
         <ContextMenu
+          type={contextMenus.accountOptions.type}
           open={showProfileDropdown}
           onClose={() => setShowProfileDropdown(false)}
         >

@@ -46,6 +46,17 @@ export const theme = {
   },
 };
 
+export const contextMenus = {
+  notifications: {
+    name: "NOTIFICATIONS",
+    type: "notifications",
+  },
+  accountOptions: {
+    name: "ACCOUNT OPTIONS",
+    type: "accountOptions",
+  },
+};
+
 export const navbarMenuItems: MenuItem[] = [
   {
     name: "REQUESTS",
