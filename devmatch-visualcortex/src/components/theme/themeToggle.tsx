@@ -14,7 +14,7 @@ const ThemeToggle = () => {
 
   return (
     <div
-      className={`flex items-center p-1 border rounded-full transition-all ease-in-out shadow-lg shadow-glass-shadow-heavy ${
+      className={`flex items-center p-1 border rounded-full transition-all ease-in-out shadow-md shadow-glass-shadow-heavy ${
         switchTheme === "dark"
           ? "hover:border-glass-border-bright border-glass-border-subtle"
           : "border-glass-border-bright hover:border-glass-border-subtle"
