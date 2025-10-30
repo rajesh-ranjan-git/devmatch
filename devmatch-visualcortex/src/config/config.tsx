@@ -4,6 +4,8 @@ import {
   LuLogIn,
   LuLogOut,
   LuUser,
+  LuUserMinus,
+  LuUserPen,
   LuUserPlus,
 } from "react-icons/lu";
 import { TbLockPassword } from "react-icons/tb";
@@ -81,7 +83,7 @@ export const authFields = {
     icon: <LuUser />,
   },
   firstName: {
-    name: "FIRSTNAME",
+    name: "FIRST NAME",
     type: "text",
     label: "First Name",
     placeholder: "First Name",
@@ -108,21 +110,37 @@ export const authFields = {
     placeholder: "Password",
     icon: <TbLockPassword />,
   },
+  confirmPassword: {
+    name: "CONFIRM PASSWORD",
+    type: "password",
+    label: "Confirm Password",
+    placeholder: "Confirm Password",
+    url: "/confirm-password",
+    icon: <TbLockPassword />,
+  },
   forgotPassword: {
-    name: "FORGOTPASSWORD",
+    name: "FORGOT PASSWORD",
     type: "forgotPassword",
     label: "Forgot Password",
     placeholder: "Forgot Password",
     url: "/forgot-password",
     icon: <TbLockPassword />,
   },
-  confirmPassword: {
-    name: "CONFIRMPASSWORD",
-    type: "password",
-    label: "Confirm Password",
-    placeholder: "Confirm Password",
-    url: "/confirm-password",
-    icon: <TbLockPassword />,
+  updateProfile: {
+    name: "UPDATE PROFILE",
+    type: "updateProfile",
+    label: "Update Profile",
+    placeholder: "Update Profile",
+    url: "/update-profile",
+    icon: <LuUserPen />,
+  },
+  deleteAccount: {
+    name: "DELETE ACCOUNT",
+    type: "deleteAccount",
+    label: "Delete Account",
+    placeholder: "Delete Account",
+    url: "/delete-account",
+    icon: <LuUserMinus />,
   },
 };
 

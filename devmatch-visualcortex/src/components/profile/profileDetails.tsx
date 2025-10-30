@@ -1,10 +1,12 @@
 import Image from "next/image";
 import { MdEdit, MdOutlineEdit } from "react-icons/md";
-import { staticImages } from "@/config/config";
+import { authFields, staticImages } from "@/config/config";
+import ButtonNormal from "@/components/ui/buttons/buttonNormal";
+import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 
 const ProfileDetails = () => {
   return (
-    <div className="relative flex flex-col p-8 w-full h-full">
+    <div className="relative flex flex-col p-8 pb-2 w-full h-full">
       <div className="flex gap-4">
         <div className="group relative border border-glass-border-bright rounded-full w-12 h-11 object-cover overflow-hidden cursor-pointer">
           <div className="-top-0.5 -left-1.5 absolute flex justify-center items-center bg-glass-surface-heavy opacity-0 group-hover:opacity-100 backdrop-blur-xs w-14 h-12 transition-all translate-y-full group-hover:translate-y-0 duration-300 ease-in-out">
@@ -278,6 +280,18 @@ const ProfileDetails = () => {
             </tr>
           </tbody>
         </table>
+      </div>
+      <div className="flex justify-center items-center gap-4 mt-2">
+        <ButtonNormal
+          icon={authFields.updateProfile.icon}
+          label={authFields.updateProfile.label}
+          className="w-46"
+        />
+        <ButtonDestructive
+          icon={authFields.deleteAccount.icon}
+          label={authFields.deleteAccount.label}
+          className="w-46"
+        />
       </div>
     </div>
   );
