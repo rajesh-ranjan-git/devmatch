@@ -54,7 +54,21 @@ const NavRight = () => {
           onClose={() => setShowNotifications(false)}
           className="before:right-5"
         >
-          Notifications
+          <div className="flex flex-col gap-1 p-1">
+            {profileDropdownItems.map((item) => (
+              <p
+                key={item.name}
+                className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg w-full transition-all ease-in-out cursor-pointer"
+              >
+                <span>{item.icon}</span>
+                <span className="mr-4 w-full">{item.label}</span>
+              </p>
+            ))}
+          </div>
+          <HorizontalSeparator />
+          <div className="hover:bg-glass-surface-heavy m-1 p-1 px-4 rounded-lg text-sm cursor-pointer">
+            Clear
+          </div>
         </ContextMenu>
       </div>
 
