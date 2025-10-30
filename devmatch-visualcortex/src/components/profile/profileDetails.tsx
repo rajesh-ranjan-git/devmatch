@@ -1,17 +1,26 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import { MdEdit, MdOutlineEdit } from "react-icons/md";
-import { authFields, staticImages } from "@/config/config";
+import { BsCamera } from "react-icons/bs";
+import { authFields, cameraDropdownItems, staticImages } from "@/config/config";
+import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
+import HorizontalSeparator from "../ui/separator/horizontalSeparator";
 
 const ProfileDetails = () => {
+  const [showProfilePhotoContext, setShowProfilePhotoContext] = useState(false);
+  const [showCoverPhotoContext, setShowCoverPhotoContext] = useState(false);
+
   return (
     <div className="relative flex flex-col p-8 pb-4 w-full h-full">
       <div className="flex gap-4">
-        <div className="group relative border border-glass-border-bright rounded-full w-12 h-11 object-cover overflow-hidden cursor-pointer">
-          <div className="-top-0.5 -left-1.5 absolute flex justify-center items-center bg-glass-surface-heavy opacity-0 group-hover:opacity-100 backdrop-blur-xs w-14 h-12 transition-all translate-y-full group-hover:translate-y-0 duration-300 ease-in-out">
-            <MdEdit />
-          </div>
+        <div
+          className="relative border border-glass-border-bright rounded-full w-12 h-11 object-cover cursor-pointer"
+          onClick={() => setShowProfilePhotoContext(!showProfilePhotoContext)}
+        >
           <Image
             src={staticImages.profilePlaceholder.src}
             alt={staticImages.profilePlaceholder.alt}
@@ -19,6 +28,30 @@ const ProfileDetails = () => {
             height={100}
             className="rounded-full w-full h-full object-cover select-none"
           />
+          <div className="group top-0 absolute rounded-full w-full h-full overflow-hidden">
+            <div className="absolute flex justify-center items-center bg-glass-surface-heavy opacity-0 group-hover:opacity-100 backdrop-blur-xs w-full h-full transition-all translate-y-full group-hover:translate-y-0 duration-300 ease-in-out">
+              <BsCamera />
+            </div>
+          </div>
+          <ContextMenu
+            open={showProfilePhotoContext}
+            onClose={() => setShowProfilePhotoContext(false)}
+            className="before:right-full left-0 before:left-4 w-52"
+          >
+            <p className="p-2 font-bold text-md">Update profile photo</p>
+            <HorizontalSeparator />
+            <div className="flex flex-col gap-1 p-1">
+              {cameraDropdownItems.map((item) => (
+                <p
+                  key={item.name}
+                  className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg w-full transition-all ease-in-out cursor-pointer"
+                >
+                  <span>{item.icon}</span>
+                  <span className="w-full">{item.label}</span>
+                </p>
+              ))}
+            </div>
+          </ContextMenu>
         </div>
         <h2 className="before:-bottom-2.5 before:left-0 before:absolute relative mb-4 before:rounded-full w-full before:w-20 before:h-1 font-arima font-extrabold text-glass-text-primary before:bg-glass-text-primary text-2xl before:content-[''] tracking-wider">
           Rajesh Ranjan

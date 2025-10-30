@@ -4,7 +4,6 @@ import Image from "next/image";
 import { LuBell, LuBellDot } from "react-icons/lu";
 import { FaChevronDown } from "react-icons/fa6";
 import {
-  contextMenus,
   navbarMenuItems,
   profileDropdownItems,
   staticImages,
@@ -51,9 +50,9 @@ const NavRight = () => {
           onClick={() => setShowNotifications(!showNotifications)}
         />
         <ContextMenu
-          type={contextMenus.notifications.type}
           open={showNotifications}
           onClose={() => setShowNotifications(false)}
+          className="before:right-5"
         >
           Notifications
         </ContextMenu>
@@ -82,9 +81,9 @@ const NavRight = () => {
           </div>
         </AccountOptionsButton>
         <ContextMenu
-          type={contextMenus.accountOptions.type}
           open={showProfileDropdown}
           onClose={() => setShowProfileDropdown(false)}
+          className="before:right-9"
         >
           <p className="p-2 px-4 font-bold text-lg">Rajesh Ranjan</p>
           <HorizontalSeparator />

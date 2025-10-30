@@ -1,10 +1,14 @@
-import { MdEdit, MdOutlineEdit } from "react-icons/md";
+import { ButtonProps } from "@/types/propTypes";
+import { BsCamera, BsFillCameraFill } from "react-icons/bs";
 
-const ProfileCoverEditButton = () => {
+const ProfileCoverEditButton = ({ onClick }: ButtonProps) => {
   return (
-    <div className="group/icon inline-block top-4 right-4 absolute hover:bg-glass-surface-heavy backdrop-blur-3xl border border-glass-border-subtle hover:border-glass-border-bright rounded-sm w-7 h-7 text-glass-text-primary text-2xl transition-all ease-in-out cursor-pointer">
-      <MdOutlineEdit className="group-hover/icon:hidden top-0 right-0 absolute" />
-      <MdEdit className="hidden group-hover/icon:inline-block top-0 right-0 absolute" />
+    <div
+      className="group/icon top-4 right-4 absolute hover:bg-glass-surface-heavy backdrop-blur-3xl border border-glass-border-subtle hover:border-glass-border-bright rounded-sm w-8.5 h-8 text-glass-text-primary text-2xl transition-all ease-in-out cursor-pointer"
+      onClick={onClick}
+    >
+      <BsCamera className="group-hover/icon:hidden inline-block top-0.5 right-1 absolute" />
+      <BsFillCameraFill className="hidden group-hover/icon:inline-block top-0.5 right-1 absolute" />
     </div>
   );
 };

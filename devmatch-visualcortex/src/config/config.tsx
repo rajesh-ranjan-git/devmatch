@@ -1,5 +1,6 @@
 import { Alkatra, Arima, Inter, Tourney } from "next/font/google";
 import {
+  LuCloudUpload,
   LuHandshake,
   LuLogIn,
   LuLogOut,
@@ -16,6 +17,7 @@ import {
   FaXTwitter,
 } from "react-icons/fa6";
 import { MenuItem } from "@/types/types";
+import { BsCamera } from "react-icons/bs";
 
 export const alkatra = Alkatra({
   variable: "--font-alkatra",
@@ -46,17 +48,6 @@ export const theme = {
   },
 };
 
-export const contextMenus = {
-  notifications: {
-    name: "NOTIFICATIONS",
-    type: "notifications",
-  },
-  accountOptions: {
-    name: "ACCOUNT OPTIONS",
-    type: "accountOptions",
-  },
-};
-
 export const navbarMenuItems: MenuItem[] = [
   {
     name: "REQUESTS",
@@ -82,6 +73,19 @@ export const profileDropdownItems: MenuItem[] = [
     label: "Logout",
     url: "/logout",
     icon: <LuLogOut />,
+  },
+];
+
+export const cameraDropdownItems: MenuItem[] = [
+  {
+    name: "OPEN CAMERA",
+    label: "Open camera",
+    icon: <BsCamera />,
+  },
+  {
+    name: "UPLOAD FROM DEVICE",
+    label: "Upload from device",
+    icon: <LuCloudUpload />,
   },
 ];
 

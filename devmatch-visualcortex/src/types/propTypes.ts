@@ -27,9 +27,9 @@ export interface SheetProps {
 }
 
 export interface ContextMenuProps {
-  type: string;
   open: boolean;
   onClose: () => void;
+  className?: string;
   children?: React.ReactNode;
 }
 
