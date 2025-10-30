@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { alkatra, arima, inter, tourney } from "@/config/config";
 import { ReactNodeProps } from "@/types/propTypes";
 import ThemeManager from "@/components/theme/themeManager";
+import DefaultAnimatedBackground from "@/components/background/defaultAnimatedBackground";
+import InitialLoader from "@/components/ui/loader/initialLoader";
 import ErrorWrapper from "@/components/errors/errorWrapper";
 import Header from "@/components/header/header";
-import DefaultAnimatedBackground from "@/components/background/defaultAnimatedBackground";
 import "@/app/globals.css";
 
 export const metadata: Metadata = {
@@ -26,8 +27,11 @@ export default function RootLayout({ children }: Readonly<ReactNodeProps>) {
       >
         <ThemeManager />
         <DefaultAnimatedBackground />
-        <Header />
-        <ErrorWrapper>{children}</ErrorWrapper>
+        <ErrorWrapper>
+          <InitialLoader />
+          <Header />
+          {children}
+        </ErrorWrapper>
       </body>
     </html>
   );
