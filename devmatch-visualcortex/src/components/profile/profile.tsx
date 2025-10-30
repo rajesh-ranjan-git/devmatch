@@ -1,5 +1,5 @@
 import AnimatedFloatingSquares from "@/components/background/animatedFloatingSquares";
-import Separator from "@/components/ui/separator/separator";
+import VerticalSeparator from "@/components/ui/separator/verticalSeparator";
 import ProfileCover from "@/components/profile/profileCover";
 import ProfileDetails from "@/components/profile/profileDetails";
 
@@ -9,7 +9,7 @@ const Profile = () => {
       <div className="relative flex gap-2 bg-glass-surface p-2 border border-glass-border-bright rounded-xl w-full max-w-7xl h-[95%]">
         <AnimatedFloatingSquares />
         <ProfileCover />
-        <Separator />
+        <VerticalSeparator />
         <ProfileDetails />
       </div>
     </div>

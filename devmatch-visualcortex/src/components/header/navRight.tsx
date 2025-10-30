@@ -14,6 +14,7 @@ import ThemeToggle from "@/components/theme/themeToggle";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import NotificationsButton from "@/components/ui/buttons/notificationsButton";
 import ProfileButton from "@/components/ui/buttons/profileButton";
+import HorizontalSeparator from "@/components/ui/separator/horizontalSeparator";
 
 const NavRight = () => {
   const showNotifications = useDevMatchAppStore(
@@ -82,7 +83,19 @@ const NavRight = () => {
           open={showProfileDropdown}
           onClose={() => setShowProfileDropdown(false)}
         >
-          Profile
+          <p className="p-2 px-4 font-bold text-lg">Rajesh Ranjan</p>
+          <HorizontalSeparator />
+          <div className="flex flex-col gap-1 p-1">
+            {profileDropdownItems.map((item) => (
+              <p
+                key={item.name}
+                className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg w-full transition-all ease-in-out cursor-pointer"
+              >
+                <span>{item.icon}</span>
+                <span className="mr-4 w-full">{item.label}</span>
+              </p>
+            ))}
+          </div>
         </ContextMenu>
       </div>
     </div>
