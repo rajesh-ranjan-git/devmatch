@@ -15,6 +15,7 @@ import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import NotificationsButton from "@/components/ui/buttons/notificationsButton";
 import AccountOptionsButton from "@/components/ui/buttons/accountOptionsButton";
 import HorizontalSeparator from "@/components/ui/separator/horizontalSeparator";
+import { useEffect } from "react";
 
 const NavRight = () => {
   const showNotifications = useDevMatchAppStore(
@@ -29,6 +30,28 @@ const NavRight = () => {
   const setShowProfileDropdown = useDevMatchAppStore(
     (state) => state.setShowProfileDropdown
   );
+
+  const activeContextMenu = useDevMatchAppStore(
+    (state) => state.activeContextMenu
+  );
+  const setActiveContextMenu = useDevMatchAppStore(
+    (state) => state.setActiveContextMenu
+  );
+
+  useEffect(() => {
+    if (activeContextMenu) {
+      if (activeContextMenu === "notifications") {
+        setShowProfileDropdown(false);
+        setShowNotifications(true);
+      } else if (activeContextMenu === "accountOptions") {
+        setShowNotifications(false);
+        setShowProfileDropdown(true);
+      }
+    } else {
+      setShowNotifications(false);
+      setShowProfileDropdown(false);
+    }
+  }, [activeContextMenu]);
 
   return (
     <div className="flex justify-center items-center gap-4">
@@ -47,7 +70,11 @@ const NavRight = () => {
         <NotificationsButton
           icon={<LuBellDot />}
           className={`${showNotifications && "z-100"}`}
-          onClick={() => setShowNotifications(!showNotifications)}
+          onClick={() =>
+            activeContextMenu !== "notifications"
+              ? setActiveContextMenu("notifications")
+              : setActiveContextMenu(null)
+          }
         />
         <ContextMenu
           open={showNotifications}
@@ -74,7 +101,11 @@ const NavRight = () => {
 
       <div className="relative">
         <AccountOptionsButton
-          onClick={() => setShowProfileDropdown(!showProfileDropdown)}
+          onClick={() =>
+            activeContextMenu !== "accountOptions"
+              ? setActiveContextMenu("accountOptions")
+              : setActiveContextMenu(null)
+          }
           className={`${showProfileDropdown && "z-100"}`}
         >
           <div className="flex justify-center items-center gap-2 p-3">

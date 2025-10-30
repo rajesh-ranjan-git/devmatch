@@ -9,6 +9,8 @@ export type DevMatchAppState = {
   setShowProfileDropdown: (value: boolean) => void;
   activeConnectionSheet: string | null;
   setActiveConnectionSheet: (name: string | null) => void;
+  activeContextMenu: string | null;
+  setActiveContextMenu: (name: string | null) => void;
 };
 
 export type MenuItem = {

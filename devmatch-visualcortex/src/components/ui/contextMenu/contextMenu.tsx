@@ -9,8 +9,6 @@ const ContextMenu = ({
 }: ContextMenuProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
-  console.log("debug open : ", open);
-
   useEffect(() => {
     if (open) {
       setIsVisible(true);
