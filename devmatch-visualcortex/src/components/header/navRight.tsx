@@ -32,7 +32,7 @@ const NavRight = () => {
   );
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center gap-4">
       <ThemeToggle />
 
       {navbarMenuItems.map((item, idx) => (
