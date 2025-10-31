@@ -5,8 +5,8 @@ export type DevMatchAppState = {
   setSwitchTheme: (value: string) => void;
   showNotifications: boolean;
   setShowNotifications: (value: boolean) => void;
-  showProfileDropdown: boolean;
-  setShowProfileDropdown: (value: boolean) => void;
+  showAccountOptionsDropdown: boolean;
+  setShowAccountOptionsDropdown: (value: boolean) => void;
   activeConnectionSheet: string | null;
   setActiveConnectionSheet: (name: string | null) => void;
   activeContextMenu: string | null;

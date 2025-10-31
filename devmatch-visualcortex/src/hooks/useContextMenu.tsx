@@ -14,15 +14,15 @@ const useContextMenu = () => {
   useEffect(() => {
     if (activeContextMenu) {
       if (activeContextMenu === "notifications") {
-        setShowProfileDropdown(false);
+        setShowAccountOptionsDropdown(false);
         setShowNotifications(true);
       } else if (activeContextMenu === "accountOptions") {
         setShowNotifications(false);
-        setShowProfileDropdown(true);
+        setShowAccountOptionsDropdown(true);
       }
     } else {
       setShowNotifications(false);
-      setShowProfileDropdown(false);
+      setShowAccountOptionsDropdown(false);
     }
   }, [activeContextMenu]);
 

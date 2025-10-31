@@ -17,18 +17,18 @@ import AccountOptionsButton from "@/components/ui/buttons/accountOptionsButton";
 import HorizontalSeparator from "@/components/ui/separator/horizontalSeparator";
 import { useEffect } from "react";
 
-const NavRight = () => {
+const NavbarRight = () => {
   const showNotifications = useDevMatchAppStore(
     (state) => state.showNotifications
   );
   const setShowNotifications = useDevMatchAppStore(
     (state) => state.setShowNotifications
   );
-  const showProfileDropdown = useDevMatchAppStore(
-    (state) => state.showProfileDropdown
+  const showAccountOptionsDropdown = useDevMatchAppStore(
+    (state) => state.showAccountOptionsDropdown
   );
-  const setShowProfileDropdown = useDevMatchAppStore(
-    (state) => state.setShowProfileDropdown
+  const setShowAccountOptionsDropdown = useDevMatchAppStore(
+    (state) => state.setShowAccountOptionsDropdown
   );
 
   const activeContextMenu = useDevMatchAppStore(
@@ -41,15 +41,15 @@ const NavRight = () => {
   useEffect(() => {
     if (activeContextMenu) {
       if (activeContextMenu === "notifications") {
-        setShowProfileDropdown(false);
+        setShowAccountOptionsDropdown(false);
         setShowNotifications(true);
       } else if (activeContextMenu === "accountOptions") {
         setShowNotifications(false);
-        setShowProfileDropdown(true);
+        setShowAccountOptionsDropdown(true);
       }
     } else {
       setShowNotifications(false);
-      setShowProfileDropdown(false);
+      setShowAccountOptionsDropdown(false);
     }
   }, [activeContextMenu]);
 
@@ -106,7 +106,7 @@ const NavRight = () => {
               ? setActiveContextMenu("accountOptions")
               : setActiveContextMenu(null)
           }
-          className={`${showProfileDropdown && "z-100"}`}
+          className={`${showAccountOptionsDropdown && "z-100"}`}
         >
           <div className="flex justify-center items-center gap-2 p-3">
             <div className="w-full object-contain">
@@ -120,14 +120,14 @@ const NavRight = () => {
             </div>
             <FaChevronDown
               className={`${
-                showProfileDropdown && "rotate-180"
+                showAccountOptionsDropdown && "rotate-180"
               } transition-all ease-in-out duration-500`}
             />
           </div>
         </AccountOptionsButton>
         <ContextMenu
-          open={showProfileDropdown}
-          onClose={() => setShowProfileDropdown(false)}
+          open={showAccountOptionsDropdown}
+          onClose={() => setShowAccountOptionsDropdown(false)}
           className="before:right-9"
         >
           <p className="p-2 px-4 font-bold text-lg">Rajesh Ranjan</p>
@@ -149,4 +149,4 @@ const NavRight = () => {
   );
 };
 
-export default NavRight;
+export default NavbarRight;
