@@ -1,6 +1,6 @@
 import { ButtonProps } from "@/types/propTypes";
 
-const ConnectionButton = ({
+const ConnectionsButton = ({
   name,
   icon,
   label,
@@ -22,4 +22,4 @@ const ConnectionButton = ({
   );
 };
 
-export default ConnectionButton;
+export default ConnectionsButton;
