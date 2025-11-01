@@ -11,7 +11,9 @@ devmatch/
 │   ├── public
 │   ├── src
 │   │   ├── app
+│   │   │   ├── (auth)
 │   │   │   ├── explore
+│   │   │   └── profile
 │   │   ├── components
 │   │   │   ├── background
 │   │   │   ├── connections
