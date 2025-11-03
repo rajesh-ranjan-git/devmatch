@@ -12,10 +12,3 @@ export type DevMatchAppState = {
   activeContextMenu: string | null;
   setActiveContextMenu: (name: string | null) => void;
 };
-
-export type MenuItem = {
-  name: string;
-  icon: ReactElement;
-  url?: string;
-  label: string;
-};

@@ -33,7 +33,7 @@ const ProfileCover = () => {
         <p className="p-2 font-bold text-md">Update cover photo</p>
         <HorizontalSeparator />
         <div className="flex flex-col gap-1 p-1">
-          {cameraDropdownItems.map((item) => (
+          {Object.values(cameraDropdownItems).map((item) => (
             <p
               key={item.name}
               className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg w-full transition-all ease-in-out cursor-pointer"

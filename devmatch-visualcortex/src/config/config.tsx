@@ -16,7 +16,6 @@ import {
   FaInstagram,
   FaXTwitter,
 } from "react-icons/fa6";
-import { MenuItem } from "@/types/types";
 import { BsCamera } from "react-icons/bs";
 
 export const alkatra = Alkatra({
@@ -48,46 +47,46 @@ export const theme = {
   },
 };
 
-export const navbarMenuItems: MenuItem[] = [
-  {
+export const navbarMenuItems = {
+  requests: {
     name: "REQUESTS",
     label: "Requests",
     icon: <LuUserPlus />,
   },
-  {
+  connections: {
     name: "CONNECTIONS",
     label: "Connections",
     icon: <LuHandshake />,
   },
-];
+};
 
-export const profileDropdownItems: MenuItem[] = [
-  {
+export const profileDropdownItems = {
+  profile: {
     name: "PROFILE",
     label: "Profile",
     url: "/profile",
     icon: <LuUser />,
   },
-  {
+  logout: {
     name: "LOGOUT",
     label: "Logout",
     url: "/logout",
     icon: <LuLogOut />,
   },
-];
+};
 
-export const cameraDropdownItems: MenuItem[] = [
-  {
+export const cameraDropdownItems = {
+  camera: {
     name: "OPEN CAMERA",
     label: "Open camera",
     icon: <BsCamera />,
   },
-  {
+  uploadFromDevice: {
     name: "UPLOAD FROM DEVICE",
     label: "Upload from device",
     icon: <LuCloudUpload />,
   },
-];
+};
 
 export const authFields = {
   userName: {

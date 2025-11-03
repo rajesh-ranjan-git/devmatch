@@ -57,7 +57,7 @@ const NavbarRight = () => {
     <div className="flex justify-center items-center gap-4">
       <ThemeToggle />
 
-      {navbarMenuItems.map((item, idx) => (
+      {Object.values(navbarMenuItems).map((item, idx) => (
         <Connections
           key={idx}
           name={item.name}
@@ -82,7 +82,7 @@ const NavbarRight = () => {
           className="before:right-5"
         >
           <div className="flex flex-col gap-1 p-1">
-            {profileDropdownItems.map((item) => (
+            {Object.values(profileDropdownItems).map((item) => (
               <p
                 key={item.name}
                 className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg w-full transition-all ease-in-out cursor-pointer"
@@ -133,7 +133,7 @@ const NavbarRight = () => {
           <p className="p-2 px-4 font-bold text-lg">Rajesh Ranjan</p>
           <HorizontalSeparator />
           <div className="flex flex-col gap-1 p-1">
-            {profileDropdownItems.map((item) => (
+            {Object.values(profileDropdownItems).map((item) => (
               <p
                 key={item.name}
                 className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg w-full transition-all ease-in-out cursor-pointer"
