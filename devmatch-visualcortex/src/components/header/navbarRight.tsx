@@ -14,7 +14,7 @@ import ThemeToggle from "@/components/theme/themeToggle";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import NotificationsButton from "@/components/ui/buttons/notificationsButton";
 import AccountOptionsButton from "@/components/ui/buttons/accountOptionsButton";
-import HorizontalSeparator from "@/components/ui/separator/horizontalSeparator";
+import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 import { useEffect } from "react";
 
 const NavbarRight = () => {

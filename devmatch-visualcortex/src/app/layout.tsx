@@ -3,7 +3,7 @@ import { alkatra, arima, inter, tourney } from "@/config/config";
 import { ReactNodeProps } from "@/types/propTypes";
 import ThemeManager from "@/components/theme/themeManager";
 import DefaultAnimatedBackground from "@/components/background/defaultAnimatedBackground";
-import InitialLoader from "@/components/ui/loader/initialLoader";
+import InitialLoader from "@/components/ui/loaders/initialLoader";
 import ErrorWrapper from "@/components/errors/errorWrapper";
 import Header from "@/components/header/header";
 import "@/app/globals.css";

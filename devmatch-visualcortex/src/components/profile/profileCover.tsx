@@ -6,7 +6,7 @@ import { cameraDropdownItems, staticImages } from "@/config/config";
 import NameCardContent from "@/components/cards/nameCardContent";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import ProfileCoverEditButton from "@/components/ui/buttons/profileCoverEditButton";
-import HorizontalSeparator from "@/components/ui/separator/horizontalSeparator";
+import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 
 const ProfileCover = () => {
   const [showCoverPhotoContext, setShowCoverPhotoContext] = useState(false);
