@@ -8,50 +8,17 @@ import {
   profileDropdownItems,
   staticImages,
 } from "@/config/config";
-import { useDevMatchAppStore } from "@/store/store";
+import useContextMenu from "@/hooks/useContextMenu";
 import Connections from "@/components/connections/connections";
 import ThemeToggle from "@/components/theme/themeToggle";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import NotificationsButton from "@/components/ui/buttons/notificationsButton";
 import AccountOptionsButton from "@/components/ui/buttons/accountOptionsButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
-import { useEffect } from "react";
 
 const NavbarRight = () => {
-  const showNotifications = useDevMatchAppStore(
-    (state) => state.showNotifications
-  );
-  const setShowNotifications = useDevMatchAppStore(
-    (state) => state.setShowNotifications
-  );
-  const showAccountOptionsDropdown = useDevMatchAppStore(
-    (state) => state.showAccountOptionsDropdown
-  );
-  const setShowAccountOptionsDropdown = useDevMatchAppStore(
-    (state) => state.setShowAccountOptionsDropdown
-  );
-
-  const activeContextMenu = useDevMatchAppStore(
-    (state) => state.activeContextMenu
-  );
-  const setActiveContextMenu = useDevMatchAppStore(
-    (state) => state.setActiveContextMenu
-  );
-
-  useEffect(() => {
-    if (activeContextMenu) {
-      if (activeContextMenu === "notifications") {
-        setShowAccountOptionsDropdown(false);
-        setShowNotifications(true);
-      } else if (activeContextMenu === "accountOptions") {
-        setShowNotifications(false);
-        setShowAccountOptionsDropdown(true);
-      }
-    } else {
-      setShowNotifications(false);
-      setShowAccountOptionsDropdown(false);
-    }
-  }, [activeContextMenu]);
+  const notificationsContext = useContextMenu({ type: "notifications" });
+  const accountOptionsContext = useContextMenu({ type: "accountOptions" });
 
   return (
     <div className="flex justify-center items-center gap-4">
@@ -69,16 +36,12 @@ const NavbarRight = () => {
       <div className="relative">
         <NotificationsButton
           icon={<LuBellDot />}
-          className={`${showNotifications && "z-100"}`}
-          onClick={() =>
-            activeContextMenu !== "notifications"
-              ? setActiveContextMenu("notifications")
-              : setActiveContextMenu(null)
-          }
+          className={`${notificationsContext.isOpen && "z-100"}`}
+          onClick={() => notificationsContext.toggle()}
         />
         <ContextMenu
-          open={showNotifications}
-          onClose={() => setShowNotifications(false)}
+          open={notificationsContext.isOpen}
+          onClose={() => notificationsContext.close()}
           className="before:right-5"
         >
           <div className="flex flex-col gap-1 p-1">
@@ -101,12 +64,8 @@ const NavbarRight = () => {
 
       <div className="relative">
         <AccountOptionsButton
-          onClick={() =>
-            activeContextMenu !== "accountOptions"
-              ? setActiveContextMenu("accountOptions")
-              : setActiveContextMenu(null)
-          }
-          className={`${showAccountOptionsDropdown && "z-100"}`}
+          onClick={() => accountOptionsContext.toggle()}
+          className={`${accountOptionsContext.isOpen && "z-100"}`}
         >
           <div className="flex justify-center items-center gap-2 p-3">
             <div className="w-full object-contain">
@@ -120,14 +79,14 @@ const NavbarRight = () => {
             </div>
             <FaChevronDown
               className={`${
-                showAccountOptionsDropdown && "rotate-180"
+                accountOptionsContext.isOpen && "rotate-180"
               } transition-all ease-in-out duration-500`}
             />
           </div>
         </AccountOptionsButton>
         <ContextMenu
-          open={showAccountOptionsDropdown}
-          onClose={() => setShowAccountOptionsDropdown(false)}
+          open={accountOptionsContext.isOpen}
+          onClose={() => accountOptionsContext.close()}
           className="before:right-9"
         >
           <p className="p-2 px-4 font-bold text-lg">Rajesh Ranjan</p>

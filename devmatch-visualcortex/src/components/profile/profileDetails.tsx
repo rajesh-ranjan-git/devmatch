@@ -1,25 +1,26 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { MdEdit, MdOutlineEdit } from "react-icons/md";
 import { BsCamera } from "react-icons/bs";
 import { authFields, cameraDropdownItems, staticImages } from "@/config/config";
+import useContextMenu from "@/hooks/useContextMenu";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 
 const ProfileDetails = () => {
-  const [showProfilePhotoContext, setShowProfilePhotoContext] = useState(false);
-  const [showCoverPhotoContext, setShowCoverPhotoContext] = useState(false);
+  const updateProfilePhotoContext = useContextMenu({
+    type: "updateProfilePhoto",
+  });
 
   return (
     <div className="relative flex flex-col p-8 pb-4 w-full h-full">
       <div className="flex gap-4">
         <div
           className="relative border border-glass-border-bright rounded-full w-12 h-11 object-cover cursor-pointer"
-          onClick={() => setShowProfilePhotoContext(!showProfilePhotoContext)}
+          onClick={() => updateProfilePhotoContext.toggle()}
         >
           <Image
             src={staticImages.profilePlaceholder.src}
@@ -34,8 +35,8 @@ const ProfileDetails = () => {
             </div>
           </div>
           <ContextMenu
-            open={showProfilePhotoContext}
-            onClose={() => setShowProfilePhotoContext(false)}
+            open={updateProfilePhotoContext.isOpen}
+            onClose={() => updateProfilePhotoContext.close()}
             className="before:right-full left-0 before:left-4 w-52"
           >
             <p className="p-2 font-bold text-md">Update profile photo</p>

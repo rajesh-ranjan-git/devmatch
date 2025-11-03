@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useCallback } from "react";
 import { useDevMatchAppStore } from "@/store/store";
+import { UseContextMenuProps } from "@/types/propTypes";
 
-const useContextMenu = () => {
+const useContextMenu = ({ type }: UseContextMenuProps) => {
   const activeContextMenu = useDevMatchAppStore(
     (state) => state.activeContextMenu
   );
@@ -11,22 +12,23 @@ const useContextMenu = () => {
     (state) => state.setActiveContextMenu
   );
 
-  useEffect(() => {
-    if (activeContextMenu) {
-      if (activeContextMenu === "notifications") {
-        setShowAccountOptionsDropdown(false);
-        setShowNotifications(true);
-      } else if (activeContextMenu === "accountOptions") {
-        setShowNotifications(false);
-        setShowAccountOptionsDropdown(true);
-      }
-    } else {
-      setShowNotifications(false);
-      setShowAccountOptionsDropdown(false);
-    }
-  }, [activeContextMenu]);
+  const open = useCallback(
+    () => setActiveContextMenu(type),
+    [type, activeContextMenu]
+  );
 
-  return <div></div>;
+  const close = useCallback(
+    () => setActiveContextMenu(null),
+    [type, activeContextMenu]
+  );
+
+  const toggle = useCallback(() => {
+    setActiveContextMenu(activeContextMenu === type ? null : type);
+  }, [type, activeContextMenu]);
+
+  const isOpen = activeContextMenu === type;
+
+  return { open, close, toggle, isOpen };
 };
 
 export default useContextMenu;

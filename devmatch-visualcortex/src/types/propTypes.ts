@@ -57,3 +57,7 @@ export interface SocialMediaItemProps {
   Icon: IconType;
   idx: number;
 }
+
+export interface UseContextMenuProps {
+  type: string | null;
+}

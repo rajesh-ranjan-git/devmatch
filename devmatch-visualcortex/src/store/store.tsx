@@ -4,11 +4,6 @@ import { DevMatchAppState } from "@/types/types";
 export const useDevMatchAppStore = create<DevMatchAppState>((set) => ({
   switchTheme: "dark",
   setSwitchTheme: (value) => set({ switchTheme: value }),
-  showNotifications: false,
-  setShowNotifications: (value) => set({ showNotifications: value }),
-  showAccountOptionsDropdown: false,
-  setShowAccountOptionsDropdown: (value) =>
-    set({ showAccountOptionsDropdown: value }),
   activeConnectionSheet: null,
   setActiveConnectionSheet: (name) => set({ activeConnectionSheet: name }),
   activeContextMenu: null,

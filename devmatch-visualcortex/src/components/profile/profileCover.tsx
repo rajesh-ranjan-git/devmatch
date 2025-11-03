@@ -1,21 +1,21 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { cameraDropdownItems, staticImages } from "@/config/config";
+import useContextMenu from "@/hooks/useContextMenu";
 import NameCardContent from "@/components/cards/nameCardContent";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import ProfileCoverEditButton from "@/components/ui/buttons/profileCoverEditButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 
 const ProfileCover = () => {
-  const [showCoverPhotoContext, setShowCoverPhotoContext] = useState(false);
+  const showCoverPhotoContext = useContextMenu({
+    type: "showCoverPhotoContext",
+  });
 
   return (
     <div className="group relative flex justify-center items-center shadow-[0_0.3rem_1rem_rgba(0,0,0,0.2)] rounded-xl w-3/4 h-full overflow-hidden">
-      <ProfileCoverEditButton
-        onClick={() => setShowCoverPhotoContext(!showCoverPhotoContext)}
-      />
+      <ProfileCoverEditButton onClick={() => showCoverPhotoContext.toggle()} />
 
       <Image
         src={staticImages.profilePlaceholder.src}
@@ -26,8 +26,8 @@ const ProfileCover = () => {
       />
 
       <ContextMenu
-        open={showCoverPhotoContext}
-        onClose={() => setShowCoverPhotoContext(false)}
+        open={showCoverPhotoContext.isOpen}
+        onClose={() => showCoverPhotoContext.close()}
         className="right-2 before:right-5 w-52"
       >
         <p className="p-2 font-bold text-md">Update cover photo</p>
