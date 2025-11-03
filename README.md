@@ -78,17 +78,38 @@ devmatch/
 │
 ├── devmatch-visualcortex/
 │   ├── public
+│   │   └── assets
+│   │       ├── avatar
+│   │       ├── error
+│   │       └── logo
 │   ├── src
 │   │   ├── app
-│   │   │   ├── background
+│   │   │   ├── (auth)
+│   │   │   │   ├── forgot-password
+│   │   │   │   ├── login
+│   │   │   │   └── register
+│   │   │   │
+│   │   │   ├── explore
+│   │   │   └── profile
+│   │   │
 │   │   ├── components
+│   │   │   ├── auth
 │   │   │   ├── background
+│   │   │   ├── cards
 │   │   │   ├── connections
+│   │   │   ├── errors
 │   │   │   ├── explore
 │   │   │   ├── header
 │   │   │   ├── main
+│   │   │   ├── profile
+│   │   │   ├── socialMedia
 │   │   │   ├── theme
 │   │   │   └── ui
+│   │   │       ├── buttons
+│   │   │       ├── contextMenu
+│   │   │       ├── loaders
+│   │   │       ├── separators
+│   │   │       └── sheet
 │   │   │
 │   │   ├── config
 │   │   ├── helpers

@@ -7,21 +7,57 @@ devmatch/
 │
 ├── .vscode
 │
+├── devmatch-brainbox/
+│   ├── config/
+│   ├── controllers/
+│   ├── db/
+│   ├── env/
+│   ├── errors/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── src/
+│   ├── utils/
+│   ├── validations/
+│   ├── .gitignore
+│   ├── package-lock.json
+│   ├── package.json
+│   └── README.md
+│
 ├── devmatch-visualcortex/
 │   ├── public
+│   │   └── assets
+│   │       ├── avatar
+│   │       ├── error
+│   │       └── logo
 │   ├── src
 │   │   ├── app
 │   │   │   ├── (auth)
+│   │   │   │   ├── forgot-password
+│   │   │   │   ├── login
+│   │   │   │   └── register
+│   │   │   │
 │   │   │   ├── explore
 │   │   │   └── profile
+│   │   │
 │   │   ├── components
+│   │   │   ├── auth
 │   │   │   ├── background
+│   │   │   ├── cards
 │   │   │   ├── connections
+│   │   │   ├── errors
 │   │   │   ├── explore
 │   │   │   ├── header
 │   │   │   ├── main
+│   │   │   ├── profile
+│   │   │   ├── socialMedia
 │   │   │   ├── theme
 │   │   │   └── ui
+│   │   │       ├── buttons
+│   │   │       ├── contextMenu
+│   │   │       ├── loaders
+│   │   │       ├── separators
+│   │   │       └── sheet
 │   │   │
 │   │   ├── config
 │   │   ├── helpers
