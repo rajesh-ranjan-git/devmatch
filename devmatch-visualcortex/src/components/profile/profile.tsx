@@ -1,5 +1,5 @@
 import AnimatedFloatingSquares from "@/components/background/animatedFloatingSquares";
-import VerticalSeparator from "@/components/ui/separator/verticalSeparator";
+import VerticalSeparator from "@/components/ui/separators/verticalSeparator";
 import ProfileCover from "@/components/profile/profileCover";
 import ProfileDetails from "@/components/profile/profileDetails";
 

@@ -2,7 +2,7 @@ import { AuthProps } from "@/types/propTypes";
 import DefaultMainContent from "@/components/main/defaultMainContent";
 import AnimatedFloatingSquares from "@/components/background/animatedFloatingSquares";
 import AuthForm from "@/components/auth/authForm";
-import VerticalSeparator from "@/components/ui/separator/verticalSeparator";
+import VerticalSeparator from "@/components/ui/separators/verticalSeparator";
 
 const Auth = ({ type }: AuthProps) => {
   return (

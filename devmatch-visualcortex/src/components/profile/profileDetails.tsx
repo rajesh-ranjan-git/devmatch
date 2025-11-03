@@ -8,7 +8,7 @@ import { authFields, cameraDropdownItems, staticImages } from "@/config/config";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
-import HorizontalSeparator from "../ui/separator/horizontalSeparator";
+import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 
 const ProfileDetails = () => {
   const [showProfilePhotoContext, setShowProfilePhotoContext] = useState(false);
