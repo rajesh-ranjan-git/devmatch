@@ -61,3 +61,7 @@ export interface SocialMediaItemProps {
 export interface UseContextMenuProps {
   type: string | null;
 }
+
+export interface UseSheetProps {
+  type: string | null;
+}
