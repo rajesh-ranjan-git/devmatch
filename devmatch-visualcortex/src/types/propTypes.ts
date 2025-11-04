@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, RefObject } from "react";
 import { IconType } from "react-icons";
 
 export interface ReactNodeProps {
@@ -30,6 +30,7 @@ export interface ContextMenuProps {
   open: boolean;
   onClose: () => void;
   className?: string;
+  ref?: RefObject<HTMLElement>;
   children?: React.ReactNode;
 }
 
@@ -56,6 +57,11 @@ export interface SocialMediaItemProps {
   url: string;
   Icon: IconType;
   idx: number;
+}
+
+export interface UseOutsideClickProps {
+  ref: RefObject<HTMLElement>;
+  callback: (event: MouseEvent) => void;
 }
 
 export interface UseContextMenuProps {

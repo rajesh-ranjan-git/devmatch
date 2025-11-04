@@ -9,16 +9,26 @@ import {
   staticImages,
 } from "@/config/config";
 import useContextMenu from "@/hooks/useContextMenu";
+import useOutsideClick from "@/hooks/useOutsideClick";
 import Connections from "@/components/connections/connections";
 import ThemeToggle from "@/components/theme/themeToggle";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import NotificationsButton from "@/components/ui/buttons/notificationsButton";
 import AccountOptionsButton from "@/components/ui/buttons/accountOptionsButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
+import { useRef } from "react";
 
 const NavbarRight = () => {
+  const notificationsContextRef = useRef<HTMLElement>(null);
+  const accountOptionsContextRef = useRef<HTMLElement>(null);
+
   const notificationsContext = useContextMenu({ type: "notifications" });
   const accountOptionsContext = useContextMenu({ type: "accountOptions" });
+
+  useOutsideClick({
+    ref: notificationsContextRef,
+    callback: () => notificationsContext.close(),
+  });
 
   return (
     <div className="flex justify-center items-center gap-4">
@@ -33,7 +43,7 @@ const NavbarRight = () => {
         />
       ))}
 
-      <div className="relative">
+      <div className="relative" ref={notificationsContextRef}>
         <NotificationsButton
           icon={<LuBellDot />}
           className={`${notificationsContext.isOpen && "z-100"}`}
@@ -62,7 +72,7 @@ const NavbarRight = () => {
         </ContextMenu>
       </div>
 
-      <div className="relative">
+      <div className="relative" ref={accountOptionsContextRef}>
         <AccountOptionsButton
           onClick={() => accountOptionsContext.toggle()}
           className={`${accountOptionsContext.isOpen && "z-100"}`}
