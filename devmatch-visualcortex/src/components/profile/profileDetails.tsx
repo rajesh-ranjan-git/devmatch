@@ -1,27 +1,33 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 import { MdEdit, MdOutlineEdit } from "react-icons/md";
 import { BsCamera } from "react-icons/bs";
 import { authFields, cameraDropdownItems, staticImages } from "@/config/config";
 import useContextMenu from "@/hooks/useContextMenu";
+import useOutsideClick from "@/hooks/useOutsideClick";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 
 const ProfileDetails = () => {
+  const updateProfilePhotoContextRef = useRef<HTMLElement | null>(null);
+
   const updateProfilePhotoContext = useContextMenu({
     type: "updateProfilePhoto",
   });
 
+  // useOutsideClick({
+  //   ref: updateProfilePhotoContextRef,
+  //   callback: () => updateProfilePhotoContext.close(),
+  // });
+
   return (
     <div className="relative flex flex-col p-8 pb-4 w-full h-full">
       <div className="flex gap-4">
-        <div
-          className="relative border border-glass-border-bright rounded-full w-12 h-11 object-cover cursor-pointer"
-          onClick={() => updateProfilePhotoContext.toggle()}
-        >
+        <div className="relative border border-glass-border-bright rounded-full w-12 h-11 object-cover cursor-pointer">
           <Image
             src={staticImages.profilePlaceholder.src}
             alt={staticImages.profilePlaceholder.alt}
@@ -29,15 +35,18 @@ const ProfileDetails = () => {
             height={100}
             className="rounded-full w-full h-full object-cover select-none"
           />
-          <div className="group top-0 absolute rounded-full w-full h-full overflow-hidden">
+          <div
+            className="group top-0 absolute rounded-full w-full h-full overflow-hidden"
+            onClick={() => updateProfilePhotoContext.toggle()}
+          >
             <div className="absolute flex justify-center items-center bg-glass-surface-heavy opacity-0 group-hover:opacity-100 backdrop-blur-xs w-full h-full transition-all translate-y-full group-hover:translate-y-0 duration-300 ease-in-out">
               <BsCamera />
             </div>
           </div>
           <ContextMenu
             open={updateProfilePhotoContext.isOpen}
-            onClose={() => updateProfilePhotoContext.close()}
             className="before:right-full left-0 before:left-4 w-52"
+            ref={updateProfilePhotoContextRef}
           >
             <p className="p-2 font-bold text-md">Update profile photo</p>
             <HorizontalSeparator />
