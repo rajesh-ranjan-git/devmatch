@@ -1,6 +1,5 @@
 "use client";
 
-import { useRef } from "react";
 import Image from "next/image";
 import { LuBell, LuBellDot } from "react-icons/lu";
 import { FaChevronDown } from "react-icons/fa6";
@@ -10,7 +9,6 @@ import {
   staticImages,
 } from "@/config/config";
 import useContextMenu from "@/hooks/useContextMenu";
-import useOutsideClick from "@/hooks/useOutsideClick";
 import Connections from "@/components/connections/connections";
 import ThemeToggle from "@/components/theme/themeToggle";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
@@ -19,21 +17,8 @@ import AccountOptionsButton from "@/components/ui/buttons/accountOptionsButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 
 const NavbarRight = () => {
-  const notificationsContextRef = useRef<HTMLElement | null>(null);
-  const accountOptionsContextRef = useRef<HTMLElement | null>(null);
-
   const notificationsContext = useContextMenu({ type: "notifications" });
   const accountOptionsContext = useContextMenu({ type: "accountOptions" });
-
-  useOutsideClick({
-    ref: notificationsContextRef,
-    callback: () => notificationsContext.close(),
-  });
-
-  useOutsideClick({
-    ref: accountOptionsContextRef,
-    callback: () => accountOptionsContext.close(),
-  });
 
   return (
     <div className="flex justify-center items-center gap-4">
@@ -57,7 +42,6 @@ const NavbarRight = () => {
         <ContextMenu
           open={notificationsContext.isOpen}
           className="before:right-5"
-          ref={notificationsContextRef}
         >
           <div className="flex flex-col gap-1 p-1">
             {Object.values(profileDropdownItems).map((item) => (
@@ -102,7 +86,6 @@ const NavbarRight = () => {
         <ContextMenu
           open={accountOptionsContext.isOpen}
           className="before:right-9"
-          ref={accountOptionsContextRef}
         >
           <p className="p-2 px-4 font-bold text-lg">Rajesh Ranjan</p>
           <HorizontalSeparator />

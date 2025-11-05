@@ -1,28 +1,19 @@
 "use client";
 
-import { useRef } from "react";
 import Image from "next/image";
 import { MdEdit, MdOutlineEdit } from "react-icons/md";
 import { BsCamera } from "react-icons/bs";
 import { authFields, cameraDropdownItems, staticImages } from "@/config/config";
 import useContextMenu from "@/hooks/useContextMenu";
-import useOutsideClick from "@/hooks/useOutsideClick";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 
 const ProfileDetails = () => {
-  const updateProfilePhotoContextRef = useRef<HTMLElement | null>(null);
-
   const updateProfilePhotoContext = useContextMenu({
     type: "updateProfilePhoto",
   });
-
-  // useOutsideClick({
-  //   ref: updateProfilePhotoContextRef,
-  //   callback: () => updateProfilePhotoContext.close(),
-  // });
 
   return (
     <div className="relative flex flex-col p-8 pb-4 w-full h-full">
@@ -46,7 +37,6 @@ const ProfileDetails = () => {
           <ContextMenu
             open={updateProfilePhotoContext.isOpen}
             className="before:right-full left-0 before:left-4 w-52"
-            ref={updateProfilePhotoContextRef}
           >
             <p className="p-2 font-bold text-md">Update profile photo</p>
             <HorizontalSeparator />
