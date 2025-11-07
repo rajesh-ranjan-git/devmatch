@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, Ref, RefObject } from "react";
 import { IconType } from "react-icons";
 
 export interface ReactNodeProps {
@@ -63,4 +63,10 @@ export interface UseContextMenuProps {
 
 export interface UseSheetProps {
   type: string | null;
+}
+
+export interface UseOutsideClickProps {
+  ref: RefObject<HTMLElement | null>;
+  when: boolean;
+  callback: () => void;
 }

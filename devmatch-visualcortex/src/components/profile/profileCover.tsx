@@ -1,20 +1,33 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 import { cameraDropdownItems, staticImages } from "@/config/config";
 import useContextMenu from "@/hooks/useContextMenu";
+import useOutsideClick from "@/hooks/useOutsideClick";
 import NameCardContent from "@/components/cards/nameCardContent";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import ProfileCoverEditButton from "@/components/ui/buttons/profileCoverEditButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 
 const ProfileCover = () => {
+  const showCoverPhotoContextRef = useRef(null);
+
   const showCoverPhotoContext = useContextMenu({
     type: "showCoverPhotoContext",
   });
 
+  useOutsideClick({
+    ref: showCoverPhotoContextRef,
+    when: showCoverPhotoContext.isOpen,
+    callback: () => showCoverPhotoContext.close(),
+  });
+
   return (
-    <div className="group relative flex justify-center items-center shadow-[0_0.3rem_1rem_rgba(0,0,0,0.2)] rounded-xl w-3/4 h-full overflow-hidden">
+    <div
+      className="group relative flex justify-center items-center shadow-[0_0.3rem_1rem_rgba(0,0,0,0.2)] rounded-xl w-3/4 h-full overflow-hidden"
+      ref={showCoverPhotoContextRef}
+    >
       <ProfileCoverEditButton onClick={() => showCoverPhotoContext.toggle()} />
 
       <Image

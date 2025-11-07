@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 import { LuBell, LuBellDot } from "react-icons/lu";
 import { FaChevronDown } from "react-icons/fa6";
@@ -9,6 +10,7 @@ import {
   staticImages,
 } from "@/config/config";
 import useContextMenu from "@/hooks/useContextMenu";
+import useOutsideClick from "@/hooks/useOutsideClick";
 import Connections from "@/components/connections/connections";
 import ThemeToggle from "@/components/theme/themeToggle";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
@@ -17,8 +19,23 @@ import AccountOptionsButton from "@/components/ui/buttons/accountOptionsButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 
 const NavbarRight = () => {
+  const notificationsContextRef = useRef(null);
+  const accountOptionsContextRef = useRef(null);
+
   const notificationsContext = useContextMenu({ type: "notifications" });
   const accountOptionsContext = useContextMenu({ type: "accountOptions" });
+
+  useOutsideClick({
+    ref: notificationsContextRef,
+    when: notificationsContext.isOpen,
+    callback: () => notificationsContext.close(),
+  });
+
+  useOutsideClick({
+    ref: accountOptionsContextRef,
+    when: accountOptionsContext.isOpen,
+    callback: () => accountOptionsContext.close(),
+  });
 
   return (
     <div className="flex justify-center items-center gap-4">
@@ -33,7 +50,7 @@ const NavbarRight = () => {
         />
       ))}
 
-      <div className="relative">
+      <div className="relative" ref={notificationsContextRef}>
         <NotificationsButton
           icon={<LuBellDot />}
           className={`${notificationsContext.isOpen && "z-100"}`}
@@ -61,7 +78,7 @@ const NavbarRight = () => {
         </ContextMenu>
       </div>
 
-      <div className="relative">
+      <div className="relative" ref={accountOptionsContextRef}>
         <AccountOptionsButton
           onClick={() => accountOptionsContext.toggle()}
           className={`${accountOptionsContext.isOpen && "z-100"}`}

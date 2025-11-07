@@ -1,24 +1,37 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 import { MdEdit, MdOutlineEdit } from "react-icons/md";
 import { BsCamera } from "react-icons/bs";
 import { authFields, cameraDropdownItems, staticImages } from "@/config/config";
 import useContextMenu from "@/hooks/useContextMenu";
+import useOutsideClick from "@/hooks/useOutsideClick";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 
 const ProfileDetails = () => {
+  const updateProfilePhotoContextRef = useRef(null);
+
   const updateProfilePhotoContext = useContextMenu({
     type: "updateProfilePhoto",
+  });
+
+  useOutsideClick({
+    ref: updateProfilePhotoContextRef,
+    when: updateProfilePhotoContext.isOpen,
+    callback: () => updateProfilePhotoContext.close(),
   });
 
   return (
     <div className="relative flex flex-col p-8 pb-4 w-full h-full">
       <div className="flex gap-4">
-        <div className="relative border border-glass-border-bright rounded-full w-12 h-11 object-cover cursor-pointer">
+        <div
+          className="relative border border-glass-border-bright rounded-full w-12 h-11 object-cover cursor-pointer"
+          ref={updateProfilePhotoContextRef}
+        >
           <Image
             src={staticImages.profilePlaceholder.src}
             alt={staticImages.profilePlaceholder.alt}
