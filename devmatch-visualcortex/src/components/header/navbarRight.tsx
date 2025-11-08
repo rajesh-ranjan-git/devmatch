@@ -13,6 +13,7 @@ import useContextMenu from "@/hooks/useContextMenu";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import Connections from "@/components/connections/connections";
 import ThemeToggle from "@/components/theme/themeToggle";
+import NotificationsItems from "@/components/notifications/notificationsItems";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import NotificationsButton from "@/components/ui/buttons/notificationsButton";
 import AccountOptionsButton from "@/components/ui/buttons/accountOptionsButton";
@@ -60,21 +61,7 @@ const NavbarRight = () => {
           open={notificationsContext.isOpen}
           className="before:right-5"
         >
-          <div className="flex flex-col gap-1 p-1">
-            {Object.values(profileDropdownItems).map((item) => (
-              <p
-                key={item.name}
-                className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg w-full transition-all ease-in-out cursor-pointer"
-              >
-                <span>{item.icon}</span>
-                <span className="mr-4 w-full">{item.label}</span>
-              </p>
-            ))}
-          </div>
-          <HorizontalSeparator />
-          <div className="hover:bg-glass-surface-heavy m-1 p-1 px-4 rounded-lg text-sm cursor-pointer">
-            Clear
-          </div>
+          <NotificationsItems />
         </ContextMenu>
       </div>
 

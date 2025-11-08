@@ -60,6 +60,69 @@ export const navbarMenuItems = {
   },
 };
 
+export const notificationsDropdownItems = {
+  request: [
+    {
+      type: "request",
+      name: "Rajesh Ranjan",
+      designation: "Full Stack Developer",
+      body: "Rajesh sent you a friend request!",
+      url: "/profile",
+    },
+    {
+      type: "request",
+      name: "Kripanidhan",
+      designation: "Software Development Engineer",
+      body: "Kripanidhan sent you a friend request!",
+      url: "/profile",
+    },
+    {
+      type: "request",
+      name: "Sayantanee Mohanta",
+      designation: "HelpDesk Senior Associate",
+      body: "Sayantanee sent you a friend request!",
+      url: "/profile",
+    },
+    {
+      type: "request",
+      name: "Rahee",
+      designation: "Software Engineer",
+      body: "Rahee sent you a friend request!",
+      url: "/profile",
+    },
+  ],
+  chat: [
+    {
+      type: "chat",
+      name: "Rajesh Ranjan",
+      designation: "Full Stack Developer",
+      body: "Rajesh sent you a message!",
+      url: "/profile",
+    },
+    {
+      type: "chat",
+      name: "Kripanidhan",
+      designation: "Software Development Engineer",
+      body: "Kripanidhan sent you a message!",
+      url: "/profile",
+    },
+    {
+      type: "chat",
+      name: "Sayantanee Mohanta",
+      designation: "HelpDesk Senior Associate",
+      body: "Sayantanee sent you a message!",
+      url: "/profile",
+    },
+    {
+      type: "chat",
+      name: "Rahee",
+      designation: "Software Engineer",
+      body: "Rahee sent you a message!",
+      url: "/profile",
+    },
+  ],
+};
+
 export const profileDropdownItems = {
   profile: {
     name: "PROFILE",
@@ -191,4 +254,8 @@ export const socialMediaIcons = {
 export const errorMessages = {
   GLOBAL_ERROR: "Something went wrong!",
   PAGE_NOT_FOUND_ERROR: "Page Not Found!",
+};
+
+export const fallbackMessages = {
+  NO_NOTIFICATIONS: "All caught up!",
 };
