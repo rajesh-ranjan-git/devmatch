@@ -1,0 +1,79 @@
+import Image from "next/image";
+import { IoClose } from "react-icons/io5";
+import { FaChevronDown, FaEllipsisVertical } from "react-icons/fa6";
+import {
+  notificationsDropdownItems,
+  profileDropdownItems,
+  staticImages,
+} from "@/config/config";
+import useContextMenu from "@/hooks/useContextMenu";
+import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
+import ContextMenu from "../ui/contextMenu/contextMenu";
+import ButtonNormal from "../ui/buttons/buttonNormal";
+
+const RequestsSheetItems = () => {
+  const requestActionsContext = useContextMenu({ type: "requestActions" });
+
+  return (
+    <div className="[&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
+      {Object.values(notificationsDropdownItems)[0].map((item, index) => (
+        <div
+          className="relative flex items-center gap-2 hover:bg-glass-surface-heavy my-1 p-1 rounded-lg w-full transition-all ease-in-out cursor-pointer"
+          key={index}
+        >
+          <div className="border border-glass-border-bright rounded-full w-12 h-10 object-cover">
+            <Image
+              src={staticImages.profilePlaceholder.src}
+              alt={staticImages.profilePlaceholder.alt}
+              width={100}
+              height={100}
+              className="rounded-full w-full h-full object-cover select-none"
+            />
+          </div>
+          <div className="pr-8 w-full text-glass-text-primary text-left">
+            <p className="w-full font-semibold text-sm">{item.name}</p>
+            <p className="w-full text-xs">{item.designation}</p>
+            <p className="w-full text-sm">{item.body}</p>
+            <div className="my-4">
+              <ButtonNormal
+                icon={<FaEllipsisVertical />}
+                label="Actions"
+                className="text-sm"
+                onClick={() => requestActionsContext.toggle()}
+              >
+                <FaChevronDown
+                  className={`${
+                    requestActionsContext.isOpen && "rotate-180"
+                  } transition-all ease-in-out duration-500`}
+                />
+              </ButtonNormal>
+              <ContextMenu
+                open={requestActionsContext.isOpen}
+                className="before:right-9"
+              >
+                <p className="p-2 px-4 font-bold text-lg">Rajesh Ranjan</p>
+                <HorizontalSeparator />
+                <div className="flex flex-col gap-1 p-1">
+                  {Object.values(profileDropdownItems).map((item) => (
+                    <p
+                      key={item.name}
+                      className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg w-full transition-all ease-in-out cursor-pointer"
+                    >
+                      <span>{item.icon}</span>
+                      <span className="mr-4 w-full">{item.label}</span>
+                    </p>
+                  ))}
+                </div>
+              </ContextMenu>
+            </div>
+            <div className="top-[40%] right-2 absolute p-0.5 border border-glass-border-subtle hover:border-glass-border-bright rounded-md text-sm cursor-pointer">
+              <IoClose />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default RequestsSheetItems;

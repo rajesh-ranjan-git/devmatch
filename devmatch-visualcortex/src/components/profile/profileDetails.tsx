@@ -331,12 +331,12 @@ const ProfileDetails = () => {
         <ButtonNormal
           icon={authFields.updateProfile.icon}
           label={authFields.updateProfile.label}
-          className="w-46"
+          className="w-46 h-10"
         />
         <ButtonDestructive
           icon={authFields.deleteAccount.icon}
           label={authFields.deleteAccount.label}
-          className="w-46"
+          className="w-46 h-10"
         />
       </div>
     </div>

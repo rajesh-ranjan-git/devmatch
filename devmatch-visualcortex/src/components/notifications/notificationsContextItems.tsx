@@ -1,10 +1,10 @@
 import Image from "next/image";
+import { IoClose } from "react-icons/io5";
 import { notificationsDropdownItems, staticImages } from "@/config/config";
 import { toTitleCase } from "@/lib/utils";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
-import { IoClose } from "react-icons/io5";
 
-const NotificationsItems = () => {
+const NotificationsContextItems = () => {
   return (
     <div className="flex flex-col gap-1 pt-2 pr-1 min-w-92 max-h-[80vh]">
       <div className="[&::-webkit-scrollbar-track]:bg-transparent p-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
@@ -53,4 +53,4 @@ const NotificationsItems = () => {
   );
 };
 
-export default NotificationsItems;
+export default NotificationsContextItems;

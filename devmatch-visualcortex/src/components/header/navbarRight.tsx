@@ -13,7 +13,7 @@ import useContextMenu from "@/hooks/useContextMenu";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import Connections from "@/components/connections/connections";
 import ThemeToggle from "@/components/theme/themeToggle";
-import NotificationsItems from "@/components/notifications/notificationsItems";
+import NotificationsContextItems from "@/components/notifications/notificationsContextItems";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import NotificationsButton from "@/components/ui/buttons/notificationsButton";
 import AccountOptionsButton from "@/components/ui/buttons/accountOptionsButton";
@@ -61,7 +61,7 @@ const NavbarRight = () => {
           open={notificationsContext.isOpen}
           className="before:right-5"
         >
-          <NotificationsItems />
+          <NotificationsContextItems />
         </ContextMenu>
       </div>
 
