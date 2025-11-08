@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
 import { FaChevronDown, FaEllipsisVertical } from "react-icons/fa6";
@@ -6,13 +7,19 @@ import {
   profileDropdownItems,
   staticImages,
 } from "@/config/config";
-import useContextMenu from "@/hooks/useContextMenu";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
-import ContextMenu from "../ui/contextMenu/contextMenu";
-import ButtonNormal from "../ui/buttons/buttonNormal";
+import ContextMenu from "@/components/ui/contextMenu/contextMenu";
+import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 
 const RequestsSheetItems = () => {
-  const requestActionsContext = useContextMenu({ type: "requestActions" });
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const requestActionsContext2 = {
+    isOpen: openIndex,
+    toggle: (index: number) => {
+      setOpenIndex(openIndex === index ? null : index);
+    },
+  };
 
   return (
     <div className="[&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
@@ -39,16 +46,16 @@ const RequestsSheetItems = () => {
                 icon={<FaEllipsisVertical />}
                 label="Actions"
                 className="text-sm"
-                onClick={() => requestActionsContext.toggle()}
+                onClick={() => requestActionsContext2.toggle(index)}
               >
                 <FaChevronDown
                   className={`${
-                    requestActionsContext.isOpen && "rotate-180"
+                    requestActionsContext2.isOpen === index && "rotate-180"
                   } transition-all ease-in-out duration-500`}
                 />
               </ButtonNormal>
               <ContextMenu
-                open={requestActionsContext.isOpen}
+                open={requestActionsContext2.isOpen === index}
                 className="before:right-9"
               >
                 <p className="p-2 px-4 font-bold text-lg">Rajesh Ranjan</p>
