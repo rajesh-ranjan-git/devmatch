@@ -1,12 +1,13 @@
 import Image from "next/image";
-import { MdBlock, MdCancel, MdCheck } from "react-icons/md";
+import { MdCancel, MdBlock } from "react-icons/md";
+import { IoIosChatboxes } from "react-icons/io";
 import { sheetDropdownItems, staticImages } from "@/config/config";
 import ButtonSuccess from "@/components/ui/buttons/buttonSuccess";
 import ButtonWarning from "@/components/ui/buttons/buttonWarning";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import UserInfoButton from "@/components/ui/buttons/userInfoButton";
 
-const RequestsSheetItems = () => {
+const ConnectionsSheetItems = () => {
   return (
     <div className="h-[92%]">
       <div className="[&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 h-full overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
@@ -25,19 +26,18 @@ const RequestsSheetItems = () => {
               />
             </div>
             <div className="w-full text-glass-text-primary text-left">
-              <p className="w-full font-semibold text-sm">{item.name}</p>
-              <p className="w-full text-xs">{item.designation}</p>
-              <p className="w-full text-sm">{item.body}</p>
+              <p className="w-full font-semibold text-lg">{item.name}</p>
+              <p className="w-full text-sm">{item.designation}</p>
               <div className="relative flex gap-2 my-4">
                 <ButtonSuccess
-                  icon={<MdCheck />}
-                  label="Accept"
+                  icon={<IoIosChatboxes />}
+                  label="Chat"
                   className="w-24 text-sm"
                 />
                 <ButtonWarning
                   icon={<MdCancel />}
-                  label="Reject"
-                  className="w-24 text-sm"
+                  label="Disconnect"
+                  className="w-32 text-sm"
                 />
                 <ButtonDestructive
                   icon={<MdBlock />}
@@ -54,4 +54,4 @@ const RequestsSheetItems = () => {
   );
 };
 
-export default RequestsSheetItems;
+export default ConnectionsSheetItems;

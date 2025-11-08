@@ -1,9 +1,10 @@
 import { navbarMenuItems } from "@/config/config";
 import { ConnectionProps } from "@/types/propTypes";
 import useSheet from "@/hooks/useSheet";
-import RequestsSheetItems from "@/components/requests/requestsSheetItems";
 import ConnectionsButton from "@/components/ui/buttons/connectionsButton";
 import Sheet from "@/components/ui/sheet/sheet";
+import ConnectionsSheetItems from "@/components/connections/connectionsSheetItems";
+import RequestsSheetItems from "@/components/requests/requestsSheetItems";
 
 const Connections = ({ name, icon, label }: ConnectionProps) => {
   const connectionsSheet = useSheet({ type: name });
@@ -24,6 +25,10 @@ const Connections = ({ name, icon, label }: ConnectionProps) => {
 
         {name === Object.values(navbarMenuItems)[0].name && (
           <RequestsSheetItems />
+        )}
+
+        {name === Object.values(navbarMenuItems)[1].name && (
+          <ConnectionsSheetItems />
         )}
       </Sheet>
     </>
