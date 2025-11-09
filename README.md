@@ -10,7 +10,7 @@
 
 - **[Next.js](https://nextjs.org/)** – React-based framework for server-side rendering and routing.
 - **[Tailwind CSS](https://tailwindcss.com/)** – Utility-first CSS framework for rapid UI development.
-- **[Shadcn UI](https://ui.shadcn.com/)** – Beautifully designed UI components built on top of Tailwind CSS and Radix UI.
+- ** motion for animations
 - **[Zustand](https://github.com/pmndrs/zustand)** – Lightweight state management solution for React.
 
 ### Backend (devmatch-brainbox):
