@@ -10,7 +10,7 @@
 
 - **[Next.js](https://nextjs.org/)** – React-based framework for server-side rendering and routing.
 - **[Tailwind CSS](https://tailwindcss.com/)** – Utility-first CSS framework for rapid UI development.
-- ** motion for animations
+- **[Motion](https://motion.dev/)** Web (UI) animation library for React, JavaScript and Vue.
 - **[Zustand](https://github.com/pmndrs/zustand)** – Lightweight state management solution for React.
 
 ### Backend (devmatch-brainbox):
@@ -225,7 +225,8 @@ npm run dev
 - **Authentication:** JSON Web Tokens (JWT), Bcrypt JS
 - **Database ORM:** Mongoose
 - **API Testing:** Postman
-- **UI Dev:** Shadcn UI
+- **UI Dev:** Next JS., Tailwind CSS
+- **UI Animations:** Motion
 - **State Management:** Zustand
 - **Future Upgrades:** WebSockets for chat, Docker, CI/CD pipelines
 
