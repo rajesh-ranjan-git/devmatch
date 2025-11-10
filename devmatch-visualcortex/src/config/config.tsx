@@ -350,3 +350,30 @@ export const errorMessages = {
 export const fallbackMessages = {
   NO_NOTIFICATIONS: "All caught up!",
 };
+
+export const staticUsers = [
+  {
+    id: 1,
+    name: "Rajesh Ranjan",
+    designation: "Full Stack Developer",
+    company: "India Today Group",
+  },
+  {
+    id: 2,
+    name: "Kripanidhan Kumar",
+    designation: "Full Stack Developer",
+    company: "India Today Group",
+  },
+  {
+    id: 3,
+    name: "Sayantanee Mohanta",
+    designation: "HelpDesk Senior Associate",
+    company: "NTT Data Services",
+  },
+  {
+    id: 4,
+    name: "Rahee Mohanta",
+    designation: "HelpDesk Senior Associate",
+    company: "NTT Data Services",
+  },
+];

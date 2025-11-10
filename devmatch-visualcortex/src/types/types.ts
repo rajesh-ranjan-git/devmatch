@@ -6,3 +6,10 @@ export type DevMatchAppState = {
   activeContextMenu: string | null;
   setActiveContextMenu: (name: string | null) => void;
 };
+
+export type User = {
+  id: number;
+  name: string;
+  designation: string;
+  company: string;
+};

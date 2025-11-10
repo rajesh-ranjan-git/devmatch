@@ -1,5 +1,6 @@
-import { ReactElement, Ref, RefObject } from "react";
+import { Dispatch, ReactElement, RefObject } from "react";
 import { IconType } from "react-icons";
+import { User } from "@/types/types";
 
 export interface ReactNodeProps {
   children: React.ReactNode;
@@ -69,4 +70,10 @@ export interface UseOutsideClickProps {
   ref: RefObject<HTMLElement | null>;
   when: boolean;
   callback: () => void;
+}
+
+export interface UserCardProps {
+  user: User;
+  users: User[];
+  setUsers: Dispatch<React.SetStateAction<User[]>>;
 }

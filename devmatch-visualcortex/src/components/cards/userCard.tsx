@@ -1,12 +1,57 @@
 import Image from "next/image";
+import { motion, useMotionValue, useTransform } from "motion/react";
 import { staticImages } from "@/config/config";
+import { UserCardProps } from "@/types/propTypes";
 import NameCardContent from "@/components/cards/nameCardContent";
 import UserDetailsCardContent from "@/components/cards/userDetailsCardContent";
 import UserInfoButton from "@/components/ui/buttons/userInfoButton";
 
-const UserCard = () => {
+const UserCard = ({ user, users, setUsers }: UserCardProps) => {
+  const x = useMotionValue(0);
+
+  const opacity = useTransform(x, [-150, -50, 0, 50, 150], [0, 1, 1, 1, 0]);
+  const rotateRow = useTransform(x, [-150, 150], [-18, 18]);
+
+  const isFront = user?.id === users?.[users?.length - 1]?.id;
+
+  const rotate = useTransform(() => {
+    const offset = isFront ? 0 : user?.id % 2 ? 6 : -6;
+
+    return `${rotateRow.get() + offset}deg`;
+  });
+
+  const handleDragEnd = () => {
+    if (Math.abs(x.get()) > 50) {
+      setUsers((prev) =>
+        prev.filter((u) => {
+          return u.id !== user.id;
+        })
+      );
+    }
+  };
+
   return (
-    <div className="group relative flex justify-center items-center shadow-glass-shadow-heavy shadow-md m-2 rounded-2xl w-96 h-full overflow-hidden">
+    <motion.div
+      className="group relative flex justify-center items-center shadow-glass-shadow-heavy shadow-md m-2 rounded-2xl w-96 h-[90%] overflow-hidden hover:cursor-grab active:cursor-grabbing"
+      style={{
+        gridRow: 1,
+        gridColumn: 1,
+        x,
+        opacity,
+        rotate,
+        transition: "0.125s transform",
+        zIndex: user.id,
+      }}
+      animate={{
+        scale: isFront ? 1 : 0.98,
+      }}
+      drag="x"
+      dragConstraints={{
+        left: 0,
+        right: 0,
+      }}
+      onDragEnd={handleDragEnd}
+    >
       <UserInfoButton />
 
       <Image
@@ -14,17 +59,17 @@ const UserCard = () => {
         alt={staticImages.profilePlaceholder.alt}
         width={600}
         height={400}
-        className="w-full h-full object-cover select-none"
+        className="w-full h-full object-cover pointer-events-none select-none"
       />
 
-      <NameCardContent name="Rajesh Ranjan" />
+      <NameCardContent name={user.name} />
 
       <UserDetailsCardContent
-        name="Rajesh Ranjan"
-        designation="Full Stack Developer"
-        company="India Today Group"
+        name={user.name}
+        designation={user.designation}
+        company={user.company}
       />
-    </div>
+    </motion.div>
   );
 };
 
