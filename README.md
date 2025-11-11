@@ -57,20 +57,56 @@
 ```bash
 devmatch/
 │
-├── .vscode
+├── 📁 .vscode
 │
-├── devmatch-brainbox/
-│   ├── config/
-│   ├── controllers/
-│   ├── db/
-│   ├── env/
-│   ├── errors/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   ├── src/
-│   ├── utils/
-│   ├── validations/
+├── 📁 devmatch-brainbox
+│   ├── 📁 config
+│   │   ├── config.js
+│   │   └── dbConfig.js
+│   │
+│   ├── 📁 controllers
+│   │   ├── connection.js
+│   │   ├── explore.js
+│   │   ├── notification.js
+│   │   ├── profile.js
+│   │   └── user.js
+│   │
+│   ├── 📁 db
+│   │   └── connectDB.js
+│   │
+│   ├── 📁 env
+│   │   ├── .env-development
+│   │   └── .env-production
+│   │
+│   ├── 📁 errors
+│   │   └── CustomError.js
+│   │
+│   ├── 📁 middleware
+│   │   ├── auth.js
+│   │   └── request.js
+│   │
+│   ├── 📁 models
+│   │   ├── connection.js
+│   │   ├── notification.js
+│   │   └── user.js
+│   │
+│   ├── 📁 routes
+│   │   ├── connection.js
+│   │   ├── explore.js
+│   │   ├── notification.js
+│   │   ├── profile.js
+│   │   └── user.js
+│   │
+│   ├── 📁 src
+│   │   └── server.js
+│   │
+│   ├── 📁 utils
+│   │   ├── authUtils.js
+│   │   └── utils.js
+│   │
+│   ├── 📁 validations
+│   │   └── validation.js
+│   │
 │   ├── .gitignore
 │   ├── package-lock.json
 │   ├── package.json
