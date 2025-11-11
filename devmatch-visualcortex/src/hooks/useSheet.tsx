@@ -10,11 +10,11 @@ const useSheet = ({ type }: UseSheetProps) => {
 
   const open = useCallback(() => setActiveSheet(type), [type, activeSheet]);
 
-  const close = useCallback(() => setActiveSheet(null), [type, activeSheet]);
+  const close = useCallback(() => setActiveSheet(null), [activeSheet]);
 
   const toggle = useCallback(() => {
     setActiveSheet(activeSheet === type ? null : type);
-  }, [type, activeSheet]);
+  }, [type, activeSheet, setActiveSheet]);
 
   const isOpen = activeSheet === type;
 

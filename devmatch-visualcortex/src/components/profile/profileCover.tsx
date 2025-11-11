@@ -11,16 +11,16 @@ import ProfileCoverEditButton from "@/components/ui/buttons/profileCoverEditButt
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 
 const ProfileCover = () => {
-  const showCoverPhotoContextRef = useRef(null);
+  const updateCoverPhotoContextRef = useRef(null);
 
-  const showCoverPhotoContext = useContextMenu({
-    type: "showCoverPhotoContext",
+  const updateCoverPhotoContext = useContextMenu({
+    type: "updateCoverPhotoContext",
   });
 
   useOutsideClick({
-    ref: showCoverPhotoContextRef,
-    when: showCoverPhotoContext.isOpen,
-    callback: () => showCoverPhotoContext.close(),
+    ref: updateCoverPhotoContextRef,
+    when: updateCoverPhotoContext.isOpen,
+    callback: () => updateCoverPhotoContext.close(),
   });
 
   return (
@@ -33,13 +33,13 @@ const ProfileCover = () => {
         className="w-full h-full object-cover select-none"
       />
 
-      <div className="top-0 right-0 absolute" ref={showCoverPhotoContextRef}>
+      <div className="top-0 right-0 absolute" ref={updateCoverPhotoContextRef}>
         <ProfileCoverEditButton
-          onClick={() => showCoverPhotoContext.toggle()}
+          onClick={() => updateCoverPhotoContext.toggle()}
         />
 
         <ContextMenu
-          open={showCoverPhotoContext.isOpen}
+          open={updateCoverPhotoContext.isOpen}
           className="right-2 before:right-5 w-52"
         >
           <p className="p-2 font-bold text-md">Update cover photo</p>

@@ -58,7 +58,7 @@ export const navbarMenuItems = {
     label: "Connections",
     icon: <LuHandshake />,
   },
-};
+} as const;
 
 export const notificationsDropdownItems = {
   request: [

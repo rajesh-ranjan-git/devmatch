@@ -19,12 +19,12 @@ const useContextMenu = ({ type }: UseContextMenuProps) => {
 
   const close = useCallback(
     () => setActiveContextMenu(null),
-    [type, activeContextMenu]
+    [activeContextMenu]
   );
 
   const toggle = useCallback(() => {
     setActiveContextMenu(activeContextMenu === type ? null : type);
-  }, [type, activeContextMenu]);
+  }, [type, activeContextMenu, setActiveContextMenu]);
 
   const isOpen = activeContextMenu === type;
 

@@ -1,13 +1,13 @@
 import { Dispatch, ReactElement, RefObject } from "react";
 import { IconType } from "react-icons";
-import { StorageType, User } from "@/types/types";
+import { ContextMenuTypes, SheetTypes, StorageType, User } from "@/types/types";
 
 export interface ReactNodeProps {
   children: React.ReactNode;
 }
 
 export interface ConnectionProps {
-  name: string;
+  name: SheetTypes;
   icon: ReactElement;
   label: string;
 }
@@ -59,11 +59,11 @@ export interface SocialMediaItemProps {
 }
 
 export interface UseContextMenuProps {
-  type: string | null;
+  type: ContextMenuTypes;
 }
 
 export interface UseSheetProps {
-  type: string | null;
+  type: SheetTypes;
 }
 
 export interface UseOutsideClickProps {

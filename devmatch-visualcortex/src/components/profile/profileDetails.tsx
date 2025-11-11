@@ -16,7 +16,7 @@ const ProfileDetails = () => {
   const updateProfilePhotoContextRef = useRef(null);
 
   const updateProfilePhotoContext = useContextMenu({
-    type: "updateProfilePhoto",
+    type: "updateProfilePhotoContext",
   });
 
   useOutsideClick({

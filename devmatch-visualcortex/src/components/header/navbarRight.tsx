@@ -23,8 +23,10 @@ const NavbarRight = () => {
   const notificationsContextRef = useRef(null);
   const accountOptionsContextRef = useRef(null);
 
-  const notificationsContext = useContextMenu({ type: "notifications" });
-  const accountOptionsContext = useContextMenu({ type: "accountOptions" });
+  const notificationsContext = useContextMenu({ type: "notificationsContext" });
+  const accountOptionsContext = useContextMenu({
+    type: "accountOptionsContext",
+  });
 
   useOutsideClick({
     ref: notificationsContextRef,

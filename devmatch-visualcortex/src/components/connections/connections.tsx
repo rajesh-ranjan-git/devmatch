@@ -1,10 +1,10 @@
 import { navbarMenuItems } from "@/config/config";
 import { ConnectionProps } from "@/types/propTypes";
 import useSheet from "@/hooks/useSheet";
-import ConnectionsButton from "@/components/ui/buttons/connectionsButton";
-import Sheet from "@/components/ui/sheet/sheet";
 import ConnectionsSheetItems from "@/components/connections/connectionsSheetItems";
 import RequestsSheetItems from "@/components/requests/requestsSheetItems";
+import ConnectionsButton from "@/components/ui/buttons/connectionsButton";
+import Sheet from "@/components/ui/sheet/sheet";
 
 const Connections = ({ name, icon, label }: ConnectionProps) => {
   const connectionsSheet = useSheet({ type: name });

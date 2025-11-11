@@ -11,20 +11,16 @@ const useOutsideClick = ({ ref, when, callback }: UseOutsideClickProps) => {
   );
 
   const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
-    const target = event.target as Node;
+    const target = event?.target as Node;
 
     const clickedInside = refs.some((r) => {
       const el = r?.current;
-      return el && el.contains(target);
+      return el && el?.contains(target);
     });
 
     if (!clickedInside) {
       savedCallback.current();
     }
-
-    // if (ref.current && !ref.current.contains(event.target as Node)) {
-    //   savedCallback.current();
-    // }
   };
 
   useEffect(() => {
