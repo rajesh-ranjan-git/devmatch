@@ -1,15 +1,26 @@
 import { ReactNode } from "react";
 
 export type DevMatchAppState = {
-  switchTheme: ThemeType;
-  setSwitchTheme: (value: ThemeType) => void;
+  switchTheme: ThemeTypes;
+  setSwitchTheme: (value: ThemeTypes) => void;
   activeSheet: SheetTypes;
   setActiveSheet: (name: SheetTypes) => void;
   activeContextMenu: ContextMenuTypes;
   setActiveContextMenu: (name: ContextMenuTypes) => void;
 };
 
-export type ThemeType = "dark" | "light";
+export type ThemeTypes = "dark" | "light";
+
+export interface Theme {
+  type: ThemeTypes;
+}
+
+export type NavbarMenuItemTypes = "requests" | "connections";
+
+export interface NavbarMenuItemType {
+  type: NavbarMenuItemTypes;
+  icon: ReactNode;
+}
 
 export type ContextMenuTypes =
   | "notificationsContext"
@@ -21,13 +32,6 @@ export type ContextMenuTypes =
 export type SheetTypes = "requests" | "connections" | null;
 
 export type NotificationTypes = "request" | "chat" | null;
-
-export type NavbarMenuItemTypes = "requests" | "connections" | null;
-
-export interface NavbarMenuItemType {
-  type: NavbarMenuItemTypes;
-  icon: ReactNode;
-}
 
 export type RequestsSheetItemType = {
   type: NotificationTypes;

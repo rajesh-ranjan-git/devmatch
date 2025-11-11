@@ -32,12 +32,12 @@ const ConnectionsSheetItem = ({ item }: ConnectionsSheetItemProps) => {
           />
           <ButtonWarning
             icon={<MdCancel />}
-            type="chat"
+            type="disconnect"
             className="w-32 text-sm"
           />
           <ButtonDestructive
             icon={<MdBlock />}
-            type="chat"
+            type="block"
             className="w-24 text-sm"
           />
         </div>

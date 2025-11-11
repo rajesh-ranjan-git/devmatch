@@ -17,7 +17,7 @@ import {
   FaXTwitter,
 } from "react-icons/fa6";
 import { BsCamera } from "react-icons/bs";
-import { NavbarMenuItemType } from "@/types/types";
+import { NavbarMenuItemType, Theme } from "@/types/types";
 
 export const alkatra = Alkatra({
   variable: "--font-alkatra",
@@ -35,18 +35,14 @@ export const tourney = Tourney({
   variable: "--font-tourney",
 });
 
-export const theme = {
-  dark: {
-    name: "DARK",
+export const themes: Theme[] = [
+  {
     type: "dark",
-    label: "Dark",
   },
-  light: {
-    name: "LIGHT",
+  {
     type: "light",
-    label: "Light",
   },
-};
+];
 
 export const navbarMenuItems: NavbarMenuItemType[] = [
   {
