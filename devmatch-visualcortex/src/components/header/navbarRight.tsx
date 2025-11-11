@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { LuBell, LuBellDot } from "react-icons/lu";
+import { LuBell } from "react-icons/lu";
 import { FaChevronDown } from "react-icons/fa6";
 import {
   navbarMenuItems,
@@ -53,7 +53,7 @@ const NavbarRight = () => {
 
       <div className="relative" ref={notificationsContextRef}>
         <NotificationsButton
-          icon={<LuBellDot />}
+          icon={<LuBell />}
           className={`${notificationsContext.isOpen && "z-100"}`}
           onClick={() => notificationsContext.toggle()}
         />

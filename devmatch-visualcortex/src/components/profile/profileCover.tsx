@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { RefObject, useRef } from "react";
 import Image from "next/image";
 import { cameraDropdownItems, staticImages } from "@/config/config";
 import useContextMenu from "@/hooks/useContextMenu";
