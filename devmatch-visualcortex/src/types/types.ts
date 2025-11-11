@@ -1,21 +1,33 @@
+import { ReactNode } from "react";
+
 export type DevMatchAppState = {
-  switchTheme: string;
-  setSwitchTheme: (value: string) => void;
-  activeSheet: string | null;
-  setActiveSheet: (name: string | null) => void;
-  activeContextMenu: string | null;
-  setActiveContextMenu: (name: string | null) => void;
+  switchTheme: ThemeType;
+  setSwitchTheme: (value: ThemeType) => void;
+  activeSheet: SheetTypes;
+  setActiveSheet: (name: SheetTypes) => void;
+  activeContextMenu: ContextMenuTypes;
+  setActiveContextMenu: (name: ContextMenuTypes) => void;
 };
+
+export type ThemeType = "dark" | "light";
 
 export type ContextMenuTypes =
   | "notificationsContext"
   | "accountOptionsContext"
   | "updateCoverPhotoContext"
-  | "updateProfilePhotoContext";
+  | "updateProfilePhotoContext"
+  | null;
 
-export type SheetTypes = "REQUESTS" | "CONNECTIONS";
+export type SheetTypes = "requests" | "connections" | null;
 
-export type NotificationTypes = "request" | "chat";
+export type NotificationTypes = "request" | "chat" | null;
+
+export type NavbarMenuItemTypes = "requests" | "connections" | null;
+
+export interface NavbarMenuItemType {
+  type: NavbarMenuItemTypes;
+  icon: ReactNode;
+}
 
 export type RequestsSheetItemType = {
   type: NotificationTypes;

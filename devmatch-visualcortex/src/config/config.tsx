@@ -17,6 +17,7 @@ import {
   FaXTwitter,
 } from "react-icons/fa6";
 import { BsCamera } from "react-icons/bs";
+import { NavbarMenuItemType } from "@/types/types";
 
 export const alkatra = Alkatra({
   variable: "--font-alkatra",
@@ -47,18 +48,16 @@ export const theme = {
   },
 };
 
-export const navbarMenuItems = {
-  requests: {
-    name: "REQUESTS",
-    label: "Requests",
+export const navbarMenuItems: NavbarMenuItemType[] = [
+  {
+    type: "requests",
     icon: <LuUserPlus />,
   },
-  connections: {
-    name: "CONNECTIONS",
-    label: "Connections",
+  {
+    type: "connections",
     icon: <LuHandshake />,
   },
-} as const;
+];
 
 export const notificationsDropdownItems = {
   request: [

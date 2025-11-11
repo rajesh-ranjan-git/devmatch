@@ -27,17 +27,17 @@ const ConnectionsSheetItem = ({ item }: ConnectionsSheetItemProps) => {
         <div className="relative flex gap-2 my-4">
           <ButtonSuccess
             icon={<IoIosChatboxes />}
-            label="Chat"
+            type="chat"
             className="w-24 text-sm"
           />
           <ButtonWarning
             icon={<MdCancel />}
-            label="Disconnect"
+            type="chat"
             className="w-32 text-sm"
           />
           <ButtonDestructive
             icon={<MdBlock />}
-            label="Block"
+            type="chat"
             className="w-24 text-sm"
           />
         </div>

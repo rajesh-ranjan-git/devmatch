@@ -1,4 +1,4 @@
-import { Dispatch, ReactElement, RefObject } from "react";
+import { Dispatch, ReactNode, RefObject } from "react";
 import { IconType } from "react-icons";
 import {
   ConnectionsSheetItemType,
@@ -10,20 +10,18 @@ import {
 } from "@/types/types";
 
 export interface ReactNodeProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export interface ConnectionProps {
-  name: SheetTypes;
-  icon: ReactElement;
-  label: string;
+  type: SheetTypes;
+  icon: ReactNode;
 }
 
 export interface ButtonProps {
-  name?: string;
-  icon?: ReactElement;
-  label?: string;
-  children?: ReactElement;
+  type?: string | null;
+  icon?: ReactNode;
+  children?: ReactNode;
   className?: string;
   onClick?: () => void;
 }
@@ -31,13 +29,13 @@ export interface ButtonProps {
 export interface SheetProps {
   open: boolean;
   onClose: () => void;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 export interface ContextMenuProps {
   open: boolean;
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 export interface NameCardContentProps {

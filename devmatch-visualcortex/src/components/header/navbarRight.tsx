@@ -44,13 +44,8 @@ const NavbarRight = () => {
     <div className="flex justify-center items-center gap-4">
       <ThemeToggle />
 
-      {Object.values(navbarMenuItems).map((item, idx) => (
-        <Connections
-          key={idx}
-          name={item.name}
-          icon={item.icon}
-          label={item.label}
-        />
+      {navbarMenuItems.map((item, idx) => (
+        <Connections key={idx} type={item.type} icon={item.icon} />
       ))}
 
       <div className="relative" ref={notificationsContextRef}>

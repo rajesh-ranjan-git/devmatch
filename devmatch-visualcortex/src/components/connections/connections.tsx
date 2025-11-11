@@ -11,26 +11,25 @@ import RequestsSheetItem from "@/components/connections/requestsSheetItem";
 import ConnectionsButton from "@/components/ui/buttons/connectionsButton";
 import Sheet from "@/components/ui/sheet/sheet";
 
-const Connections = ({ name, icon, label }: ConnectionProps) => {
-  const connectionsSheet = useSheet({ type: name });
+const Connections = ({ type, icon }: ConnectionProps) => {
+  const connectionsSheet = useSheet({ type: type });
 
   return (
     <>
       <ConnectionsButton
-        name={name}
+        type={type}
         icon={icon}
-        label={label}
         onClick={() => connectionsSheet.toggle()}
       />
       <Sheet
         open={connectionsSheet.isOpen}
         onClose={() => connectionsSheet.close()}
       >
-        <h1 className="p-1">{label}</h1>
+        <h1 className="p-1">{type}</h1>
 
         <div className="h-[92%]">
           <div className="[&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 h-full overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
-            {name === Object.values(navbarMenuItems)[0].name &&
+            {type === navbarMenuItems[0].type &&
               Object.values(requestsSheetDropdownItems)[0].map(
                 (item, index) => (
                   <RequestsSheetItem
@@ -40,7 +39,7 @@ const Connections = ({ name, icon, label }: ConnectionProps) => {
                 )
               )}
 
-            {name === Object.values(navbarMenuItems)[1].name &&
+            {type === navbarMenuItems[1].type &&
               Object.values(connectionsSheetDropdownItems).map(
                 (item, index) => (
                   <ConnectionsSheetItem

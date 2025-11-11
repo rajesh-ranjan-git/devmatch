@@ -26,17 +26,17 @@ const RequestsSheetItem = ({ item }: RequestsSheetItemProps) => {
         <div className="relative flex gap-2 my-4">
           <ButtonSuccess
             icon={<MdCheck />}
-            label="Accept"
+            type="accept"
             className="w-24 text-sm"
           />
           <ButtonWarning
             icon={<MdCancel />}
-            label="Reject"
+            type="reject"
             className="w-24 text-sm"
           />
           <ButtonDestructive
             icon={<MdBlock />}
-            label="Block"
+            type="block"
             className="w-24 text-sm"
           />
         </div>
