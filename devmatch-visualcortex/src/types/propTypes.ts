@@ -1,6 +1,6 @@
 import { Dispatch, ReactElement, RefObject } from "react";
 import { IconType } from "react-icons";
-import { User } from "@/types/types";
+import { StorageType, User } from "@/types/types";
 
 export interface ReactNodeProps {
   children: React.ReactNode;
@@ -70,6 +70,18 @@ export interface UseOutsideClickProps {
   ref: RefObject<HTMLElement | null>;
   when: boolean;
   callback: () => void;
+}
+
+export interface UseWebStorageProps<T> {
+  key: string;
+  value: T;
+  type?: StorageType;
+  expiresIn?: number;
+}
+
+export interface StoredData<T> {
+  data: T;
+  expiresAt?: number;
 }
 
 export interface UserCardProps {
