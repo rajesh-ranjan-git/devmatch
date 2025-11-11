@@ -1,10 +1,15 @@
-import { navbarMenuItems } from "@/config/config";
+import {
+  navbarMenuItems,
+  connectionsSheetDropdownItems,
+  requestsSheetDropdownItems,
+} from "@/config/config";
 import { ConnectionProps } from "@/types/propTypes";
 import useSheet from "@/hooks/useSheet";
-import ConnectionsSheetItems from "@/components/connections/connectionsSheetItems";
-import RequestsSheetItems from "@/components/requests/requestsSheetItems";
+import ConnectionsSheetItem from "@/components/connections/connectionsSheetItem";
+import RequestsSheetItem from "@/components/requests/requestsSheetItem";
 import ConnectionsButton from "@/components/ui/buttons/connectionsButton";
 import Sheet from "@/components/ui/sheet/sheet";
+import { ConnectionsSheetItemType, RequestsSheetItemType } from "@/types/types";
 
 const Connections = ({ name, icon, label }: ConnectionProps) => {
   const connectionsSheet = useSheet({ type: name });
@@ -23,13 +28,29 @@ const Connections = ({ name, icon, label }: ConnectionProps) => {
       >
         <h1 className="p-1">{label}</h1>
 
-        {name === Object.values(navbarMenuItems)[0].name && (
-          <RequestsSheetItems />
-        )}
+        <div className="h-[92%]">
+          <div className="[&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 h-full overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
+            {name === Object.values(navbarMenuItems)[0].name &&
+              Object.values(requestsSheetDropdownItems)[0].map(
+                (item, index) => (
+                  <RequestsSheetItem
+                    key={index}
+                    item={item as RequestsSheetItemType}
+                  />
+                )
+              )}
 
-        {name === Object.values(navbarMenuItems)[1].name && (
-          <ConnectionsSheetItems />
-        )}
+            {name === Object.values(navbarMenuItems)[1].name &&
+              Object.values(connectionsSheetDropdownItems).map(
+                (item, index) => (
+                  <ConnectionsSheetItem
+                    key={index}
+                    item={item as ConnectionsSheetItemType}
+                  />
+                )
+              )}
+          </div>
+        </div>
       </Sheet>
     </>
   );

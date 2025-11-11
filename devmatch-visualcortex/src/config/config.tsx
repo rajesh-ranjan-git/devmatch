@@ -123,7 +123,66 @@ export const notificationsDropdownItems = {
   ],
 };
 
-export const sheetDropdownItems = {
+export const connectionsSheetDropdownItems = [
+  {
+    type: "request",
+    name: "Rajesh Ranjan",
+    designation: "Full Stack Developer",
+    connectedSince: "Connected since November, 2025",
+    url: "/profile",
+  },
+  {
+    type: "request",
+    name: "Kripanidhan",
+    designation: "Software Development Engineer",
+    connectedSince: "Connected since November, 2025",
+    url: "/profile",
+  },
+  {
+    type: "request",
+    name: "Sayantanee Mohanta",
+    designation: "HelpDesk Senior Associate",
+    connectedSince: "Connected since November, 2025",
+    url: "/profile",
+  },
+  {
+    type: "request",
+    name: "Rahee",
+    designation: "Software Engineer",
+    connectedSince: "Connected since November, 2025",
+    url: "/profile",
+  },
+  {
+    type: "request",
+    name: "Rajesh Ranjan",
+    designation: "Full Stack Developer",
+    connectedSince: "Connected since November, 2025",
+    url: "/profile",
+  },
+  {
+    type: "request",
+    name: "Kripanidhan",
+    designation: "Software Development Engineer",
+    connectedSince: "Connected since November, 2025",
+    url: "/profile",
+  },
+  {
+    type: "request",
+    name: "Sayantanee Mohanta",
+    designation: "HelpDesk Senior Associate",
+    connectedSince: "Connected since November, 2025",
+    url: "/profile",
+  },
+  {
+    type: "request",
+    name: "Rahee",
+    designation: "Software Engineer",
+    connectedSince: "Connected since November, 2025",
+    url: "/profile",
+  },
+];
+
+export const requestsSheetDropdownItems = {
   request: [
     {
       type: "request",

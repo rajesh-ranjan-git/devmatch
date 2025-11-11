@@ -1,5 +1,3 @@
-import { navbarMenuItems } from "@/config/config";
-
 export type DevMatchAppState = {
   switchTheme: string;
   setSwitchTheme: (value: string) => void;
@@ -16,6 +14,24 @@ export type ContextMenuTypes =
   | "updateProfilePhotoContext";
 
 export type SheetTypes = "REQUESTS" | "CONNECTIONS";
+
+export type NotificationTypes = "request" | "chat";
+
+export type RequestsSheetItemType = {
+  type: NotificationTypes;
+  name: string;
+  designation: string;
+  body: string;
+  url: string;
+};
+
+export type ConnectionsSheetItemType = {
+  type: NotificationTypes;
+  name: string;
+  designation: string;
+  connectedSince: string;
+  url: string;
+};
 
 export type StorageType = "local" | "session";
 

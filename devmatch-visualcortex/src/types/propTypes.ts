@@ -1,6 +1,13 @@
 import { Dispatch, ReactElement, RefObject } from "react";
 import { IconType } from "react-icons";
-import { ContextMenuTypes, SheetTypes, StorageType, User } from "@/types/types";
+import {
+  ConnectionsSheetItemType,
+  ContextMenuTypes,
+  RequestsSheetItemType,
+  SheetTypes,
+  StorageType,
+  User,
+} from "@/types/types";
 
 export interface ReactNodeProps {
   children: React.ReactNode;
@@ -88,4 +95,12 @@ export interface UserCardProps {
   user: User;
   users: User[];
   setUsers: Dispatch<React.SetStateAction<User[]>>;
+}
+
+export interface RequestsSheetItemProps {
+  item: RequestsSheetItemType;
+}
+
+export interface ConnectionsSheetItemProps {
+  item: ConnectionsSheetItemType;
 }
