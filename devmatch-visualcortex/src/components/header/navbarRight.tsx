@@ -13,7 +13,7 @@ import useContextMenu from "@/hooks/useContextMenu";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import Connections from "@/components/connections/connections";
 import ThemeToggle from "@/components/theme/themeToggle";
-import NotificationsContextItems from "@/components/notifications/notificationsContextItems";
+import NotificationsContextItems from "@/components/header/notificationsContextItems";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import NotificationsButton from "@/components/ui/buttons/notificationsButton";
 import AccountOptionsButton from "@/components/ui/buttons/accountOptionsButton";

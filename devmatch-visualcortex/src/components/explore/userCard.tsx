@@ -2,8 +2,8 @@ import Image from "next/image";
 import { motion, useMotionValue, useTransform } from "motion/react";
 import { staticImages } from "@/config/config";
 import { UserCardProps } from "@/types/propTypes";
-import NameCardContent from "@/components/cards/nameCardContent";
-import UserDetailsCardContent from "@/components/cards/userDetailsCardContent";
+import NameCardContent from "@/components/explore/nameCardContent";
+import UserDetailsCardContent from "@/components/explore/userDetailsCardContent";
 import UserInfoButton from "@/components/ui/buttons/userInfoButton";
 
 const UserCard = ({ user, users, setUsers }: UserCardProps) => {

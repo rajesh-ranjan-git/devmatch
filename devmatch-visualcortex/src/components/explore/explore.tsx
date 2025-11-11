@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import UserCard from "@/components/cards/userCard";
+import UserCard from "@/components/explore/userCard";
 import { staticUsers } from "@/config/config";
 import { User } from "@/types/types";
 

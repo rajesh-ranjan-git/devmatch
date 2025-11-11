@@ -5,7 +5,7 @@ import Image from "next/image";
 import { cameraDropdownItems, staticImages } from "@/config/config";
 import useContextMenu from "@/hooks/useContextMenu";
 import useOutsideClick from "@/hooks/useOutsideClick";
-import NameCardContent from "@/components/cards/nameCardContent";
+import NameCardContent from "@/components/explore/nameCardContent";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 import ProfileCoverEditButton from "@/components/ui/buttons/profileCoverEditButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";

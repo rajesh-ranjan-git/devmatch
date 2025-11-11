@@ -1,7 +1,7 @@
-import Profile from "@/components/profile/profile";
+import ProfileWrapper from "@/components/profile/profileWrapper";
 
 const ExplorePage = () => {
-  return <Profile />;
+  return <ProfileWrapper />;
 };
 
 export default ExplorePage;
