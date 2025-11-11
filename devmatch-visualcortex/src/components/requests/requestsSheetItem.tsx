@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { MdBlock, MdCancel, MdCheck } from "react-icons/md";
 import { staticImages } from "@/config/config";
+import { RequestsSheetItemProps } from "@/types/propTypes";
 import ButtonSuccess from "@/components/ui/buttons/buttonSuccess";
 import ButtonWarning from "@/components/ui/buttons/buttonWarning";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import UserInfoButton from "@/components/ui/buttons/userInfoButton";
-import { RequestsSheetItemProps } from "@/types/propTypes";
 
 const RequestsSheetItem = ({ item }: RequestsSheetItemProps) => {
   return (

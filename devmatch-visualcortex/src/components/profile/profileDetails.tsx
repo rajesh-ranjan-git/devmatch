@@ -4,7 +4,11 @@ import { useRef } from "react";
 import Image from "next/image";
 import { MdEdit, MdOutlineEdit } from "react-icons/md";
 import { BsCamera } from "react-icons/bs";
-import { authFields, cameraDropdownItems, staticImages } from "@/config/config";
+import {
+  authFormFields,
+  cameraDropdownItems,
+  staticImages,
+} from "@/config/config";
 import useContextMenu from "@/hooks/useContextMenu";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
@@ -329,13 +333,13 @@ const ProfileDetails = () => {
       </div>
       <div className="flex justify-center items-center gap-4">
         <ButtonNormal
-          icon={authFields.updateProfile.icon}
-          label={authFields.updateProfile.label}
+          icon={authFormFields.updateProfile.icon}
+          label={authFormFields.updateProfile.label}
           className="w-46 h-10"
         />
         <ButtonDestructive
-          icon={authFields.deleteAccount.icon}
-          label={authFields.deleteAccount.label}
+          icon={authFormFields.deleteAccount.icon}
+          label={authFormFields.deleteAccount.label}
           className="w-46 h-10"
         />
       </div>

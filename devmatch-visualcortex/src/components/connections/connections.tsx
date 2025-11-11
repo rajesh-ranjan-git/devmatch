@@ -4,12 +4,12 @@ import {
   requestsSheetDropdownItems,
 } from "@/config/config";
 import { ConnectionProps } from "@/types/propTypes";
+import { ConnectionsSheetItemType, RequestsSheetItemType } from "@/types/types";
 import useSheet from "@/hooks/useSheet";
 import ConnectionsSheetItem from "@/components/connections/connectionsSheetItem";
 import RequestsSheetItem from "@/components/requests/requestsSheetItem";
 import ConnectionsButton from "@/components/ui/buttons/connectionsButton";
 import Sheet from "@/components/ui/sheet/sheet";
-import { ConnectionsSheetItemType, RequestsSheetItemType } from "@/types/types";
 
 const Connections = ({ name, icon, label }: ConnectionProps) => {
   const connectionsSheet = useSheet({ type: name });

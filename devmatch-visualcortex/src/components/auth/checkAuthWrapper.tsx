@@ -1,10 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactNodeProps } from "@/types/propTypes";
-import { useEffect } from "react";
 
-const CheckAuthWrapper = ({ children }: ReactNodeProps) => {
+const CheckAuthFormWrapper = ({ children }: ReactNodeProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -16,4 +16,4 @@ const CheckAuthWrapper = ({ children }: ReactNodeProps) => {
   return <>{children}</>;
 };
 
-export default CheckAuthWrapper;
+export default CheckAuthFormWrapper;

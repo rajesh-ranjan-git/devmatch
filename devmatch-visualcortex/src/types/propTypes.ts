@@ -50,7 +50,7 @@ export interface UserDetailsCardContentProps {
   company: string;
 }
 
-export interface AuthProps {
+export interface AuthFormWrapperProps {
   type: string;
 }
 

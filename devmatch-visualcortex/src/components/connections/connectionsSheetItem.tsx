@@ -2,11 +2,11 @@ import Image from "next/image";
 import { MdCancel, MdBlock } from "react-icons/md";
 import { IoIosChatboxes } from "react-icons/io";
 import { staticImages } from "@/config/config";
+import { ConnectionsSheetItemProps } from "@/types/propTypes";
 import ButtonSuccess from "@/components/ui/buttons/buttonSuccess";
 import ButtonWarning from "@/components/ui/buttons/buttonWarning";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import UserInfoButton from "@/components/ui/buttons/userInfoButton";
-import { ConnectionsSheetItemProps } from "@/types/propTypes";
 
 const ConnectionsSheetItem = ({ item }: ConnectionsSheetItemProps) => {
   return (

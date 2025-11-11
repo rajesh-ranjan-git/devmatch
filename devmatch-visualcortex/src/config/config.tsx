@@ -301,7 +301,7 @@ export const cameraDropdownItems = {
   },
 };
 
-export const authFields = {
+export const authFormFields = {
   userName: {
     name: "USERNAME",
     type: "text",

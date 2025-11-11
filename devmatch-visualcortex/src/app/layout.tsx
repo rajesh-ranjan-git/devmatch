@@ -6,8 +6,8 @@ import DefaultAnimatedBackground from "@/components/background/defaultAnimatedBa
 import InitialLoader from "@/components/ui/loaders/initialLoader";
 import ErrorWrapper from "@/components/errors/errorWrapper";
 import Header from "@/components/header/header";
+import CheckAuthFormWrapper from "@/components/auth/checkAuthWrapper";
 import "@/app/globals.css";
-import CheckAuthWrapper from "@/components/auth/checkAuthWrapper";
 
 export const metadata: Metadata = {
   title: {
@@ -30,10 +30,10 @@ export default function RootLayout({ children }: Readonly<ReactNodeProps>) {
         <DefaultAnimatedBackground />
         <ErrorWrapper>
           <InitialLoader />
-          <CheckAuthWrapper>
+          <CheckAuthFormWrapper>
             <Header />
             {children}
-          </CheckAuthWrapper>
+          </CheckAuthFormWrapper>
         </ErrorWrapper>
       </body>
     </html>
