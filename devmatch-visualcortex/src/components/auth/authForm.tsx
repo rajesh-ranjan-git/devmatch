@@ -69,17 +69,17 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
         {type === authFormFields.login.type ? (
           <SubmitButton
             icon={authFormFields.login.icon}
-            type={authFormFields.login.label}
+            text={authFormFields.login.label}
           />
         ) : type === authFormFields.register.type ? (
           <SubmitButton
             icon={authFormFields.register.icon}
-            type={authFormFields.register.label}
+            text={authFormFields.register.label}
           />
         ) : (
           <SubmitButton
             icon={authFormFields.forgotPassword.icon}
-            type={authFormFields.forgotPassword.label}
+            text={authFormFields.forgotPassword.label}
             className="w-64"
           />
         )}

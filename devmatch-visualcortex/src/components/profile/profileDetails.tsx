@@ -334,12 +334,12 @@ const ProfileDetails = () => {
       <div className="flex justify-center items-center gap-4">
         <ButtonNormal
           icon={authFormFields.updateProfile.icon}
-          type={authFormFields.updateProfile.label}
+          text={authFormFields.updateProfile.label}
           className="w-46 h-10"
         />
         <ButtonDestructive
           icon={authFormFields.deleteAccount.icon}
-          type={authFormFields.deleteAccount.label}
+          text={authFormFields.deleteAccount.label}
           className="w-46 h-10"
         />
       </div>

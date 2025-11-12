@@ -24,7 +24,7 @@ export default function GlobalError() {
                 {errorMessages.GLOBAL_ERROR}
               </h2>
               <ButtonNormal
-                type="refresh"
+                text="refresh"
                 onClick={() => {
                   window.location.reload();
                 }}

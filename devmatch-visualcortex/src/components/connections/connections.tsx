@@ -17,7 +17,7 @@ const Connections = ({ type, icon }: ConnectionProps) => {
   return (
     <>
       <ConnectionsButton
-        type={type}
+        text={type}
         icon={icon}
         onClick={() => connectionsSheet.toggle()}
       />

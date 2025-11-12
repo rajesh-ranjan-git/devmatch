@@ -19,7 +19,7 @@ export interface ConnectionProps {
 }
 
 export interface ButtonProps {
-  type?: string | null;
+  text?: string | null;
   icon?: ReactNode;
   children?: ReactNode;
   className?: string;
