@@ -25,10 +25,10 @@ export type StorageTypes = keyof typeof STORAGE;
 
 export type NavbarMenuItemTypes = keyof typeof NAVBAR_MENU_ITEMS;
 
-export interface NavbarMenuItemType {
+export type NavbarMenuItemType = {
   type: NavbarMenuItemTypes;
   icon: ReactNode;
-}
+};
 
 export type NotificationTypes = "request" | "chat";
 
