@@ -167,8 +167,9 @@ devmatch/
 │    │    │
 │    │    ├── 📁 components
 │    │    │    ├── 📁 auth
-│    │    │    │    ├── auth.tsx
 │    │    │    │    ├── authForm.tsx
+│    │    │    │    ├── authFormWrapper.tsx
+│    │    │    │    ├── checkAuthWrapper.tsx
 │    │    │    │    └── input.tsx
 │    │    │    │
 │    │    │    ├── 📁 background
@@ -176,41 +177,35 @@ devmatch/
 │    │    │    │    ├── animatedFloatingSquares.tsx
 │    │    │    │    └── defaultAnimatedBackground.tsx
 │    │    │    │
-│    │    │    ├── 📁 cards
-│    │    │    │    ├── nameCardContent.tsx
-│    │    │    │    ├── userCard.tsx
-│    │    │    │    └── userDetailsCardContent.tsx
-│    │    │    │
 │    │    │    ├── 📁 connections
 │    │    │    │    ├── connections.tsx
-│    │    │    │    └── connectionsSheetItems.tsx
+│    │    │    │    ├── connectionsSheetItem.tsx
+│    │    │    │    └── requestsSheetItem.tsx
 │    │    │    │
 │    │    │    ├── 📁 errors
 │    │    │    │    └── errorWrapper.tsx
 │    │    │    │
 │    │    │    ├── 📁 explore
-│    │    │    │    └── explore.tsx
+│    │    │    │    ├── explore.tsx
+│    │    │    │    ├── nameCardContent.tsx
+│    │    │    │    ├── userCard.tsx
+│    │    │    │    └── userDetailsCardContent.tsx
 │    │    │    │
 │    │    │    ├── 📁 header
 │    │    │    │    ├── header.tsx
 │    │    │    │    ├── logo.tsx
 │    │    │    │    ├── navbar.tsx
-│    │    │    │    └── navbarRight.tsx
+│    │    │    │    ├── navbarRight.tsx
+│    │    │    │    └── notificationsContextItems.tsx
 │    │    │    │
 │    │    │    ├── 📁 main
 │    │    │    │    ├── defaultMainContent.tsx
 │    │    │    │    └── main.tsx
 │    │    │    │
-│    │    │    ├── 📁 notifications
-│    │    │    │    └── notificationsContextItems.tsx
-│    │    │    │
 │    │    │    ├── 📁 profile
-│    │    │    │    ├── profile.tsx
 │    │    │    │    ├── profileCover.tsx
-│    │    │    │    └── profileDetails.tsx
-│    │    │    │
-│    │    │    ├── 📁 requests
-│    │    │    │    └── requestsSheetItems.tsx
+│    │    │    │    ├── profileDetails.tsx
+│    │    │    │    └── profileWrapper.tsx
 │    │    │    │
 │    │    │    ├── 📁 socialMedia
 │    │    │    │    ├── socialMedia.tsx
@@ -249,13 +244,11 @@ devmatch/
 │    │    ├── 📁 config
 │    │    │    └── config.tsx
 │    │    │
-│    │    ├── 📁 helpers
-│    │    │    └── helpers.ts
-│    │    │
 │    │    ├── 📁 hooks
 │    │    │    ├── useContextMenu.tsx
 │    │    │    ├── useOutsideClick.tsx
-│    │    │    └── useSheet.tsx
+│    │    │    ├── useSheet.tsx
+│    │    │    └── useWebStorage.tsx
 │    │    │
 │    │    ├── 📁 lib
 │    │    │    └── utils.ts
