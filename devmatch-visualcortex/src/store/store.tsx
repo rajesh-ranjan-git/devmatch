@@ -1,9 +1,9 @@
 import { create } from "zustand";
 import { DevMatchAppState } from "@/types/types";
-import { themes } from "@/config/config";
+import { THEMES } from "@/config/constants";
 
 export const useDevMatchAppStore = create<DevMatchAppState>((set) => ({
-  switchTheme: themes[0].type,
+  switchTheme: THEMES.dark,
   setSwitchTheme: (value) => set({ switchTheme: value }),
   activeSheet: null,
   setActiveSheet: (name) => set({ activeSheet: name }),

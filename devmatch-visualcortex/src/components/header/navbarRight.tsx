@@ -5,12 +5,13 @@ import Image from "next/image";
 import { LuBell } from "react-icons/lu";
 import { FaChevronDown } from "react-icons/fa6";
 import {
+  accountOptionsDropdownItems,
   navbarMenuItems,
-  profileDropdownItems,
   staticImages,
 } from "@/config/config";
 import useContextMenu from "@/hooks/useContextMenu";
 import useOutsideClick from "@/hooks/useOutsideClick";
+import { toTitleCase } from "@/lib/utils";
 import Connections from "@/components/connections/connections";
 import ThemeToggle from "@/components/theme/themeToggle";
 import NotificationsContextItems from "@/components/header/notificationsContextItems";
@@ -91,13 +92,13 @@ const NavbarRight = () => {
           <p className="p-2 px-4 font-bold text-lg">Rajesh Ranjan</p>
           <HorizontalSeparator />
           <div className="flex flex-col gap-1 p-1">
-            {Object.values(profileDropdownItems).map((item) => (
+            {accountOptionsDropdownItems.map((item) => (
               <p
-                key={item.name}
+                key={item.type}
                 className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg w-full transition-all ease-in-out cursor-pointer"
               >
                 <span>{item.icon}</span>
-                <span className="mr-4 w-full">{item.label}</span>
+                <span className="mr-4 w-full">{toTitleCase(item.type)}</span>
               </p>
             ))}
           </div>

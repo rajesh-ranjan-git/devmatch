@@ -5,8 +5,8 @@ import Image from "next/image";
 import { MdEdit, MdOutlineEdit } from "react-icons/md";
 import { BsCamera } from "react-icons/bs";
 import {
-  authFormFields,
-  cameraDropdownItems,
+  authFormFieldButtonItems,
+  cameraDropDownItems,
   staticImages,
 } from "@/config/config";
 import useContextMenu from "@/hooks/useContextMenu";
@@ -58,9 +58,9 @@ const ProfileDetails = () => {
             <p className="p-2 font-bold text-md">Update profile photo</p>
             <HorizontalSeparator />
             <div className="flex flex-col gap-1 p-1">
-              {Object.values(cameraDropdownItems).map((item) => (
+              {cameraDropDownItems.map((item) => (
                 <p
-                  key={item.name}
+                  key={item.type}
                   className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg w-full transition-all ease-in-out cursor-pointer"
                 >
                   <span>{item.icon}</span>
@@ -333,13 +333,13 @@ const ProfileDetails = () => {
       </div>
       <div className="flex justify-center items-center gap-4">
         <ButtonNormal
-          icon={authFormFields.updateProfile.icon}
-          text={authFormFields.updateProfile.label}
+          icon={authFormFieldButtonItems?.update_profile?.icon}
+          text={authFormFieldButtonItems?.update_profile?.label}
           className="w-46 h-10"
         />
         <ButtonDestructive
-          icon={authFormFields.deleteAccount.icon}
-          text={authFormFields.deleteAccount.label}
+          icon={authFormFieldButtonItems?.delete_account?.icon}
+          text={authFormFieldButtonItems?.delete_account?.label}
           className="w-46 h-10"
         />
       </div>

@@ -5,6 +5,10 @@ export const toTitleCase = (text: string) => {
 
   return text
     .toLowerCase()
+    .split("_")
+    .join(" ")
+    .split("-")
+    .join(" ")
     .split(" ")
     .map((word) => {
       if (word.length === 0) {
@@ -14,6 +18,14 @@ export const toTitleCase = (text: string) => {
       return word.charAt(0).toUpperCase() + word.slice(1);
     })
     .join(" ");
+};
+
+export const getUrlString = (text: string) => {
+  if (!text) {
+    return "";
+  }
+
+  return `/${text.toLowerCase().split(" ").join("-").split("_").join("-")}`;
 };
 
 export const formatDate = (dateString: string | Date) => {

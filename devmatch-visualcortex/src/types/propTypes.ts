@@ -1,12 +1,11 @@
 import { Dispatch, ReactNode, RefObject } from "react";
 import { IconType } from "react-icons";
 import {
-  ConnectionsSheetItemType,
   ContextMenuTypes,
-  RequestsSheetItemType,
+  SheetItemType,
   SheetTypes,
-  StorageType,
-  User,
+  StorageTypes,
+  UserType,
 } from "@/types/types";
 
 export interface ReactNodeProps {
@@ -80,7 +79,7 @@ export interface UseOutsideClickProps {
 export interface UseWebStorageProps<T> {
   key: string;
   value: T;
-  type?: StorageType;
+  type?: StorageTypes;
   expiresIn?: number;
 }
 
@@ -90,15 +89,15 @@ export interface StoredData<T> {
 }
 
 export interface UserCardProps {
-  user: User;
-  users: User[];
-  setUsers: Dispatch<React.SetStateAction<User[]>>;
+  user: UserType;
+  users: UserType[];
+  setUsers: Dispatch<React.SetStateAction<UserType[]>>;
 }
 
 export interface RequestsSheetItemProps {
-  item: RequestsSheetItemType;
+  item: SheetItemType;
 }
 
 export interface ConnectionsSheetItemProps {
-  item: ConnectionsSheetItemType;
+  item: SheetItemType;
 }

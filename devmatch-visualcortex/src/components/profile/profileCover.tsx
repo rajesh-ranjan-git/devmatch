@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { cameraDropdownItems, staticImages } from "@/config/config";
+import { cameraDropDownItems, staticImages } from "@/config/config";
 import useContextMenu from "@/hooks/useContextMenu";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import NameCardContent from "@/components/explore/nameCardContent";
@@ -45,9 +45,9 @@ const ProfileCover = () => {
           <p className="p-2 font-bold text-md">Update cover photo</p>
           <HorizontalSeparator />
           <div className="flex flex-col gap-1 p-1">
-            {Object.values(cameraDropdownItems).map((item) => (
+            {cameraDropDownItems.map((item) => (
               <p
-                key={item.name}
+                key={item.type}
                 className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg w-full transition-all ease-in-out cursor-pointer"
               >
                 <span>{item.icon}</span>

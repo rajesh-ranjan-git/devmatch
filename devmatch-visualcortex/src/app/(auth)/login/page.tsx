@@ -1,16 +1,17 @@
 import { Metadata } from "next";
-import { authFormFields } from "@/config/config";
+import { AUTH_FORM_FIELDS } from "@/config/constants";
+import { authFormFieldButtonItems } from "@/config/config";
 import Main from "@/components/main/main";
 import AuthFormWrapper from "@/components/auth/authFormWrapper";
 
 export const metadata: Metadata = {
-  title: authFormFields.login.label,
+  title: authFormFieldButtonItems?.login?.name,
 };
 
 const LoginPage = () => {
   return (
     <Main>
-      <AuthFormWrapper type={authFormFields.login.type} />
+      <AuthFormWrapper type={AUTH_FORM_FIELDS.login} />
     </Main>
   );
 };

@@ -1,20 +1,10 @@
-import {
-  FaFacebookF,
-  FaGithub,
-  FaInstagram,
-  FaXTwitter,
-} from "react-icons/fa6";
 import SocialMediaItem from "@/components/socialMedia/socialMediaItem";
+import { socialMediaIcons } from "@/config/config";
 
 const SocialMedia = () => {
   return (
     <ul className="bottom-2.5 relative flex">
-      {[
-        { url: "#", Icon: FaFacebookF },
-        { url: "#", Icon: FaInstagram },
-        { url: "#", Icon: FaXTwitter },
-        { url: "#", Icon: FaGithub },
-      ].map((item, i) => (
+      {Object.values(socialMediaIcons).map((item, i) => (
         <SocialMediaItem key={i} url={item.url} Icon={item.Icon} idx={i + 1} />
       ))}
     </ul>
