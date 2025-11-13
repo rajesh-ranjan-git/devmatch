@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { StoredData, UseWebStorageProps } from "@/types/propTypes";
+import { STORAGE } from "@/config/constants";
 
 export const useWebStorage = <T,>({
   key,
   value,
-  type = "local",
+  type = STORAGE.local,
   expiresIn,
 }: UseWebStorageProps<T>) => {
   const storage =
     typeof window !== "undefined"
-      ? type === "local"
+      ? type === STORAGE.local
         ? localStorage
         : sessionStorage
       : null;
@@ -46,7 +47,7 @@ export const useWebStorage = <T,>({
   }, [key, storedValue, expiresIn, storage]);
 
   useEffect(() => {
-    if (type !== "local") return;
+    if (type !== STORAGE.local) return;
 
     const handleStorage = (event: StorageEvent) => {
       if (event.key === key && event.newValue) {
@@ -68,8 +69,7 @@ export const useWebStorage = <T,>({
     return () => window.removeEventListener("storage", handleStorage);
   }, [key, type, value, storage]);
 
-  // ✅ Setter
-  const setValue = (newValue: T | ((prev: T) => T)) => {
+  const setWebStorageValue = (newValue: T | ((prev: T) => T)) => {
     try {
       setStoredValue((prev) =>
         newValue instanceof Function ? newValue(prev) : newValue
@@ -79,5 +79,5 @@ export const useWebStorage = <T,>({
     }
   };
 
-  return [storedValue, setValue] as const;
+  return [storedValue, setWebStorageValue] as const;
 };
