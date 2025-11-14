@@ -1,17 +1,23 @@
 import { THEMES } from "@/config/constants";
 import { useDevMatchAppStore } from "@/store/store";
+import { useEffect } from "react";
 
 const ThemeToggle = () => {
   const switchTheme = useDevMatchAppStore((state) => state.switchTheme);
   const setSwitchTheme = useDevMatchAppStore((state) => state.setSwitchTheme);
 
   const handleSwitchTheme = () => {
+    console.log("debug theme from handleSwitchTheme");
     if (switchTheme === THEMES.dark) {
       setSwitchTheme(THEMES.light);
     } else {
       setSwitchTheme(THEMES.dark);
     }
   };
+
+  useEffect(() => {
+    console.log("debug theme switchTheme : ", switchTheme);
+  }, [switchTheme]);
 
   return (
     <div
