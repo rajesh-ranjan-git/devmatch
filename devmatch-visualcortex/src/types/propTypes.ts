@@ -18,11 +18,17 @@ export interface ConnectionProps {
 }
 
 export interface ButtonProps {
+  popoverTarget?: string | undefined;
   text?: string | null;
   icon?: ReactNode;
   children?: ReactNode;
   className?: string;
   onClick?: () => void;
+}
+
+export interface DropdownProps {
+  id: string;
+  children?: ReactNode;
 }
 
 export interface SheetProps {

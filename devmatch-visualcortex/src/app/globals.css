@@ -169,6 +169,55 @@ html:not(.light) {
   --color-glass-success-text: var(--glass-success-text);
 }
 
+button[popovertarget="notifications-dropdown"] {
+  anchor-name: --notifications-dropdown;
+}
+
+button[popovertarget="account-options-dropdown"] {
+  anchor-name: --account-options-dropdown;
+}
+
+.context-menu {
+  position-try-fallbacks: --bottom-right, --bottom-left, --top-right, --top-left;
+}
+
+.context-menu:popover-open {
+  display: flex;
+  flex-direction: column;
+}
+
+#notifications-dropdown {
+  position-anchor: --notifications-dropdown;
+}
+
+#account-options-dropdown {
+  position-anchor: --account-options-dropdown;
+}
+
+@position-try --bottom-left {
+  inset: unset;
+  top: anchor(bottom);
+  right: anchor(right);
+}
+
+@position-try --bottom-right {
+  inset: unset;
+  top: anchor(bottom);
+  left: anchor(left);
+}
+
+@position-try --top-left {
+  inset: unset;
+  bottom: anchor(top);
+  right: anchor(right);
+}
+
+@position-try --top-right {
+  inset: unset;
+  bottom: anchor(top);
+  left: anchor(left);
+}
+
 /* --- Animations --- */
 @keyframes fillLeftToRight {
   from {

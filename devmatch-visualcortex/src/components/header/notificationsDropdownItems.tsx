@@ -4,10 +4,10 @@ import { notificationsDropdownItems, staticImages } from "@/config/config";
 import { toTitleCase } from "@/lib/utils";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 
-const NotificationsContextItems = () => {
+const NotificationsDropdownItems = () => {
   return (
-    <div className="flex flex-col gap-1 pt-2 pr-1 min-w-92 max-h-[80vh]">
-      <div className="[&::-webkit-scrollbar-track]:bg-transparent p-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
+    <div className="flex flex-col gap-1 min-w-92 max-h-[80vh]">
+      <div className="[&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
         {Object.entries(notificationsDropdownItems).map(([type, items]) => (
           <div key={type}>
             <div className="relative p-2 px-4 w-full font-bold text-lg">
@@ -53,4 +53,4 @@ const NotificationsContextItems = () => {
   );
 };
 
-export default NotificationsContextItems;
+export default NotificationsDropdownItems;
