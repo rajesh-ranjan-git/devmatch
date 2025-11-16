@@ -28,6 +28,7 @@ export interface ButtonProps {
 
 export interface DropdownProps {
   id: string;
+  className?: string;
   children?: ReactNode;
 }
 

@@ -13,6 +13,7 @@ import {
   FaFacebookF,
   FaGithub,
   FaInstagram,
+  FaUpload,
   FaXTwitter,
 } from "react-icons/fa6";
 import { BsCamera } from "react-icons/bs";
@@ -263,7 +264,7 @@ export const cameraDropDownItems: CameraDropdownItemType[] = [
   {
     type: "fromDevice",
     label: "Upload from device",
-    icon: <BsCamera />,
+    icon: <FaUpload />,
   },
 ];
 

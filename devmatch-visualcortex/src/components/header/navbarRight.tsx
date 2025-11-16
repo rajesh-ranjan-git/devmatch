@@ -14,7 +14,7 @@ import ThemeToggle from "@/components/theme/themeToggle";
 import NotificationsDropdownItems from "@/components/header/notificationsDropdownItems";
 import NavbarButton from "@/components/ui/buttons/navbarButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
-import Dropdown from "../ui/dropdown/Dropdown";
+import Dropdown from "@/components/ui/dropdown/dropdown";
 
 const NavbarRight = () => {
   return (
@@ -47,14 +47,14 @@ const NavbarRight = () => {
       <Dropdown id="account-options-dropdown">
         <p className="p-2 px-4 font-bold text-lg">Rajesh Ranjan</p>
         <HorizontalSeparator />
-        <div className="flex flex-col gap-1 py-1">
+        <div className="flex flex-col gap-1">
           {accountOptionsDropdownItems.map((item) => (
             <p
               key={item.type}
-              className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg w-full transition-all ease-in-out cursor-pointer"
+              className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg transition-all ease-in-out cursor-pointer"
             >
               <span>{item.icon}</span>
-              <span className="mr-4 w-full">{toTitleCase(item.type)}</span>
+              <span className="w-full">{toTitleCase(item.type)}</span>
             </p>
           ))}
         </div>

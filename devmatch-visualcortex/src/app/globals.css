@@ -177,11 +177,21 @@ button[popovertarget="account-options-dropdown"] {
   anchor-name: --account-options-dropdown;
 }
 
-.context-menu {
-  position-try-fallbacks: --bottom-right, --bottom-left, --top-right, --top-left;
+button[popovertarget="update-profile-photo-dropdown"] {
+  anchor-name: --update-profile-photo-dropdown;
 }
 
-.context-menu:popover-open {
+button[popovertarget="update-profile-cover-dropdown"] {
+  anchor-name: --update-profile-cover-dropdown;
+}
+
+.dropdown-menu {
+  top: anchor(bottom);
+  left: anchor(left);
+  position-try-fallbacks: --bottom-left, --bottom-right, --top-right, --top-left;
+}
+
+.dropdown-menu:popover-open {
   display: flex;
   flex-direction: column;
 }
@@ -192,6 +202,14 @@ button[popovertarget="account-options-dropdown"] {
 
 #account-options-dropdown {
   position-anchor: --account-options-dropdown;
+}
+
+#update-profile-photo-dropdown {
+  position-anchor: --update-profile-photo-dropdown;
+}
+
+#update-profile-cover-dropdown {
+  position-anchor: --update-profile-cover-dropdown;
 }
 
 @position-try --bottom-left {
