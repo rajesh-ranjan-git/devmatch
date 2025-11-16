@@ -30,18 +30,20 @@ const ProfileDetails = () => {
           <ProfilePhotoEditButton popoverTarget="update-profile-photo-dropdown" />
 
           <Dropdown id="update-profile-photo-dropdown">
-            <p className="p-2 font-bold text-md">Update profile photo</p>
-            <HorizontalSeparator />
-            <div className="flex flex-col gap-1">
-              {cameraDropDownItems.map((item) => (
-                <p
-                  key={item.type}
-                  className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg w-full min-w-48 transition-all ease-in-out cursor-pointer"
-                >
-                  <span>{item.icon}</span>
-                  <span className="w-full">{item.label}</span>
-                </p>
-              ))}
+            <div>
+              <p className="p-2 font-bold text-md">Update profile photo</p>
+              <HorizontalSeparator />
+              <div className="flex flex-col gap-1">
+                {cameraDropDownItems.map((item) => (
+                  <p
+                    key={item.type}
+                    className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg w-full min-w-48 transition-all ease-in-out cursor-pointer"
+                  >
+                    <span>{item.icon}</span>
+                    <span className="w-full">{item.label}</span>
+                  </p>
+                ))}
+              </div>
             </div>
           </Dropdown>
         </div>

@@ -186,14 +186,15 @@ button[popovertarget="update-profile-cover-dropdown"] {
 }
 
 .dropdown-menu {
+  opacity: 0;
   top: anchor(bottom);
   left: anchor(left);
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: opacity 500ms, transform 500ms, overlay 500ms allow-discrete,
+    display 500ms allow-discrete;
   position-try-fallbacks: --bottom-left, --bottom-right, --top-right, --top-left;
-}
-
-.dropdown-menu:popover-open {
-  display: flex;
-  flex-direction: column;
 }
 
 #notifications-dropdown {
@@ -210,6 +211,18 @@ button[popovertarget="update-profile-cover-dropdown"] {
 
 #update-profile-cover-dropdown {
   position-anchor: --update-profile-cover-dropdown;
+}
+
+.dropdown-menu:popover-open {
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  transform: scaleY(1);
+
+  @starting-style {
+    opacity: 0;
+    transform: scaleY(0);
+  }
 }
 
 @position-try --bottom-left {
