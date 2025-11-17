@@ -196,7 +196,7 @@ devmatch/
 │    │    │    │    ├── logo.tsx
 │    │    │    │    ├── navbar.tsx
 │    │    │    │    ├── navbarRight.tsx
-│    │    │    │    └── notificationsContextItems.tsx
+│    │    │    │    └── notificationsDropdownItems.tsx
 │    │    │    │
 │    │    │    ├── 📁 main
 │    │    │    │    ├── defaultMainContent.tsx
@@ -225,11 +225,15 @@ devmatch/
 │    │    │         │    ├── connectionsButton.tsx
 │    │    │         │    ├── notificationsButton.tsx
 │    │    │         │    ├── profileCoverEditButton.tsx
+│    │    │         │    ├── profilePhotoEditButton.tsx
 │    │    │         │    ├── submitButton.tsx
 │    │    │         │    └── userInfoButton.tsx
 │    │    │         │
 │    │    │         ├── 📁 contextMenu
 │    │    │         │    └── contextMenu.tsx
+│    │    │         │
+│    │    │         ├── 📁 dropdown
+│    │    │         │    └── dropdown.tsx
 │    │    │         │
 │    │    │         ├── 📁 loaders
 │    │    │         │    └── initialLoader.tsx
