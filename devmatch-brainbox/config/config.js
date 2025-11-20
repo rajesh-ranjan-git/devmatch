@@ -65,7 +65,7 @@ export const errorMessages = {
   DB_CONFIG_ERROR: "Database configuration error!",
   DB_CONNECTION_ERROR: "Database connection failed!",
   INTERNAL_SERVER_ERROR: "Internal Server Error",
-  REQUEST_ERROR: "Invalid request!",
+  INVALID_REQUEST_ERROR: "Invalid request!",
   FIRST_NAME_REQUIRED_ERROR: "First name is required!",
   EMAIL_REQUIRED_ERROR: "Email is required!",
   PASSWORD_REQUIRED_ERROR: "Password is required!",
@@ -195,6 +195,7 @@ export const errorMessages = {
 
 export const successMessages = {
   DB_CONNECTION_SUCCESS: "DEVMATCH DB CONNECTED",
+  AUTHENTICATION_SUCCESS: "Authentication successful!",
   REGISTRATION_SUCCESS: "Registration successful!",
   LOGIN_SUCCESS: "Login Successful!",
   LOGOUT_SUCCESS: "Logout Successful!",
@@ -289,7 +290,14 @@ export const publicProfilePropertiesForExplore = selectObjectProperties(
 
 export const publicProfilePropertiesForNotification = selectObjectProperties(
   userProperties,
-  ["EMAIL", "FIRST_NAME", "MIDDLE_NAME", "LAST_NAME", "AVATAR_URL", "COVER_PHOTO_URL"]
+  [
+    "EMAIL",
+    "FIRST_NAME",
+    "MIDDLE_NAME",
+    "LAST_NAME",
+    "AVATAR_URL",
+    "COVER_PHOTO_URL",
+  ]
 );
 
 export const privateProfileProperties = omitObjectProperties(userProperties, [

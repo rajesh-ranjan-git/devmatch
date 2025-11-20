@@ -13,6 +13,41 @@ import {
 } from "../utils/authUtils.js";
 import User from "../models/user.js";
 
+export const checkAuth = async (req, res) => {
+  try {
+    const { user } = req?.data;
+
+    if (!user) {
+      throw new AuthenticationError(
+        status.forbidden,
+        errorMessages.UNAUTHORIZED_USER_ERROR,
+        { user: user },
+        req?.url
+      );
+    }
+
+    return res.status(status.success.statusCode).json({
+      status: status.success.message,
+      statusCode: status.success.statusCode,
+      message: successMessages.AUTHENTICATION_SUCCESS,
+      user: user,
+    });
+  } catch (error) {
+    return res
+      .status(error?.status?.statusCode || status.forbidden.statusCode)
+      .json({
+        status: error?.status?.message || status.forbidden.message,
+        statusCode: error?.status?.statusCode || status.forbidden.statusCode,
+        apiUrl: error?.apiUrl || req?.url,
+        error: {
+          type: error?.type,
+          message: error?.message,
+          data: error?.data,
+        },
+      });
+  }
+};
+
 export const register = async (req, res) => {
   try {
     const { firstName, email, password } = req?.data;

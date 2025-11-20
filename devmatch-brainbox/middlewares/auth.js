@@ -1,7 +1,11 @@
-import { errorMessages, status } from "../config/config.js";
+import { errorMessages, status, userProperties } from "../config/config.js";
 import { AuthenticationError, DatabaseError } from "../errors/CustomError.js";
 import { requestValidator } from "../validations/validation.js";
-import { isValidMongoDbObjectId, verifyJwtToken } from "../utils/authUtils.js";
+import {
+  isPasswordExpired,
+  isValidMongoDbObjectId,
+  verifyJwtToken,
+} from "../utils/authUtils.js";
 import User from "../models/user.js";
 
 const auth = async (req, res, next) => {
@@ -28,7 +32,11 @@ const auth = async (req, res, next) => {
       );
     }
 
-    const loggedInUser = await User.findById(decodedUserId, "id");
+    const loggedInUser = await User.findById(decodedUserId, [
+      userProperties.EMAIL,
+      userProperties.FIRST_NAME,
+      userProperties.PASSWORD_LAST_UPDATED,
+    ]);
 
     if (!loggedInUser) {
       throw new DatabaseError(
@@ -39,14 +47,24 @@ const auth = async (req, res, next) => {
       );
     }
 
+    if (isPasswordExpired(loggedInUser?.passwordLastUpdated)) {
+      throw new AuthenticationError(
+        status.forbidden,
+        errorMessages.PASSWORD_EXPIRED_ERROR,
+        { user: loggedInUser?.id },
+        req?.url
+      );
+    }
+
     req.data = {
       id: loggedInUser?.id,
+      user: loggedInUser,
     };
 
     if (body) {
       req.data = { ...req?.data, ...body };
     }
-    
+
     next();
   } catch (error) {
     return res

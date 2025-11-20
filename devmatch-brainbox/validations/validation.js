@@ -20,9 +20,13 @@ import { isPlainObject } from "../utils/utils.js";
 
 export const requestValidator = (req, res) => {
   if (!req) {
-    throw new ValidationError(status.badRequest, errorMessages.REQUEST_ERROR, {
-      req: req,
-    });
+    throw new ValidationError(
+      status.badRequest,
+      errorMessages.INVALID_REQUEST_ERROR,
+      {
+        req: req,
+      }
+    );
   }
 
   if (
@@ -41,7 +45,7 @@ export const requestBodyValidator = (req, res) => {
   if (!req?.body || !Object.keys(req?.body).length) {
     throw new ValidationError(
       status.badRequest,
-      errorMessages.REQUEST_ERROR,
+      errorMessages.INVALID_REQUEST_ERROR,
       {
         requestBody: req?.body,
       },
