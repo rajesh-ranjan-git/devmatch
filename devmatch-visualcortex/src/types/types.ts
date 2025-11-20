@@ -13,6 +13,8 @@ import {
 export type DevMatchAppState = {
   switchTheme: ThemeTypes;
   setSwitchTheme: (value: ThemeTypes) => void;
+  loggedInUser: LoggedInUserType;
+  setLoggedInUser: (value: LoggedInUserType) => void;
   activeSheet: SheetTypes;
   setActiveSheet: (name: SheetTypes) => void;
   activeContextMenu: ContextMenuTypes;
@@ -22,6 +24,12 @@ export type DevMatchAppState = {
 export type ThemeTypes = keyof typeof THEMES;
 
 export type StorageTypes = keyof typeof STORAGE;
+
+export type LoggedInUserType = {
+  id: string;
+  email: string;
+  firsName: string;
+} | null;
 
 export type NavbarMenuItemTypes = keyof typeof NAVBAR_MENU_ITEMS;
 
@@ -128,8 +136,31 @@ export type ErrorMessageType = Record<string, string>;
 export type FallbackMessages = Record<string, string>;
 
 export type UserType = {
-  id: number;
-  name: string;
-  designation: string;
-  company: string;
+  ID?: string;
+  EMAIL?: string;
+  PASSWORD?: string;
+  PREVIOUS_PASSWORD?: string;
+  PASSWORD_LAST_UPDATED?: string;
+  FIRST_NAME?: string;
+  MIDDLE_NAME?: string;
+  LAST_NAME?: string;
+  NICK_NAME?: string;
+  NAME?: string;
+  AGE?: string;
+  PHONE?: string;
+  GENDER?: string;
+  AVATAR_URL?: string;
+  COVER_PHOTO_URL?: string;
+  BIO?: string;
+  MARITAL_STATUS?: string;
+  JOB_PROFILE?: string;
+  EXPERIENCE?: string;
+  GITHUB?: string;
+  WEBSITE?: string;
+  ORGANIZATION?: string;
+  SKILLS?: string;
+  INTERESTS?: string;
+  ADDRESS?: string;
+  CREATED_AT?: string;
+  UPDATED_AT?: string;
 };

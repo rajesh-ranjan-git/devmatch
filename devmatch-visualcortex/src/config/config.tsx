@@ -376,27 +376,27 @@ export const fallbackMessages: FallbackMessages = {
 
 export const staticUsers: UserType[] = [
   {
-    id: 1,
-    name: "Rajesh Ranjan",
-    designation: "Full Stack Developer",
-    company: "India Today Group",
+    ID: "1",
+    NAME: "Rajesh Ranjan",
+    JOB_PROFILE: "Full Stack Developer",
+    ORGANIZATION: "India Today Group",
   },
   {
-    id: 2,
-    name: "Kripanidhan Kumar",
-    designation: "Full Stack Developer",
-    company: "India Today Group",
+    ID: "2",
+    NAME: "Kripanidhan Kumar",
+    JOB_PROFILE: "Full Stack Developer",
+    ORGANIZATION: "India Today Group",
   },
   {
-    id: 3,
-    name: "Sayantanee Mohanta",
-    designation: "HelpDesk Senior Associate",
-    company: "NTT Data Services",
+    ID: "3",
+    NAME: "Sayantanee Mohanta",
+    JOB_PROFILE: "HelpDesk Senior Associate",
+    ORGANIZATION: "NTT Data Services",
   },
   {
-    id: 4,
-    name: "Rahee Mohanta",
-    designation: "HelpDesk Senior Associate",
-    company: "NTT Data Services",
+    ID: "4",
+    NAME: "Rahee Mohanta",
+    JOB_PROFILE: "HelpDesk Senior Associate",
+    ORGANIZATION: "NTT Data Services",
   },
 ];

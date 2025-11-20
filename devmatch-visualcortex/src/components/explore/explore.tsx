@@ -13,7 +13,7 @@ const Explore = () => {
       <div className="place-items-center grid h-full object-cover">
         {staticUsers.map((user) => (
           <UserCard
-            key={user.id}
+            key={user.ID}
             user={user}
             users={users}
             setUsers={setUsers}

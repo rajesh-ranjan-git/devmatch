@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const toTitleCase = (text: string) => {
   if (!text) {
     return "";
@@ -39,4 +41,16 @@ export const formatDate = (dateString: string | Date) => {
     minute: "2-digit",
     hour12: true,
   });
+};
+
+export const fetchApiData = async (url: string, method = "get") => {
+  try {
+    if (method === "get") {
+      const data = await axios.get(url);
+      console.log("debug from fetchApiData data : ", data);
+    }
+  } catch (error) {
+    console.log("error from fetchApiData error : ", error);
+    console.log("error from fetchApiData error.status : ", error.status);
+  }
 };
