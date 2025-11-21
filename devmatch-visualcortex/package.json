@@ -13,9 +13,9 @@
   ],
   "author": "Rajesh Ranjan",
   "scripts": {
-    "dev": "concurrently --names \"🧩 VISUALCORTEX 🧩,🤖 BRAINBOX 🤖\" --prefix \"[{name}]\" --timestamp --timestamp-format \"HH:mm:ss\" --prefix-colors \"yellow,green\" \"cross-env NODE_ENV=development next dev\" \"cross-env NODE_ENV=development nodemon ../devmatch-brainbox/src/server.js\"",
-    "build": "concurrently --names \"🧩 VISUALCORTEX  🧩,🤖 BRAINBOX 🤖\" --prefix \"[{name}]\" --timestamp --timestamp-format \"HH:mm:ss\" --prefix-colors \"yellow,green\" \"cross-env NODE_ENV=development next build\" \"cross-env NODE_ENV=development nodemon ../devmatch-brainbox/src/server.js\"",
-    "start": "concurrently --names \"🧩 VISUALCORTEX  🧩,🤖 BRAINBOX 🤖\" --prefix \"[{name}]\" --timestamp --timestamp-format \"HH:mm:ss\" --prefix-colors \"yellow,green\" \"cross-env NODE_ENV=development next start\" \"cross-env NODE_ENV=development nodemon ../devmatch-brainbox/src/server.js\"",
+    "dev": "concurrently --names \"🧩 VISUALCORTEX 🧩,🤖 BRAINBOX 🤖\" --prefix \"[{name}]\" --timestamp --timestamp-format \"HH:mm:ss\" --prefix-colors \"yellow,green\" \"cross-env NODE_ENV=development next dev\" \"cross-env NODE_ENV=development nodemon --quiet --legacy-watch ../devmatch-brainbox/src/server.js\"",
+    "build": "concurrently --names \"🧩 VISUALCORTEX  🧩,🤖 BRAINBOX 🤖\" --prefix \"[{name}]\" --timestamp --timestamp-format \"HH:mm:ss\" --prefix-colors \"yellow,green\" \"cross-env NODE_ENV=development next build\" \"cross-env NODE_ENV=development node ../devmatch-brainbox/src/server.js\"",
+    "start": "concurrently --names \"🧩 VISUALCORTEX  🧩,🤖 BRAINBOX 🤖\" --prefix \"[{name}]\" --timestamp --timestamp-format \"HH:mm:ss\" --prefix-colors \"yellow,green\" \"cross-env NODE_ENV=development next start\" \"cross-env NODE_ENV=development node ../devmatch-brainbox/src/server.js\"",
     "lint": "eslint"
   },
   "dependencies": {
