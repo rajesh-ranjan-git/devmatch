@@ -70,18 +70,7 @@ server.use((err, req, res, next) => {
 });
 
 server.listen(BRAINBOX_PORT, async () => {
-  try {
-    await showDevMatchBanner(BRAINBOX_PORT);
-    await connectDB();
-    console.log(`ℹ️️  INFO :: Server is running at ${BRAINBOX_HOST_URL}`);
-  } catch (error) {
-    console.error("🚨 Startup Error:", error);
-    console.error("❌ Error Message:", error?.message);
-    console.error("❌ Error Stack:", error?.stack);
-
-    await connectDB();
-    console.log(
-      `ℹ️️  INFO :: Server is running at ${BRAINBOX_HOST_URL} (Banner skipped due to error)!`
-    );
-  }
+  await connectDB();
+  console.log(`ℹ️️  INFO :: Server is running at ${BRAINBOX_HOST_URL}`);
+  await showDevMatchBanner(BRAINBOX_PORT);
 });

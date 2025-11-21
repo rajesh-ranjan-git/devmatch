@@ -22,6 +22,8 @@ import {
   addressValidator,
 } from "../validations/validation.js";
 
+export const randomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
 export const isPlainObject = (data) => {
   return typeof data === "object" && data !== null && !Array.isArray(data);
 };

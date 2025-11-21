@@ -190,7 +190,7 @@ errorManager.configure({
   logLevel: "error",
   onError: (error) => {
     if (process.env.NODE_ENV === "development") {
-      console.log("ERROR LOG :: [Error] ", {
+      console.log("‼️  ERROR LOG :: [Error] ", {
         status: error?.status?.message,
         statusCode: error?.status?.statusCode,
         url: error?.apiUrl || "",
@@ -199,7 +199,7 @@ errorManager.configure({
         data: error?.data,
         timestamp: error?.timestamp,
       });
-      // console.log("ERROR LOG :: [Error Stack trace] ", error?.stack);
+      // console.log("‼️  ERROR LOG :: [Error Stack trace] ", error?.stack);
     }
   },
 });
