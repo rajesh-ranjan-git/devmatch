@@ -3,9 +3,9 @@
 ![Folder Structure](https://img.shields.io/badge/Folder-Structure-blue?style=for-the-badge&logo=fastapi)
 
 ```bash
-devmatch/
+devmatch
 │
-└── 📁 devmatch-visualcortex
+└── 🧩 devmatch-visualcortex 🧩
      ├── 📁 .next
      │
      ├── 📁 public

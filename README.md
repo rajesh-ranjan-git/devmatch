@@ -55,11 +55,11 @@
 ## 📁 Folder Structure
 
 ```bash
-devmatch/
+devmatch
 │
 ├── 📁 .vscode
 │
-├── 📁 devmatch-brainbox
+├── 🤖 devmatch-brainbox 🤖
 │    ├── 📁 config
 │    │    ├── config.js
 │    │    └── dbConfig.js
@@ -112,7 +112,7 @@ devmatch/
 │    ├── package.json
 │    └── README.md
 │
-├── 📁 devmatch-visualcortex
+├── 🧩 devmatch-visualcortex 🧩
 │    ├── 📁 .next
 │    │
 │    ├── 📁 public

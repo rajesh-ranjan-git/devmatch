@@ -12,7 +12,9 @@ const useCheckAuth = () => {
     let isMounted = true;
 
     const fetchLoggedInUser = async () => {
-      const res = await fetchApiData("http://localhost:5000/user/checkAuth");
+      const res = await fetchApiData(
+        process.env.NEXT_PUBLIC_BRAINBOX_HOST_URL ?? ""
+      );
       if (isMounted) {
         // safe to update state
       }

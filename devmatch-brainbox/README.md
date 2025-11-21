@@ -3,7 +3,9 @@
 ![API](https://img.shields.io/badge/API-Endpoints-blue?style=for-the-badge&logo=fastapi)
 
 ```bash
-devmatch/
+devmatch
+│
+🤖 devmatch-brainbox 🤖
 │
 ├── User APIs
 │   ├── POST -> /user/register
@@ -36,7 +38,9 @@ devmatch/
 ![Models](https://img.shields.io/badge/Models-Mongoose-green?style=for-the-badge&logo=mongodb)
 
 ```bash
-devmatch/
+devmatch
+│
+🤖 devmatch-brainbox 🤖
 │
 ├── User Model
 │   ├── _id -> ObjectId

@@ -51,6 +51,12 @@ export const fetchApiData = async (url: string, method = "get") => {
     }
   } catch (error) {
     console.log("error from fetchApiData error : ", error);
-    console.log("error from fetchApiData error.status : ", error.status);
+
+    if (error instanceof Error) {
+      console.log("error from fetchApiData error?.message : ", error?.message);
+      console.log("error from fetchApiData error?.status : ", error?.status);
+    } else {
+      console.log("An unknown error occurred");
+    }
   }
 };
