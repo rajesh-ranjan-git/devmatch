@@ -11,6 +11,7 @@ import profileRouter from "../routes/profile.js";
 import connectionRouter from "../routes/connection.js";
 import notificationRouter from "../routes/notification.js";
 import exploreRouter from "../routes/explore.js";
+import { showDevMatchBanner } from "../banner/banner.js";
 
 const envFile =
   process.env.NODE_ENV === "production"
@@ -68,8 +69,19 @@ server.use((err, req, res, next) => {
   });
 });
 
-server.listen(BRAINBOX_PORT, () => {
-  connectDB().then(() => {
-    console.log(`INFO :: Server is running at ${BRAINBOX_HOST_URL}`);
-  });
+server.listen(BRAINBOX_PORT, async () => {
+  try {
+    await showDevMatchBanner(BRAINBOX_PORT);
+    await connectDB();
+    console.log(`ℹ️️  INFO :: Server is running at ${BRAINBOX_HOST_URL}`);
+  } catch (error) {
+    console.error("🚨 Startup Error:", error);
+    console.error("❌ Error Message:", error?.message);
+    console.error("❌ Error Stack:", error?.stack);
+
+    await connectDB();
+    console.log(
+      `ℹ️️  INFO :: Server is running at ${BRAINBOX_HOST_URL} (Banner skipped due to error)!`
+    );
+  }
 });

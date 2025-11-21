@@ -65,6 +65,7 @@ export const errorMessages = {
   DB_CONFIG_ERROR: "Database configuration error!",
   DB_CONNECTION_ERROR: "Database connection failed!",
   INTERNAL_SERVER_ERROR: "Internal Server Error",
+  BANNER_ERROR: "Failed to show DevMatch banner!",
   INVALID_REQUEST_ERROR: "Invalid request!",
   FIRST_NAME_REQUIRED_ERROR: "First name is required!",
   EMAIL_REQUIRED_ERROR: "Email is required!",

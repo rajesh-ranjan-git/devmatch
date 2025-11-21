@@ -41,13 +41,13 @@ class ErrorHandlerManager {
 
     switch (this.config.logLevel) {
       case "error":
-        console.error("ERROR :: ", logMessage);
+        console.error("❌ ERROR :: ", logMessage);
         break;
       case "warn":
-        console.warn("WARNING :: ", logMessage);
+        console.warn("⚠️ WARNING :: ", logMessage);
         break;
       case "info":
-        console.info("INFO :: ", logMessage);
+        console.info("ℹ️️  INFO :: ", logMessage);
         break;
       default:
         console.log("LOG :: ", logMessage);
