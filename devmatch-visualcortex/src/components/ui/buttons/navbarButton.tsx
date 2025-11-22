@@ -1,5 +1,5 @@
 import { ButtonProps } from "@/types/propTypes";
-import { toTitleCase } from "@/lib/utils";
+import { toTitleCase } from "@/lib/utils/utils";
 
 const NavbarButton = ({
   popoverTarget,

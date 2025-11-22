@@ -1,4 +1,4 @@
-import axios from "axios";
+import { api, createCancellableRequest } from "../api/apiHandler";
 
 export const getRandomItem = <T>(arr: T[]): T =>
   arr[Math.floor(Math.random() * arr.length)];
@@ -44,22 +44,4 @@ export const formatDate = (dateString: string | Date) => {
     minute: "2-digit",
     hour12: true,
   });
-};
-
-export const fetchApiData = async (url: string, method = "get") => {
-  try {
-    if (method === "get") {
-      const data = await axios.get(url);
-      console.log("debug from fetchApiData data : ", data);
-    }
-  } catch (error) {
-    console.log("error from fetchApiData error : ", error);
-
-    if (error instanceof Error) {
-      console.log("error from fetchApiData error?.message : ", error?.message);
-      console.log("error from fetchApiData error?.status : ", error?.status);
-    } else {
-      console.log("An unknown error occurred");
-    }
-  }
 };

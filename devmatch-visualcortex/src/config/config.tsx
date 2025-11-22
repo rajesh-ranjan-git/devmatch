@@ -36,7 +36,7 @@ import {
   StaticImageType,
   UserType,
 } from "@/types/types";
-import { formatDate, getUrlString, toTitleCase } from "@/lib/utils";
+import { formatDate, getUrlString, toTitleCase } from "@/lib/utils/utils";
 
 export const alkatra = Alkatra({
   variable: "--font-alkatra",

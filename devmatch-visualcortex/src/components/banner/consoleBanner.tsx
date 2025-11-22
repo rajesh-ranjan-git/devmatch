@@ -5,7 +5,7 @@ import figlet from "figlet";
 import gradient from "gradient-string";
 import boxen from "boxen";
 import { BANNER_FONTS, BANNER_THEMES } from "@/config/constants";
-import { getRandomItem } from "@/lib/utils";
+import { getRandomItem } from "@/lib/utils/utils";
 import { ConsoleBannerProps } from "@/types/propTypes";
 
 const systemInfo = (nodeVersion: string) => {

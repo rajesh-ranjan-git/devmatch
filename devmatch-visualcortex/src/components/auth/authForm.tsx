@@ -5,7 +5,7 @@ import {
   authFormFieldButtonItems,
 } from "@/config/config";
 import { AuthFormWrapperProps } from "@/types/propTypes";
-import { toTitleCase } from "@/lib/utils";
+import { toTitleCase } from "@/lib/utils/utils";
 import Input from "@/components/auth/input";
 import SubmitButton from "@/components/ui/buttons/submitButton";
 

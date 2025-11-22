@@ -8,7 +8,7 @@ import {
   navbarMenuItems,
   staticImages,
 } from "@/config/config";
-import { toTitleCase } from "@/lib/utils";
+import { toTitleCase } from "@/lib/utils/utils";
 import Connections from "@/components/connections/connections";
 import ThemeToggle from "@/components/theme/themeToggle";
 import NotificationsDropdownItems from "@/components/header/notificationsDropdownItems";

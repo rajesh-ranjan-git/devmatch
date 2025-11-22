@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
 import { notificationsDropdownItems, staticImages } from "@/config/config";
-import { toTitleCase } from "@/lib/utils";
+import { toTitleCase } from "@/lib/utils/utils";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 
 const NotificationsDropdownItems = () => {

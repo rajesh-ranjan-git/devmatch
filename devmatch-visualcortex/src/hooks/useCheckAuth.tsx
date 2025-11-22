@@ -1,4 +1,4 @@
-import { fetchApiData } from "@/lib/utils";
+import { fetchApiData } from "@/lib/api/fetchApiData";
 import { useDevMatchAppStore } from "@/store/store";
 import { useEffect } from "react";
 
@@ -12,9 +12,10 @@ const useCheckAuth = () => {
     let isMounted = true;
 
     const fetchLoggedInUser = async () => {
-      const res = await fetchApiData(
-        process.env.NEXT_PUBLIC_BRAINBOX_HOST_URL ?? ""
-      );
+      const result = await fetchApiData("/api/users");
+      if (result.success) {
+        console.log(result.data);
+      }
       if (isMounted) {
         // safe to update state
       }
