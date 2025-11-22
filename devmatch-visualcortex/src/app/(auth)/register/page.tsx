@@ -1,17 +1,17 @@
 import { Metadata } from "next";
-import { AUTH_FORM_FIELDS } from "@/config/constants";
-import { authFormFieldButtonItems } from "@/config/config";
+import { publicClientRoutes } from "@/lib/routes/routes";
+import { toTitleCase } from "@/lib/utils/utils";
 import Main from "@/components/main/main";
 import AuthFormWrapper from "@/components/auth/authFormWrapper";
 
 export const metadata: Metadata = {
-  title: authFormFieldButtonItems?.register?.name,
+  title: toTitleCase(publicClientRoutes.register),
 };
 
 const RegisterPage = () => {
   return (
     <Main>
-      <AuthFormWrapper type={AUTH_FORM_FIELDS.register} />
+      <AuthFormWrapper type={publicClientRoutes.register} />
     </Main>
   );
 };
