@@ -12,6 +12,10 @@ export interface ReactNodeProps {
   children: ReactNode;
 }
 
+export interface ConsoleBannerProps {
+  nodeVersion: string;
+}
+
 export interface ConnectionProps {
   type: SheetTypes;
   icon: ReactNode;

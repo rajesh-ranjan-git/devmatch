@@ -8,6 +8,7 @@ import ErrorWrapper from "@/components/errors/errorWrapper";
 import Header from "@/components/header/header";
 import CheckAuthFormWrapper from "@/components/auth/checkAuthWrapper";
 import "@/app/globals.css";
+import ConsoleBanner from "@/components/banner/consoleBanner";
 
 export const metadata: Metadata = {
   title: {
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: Readonly<ReactNodeProps>) {
         className={`${alkatra.variable} ${arima.variable} ${inter.variable} ${tourney.variable} max-h-screen h-screen overflow-hidden bg-glass-accent-cyan`}
         suppressHydrationWarning
       >
+        <ConsoleBanner nodeVersion={process.version} />
         <ThemeManager />
         <DefaultAnimatedBackground />
         <ErrorWrapper>

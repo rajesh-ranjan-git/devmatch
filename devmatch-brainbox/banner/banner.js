@@ -13,14 +13,11 @@ const systemInfo = (port = 5000) => {
     Time: ${new Date().toLocaleString()}
   `;
 
-  console.log(
-    boxen(info, {
-      padding: 1,
-      margin: 1,
-      borderColor: "cyan",
-      borderStyle: "round",
-    })
-  );
+  return boxen(info, {
+    padding: { top: 0.5, right: 5, bottom: 0.5, left: 0.5 },
+    borderColor: "cyan",
+    borderStyle: "round",
+  });
 };
 
 export const showDevMatchBanner = async (port = 5000) => {
@@ -35,13 +32,12 @@ export const showDevMatchBanner = async (port = 5000) => {
       { font: bannerFonts.ansiShadow },
       async (error, data) => {
         const output = bannerGradient.multiline(data);
-        console.log("\n" + output);
         const desc = bannerDescGradient.multiline(
           "Tinder for Software Engineers!"
         );
-        console.log(desc);
+        const sysInfo = systemInfo(port);
 
-        systemInfo(port);
+        console.log(`\n\n${output}\n${desc}\n\n${sysInfo}\n`);
       }
     );
   } catch (error) {
