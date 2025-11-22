@@ -60,6 +60,9 @@ devmatch
 ├── 📁 .vscode
 │
 ├── 🤖 devmatch-brainbox 🤖
+│    ├── 📁 banner
+│    │    └── banner.js
+│    │
 │    ├── 📁 config
 │    │    ├── config.js
 │    │    └── dbConfig.js
@@ -123,6 +126,9 @@ devmatch
 │    │         ├── 📁 error
 │    │         │    └── 404-error.webp
 │    │         │
+│    │         ├── 📁 fonts
+│    │         │    └── ansi_shadow.flf
+│    │         │
 │    │         ├── 📁 logo
 │    │         │    ├── devmatch-logo-transparent-circular.png
 │    │         │    ├── devmatch-logo-transparent-circular.webp
@@ -176,6 +182,9 @@ devmatch
 │    │    │    │    ├── animatedBackground.tsx
 │    │    │    │    ├── animatedFloatingSquares.tsx
 │    │    │    │    └── defaultAnimatedBackground.tsx
+│    │    │    │
+│    │    │    ├── 📁 banner
+│    │    │    │    └── consoleBanner.tsx
 │    │    │    │
 │    │    │    ├── 📁 connections
 │    │    │    │    ├── connections.tsx
@@ -250,6 +259,7 @@ devmatch
 │    │    │    └── constants.ts
 │    │    │
 │    │    ├── 📁 hooks
+│    │    │    ├── useCheckAuth.tsx
 │    │    │    ├── useContextMenu.tsx
 │    │    │    ├── useOutsideClick.tsx
 │    │    │    ├── useSheet.tsx
