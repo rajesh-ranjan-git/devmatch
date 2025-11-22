@@ -16,17 +16,25 @@ export default function ThemeManager() {
   const setSwitchTheme = useDevMatchAppStore((state) => state.setSwitchTheme);
 
   useEffect(() => {
+    if (storedValue && storedValue !== switchTheme) {
+      setSwitchTheme(storedValue);
+    }
+  }, []);
+
+  useEffect(() => {
     const isDark = switchTheme === THEMES.dark;
 
     document.documentElement.classList.toggle(THEMES.dark, isDark);
     document.documentElement.classList.toggle(THEMES.light, !isDark);
 
-    setWebStorageValue(isDark ? THEMES.dark : THEMES.light);
+    if (storedValue !== switchTheme) {
+      setWebStorageValue(switchTheme);
+    }
 
     return () => {
       document.documentElement.classList.remove(THEMES.dark, THEMES.light);
     };
-  }, [switchTheme, storedValue, setWebStorageValue, setSwitchTheme]);
+  }, [switchTheme]);
 
   return null;
 }
