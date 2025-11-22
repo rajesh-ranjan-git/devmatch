@@ -5,7 +5,6 @@ import { UserCardProps } from "@/types/propTypes";
 import NameCardContent from "@/components/explore/nameCardContent";
 import UserDetailsCardContent from "@/components/explore/userDetailsCardContent";
 import UserInfoButton from "@/components/ui/buttons/userInfoButton";
-import { useEffect } from "react";
 
 const UserCard = ({ user, users, setUsers }: UserCardProps) => {
   const x = useMotionValue(0);

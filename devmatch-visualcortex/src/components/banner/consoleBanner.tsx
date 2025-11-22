@@ -7,11 +7,7 @@ import boxen from "boxen";
 import { BANNER_FONTS, BANNER_THEMES } from "@/config/constants";
 import { ConsoleBannerProps } from "@/types/propTypes";
 import { getRandomItem } from "@/lib/utils/utils";
-import {
-  TOAST_PROGRESS_DIRECTIONS,
-  TOAST_PROGRESS_POSITIONS,
-  useToast,
-} from "@/components/toast/toast";
+import { useToast } from "@/components/toast/toast";
 
 const systemInfo = (nodeVersion: string) => {
   const info = `
@@ -51,6 +47,11 @@ const ConsoleBanner = ({ nodeVersion }: ConsoleBannerProps) => {
                 "An error occurred while creating console banner :",
                 error
               );
+              showToast({
+                title: "Failure!",
+                message: "An error occurred while creating console banner!",
+                variant: "error",
+              });
               return;
             }
 
@@ -71,9 +72,6 @@ const ConsoleBanner = ({ nodeVersion }: ConsoleBannerProps) => {
           title: "Failure!",
           message: "An error occurred while creating console banner!",
           variant: "error",
-          duration: 10000,
-          toastProgressPosition: TOAST_PROGRESS_POSITIONS.bottom,
-          toastProgressDirection: TOAST_PROGRESS_DIRECTIONS.rightToLeft,
         });
       });
   }, []);

@@ -11,6 +11,7 @@ import { FiCheckCircle, FiAlertCircle } from "react-icons/fi";
 import { TbAlertTriangle } from "react-icons/tb";
 import { FaInfoCircle } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { motion } from "motion/react";
 
 export const TOAST_VARIANTS = {
   success: "success",
@@ -115,12 +116,46 @@ const positionStyles: Record<ToastPosition, string> = {
   "bottom-center": "bottom-4 left-1/2 -translate-x-1/2",
 };
 
+// Animation variants based on position
+const getAnimationVariants = (position: ToastPosition) => {
+  const isLeft = position.includes("left");
+  const isRight = position.includes("right");
+  const isCenter = position.includes("center");
+
+  let xValue = 0;
+  if (isLeft) xValue = -100;
+  if (isRight) xValue = 100;
+
+  return {
+    initial: {
+      opacity: 0,
+      x: isCenter ? 0 : xValue,
+      y: 0,
+      scale: 0.95,
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      scale: 1,
+    },
+    exit: {
+      opacity: 0,
+      x: isCenter ? 0 : xValue,
+      y: -10,
+      scale: 0.95,
+    },
+  };
+};
+
 // Toast Component
 const ToastItem: React.FC<{
   toast: Toast;
   onRemove: (id: string) => void;
   index: number;
-}> = ({ toast, onRemove, index }) => {
+  position: ToastPosition;
+}> = ({ toast, onRemove, index, position }) => {
+  const [shouldExit, setShouldExit] = useState(false);
   const [progress, setProgress] = useState(100);
   const config = variantConfig[toast.variant];
   const Icon = config.icon;
@@ -136,37 +171,49 @@ const ToastItem: React.FC<{
 
       if (remaining === 0) {
         clearInterval(interval);
-        onRemove(toast.id);
+        setShouldExit(true);
+        setTimeout(() => onRemove(toast.id), 300);
       }
     }, 16);
 
     return () => clearInterval(interval);
   }, [toast.id, toast.duration, onRemove]);
 
-  const progressStyle = {
-    width: `${progress}%`,
-    transformOrigin:
-      toast.toastProgressDirection ===
-      (TOAST_PROGRESS_DIRECTIONS.leftToRight as string)
-        ? "right"
-        : "left",
-  };
+  // Fix: Proper progress bar styling based on direction
+  const isLeftToRight =
+    toast.toastProgressDirection === TOAST_PROGRESS_DIRECTIONS.leftToRight;
+
+  const progressContainerStyle = isLeftToRight
+    ? { justifyContent: "flex-start" }
+    : { justifyContent: "flex-end" };
+
+  const animationVariants = getAnimationVariants(position);
 
   return (
-    <div
-      className={`relative w-80 ${config.bg} border rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 ease-out`}
+    <motion.div
+      layout
+      initial="initial"
+      animate={shouldExit ? "exit" : "animate"}
+      exit="exit"
+      variants={animationVariants}
+      transition={{
+        type: "spring",
+        stiffness: 500,
+        damping: 40,
+        mass: 1,
+      }}
+      className={`relative w-80 ${config.bg} border rounded-lg shadow-lg overflow-hidden`}
       style={{
         marginBottom: index > 0 ? "8px" : "0",
-        transform: `translateY(${index * 4}px) scale(${1 - index * 0.02})`,
-        opacity: 1 - index * 0.1,
-        zIndex: 1000 - index,
       }}
     >
       {toast.toastProgressPosition === "top" && (
-        <div className="h-1">
-          <div
-            className={`h-full ${config.progress} rounded-full transition-all duration-100 ease-linear`}
-            style={progressStyle}
+        <div className="h-1" style={progressContainerStyle}>
+          <motion.div
+            className={`h-full ${config.progress}`}
+            initial={{ width: "100%" }}
+            animate={{ width: `${progress}%` }}
+            transition={{ duration: 0.1, ease: "linear" }}
           />
         </div>
       )}
@@ -184,7 +231,10 @@ const ToastItem: React.FC<{
         </div>
 
         <button
-          onClick={() => onRemove(toast.id)}
+          onClick={() => {
+            setShouldExit(true);
+            setTimeout(() => onRemove(toast.id), 300);
+          }}
           className={`${config.text} opacity-70 hover:opacity-100 transition-opacity shrink-0`}
         >
           <IoClose size={18} />
@@ -193,13 +243,15 @@ const ToastItem: React.FC<{
 
       {toast.toastProgressPosition === "bottom" && (
         <div className="h-1">
-          <div
-            className={`h-full ${config.progress} rounded-full transition-all duration-100 ease-linear`}
-            style={progressStyle}
+          <motion.div
+            className={`h-full ${config.progress}`}
+            initial={{ width: "100%" }}
+            animate={{ width: `${progress}%` }}
+            transition={{ duration: 0.1, ease: "linear" }}
           />
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
@@ -217,6 +269,7 @@ const ToastContainer: React.FC<{
           toast={toast}
           onRemove={onRemove}
           index={index}
+          position={position}
         />
       ))}
     </div>
