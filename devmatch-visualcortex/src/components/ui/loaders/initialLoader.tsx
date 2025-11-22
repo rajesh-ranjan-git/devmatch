@@ -11,7 +11,7 @@ const InitialLoader = () => {
     if (showInitialLoader) {
       const timer = setTimeout(() => {
         setShowInitialLoader(false);
-      }, 3000);
+      }, 1000);
 
       return () => clearTimeout(timer);
     }
@@ -33,7 +33,7 @@ const InitialLoader = () => {
             </div>
             <span className="text-3xl">DevMatch</span>
             <div className="bg-glass-surface shadow-md mt-4 mb-2 rounded-full w-64 h-2 overflow-hidden">
-              <div className="bg-glass-surface-heavy rounded-full w-0 h-full animate-[fillLeftToRight_2.5s_linear_0.5s_forwards]"></div>
+              <div className="bg-glass-surface-heavy rounded-full w-0 h-full animate-[fillLeftToRight_1s_linear_0.5s_forwards]"></div>
             </div>
             <span
               className={

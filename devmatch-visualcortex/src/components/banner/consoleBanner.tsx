@@ -7,6 +7,11 @@ import boxen from "boxen";
 import { BANNER_FONTS, BANNER_THEMES } from "@/config/constants";
 import { ConsoleBannerProps } from "@/types/propTypes";
 import { getRandomItem } from "@/lib/utils/utils";
+import {
+  TOAST_PROGRESS_DIRECTIONS,
+  TOAST_PROGRESS_POSITIONS,
+  useToast,
+} from "@/toast/toast";
 
 const systemInfo = (nodeVersion: string) => {
   const info = `
@@ -24,6 +29,8 @@ const systemInfo = (nodeVersion: string) => {
 };
 
 const ConsoleBanner = ({ nodeVersion }: ConsoleBannerProps) => {
+  const { showToast } = useToast();
+
   const banner = getRandomItem(BANNER_THEMES);
   const bannerGradient = gradient(banner.gradient);
   const bannerDesc = getRandomItem(BANNER_THEMES);
@@ -60,6 +67,14 @@ const ConsoleBanner = ({ nodeVersion }: ConsoleBannerProps) => {
       })
       .catch((err) => {
         console.error("An error occurred while creating console banner :", err);
+        showToast({
+          title: "Failure!",
+          message: "An error occurred while creating console banner!",
+          variant: "error",
+          duration: 3000,
+          toastProgressPosition: TOAST_PROGRESS_POSITIONS.bottom,
+          toastProgressDirection: TOAST_PROGRESS_DIRECTIONS.rightToLeft,
+        });
       });
   }, []);
 

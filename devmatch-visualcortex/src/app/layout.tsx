@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { alkatra, arima, inter, tourney } from "@/config/config";
 import { ReactNodeProps } from "@/types/propTypes";
+import { ToastProvider } from "@/toast/toast";
 import ThemeManager from "@/components/theme/themeManager";
 import DefaultAnimatedBackground from "@/components/background/defaultAnimatedBackground";
 import InitialLoader from "@/components/ui/loaders/initialLoader";
@@ -27,16 +28,18 @@ export default function RootLayout({ children }: Readonly<ReactNodeProps>) {
         className={`${alkatra.variable} ${arima.variable} ${inter.variable} ${tourney.variable} max-h-screen h-screen overflow-hidden bg-glass-accent-cyan`}
         suppressHydrationWarning
       >
-        <ConsoleBanner nodeVersion={process.version} />
-        <ThemeManager />
-        <DefaultAnimatedBackground />
-        <ErrorWrapper>
-          <InitialLoader />
-          <CheckAuthFormWrapper>
-            <Header />
-            {children}
-          </CheckAuthFormWrapper>
-        </ErrorWrapper>
+        <ToastProvider>
+          <ConsoleBanner nodeVersion={process.version} />
+          <ThemeManager />
+          <DefaultAnimatedBackground />
+          <ErrorWrapper>
+            <InitialLoader />
+            <CheckAuthFormWrapper>
+              <Header />
+              {children}
+            </CheckAuthFormWrapper>
+          </ErrorWrapper>
+        </ToastProvider>
       </body>
     </html>
   );
