@@ -5,7 +5,7 @@ import boxen from "boxen";
 import { bannerFonts, bannerThemes, errorMessages } from "../config/config.js";
 import { randomItem } from "../utils/utils.js";
 
-const systemInfo = (port = 5000) => {
+const systemInfo = (port = process.env.BRAINBOX_PORT) => {
   const info = `
     Node: ${process.version}
     Port: ${port}
@@ -20,7 +20,7 @@ const systemInfo = (port = 5000) => {
   });
 };
 
-export const showDevMatchBanner = async (port = 5000) => {
+export const showDevMatchBanner = async (port = process.env.BRAINBOX_PORT) => {
   try {
     const banner = randomItem(bannerThemes);
     const bannerGradient = gradient(banner.gradient);
