@@ -1,5 +1,3 @@
-import { api, createCancellableRequest } from "../api/apiHandler";
-
 export const getRandomItem = <T>(arr: T[]): T =>
   arr[Math.floor(Math.random() * arr.length)];
 

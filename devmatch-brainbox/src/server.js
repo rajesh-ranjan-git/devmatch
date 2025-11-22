@@ -38,11 +38,11 @@ server.use(
 );
 server.use(cookieParser());
 
-server.use("/user", userRouter);
-server.use("/profile", profileRouter);
-server.use("/connection", connectionRouter);
-server.use("/notification", notificationRouter);
-server.use("/", exploreRouter);
+server.use("/api/user", userRouter);
+server.use("/api/profile", profileRouter);
+server.use("/api/connection", connectionRouter);
+server.use("/api/notification", notificationRouter);
+server.use("/api/", exploreRouter);
 
 server.get("/", (req, res) => {
   res.status(status.success.statusCode).json({

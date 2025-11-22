@@ -31,10 +31,6 @@ const UserCard = ({ user, users, setUsers }: UserCardProps) => {
     }
   };
 
-  useEffect(() => {
-    console.log("debug from UserCard users : ", users);
-  }, [users]);
-
   return (
     <motion.div
       className="group relative flex justify-center items-center shadow-glass-shadow-heavy shadow-md m-2 rounded-2xl w-96 h-[90%] overflow-hidden hover:cursor-grab active:cursor-grabbing"
