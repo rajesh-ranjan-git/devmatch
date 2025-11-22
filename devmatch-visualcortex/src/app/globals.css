@@ -45,6 +45,11 @@
   --glass-success-border: rgba(67, 160, 71, 0.4);
   --glass-success-text: rgba(30, 70, 32, 0.85);
 
+  /* ℹ️ Info (Blue) */
+  --glass-info: rgba(33, 150, 243, 0.25);
+  --glass-info-border: rgba(30, 136, 229, 0.4);
+  --glass-info-text: rgba(144, 202, 249, 1);
+
   font-family: Inter, system-ui, Helvetica, Arial, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -88,14 +93,19 @@
   --glass-warning-text: rgba(255, 214, 10, 0.85);
 
   /* ❌ Error (Red) */
-  --glass-error: rgba(244, 67, 54, 0.15);
-  --glass-error-border: rgba(239, 83, 80, 0.35);
-  --glass-error-text: rgba(255, 138, 128, 0.85);
+  --glass-error: rgba(255, 40, 40, 0.18);
+  --glass-error-border: rgba(255, 40, 40, 0.45);
+  --glass-error-text: rgba(255, 220, 220, 1);
 
   /* ✅ Success (Green) */
   --glass-success: rgba(76, 175, 80, 0.15);
   --glass-success-border: rgba(129, 199, 132, 0.35);
   --glass-success-text: rgba(185, 246, 202, 0.85);
+
+  /* ℹ️ Info (Blue) */
+  --glass-info: rgba(33, 150, 243, 0.25);
+  --glass-info-border: rgba(30, 136, 229, 0.4);
+  --glass-info-text: rgba(144, 202, 249, 1);
 }
 
 /* Enable dark theme by default */
@@ -167,6 +177,11 @@ html:not(.light) {
   --color-glass-success: var(--glass-success);
   --color-glass-success-border: var(--glass-success-border);
   --color-glass-success-text: var(--glass-success-text);
+
+  /* ℹ️ Info (Blue) */
+  --color-glass-info: var(--glass-info);
+  --color-glass-info-border: var(--glass-info-border);
+  --color-glass-info-text: var(--glass-info-text);
 }
 
 button[popovertarget="notifications-dropdown"] {

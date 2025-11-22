@@ -76,32 +76,32 @@ const ToastContext = createContext<ToastContextType | undefined>(undefined);
 // Variant configurations
 const variantConfig = {
   success: {
-    bg: "bg-green-50 border-green-200",
-    text: "text-green-800",
+    bg: "bg-glass-success border-glass-success-border backdrop-blur-2xl",
+    text: "text-glass-success-text",
     icon: FiCheckCircle,
-    iconColor: "text-green-500",
-    progress: "bg-green-500",
+    iconColor: "text-glass-success-text",
+    progress: "bg-glass-success-text",
   },
   error: {
-    bg: "bg-red-50 border-red-200",
-    text: "text-red-800",
+    bg: "bg-glass-error border-glass-error-border backdrop-blur-2xl",
+    text: "text-glass-error-text",
     icon: FiAlertCircle,
-    iconColor: "text-red-500",
-    progress: "bg-red-500",
+    iconColor: "text-glass-error-text",
+    progress: "bg-glass-error-text",
   },
   warning: {
-    bg: "bg-yellow-50 border-yellow-200",
-    text: "text-yellow-800",
+    bg: "bg-glass-warning border-glass-warning-border backdrop-blur-2xl",
+    text: "text-glass-warning-text",
     icon: TbAlertTriangle,
-    iconColor: "text-yellow-500",
-    progress: "bg-yellow-500",
+    iconColor: "text-glass-warning-text",
+    progress: "bg-glass-warning-text",
   },
   info: {
-    bg: "bg-blue-50 border-blue-200",
-    text: "text-blue-800",
+    bg: "bg-glass-info border-glass-info-border backdrop-blur-2xl",
+    text: "text-glass-info-text",
     icon: FaInfoCircle,
-    iconColor: "text-blue-500",
-    progress: "bg-blue-500",
+    iconColor: "text-glass-info-text",
+    progress: "bg-glass-info-text",
   },
 };
 
@@ -147,7 +147,7 @@ const ToastItem: React.FC<{
     width: `${progress}%`,
     transformOrigin:
       toast.toastProgressDirection ===
-      (TOAST_PROGRESS_DIRECTIONS.rightToLeft as string)
+      (TOAST_PROGRESS_DIRECTIONS.leftToRight as string)
         ? "right"
         : "left",
   };
@@ -163,9 +163,9 @@ const ToastItem: React.FC<{
       }}
     >
       {toast.toastProgressPosition === "top" && (
-        <div className="bg-gray-200 h-1">
+        <div className="h-1">
           <div
-            className={`h-full ${config.progress} transition-all duration-100 ease-linear`}
+            className={`h-full ${config.progress} rounded-full transition-all duration-100 ease-linear`}
             style={progressStyle}
           />
         </div>
@@ -175,24 +175,26 @@ const ToastItem: React.FC<{
         <Icon className={`${config.iconColor} shrink-0 mt-0.5`} size={20} />
 
         <div className="flex-1 min-w-0">
-          <h3 className={`font-semibold ${config.text} text-sm mb-1`}>
+          <h3 className={`font-bold ${config.text} text-md mb-1`}>
             {toast.title}
           </h3>
-          <p className={`${config.text} text-sm opacity-90`}>{toast.message}</p>
+          <p className={`${config.text} text-sm font-semibold opacity-90`}>
+            {toast.message}
+          </p>
         </div>
 
         <button
           onClick={() => onRemove(toast.id)}
-          className={`${config.text} hover:opacity-70 transition-opacity shrink-0`}
+          className={`${config.text} opacity-70 hover:opacity-100 transition-opacity shrink-0`}
         >
           <IoClose size={18} />
         </button>
       </div>
 
       {toast.toastProgressPosition === "bottom" && (
-        <div className="bg-gray-200 h-1">
+        <div className="h-1">
           <div
-            className={`h-full ${config.progress} transition-all duration-100 ease-linear`}
+            className={`h-full ${config.progress} rounded-full transition-all duration-100 ease-linear`}
             style={progressStyle}
           />
         </div>
@@ -227,7 +229,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [position, setPosition] = useState<ToastPosition>(
-    TOAST_POSITIONS.topRight
+    TOAST_POSITIONS.bottomRight
   );
 
   const showToast = useCallback((config: ToastConfig) => {
@@ -237,7 +239,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
       title: config.title,
       message: config.message,
       variant: config.variant || TOAST_VARIANTS.info,
-      duration: config.duration || 30000,
+      duration: config.duration || 3000,
       toastProgressPosition:
         config.toastProgressPosition || TOAST_PROGRESS_POSITIONS.bottom,
       toastProgressDirection:

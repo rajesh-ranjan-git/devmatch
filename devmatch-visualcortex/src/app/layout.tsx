@@ -33,7 +33,7 @@ export default function RootLayout({ children }: Readonly<ReactNodeProps>) {
           <ThemeManager />
           <DefaultAnimatedBackground />
           <ErrorWrapper>
-            <InitialLoader />
+            {/* <InitialLoader /> */}
             <CheckAuthFormWrapper>
               <Header />
               {children}

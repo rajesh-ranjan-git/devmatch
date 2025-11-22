@@ -71,7 +71,7 @@ const ConsoleBanner = ({ nodeVersion }: ConsoleBannerProps) => {
           title: "Failure!",
           message: "An error occurred while creating console banner!",
           variant: "error",
-          duration: 3000,
+          duration: 10000,
           toastProgressPosition: TOAST_PROGRESS_POSITIONS.bottom,
           toastProgressDirection: TOAST_PROGRESS_DIRECTIONS.rightToLeft,
         });
