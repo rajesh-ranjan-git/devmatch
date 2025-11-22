@@ -11,7 +11,7 @@ import {
   TOAST_PROGRESS_DIRECTIONS,
   TOAST_PROGRESS_POSITIONS,
   useToast,
-} from "@/toast/toast";
+} from "@/components/toast/toast";
 
 const systemInfo = (nodeVersion: string) => {
   const info = `
