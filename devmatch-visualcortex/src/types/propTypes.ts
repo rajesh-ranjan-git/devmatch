@@ -49,13 +49,13 @@ export interface ContextMenuProps {
 }
 
 export interface NameCardContentProps {
-  name: string;
+  name?: string;
 }
 
 export interface UserDetailsCardContentProps {
-  name: string;
-  designation: string;
-  company: string;
+  name?: string;
+  jobProfile?: string;
+  organization?: string;
 }
 
 export interface AuthFormWrapperProps {

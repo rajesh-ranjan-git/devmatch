@@ -12,7 +12,7 @@ const systemInfo = (nodeVersion: string) => {
   const info = `
     Node: ${nodeVersion}
     Port: ${process.env.NEXT_PUBLIC_VISUALCORTEX_PORT}
-    Mode: ${process.env.NODE_ENV}
+    Mode: ${process.env.NEXT_PUBLIC_NODE_ENV}
     Time: ${new Date().toLocaleString("en-US")}
   `;
 
@@ -23,7 +23,7 @@ const systemInfo = (nodeVersion: string) => {
   });
 };
 
-export default function ConsoleBanner({ nodeVersion }: ConsoleBannerProps) {
+const ConsoleBanner = ({ nodeVersion }: ConsoleBannerProps) => {
   const banner = getRandomItem(BANNER_THEMES);
   const bannerGradient = gradient(banner.gradient);
   const bannerDesc = getRandomItem(BANNER_THEMES);
@@ -39,6 +39,14 @@ export default function ConsoleBanner({ nodeVersion }: ConsoleBannerProps) {
           "DEVMATCH",
           { font: BANNER_FONTS.ansiShadow },
           async (error, data) => {
+            if (error) {
+              console.error(
+                "An error occurred while creating console banner :",
+                error
+              );
+              return;
+            }
+
             const output = bannerGradient.multiline(data as string);
             const desc = bannerDescGradient.multiline(
               "Tinder for Software Engineers!"
@@ -51,9 +59,11 @@ export default function ConsoleBanner({ nodeVersion }: ConsoleBannerProps) {
         );
       })
       .catch((err) => {
-        console.error("Could not load font from public folder:", err);
+        console.error("An error occurred while creating console banner :", err);
       });
   }, []);
 
   return null;
-}
+};
+
+export default ConsoleBanner;

@@ -7,8 +7,8 @@ import InitialLoader from "@/components/ui/loaders/initialLoader";
 import ErrorWrapper from "@/components/errors/errorWrapper";
 import Header from "@/components/header/header";
 import CheckAuthFormWrapper from "@/components/auth/checkAuthWrapper";
-import "@/app/globals.css";
 import ConsoleBanner from "@/components/banner/consoleBanner";
+import "@/app/globals.css";
 
 export const metadata: Metadata = {
   title: {

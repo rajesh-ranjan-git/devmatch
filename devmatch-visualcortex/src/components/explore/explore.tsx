@@ -11,7 +11,7 @@ const Explore = () => {
   return (
     <div className="relative flex justify-center items-center h-[80vh]">
       <div className="place-items-center grid h-full object-cover">
-        {staticUsers.map((user) => (
+        {users.map((user) => (
           <UserCard
             key={user.ID}
             user={user}

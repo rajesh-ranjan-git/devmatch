@@ -5,6 +5,7 @@ import { UserCardProps } from "@/types/propTypes";
 import NameCardContent from "@/components/explore/nameCardContent";
 import UserDetailsCardContent from "@/components/explore/userDetailsCardContent";
 import UserInfoButton from "@/components/ui/buttons/userInfoButton";
+import { useEffect } from "react";
 
 const UserCard = ({ user, users, setUsers }: UserCardProps) => {
   const x = useMotionValue(0);
@@ -12,10 +13,10 @@ const UserCard = ({ user, users, setUsers }: UserCardProps) => {
   const opacity = useTransform(x, [-150, -50, 0, 50, 150], [0, 1, 1, 1, 0]);
   const rotateRow = useTransform(x, [-150, 150], [-18, 18]);
 
-  const isFront = user?.id === users?.[users?.length - 1]?.id;
+  const isFront = user?.ID === users?.[users?.length - 1]?.ID;
 
   const rotate = useTransform(() => {
-    const offset = isFront ? 0 : user?.id % 2 ? 6 : -6;
+    const offset = isFront ? 0 : Number(user?.ID) % 2 ? 6 : -6;
 
     return `${rotateRow.get() + offset}deg`;
   });
@@ -24,11 +25,15 @@ const UserCard = ({ user, users, setUsers }: UserCardProps) => {
     if (Math.abs(x.get()) > 50) {
       setUsers((prev) =>
         prev.filter((u) => {
-          return u.id !== user.id;
+          return u?.ID !== user?.ID;
         })
       );
     }
   };
+
+  useEffect(() => {
+    console.log("debug from UserCard users : ", users);
+  }, [users]);
 
   return (
     <motion.div
@@ -40,7 +45,7 @@ const UserCard = ({ user, users, setUsers }: UserCardProps) => {
         opacity,
         rotate,
         transition: "0.125s transform",
-        zIndex: user.id,
+        zIndex: user?.ID,
       }}
       animate={{
         scale: isFront ? 1 : 0.98,
@@ -62,12 +67,12 @@ const UserCard = ({ user, users, setUsers }: UserCardProps) => {
         className="w-full h-full object-cover pointer-events-none select-none"
       />
 
-      <NameCardContent name={user.name} />
+      <NameCardContent name={user?.NAME} />
 
       <UserDetailsCardContent
-        name={user.name}
-        designation={user.designation}
-        company={user.company}
+        name={user?.NAME}
+        jobProfile={user?.JOB_PROFILE}
+        organization={user?.ORGANIZATION}
       />
     </motion.div>
   );
