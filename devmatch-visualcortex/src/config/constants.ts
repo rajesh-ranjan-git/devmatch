@@ -107,7 +107,7 @@ export const SOCIAL_MEDIA = {
 
 export const INPUT_TYPES = {
   text: "text",
-  email: "email",
+  email: "text",
   password: "password",
   submit: "submit",
   radio: "radio",

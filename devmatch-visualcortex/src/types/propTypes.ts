@@ -63,8 +63,11 @@ export interface AuthFormWrapperProps {
 }
 
 export interface InputProps {
+  name: string;
   type: string;
   placeholder: string;
+  defaultValue?: string;
+  className?: string;
 }
 
 export interface SocialMediaItemProps {
