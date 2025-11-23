@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState } from "react";
 import Form from "next/form";
 import Link from "next/link";
 import { AUTH_FORM_FIELDS, INPUT_TYPES } from "@/config/constants";
@@ -19,6 +19,7 @@ import {
 } from "@/lib/actions/authActions";
 import Input from "@/components/auth/input";
 import SubmitButton from "@/components/ui/buttons/submitButton";
+import FormErrorMessage from "../errors/formErrorMessage";
 
 const AuthForm = ({ type }: AuthFormWrapperProps) => {
   const initialState: AuthFormState = { message: "" };
@@ -32,13 +33,9 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
     initialState
   );
 
-  useEffect(() => {
-    console.log("debug from authForm state : ", state);
-  }, [state]);
-
   return (
-    <div className="relative flex flex-col justify-center items-center py-8 pr-2 w-full h-full">
-      <div className="px-8 w-full">
+    <div className="relative flex flex-col justify-center items-center py-8 pr-2 w-full h-full transition-all ease-in-out">
+      <div className="px-8 w-full transition-all ease-in-out">
         <h2 className="before:-bottom-2.5 before:left-0 before:absolute relative mb-2 before:rounded-full w-full before:w-20 before:h-1 overflow-x-visible font-arima font-extrabold text-glass-text-primary before:bg-glass-text-primary text-2xl before:content-[''] tracking-wider">
           {type === authRoutes.login
             ? authFormFieldButtonItems?.login?.label
@@ -83,13 +80,14 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       : ""
                   }
                 />
-                {!state?.success &&
-                  state?.errors &&
-                  state?.errors?.user_name && (
-                    <p className="mx-5 mt-2 text-red-400 text-sm">
-                      {state?.errors?.user_name}
-                    </p>
-                  )}
+
+                <FormErrorMessage
+                  text={
+                    !state?.success && state?.errors && state?.errors?.user_name
+                      ? state?.errors?.user_name[0]
+                      : null
+                  }
+                />
               </div>
               <div className="mt-3 ml-5 w-full">OR</div>
               <div className="w-full">
@@ -120,11 +118,13 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       : ""
                   }
                 />
-                {!state?.success && state?.errors && state?.errors?.email && (
-                  <p className="mx-5 mt-2 text-red-400 text-sm">
-                    {state?.errors?.email}
-                  </p>
-                )}
+                <FormErrorMessage
+                  text={
+                    !state?.success && state?.errors && state?.errors?.email
+                      ? state?.errors?.email[0]
+                      : null
+                  }
+                />
               </div>
               <div className="w-full">
                 <Input
@@ -155,13 +155,13 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       : ""
                   }
                 />
-                {!state?.success &&
-                  state?.errors &&
-                  state?.errors?.password && (
-                    <p className="mx-5 mt-2 text-red-400 text-sm">
-                      {state?.errors?.password}
-                    </p>
-                  )}
+                <FormErrorMessage
+                  text={
+                    !state?.success && state?.errors && state?.errors?.password
+                      ? state?.errors?.password[0]
+                      : null
+                  }
+                />
               </div>
             </>
           ) : type === authRoutes?.register ? (
@@ -194,13 +194,13 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       : ""
                   }
                 />
-                {!state?.success &&
-                  state?.errors &&
-                  state?.errors?.user_name && (
-                    <p className="mx-5 mt-2 text-red-400 text-sm">
-                      {state?.errors?.user_name}
-                    </p>
-                  )}
+                <FormErrorMessage
+                  text={
+                    !state?.success && state?.errors && state?.errors?.user_name
+                      ? state?.errors?.user_name[0]
+                      : null
+                  }
+                />
               </div>
               <div className="w-full">
                 <Input
@@ -230,11 +230,13 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       : ""
                   }
                 />
-                {!state?.success && state?.errors && state?.errors?.email && (
-                  <p className="mx-5 mt-2 text-red-400 text-sm">
-                    {state?.errors?.email}
-                  </p>
-                )}
+                <FormErrorMessage
+                  text={
+                    !state?.success && state?.errors && state?.errors?.email
+                      ? state?.errors?.email[0]
+                      : null
+                  }
+                />
               </div>
               <div className="w-full">
                 <Input
@@ -265,13 +267,13 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       : ""
                   }
                 />
-                {!state?.success &&
-                  state?.errors &&
-                  state?.errors?.password && (
-                    <p className="mx-5 mt-2 text-red-400 text-sm">
-                      {state?.errors?.password}
-                    </p>
-                  )}
+                <FormErrorMessage
+                  text={
+                    !state?.success && state?.errors && state?.errors?.password
+                      ? state?.errors?.password[0]
+                      : null
+                  }
+                />
               </div>
               <div className="w-full">
                 <Input
@@ -302,13 +304,15 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       : ""
                   }
                 />
-                {!state?.success &&
-                  state?.errors &&
-                  state?.errors?.confirm_password && (
-                    <p className="mx-5 mt-2 text-red-400 text-sm">
-                      {state?.errors?.confirm_password}
-                    </p>
-                  )}
+                <FormErrorMessage
+                  text={
+                    !state?.success &&
+                    state?.errors &&
+                    state?.errors?.confirm_password
+                      ? state?.errors?.confirm_password[0]
+                      : null
+                  }
+                />
               </div>
             </>
           ) : (
@@ -341,11 +345,13 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       : ""
                   }
                 />
-                {!state?.success && state?.errors && state?.errors?.email && (
-                  <p className="mx-5 mt-2 text-red-400 text-sm">
-                    {state?.errors?.email}
-                  </p>
-                )}
+                <FormErrorMessage
+                  text={
+                    !state?.success && state?.errors && state?.errors?.email
+                      ? state?.errors?.email[0]
+                      : null
+                  }
+                />
               </div>
               <div className="mt-3 ml-5 w-full text-sm">
                 Enter First Name for security!
@@ -379,13 +385,16 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       : ""
                   }
                 />
-                {!state?.success &&
-                  state?.errors &&
-                  state?.errors?.first_name && (
-                    <p className="mx-5 mt-2 text-red-400 text-sm">
-                      {state?.errors?.first_name}
-                    </p>
-                  )}
+
+                <FormErrorMessage
+                  text={
+                    !state?.success &&
+                    state?.errors &&
+                    state?.errors?.first_name
+                      ? state?.errors?.first_name[0]
+                      : null
+                  }
+                />
               </div>
               <div className="w-full">
                 <Input
@@ -416,13 +425,13 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       : ""
                   }
                 />
-                {!state?.success &&
-                  state?.errors &&
-                  state?.errors?.password && (
-                    <p className="mx-5 mt-2 text-red-400 text-sm">
-                      {state?.errors?.password}
-                    </p>
-                  )}
+                <FormErrorMessage
+                  text={
+                    !state?.success && state?.errors && state?.errors?.password
+                      ? state?.errors?.password[0]
+                      : null
+                  }
+                />
               </div>
               <div className="w-full">
                 <Input
@@ -453,45 +462,125 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       : ""
                   }
                 />
-                {!state?.success &&
-                  state?.errors &&
-                  state?.errors?.confirm_password && (
-                    <p className="mx-5 mt-2 text-red-400 text-sm">
-                      {state?.errors?.confirm_password}
-                    </p>
-                  )}
+                <FormErrorMessage
+                  text={
+                    !state?.success &&
+                    state?.errors &&
+                    state?.errors?.confirm_password
+                      ? state?.errors?.confirm_password[0]
+                      : null
+                  }
+                />
               </div>
             </>
           )}
 
           {type === authRoutes.login ? (
             <SubmitButton
-              icon={authFormFieldButtonItems?.login?.icon}
+              icon={
+                isPending ? (
+                  <svg
+                    className="mr-3 -ml-1 w-5 h-5 text-white animate-spin"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                ) : (
+                  authFormFieldButtonItems?.login?.icon
+                )
+              }
               text={
                 isPending
                   ? "Logging in..."
                   : authFormFieldButtonItems?.login?.label
               }
+              disabled={isPending}
               className={isPending ? "w-64" : ""}
             />
           ) : type === authRoutes.register ? (
             <SubmitButton
-              icon={authFormFieldButtonItems?.register?.icon}
+              icon={
+                isPending ? (
+                  <svg
+                    className="mr-3 -ml-1 w-5 h-5 text-white animate-spin"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                ) : (
+                  authFormFieldButtonItems?.register?.icon
+                )
+              }
               text={
                 isPending
                   ? "Registering..."
                   : authFormFieldButtonItems?.register?.label
               }
+              disabled={isPending}
               className={isPending ? "w-64" : ""}
             />
           ) : (
             <SubmitButton
-              icon={authFormFieldButtonItems?.forgot_password?.icon}
+              icon={
+                isPending ? (
+                  <svg
+                    className="mr-3 -ml-1 w-5 h-5 text-white animate-spin"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                ) : (
+                  authFormFieldButtonItems?.forgot_password?.icon
+                )
+              }
               text={
                 isPending
                   ? "Resetting Password..."
                   : authFormFieldButtonItems?.forgot_password?.label
               }
+              disabled={isPending}
               className={isPending ? "w-84" : "w-64"}
             />
           )}

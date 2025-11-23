@@ -25,9 +25,14 @@ export interface ButtonProps {
   popoverTarget?: string | undefined;
   text?: string | null;
   icon?: ReactNode;
+  disabled?: boolean;
   children?: ReactNode;
   className?: string;
   onClick?: () => void;
+}
+
+export interface FormErrorMessageProps {
+  text: string | null;
 }
 
 export interface DropdownProps {
