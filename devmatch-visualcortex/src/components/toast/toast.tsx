@@ -235,7 +235,7 @@ const ToastItem: React.FC<{
             setShouldExit(true);
             setTimeout(() => onRemove(toast.id), 300);
           }}
-          className={`${config.text} opacity-70 hover:opacity-100 transition-opacity shrink-0`}
+          className={`${config.text} opacity-70 border border-glass-border-subtle hover:border-glass-border-bright hover:opacity-100 transition-opacity shrink-0`}
         >
           <IoClose size={18} />
         </button>

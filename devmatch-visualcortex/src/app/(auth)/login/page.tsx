@@ -1,17 +1,17 @@
 import { Metadata } from "next";
-import { publicClientRoutes } from "@/lib/routes/routes";
+import { authRoutes } from "@/lib/routes/routes";
 import { toTitleCase } from "@/lib/utils/utils";
 import Main from "@/components/main/main";
 import AuthFormWrapper from "@/components/auth/authFormWrapper";
 
 export const metadata: Metadata = {
-  title: toTitleCase(publicClientRoutes.login),
+  title: toTitleCase(authRoutes.login),
 };
 
 const LoginPage = () => {
   return (
     <Main>
-      <AuthFormWrapper type={publicClientRoutes.login} />
+      <AuthFormWrapper type={authRoutes.login} />
     </Main>
   );
 };
