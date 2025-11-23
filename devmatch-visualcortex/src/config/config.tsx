@@ -276,6 +276,13 @@ export const authFormFieldInputItems: AuthFormFieldInputItemsType = {
     placeholder: toTitleCase(AUTH_FORM_FIELDS.user_name),
     icon: <LuUser />,
   },
+  first_name: {
+    name: AUTH_FORM_FIELDS.first_name,
+    type: INPUT_TYPES.text,
+    label: toTitleCase(AUTH_FORM_FIELDS.first_name),
+    placeholder: toTitleCase(AUTH_FORM_FIELDS.first_name),
+    icon: <LuUser />,
+  },
   email: {
     name: AUTH_FORM_FIELDS.email,
     type: INPUT_TYPES.email,

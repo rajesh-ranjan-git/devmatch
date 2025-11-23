@@ -87,6 +87,7 @@ export const ACCOUNT_OPTIONS_DROPDOWN_ITEMS = {
 
 export const AUTH_FORM_FIELDS = {
   user_name: "user_name",
+  first_name: "first_name",
   email: "email",
   login: "login",
   register: "register",
