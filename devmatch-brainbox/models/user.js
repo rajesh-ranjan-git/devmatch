@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 import {
+  USER_NAME_REGEX,
   COUNTRY_CODE_REGEX,
   EMAIL_REGEX,
   PASSWORD_REGEX,
@@ -9,6 +10,16 @@ import {
 
 const userSchema = mongoose.Schema(
   {
+    userName: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
+      minlength: 4,
+      maxlength: 100,
+      match: USER_NAME_REGEX,
+    },
     email: {
       type: String,
       required: true,
@@ -38,7 +49,7 @@ const userSchema = mongoose.Schema(
     },
     firstName: {
       type: String,
-      required: true,
+      required: false,
       minlength: 1,
       maxlength: 100,
       trim: true,

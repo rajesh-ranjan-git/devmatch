@@ -9,8 +9,9 @@ import {
 } from "../controllers/user.js";
 import auth from "../middlewares/auth.js";
 import {
-  registerForgotPasswordRequestMiddleware,
+  registerRequestMiddleware,
   loginRequestMiddleware,
+  forgotPasswordRequestMiddleware,
   requestMiddleware,
 } from "../middlewares/request.js";
 
@@ -18,7 +19,7 @@ const userRouter = express.Router();
 
 userRouter.get("/checkAuth", auth, checkAuth);
 
-userRouter.post("/register", registerForgotPasswordRequestMiddleware, register);
+userRouter.post("/register", registerRequestMiddleware, register);
 
 userRouter.post("/login", loginRequestMiddleware, login);
 
@@ -26,7 +27,7 @@ userRouter.get("/logout", requestMiddleware, logout);
 
 userRouter.patch(
   "/forgotPassword",
-  registerForgotPasswordRequestMiddleware,
+  forgotPasswordRequestMiddleware,
   forgotPassword
 );
 

@@ -50,9 +50,12 @@ export const checkAuth = async (req, res) => {
 
 export const register = async (req, res) => {
   try {
-    const { firstName, email, password } = req?.data;
+    const { userName, email, password } = req?.data;
 
-    const existingUser = await User.findOne({ email }, userProperties.ID);
+    const existingUser = await User.findOne(
+      { userName, email },
+      userProperties.ID
+    );
 
     if (existingUser) {
       throw new DatabaseError(
@@ -66,7 +69,7 @@ export const register = async (req, res) => {
     const hashedPassword = await getEncryptedPassword(password);
 
     const user = await User.create({
-      firstName,
+      userName,
       email,
       password: hashedPassword,
     });
@@ -89,7 +92,7 @@ export const register = async (req, res) => {
         status: status.created.message,
         statusCode: status.created.statusCode,
         message: successMessages.REGISTRATION_SUCCESS,
-        userId: user?.id,
+        user: user,
       });
   } catch (error) {
     return res

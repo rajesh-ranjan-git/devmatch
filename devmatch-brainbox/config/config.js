@@ -69,6 +69,7 @@ export const bannerThemes = [
 ];
 
 export const NAME_REGEX = /^[A-Za-z]+$/;
+export const USER_NAME_REGEX = /^[A-Za-z0-9!@#$%&_]{4,}$/;
 export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 export const PASSWORD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%&]).{6,}$/;
@@ -132,6 +133,7 @@ export const errorMessages = {
   INTERNAL_SERVER_ERROR: "Internal Server Error",
   BANNER_ERROR: "Failed to show DevMatch banner!",
   INVALID_REQUEST_ERROR: "Invalid request!",
+  USER_NAME_REQUIRED_ERROR: "User name is required!",
   FIRST_NAME_REQUIRED_ERROR: "First name is required!",
   EMAIL_REQUIRED_ERROR: "Email is required!",
   PASSWORD_REQUIRED_ERROR: "Password is required!",
@@ -139,6 +141,8 @@ export const errorMessages = {
   NEW_PASSWORD_REQUIRED_ERROR: "New Password is required!",
   CONFIRM_PASSWORD_REQUIRED_ERROR: "Confirm password is required!",
   INVALID_USER_ID_FORMAT_ERROR: "Invalid user id format!",
+  INVALID_USER_NAME_ERROR:
+    "User name must only contain alphabets (a-z or A-Z) and special characters (!,@,#,$,%,&,_)!",
   INVALID_FIRST_NAME_ERROR:
     "First name must only contain alphabets (a-z or A-Z)!",
   INVALID_MIDDLE_NAME_ERROR:
@@ -156,6 +160,9 @@ export const errorMessages = {
     "Password and confirm password must be same!",
   NEW_PASSWORD_CONFIRM_PASSWORD_MISMATCH_ERROR:
     "New password and confirm password must be same!",
+  USER_NAME_MIN_LENGTH_ERROR: "User name must be at least 1 character long!",
+  USER_NAME_MAX_LENGTH_ERROR:
+    "User name must not be longer than 100 characters!",
   FIRST_NAME_MIN_LENGTH_ERROR: "First name must be at least 1 character long!",
   FIRST_NAME_MAX_LENGTH_ERROR:
     "First name must not be longer than 100 characters!",
@@ -284,6 +291,7 @@ export const jwtKnownErrors = {
 export const userProperties = {
   ID: "id",
   EMAIL: "email",
+  USER_NAME: "userName",
   PASSWORD: "password",
   PREVIOUS_PASSWORD: "previousPassword",
   PASSWORD_LAST_UPDATED: "passwordLastUpdated",
@@ -343,6 +351,7 @@ export const publicProfilePropertiesForExplore = selectObjectProperties(
   userProperties,
   [
     "EMAIL",
+    "USER_NAME",
     "FIRST_NAME",
     "MIDDLE_NAME",
     "LAST_NAME",
@@ -358,6 +367,7 @@ export const publicProfilePropertiesForNotification = selectObjectProperties(
   userProperties,
   [
     "EMAIL",
+    "USER_NAME",
     "FIRST_NAME",
     "MIDDLE_NAME",
     "LAST_NAME",
@@ -403,6 +413,8 @@ export const connectionStatusProperties = {
 };
 
 export const propertyConstraints = {
+  MIN_USER_NAME_LENGTH: 1,
+  MAX_USER_NAME_LENGTH: 100,
   MIN_NAME_LENGTH: 1,
   MAX_NAME_LENGTH: 100,
   MIN_PASSWORD_LENGTH: 6,

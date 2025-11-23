@@ -1,5 +1,6 @@
 import {
   ALLOWED_SPECIAL_CHARACTERS_REGEX,
+  USER_NAME_REGEX,
   EMAIL_REGEX,
   NAME_REGEX,
   LOWER_CASE_REGEX,
@@ -54,6 +55,47 @@ export const requestBodyValidator = (req, res) => {
   }
 
   return req?.body;
+};
+
+export const userNameValidator = (userName) => {
+  if (!userName?.trim().toLowerCase()) {
+    return {
+      isUserNameValid: false,
+      message: errorMessages.USER_NAME_REQUIRED_ERROR,
+    };
+  }
+
+  if (
+    userName?.trim().toLowerCase().length <
+    propertyConstraints.MIN_USER_NAME_LENGTH
+  ) {
+    return {
+      isUserNameValid: false,
+      message: errorMessages.USER_NAME_MIN_LENGTH_ERROR,
+    };
+  }
+
+  if (
+    userName?.trim().toLowerCase().length >
+    propertyConstraints.MAX_USER_NAME_LENGTH
+  ) {
+    return {
+      isUserNameValid: false,
+      message: errorMessages.USER_NAME_MAX_LENGTH_ERROR,
+    };
+  }
+
+  if (!USER_NAME_REGEX.test(userName?.trim().toLowerCase())) {
+    return {
+      isUserNameValid: false,
+      message: errorMessages.INVALID_USER_NAME_ERROR,
+    };
+  }
+
+  return {
+    isUserNameValid: true,
+    validatedUserName: userName?.trim().toLowerCase(),
+  };
 };
 
 export const firstNameValidator = (firstName) => {
