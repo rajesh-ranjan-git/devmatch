@@ -15,14 +15,14 @@ import {
   loginAction,
   registerAction,
   forgotPasswordAction,
-  AuthFormState,
 } from "@/lib/actions/authActions";
 import Input from "@/components/auth/input";
 import SubmitButton from "@/components/ui/buttons/submitButton";
 import FormErrorMessage from "../errors/formErrorMessage";
+import { AuthFormStateType } from "@/types/types";
 
 const AuthForm = ({ type }: AuthFormWrapperProps) => {
-  const initialState: AuthFormState = { message: "" };
+  const initialState: AuthFormStateType = { message: "" };
 
   const [state, formAction, isPending] = useActionState(
     type === authRoutes.login
@@ -82,9 +82,9 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                 />
 
                 <FormErrorMessage
-                  text={
+                  errors={
                     !state?.success && state?.errors && state?.errors?.user_name
-                      ? state?.errors?.user_name[0]
+                      ? state?.errors?.user_name
                       : null
                   }
                 />
@@ -119,9 +119,9 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
                 <FormErrorMessage
-                  text={
+                  errors={
                     !state?.success && state?.errors && state?.errors?.email
-                      ? state?.errors?.email[0]
+                      ? state?.errors?.email
                       : null
                   }
                 />
@@ -156,9 +156,9 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
                 <FormErrorMessage
-                  text={
+                  errors={
                     !state?.success && state?.errors && state?.errors?.password
-                      ? state?.errors?.password[0]
+                      ? state?.errors?.password
                       : null
                   }
                 />
@@ -195,9 +195,9 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
                 <FormErrorMessage
-                  text={
+                  errors={
                     !state?.success && state?.errors && state?.errors?.user_name
-                      ? state?.errors?.user_name[0]
+                      ? state?.errors?.user_name
                       : null
                   }
                 />
@@ -231,9 +231,9 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
                 <FormErrorMessage
-                  text={
+                  errors={
                     !state?.success && state?.errors && state?.errors?.email
-                      ? state?.errors?.email[0]
+                      ? state?.errors?.email
                       : null
                   }
                 />
@@ -268,9 +268,9 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
                 <FormErrorMessage
-                  text={
+                  errors={
                     !state?.success && state?.errors && state?.errors?.password
-                      ? state?.errors?.password[0]
+                      ? state?.errors?.password
                       : null
                   }
                 />
@@ -305,11 +305,11 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
                 <FormErrorMessage
-                  text={
+                  errors={
                     !state?.success &&
                     state?.errors &&
                     state?.errors?.confirm_password
-                      ? state?.errors?.confirm_password[0]
+                      ? state?.errors?.confirm_password
                       : null
                   }
                 />
@@ -346,9 +346,9 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
                 <FormErrorMessage
-                  text={
+                  errors={
                     !state?.success && state?.errors && state?.errors?.email
-                      ? state?.errors?.email[0]
+                      ? state?.errors?.email
                       : null
                   }
                 />
@@ -387,11 +387,11 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                 />
 
                 <FormErrorMessage
-                  text={
+                  errors={
                     !state?.success &&
                     state?.errors &&
                     state?.errors?.first_name
-                      ? state?.errors?.first_name[0]
+                      ? state?.errors?.first_name
                       : null
                   }
                 />
@@ -426,9 +426,9 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
                 <FormErrorMessage
-                  text={
+                  errors={
                     !state?.success && state?.errors && state?.errors?.password
-                      ? state?.errors?.password[0]
+                      ? state?.errors?.password
                       : null
                   }
                 />
@@ -463,11 +463,11 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
                 <FormErrorMessage
-                  text={
+                  errors={
                     !state?.success &&
                     state?.errors &&
                     state?.errors?.confirm_password
-                      ? state?.errors?.confirm_password[0]
+                      ? state?.errors?.confirm_password
                       : null
                   }
                 />

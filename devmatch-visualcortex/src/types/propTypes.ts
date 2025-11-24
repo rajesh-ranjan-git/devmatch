@@ -32,7 +32,7 @@ export interface ButtonProps {
 }
 
 export interface FormErrorMessageProps {
-  text: string | null;
+  errors: string[] | null;
 }
 
 export interface DropdownProps {

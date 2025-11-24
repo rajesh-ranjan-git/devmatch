@@ -90,6 +90,20 @@ export type CameraDropdownItemType = {
   icon: ReactNode;
 };
 
+export type AuthFormStateType = {
+  message: string;
+  success?: boolean;
+  inputs?: Record<string, FormDataEntryValue>;
+  errors?: {
+    user_name?: string[];
+    email?: string[];
+    password?: string[];
+    confirm_password?: string[];
+    first_name?: string[];
+    error?: string[];
+  };
+};
+
 export type AuthFormFieldTypes = keyof typeof AUTH_FORM_FIELDS;
 
 export type AuthFormFieldInputType = {

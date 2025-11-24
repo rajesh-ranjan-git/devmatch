@@ -1,21 +1,15 @@
 "use server";
 
-export interface AuthFormState {
-  message: string;
-  success?: boolean;
-  inputs?: Record<string, FormDataEntryValue>;
-  errors?: {
-    user_name?: string[];
-    email?: string[];
-    password?: string[];
-    confirm_password?: string[];
-    first_name?: string[];
-    error?: string[];
-  };
-}
+import { AuthFormStateType } from "@/types/types";
+import {
+  emailValidator,
+  firstNameValidator,
+  passwordValidator,
+  userNameValidator,
+} from "../validations/validations";
 
 export async function loginAction(
-  prevState: AuthFormState,
+  prevState: AuthFormStateType,
   formData: FormData
 ) {
   await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -24,19 +18,20 @@ export async function loginAction(
   const email = formData.get("email");
   const password = formData.get("password");
 
-  const errors: AuthFormState["errors"] = {};
+  const errors: AuthFormStateType["errors"] = {};
 
-  if (!user_name) {
-    errors.user_name = ["Username is required!"];
-  }
+  const { validatedUserName, userNameErrors } = userNameValidator(
+    user_name as string
+  );
+  errors.user_name = [...userNameErrors];
 
-  if (!email) {
-    errors.email = ["Email is required!"];
-  }
+  const { validatedEmail, emailErrors } = emailValidator(email as string);
+  errors.email = [...emailErrors];
 
-  if (!password) {
-    errors.password = ["Password is required!"];
-  }
+  const { validatedPassword, passwordErrors } = passwordValidator(
+    password as string
+  );
+  errors.password = [...passwordErrors];
 
   if (Object.keys(errors).length > 0) {
     return {
@@ -48,8 +43,8 @@ export async function loginAction(
   }
 
   if (
-    (user_name !== "rajesh" || email !== "rajesh@gmail.com") &&
-    password !== "Rajesh@0"
+    (validatedUserName !== "rajesh" || validatedEmail !== "rajesh@gmail.com") &&
+    validatedPassword !== "Rajesh@0"
   ) {
     errors.error = ["Username/Email or Password is incorrect!"];
   }
@@ -69,7 +64,7 @@ export async function loginAction(
 }
 
 export async function registerAction(
-  prevState: AuthFormState,
+  prevState: AuthFormStateType,
   formData: FormData
 ) {
   await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -79,23 +74,26 @@ export async function registerAction(
   const password = formData.get("password");
   const confirm_password = formData.get("confirm_password");
 
-  const errors: AuthFormState["errors"] = {};
+  const errors: AuthFormStateType["errors"] = {};
 
-  if (!user_name) {
-    errors.user_name = ["Username is required!"];
-  }
+  const { validatedUserName, userNameErrors } = userNameValidator(
+    user_name as string
+  );
+  errors.user_name = [...userNameErrors];
 
-  if (!email) {
-    errors.email = ["Email is required!"];
-  }
+  const { validatedEmail, emailErrors } = emailValidator(email as string);
+  errors.email = [...emailErrors];
 
-  if (!password) {
-    errors.password = ["Password is required!"];
-  }
+  const { validatedPassword, passwordErrors } = passwordValidator(
+    password as string
+  );
+  errors.password = [...passwordErrors];
 
-  if (!confirm_password) {
-    errors.confirm_password = ["Confirm Password is required!"];
-  }
+  const {
+    validatedPassword: validatedConfirmPassword,
+    passwordErrors: passwordConfirmErrors,
+  } = passwordValidator(confirm_password as string);
+  errors.confirm_password = [...passwordConfirmErrors];
 
   if (Object.keys(errors).length > 0) {
     return {
@@ -113,7 +111,7 @@ export async function registerAction(
 }
 
 export async function forgotPasswordAction(
-  prevState: AuthFormState,
+  prevState: AuthFormStateType,
   formData: FormData
 ) {
   await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -123,23 +121,26 @@ export async function forgotPasswordAction(
   const password = formData.get("password");
   const confirm_password = formData.get("confirm_password");
 
-  const errors: AuthFormState["errors"] = {};
+  const errors: AuthFormStateType["errors"] = {};
 
-  if (!email) {
-    errors.email = ["Email is required!"];
-  }
+  const { validatedEmail, emailErrors } = emailValidator(email as string);
+  errors.email = [...emailErrors];
 
-  if (!first_name) {
-    errors.first_name = ["First Name is required!"];
-  }
+  const { validatedFirstName, firstNameErrors } = firstNameValidator(
+    first_name as string
+  );
+  errors.first_name = [...firstNameErrors];
 
-  if (!password) {
-    errors.password = ["Password is required!"];
-  }
+  const { validatedPassword, passwordErrors } = passwordValidator(
+    password as string
+  );
+  errors.password = [...passwordErrors];
 
-  if (!confirm_password) {
-    errors.confirm_password = ["Confirm Password is required!"];
-  }
+  const {
+    validatedPassword: validatedConfirmPassword,
+    passwordErrors: passwordConfirmErrors,
+  } = passwordValidator(confirm_password as string);
+  errors.confirm_password = [...passwordConfirmErrors];
 
   if (Object.keys(errors).length > 0) {
     return {

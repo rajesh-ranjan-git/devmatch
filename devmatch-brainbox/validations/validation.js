@@ -387,7 +387,6 @@ export const addressValidator = (address) => {
         validatedAddress[addressField] = validatedStreet;
         break;
 
-      // return validatedAddress;
       case addressProperties.LANDMARK:
         const {
           isPropertyValid: isLandmarkValid,
@@ -413,7 +412,6 @@ export const addressValidator = (address) => {
         validatedAddress[addressField] = validatedLandmark;
         break;
 
-      // return validatedAddress;
       case addressProperties.CITY:
         const {
           isPropertyValid: isCityValid,
@@ -439,7 +437,6 @@ export const addressValidator = (address) => {
         validatedAddress[addressField] = validatedCity;
         break;
 
-      // return validatedAddress;
       case addressProperties.STATE:
         const {
           isPropertyValid: isStateValid,
@@ -465,7 +462,6 @@ export const addressValidator = (address) => {
         validatedAddress[addressField] = validatedState;
         break;
 
-      // return validatedAddress;
       case addressProperties.COUNTRY_CODE:
         const {
           isPropertyValid: isCountryCodeValid,
@@ -490,7 +486,6 @@ export const addressValidator = (address) => {
         validatedAddress[addressField] = validatedCountryCode;
         break;
 
-      // return validatedAddress;
       case addressProperties.COUNTRY:
         const {
           isPropertyValid: isSCountryValid,
@@ -516,7 +511,6 @@ export const addressValidator = (address) => {
         validatedAddress[addressField] = validatedCountry;
         break;
 
-      // return validatedAddress;
       case addressProperties.PIN_CODE:
         const {
           isPropertyValid: isPinCodeValid,
