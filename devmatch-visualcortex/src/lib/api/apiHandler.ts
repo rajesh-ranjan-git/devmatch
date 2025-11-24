@@ -40,6 +40,7 @@ export enum ApiErrorType {
  * Configuration options for API calls
  */
 export interface ApiCallOptions extends AxiosRequestConfig {
+  withCredentials?: boolean;
   skipErrorToast?: boolean;
   retryAttempts?: number;
   retryDelay?: number;
@@ -51,10 +52,12 @@ export interface ApiCallOptions extends AxiosRequestConfig {
  */
 const createAxiosInstance = () => {
   const instance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_BRAINBOX_HOST_URL,
     timeout: 30000, // 30 seconds default timeout
     headers: {
       "Content-Type": "application/json",
     },
+    withCredentials: true,
   });
 
   // Request interceptor for adding auth tokens, etc.
@@ -171,6 +174,7 @@ export async function apiCall<T = any>(
   options: ApiCallOptions = {}
 ): Promise<ApiResponse<T>> {
   const {
+    withCredentials = true,
     skipErrorToast = false,
     retryAttempts = 0,
     retryDelay = 1000,

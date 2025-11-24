@@ -22,11 +22,15 @@ import FormErrorMessage from "../errors/formErrorMessage";
 import { AuthFormStateType } from "@/types/types";
 import { useToast } from "../toast/toast";
 import { useRouter } from "next/navigation";
+import { useDevMatchAppStore } from "@/store/store";
 
 const AuthForm = ({ type }: AuthFormWrapperProps) => {
   const router = useRouter();
 
   const { showToast } = useToast();
+
+  const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
+  const setLoggedInUser = useDevMatchAppStore((state) => state.setLoggedInUser);
 
   const initialState: AuthFormStateType = { message: "" };
 
@@ -46,7 +50,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
         message: state?.result?.error?.message,
         variant: "error",
       });
-    } else if (state?.result?.success) {
+    } else if (state?.result?.success && state?.result?.data) {
+      setLoggedInUser(state?.result?.data?.user);
       router.push("/explore");
       showToast({
         title: toTitleCase(state?.message),

@@ -97,6 +97,7 @@ export async function fetchApiData<T = any>(
     data,
     params,
     headers,
+    withCredentials = true,
     cancellable = false,
     retryAttempts = 0,
     retryDelay = 1000,
@@ -117,7 +118,7 @@ export async function fetchApiData<T = any>(
       console.group(`🌐 API Request: ${method} ${url}`);
       console.log("Payload:", data);
       console.log("Params:", params);
-      console.log("Options:", { retryAttempts, timeout });
+      console.log("Options:", { withCredentials, retryAttempts, timeout });
       console.groupEnd();
     }
 
@@ -129,6 +130,7 @@ export async function fetchApiData<T = any>(
       customErrorHandler,
       params,
       headers,
+      withCredentials,
     };
 
     if (timeout) {

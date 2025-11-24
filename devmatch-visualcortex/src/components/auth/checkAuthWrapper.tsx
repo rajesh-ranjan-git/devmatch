@@ -37,8 +37,8 @@ const CheckAuthFormWrapper = ({ children }: ReactNodeProps) => {
 
       if (!isMounted) return;
 
-      if (result.success && result.data) {
-        setLoggedInUser(result.data);
+      if (result.success && result.data && result.data.user) {
+        setLoggedInUser(result.data.user);
         if (isPublicRoute) {
           router.push("/explore");
           showToast({
