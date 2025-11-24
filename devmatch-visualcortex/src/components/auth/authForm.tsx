@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import Form from "next/form";
 import Link from "next/link";
 import { AUTH_FORM_FIELDS, INPUT_TYPES } from "@/config/constants";
@@ -20,8 +20,11 @@ import Input from "@/components/auth/input";
 import SubmitButton from "@/components/ui/buttons/submitButton";
 import FormErrorMessage from "../errors/formErrorMessage";
 import { AuthFormStateType } from "@/types/types";
+import { useToast } from "../toast/toast";
 
 const AuthForm = ({ type }: AuthFormWrapperProps) => {
+  const { showToast } = useToast();
+
   const initialState: AuthFormStateType = { message: "" };
 
   const [state, formAction, isPending] = useActionState(
@@ -32,6 +35,23 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
       : forgotPasswordAction,
     initialState
   );
+
+  useEffect(() => {
+    console.log("debug from authForm result : ", state?.result);
+    if (!state?.result?.success && state?.result?.error) {
+      showToast({
+        title: toTitleCase(state?.result?.error?.code),
+        message: state?.result?.error?.message,
+        variant: "error",
+      });
+    } else if (state?.result?.success) {
+      showToast({
+        title: toTitleCase(state?.result?.data?.code),
+        message: state?.result?.data?.message,
+        variant: "success",
+      });
+    }
+  }, [state?.result]);
 
   return (
     <div className="relative flex flex-col justify-center items-center py-8 pr-2 w-full h-full transition-all ease-in-out">
@@ -75,7 +95,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   className={
                     state?.success === false &&
                     state?.errors &&
-                    state?.errors?.user_name
+                    state?.errors?.user_name &&
+                    state?.errors?.user_name?.length > 0
                       ? "shadow-red-400"
                       : ""
                   }
@@ -113,7 +134,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   className={
                     state?.success === false &&
                     state?.errors &&
-                    state?.errors?.email
+                    state?.errors?.email &&
+                    state?.errors?.email?.length > 0
                       ? "shadow-red-400"
                       : ""
                   }
@@ -150,7 +172,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   className={
                     state?.success === false &&
                     state?.errors &&
-                    state?.errors?.password
+                    state?.errors?.password &&
+                    state?.errors?.password?.length > 0
                       ? "shadow-red-400"
                       : ""
                   }
@@ -189,7 +212,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   className={
                     state?.success === false &&
                     state?.errors &&
-                    state?.errors?.user_name
+                    state?.errors?.user_name &&
+                    state?.errors?.user_name?.length > 0
                       ? "shadow-red-400"
                       : ""
                   }
@@ -225,7 +249,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   className={
                     state?.success === false &&
                     state?.errors &&
-                    state?.errors?.email
+                    state?.errors?.email &&
+                    state?.errors?.email?.length > 0
                       ? "shadow-red-400"
                       : ""
                   }
@@ -262,7 +287,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   className={
                     state?.success === false &&
                     state?.errors &&
-                    state?.errors?.password
+                    state?.errors?.password &&
+                    state?.errors?.password?.length > 0
                       ? "shadow-red-400"
                       : ""
                   }
@@ -299,7 +325,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   className={
                     state?.success === false &&
                     state?.errors &&
-                    state?.errors?.confirm_password
+                    state?.errors?.confirm_password &&
+                    state?.errors?.confirm_password?.length > 0
                       ? "shadow-red-400"
                       : ""
                   }
@@ -340,7 +367,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   className={
                     state?.success === false &&
                     state?.errors &&
-                    state?.errors?.email
+                    state?.errors?.email &&
+                    state?.errors?.email?.length > 0
                       ? "shadow-red-400"
                       : ""
                   }
@@ -380,7 +408,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   className={
                     state?.success === false &&
                     state?.errors &&
-                    state?.errors?.first_name
+                    state?.errors?.first_name &&
+                    state?.errors?.first_name?.length > 0
                       ? "shadow-red-400"
                       : ""
                   }
@@ -420,7 +449,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   className={
                     state?.success === false &&
                     state?.errors &&
-                    state?.errors?.password
+                    state?.errors?.password &&
+                    state?.errors?.password?.length > 0
                       ? "shadow-red-400"
                       : ""
                   }
@@ -457,7 +487,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   className={
                     state?.success === false &&
                     state?.errors &&
-                    state?.errors?.confirm_password
+                    state?.errors?.confirm_password &&
+                    state?.errors?.confirm_password?.length > 0
                       ? "shadow-red-400"
                       : ""
                   }

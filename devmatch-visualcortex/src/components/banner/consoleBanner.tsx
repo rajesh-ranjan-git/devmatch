@@ -48,7 +48,7 @@ const ConsoleBanner = ({ nodeVersion }: ConsoleBannerProps) => {
                 error
               );
               showToast({
-                title: "Failure!",
+                title: "Failed!",
                 message: "An error occurred while creating console banner!",
                 variant: "error",
               });
@@ -69,7 +69,7 @@ const ConsoleBanner = ({ nodeVersion }: ConsoleBannerProps) => {
       .catch((err) => {
         console.error("An error occurred while creating console banner :", err);
         showToast({
-          title: "Failure!",
+          title: "Failed!",
           message: "An error occurred while creating console banner!",
           variant: "error",
         });

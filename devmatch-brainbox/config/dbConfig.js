@@ -1,17 +1,19 @@
 import dotenv from "dotenv";
 import path from "path";
+import { fileURLToPath } from "url";
 
 import { DatabaseConfigError } from "../errors/CustomError.js";
 import { errorMessages, status } from "./config.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const envFile =
   process.env.NODE_ENV === "production"
-    ? ".env-production"
-    : ".env-development";
+    ? path.join(__dirname, "../env/.env-production")
+    : path.join(__dirname, "../env/.env-development");
 
-dotenv.config({
-  path: path.resolve(process.cwd(), "env", envFile),
-});
+dotenv.config({ path: envFile });
 
 const DB_LOCAL_URI = process.env.DB_LOCAL_URI;
 const DB_LOCAL_NAME = process.env.DB_LOCAL_NAME;

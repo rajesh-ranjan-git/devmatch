@@ -49,7 +49,7 @@ const CheckAuthFormWrapper = ({ children }: ReactNodeProps) => {
         if (!isPublicRoute) {
           router.push("/login");
           showToast({
-            title: "Authentication Failure!",
+            title: "Authentication Failed!",
             message: "Please login to continue!",
             variant: "error",
           });

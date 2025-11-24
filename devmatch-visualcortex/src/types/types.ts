@@ -100,8 +100,8 @@ export type AuthFormStateType = {
     password?: string[];
     confirm_password?: string[];
     first_name?: string[];
-    error?: string[];
   };
+  result?: any;
 };
 
 export type AuthFormFieldTypes = keyof typeof AUTH_FORM_FIELDS;

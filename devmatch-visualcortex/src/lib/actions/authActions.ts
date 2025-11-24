@@ -7,61 +7,8 @@ import {
   passwordValidator,
   userNameValidator,
 } from "../validations/validations";
-
-export async function loginAction(
-  prevState: AuthFormStateType,
-  formData: FormData
-) {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-
-  const user_name = formData.get("user_name");
-  const email = formData.get("email");
-  const password = formData.get("password");
-
-  const errors: AuthFormStateType["errors"] = {};
-
-  const { validatedUserName, userNameErrors } = userNameValidator(
-    user_name as string
-  );
-  errors.user_name = [...userNameErrors];
-
-  const { validatedEmail, emailErrors } = emailValidator(email as string);
-  errors.email = [...emailErrors];
-
-  const { validatedPassword, passwordErrors } = passwordValidator(
-    password as string
-  );
-  errors.password = [...passwordErrors];
-
-  if (Object.keys(errors).length > 0) {
-    return {
-      message: "Validation Error",
-      errors,
-      success: false,
-      inputs: Object.fromEntries(formData),
-    };
-  }
-
-  if (
-    (validatedUserName !== "rajesh" || validatedEmail !== "rajesh@gmail.com") &&
-    validatedPassword !== "Rajesh@0"
-  ) {
-    errors.error = ["Username/Email or Password is incorrect!"];
-  }
-
-  if (errors?.error) {
-    return {
-      message: "Authentication Error",
-      errors,
-      success: false,
-    };
-  }
-
-  return {
-    message: "Login successful, Welcome back!",
-    success: true,
-  };
-}
+import { fetchApiData } from "../api/fetchApiData";
+import { apiUrls } from "../api/apiUrls";
 
 export async function registerAction(
   prevState: AuthFormStateType,
@@ -79,23 +26,23 @@ export async function registerAction(
   const { validatedUserName, userNameErrors } = userNameValidator(
     user_name as string
   );
-  errors.user_name = [...userNameErrors];
+  errors.user_name = [...(userNameErrors ?? [])];
 
   const { validatedEmail, emailErrors } = emailValidator(email as string);
-  errors.email = [...emailErrors];
+  errors.email = [...(emailErrors ?? [])];
 
   const { validatedPassword, passwordErrors } = passwordValidator(
     password as string
   );
-  errors.password = [...passwordErrors];
+  errors.password = [...(passwordErrors ?? [])];
 
   const {
     validatedPassword: validatedConfirmPassword,
     passwordErrors: passwordConfirmErrors,
   } = passwordValidator(confirm_password as string);
-  errors.confirm_password = [...passwordConfirmErrors];
+  errors.confirm_password = [...(passwordConfirmErrors ?? [])];
 
-  if (Object.keys(errors).length > 0) {
+  if (Object.values(errors).filter((item) => item.length > 0).length > 0) {
     return {
       message: "Validation Error",
       errors,
@@ -104,8 +51,85 @@ export async function registerAction(
     };
   }
 
+  const result = await fetchApiData(apiUrls.register, {
+    method: "POST",
+    data: {
+      userName: validatedUserName,
+      email: validatedEmail,
+      password: validatedPassword,
+      confirmPassword: validatedConfirmPassword,
+    },
+  });
+
+  if (!result?.success) {
+    return {
+      message: "Registration Error!",
+      result,
+      success: false,
+    };
+  }
+
   return {
     message: "Registration successful, Welcome!",
+    result,
+    success: true,
+  };
+}
+
+export async function loginAction(
+  prevState: AuthFormStateType,
+  formData: FormData
+) {
+  const user_name = formData.get("user_name");
+  const email = formData.get("email");
+  const password = formData.get("password");
+
+  const errors: AuthFormStateType["errors"] = {};
+
+  const { validatedUserName, userNameErrors } = userNameValidator(
+    user_name as string
+  );
+  errors.user_name = [...(userNameErrors ?? [])];
+
+  const { validatedEmail, emailErrors } = emailValidator(email as string);
+  errors.email = [...(emailErrors ?? [])];
+
+  if (validatedUserName && !validatedEmail) {
+    errors.email = [];
+  } else if (!validatedUserName && validatedEmail) {
+    errors.user_name = [];
+  }
+
+  const { validatedPassword, passwordErrors } = passwordValidator(
+    password as string
+  );
+  errors.password = [...(passwordErrors ?? [])];
+
+  if (Object.values(errors).filter((error) => error.length > 0).length > 0) {
+    return {
+      message: "Validation Error",
+      errors,
+      success: false,
+      inputs: Object.fromEntries(formData),
+    };
+  }
+
+  const result = await fetchApiData(apiUrls.login, {
+    method: "POST",
+    data: { email: validatedEmail, password: validatedPassword },
+  });
+
+  if (!result?.success) {
+    return {
+      message: "Authentication Error",
+      result,
+      success: false,
+    };
+  }
+
+  return {
+    message: "Login successful, Welcome back!",
+    result,
     success: true,
   };
 }
@@ -124,25 +148,25 @@ export async function forgotPasswordAction(
   const errors: AuthFormStateType["errors"] = {};
 
   const { validatedEmail, emailErrors } = emailValidator(email as string);
-  errors.email = [...emailErrors];
+  errors.email = [...(emailErrors ?? [])];
 
   const { validatedFirstName, firstNameErrors } = firstNameValidator(
     first_name as string
   );
-  errors.first_name = [...firstNameErrors];
+  errors.first_name = [...(firstNameErrors ?? [])];
 
   const { validatedPassword, passwordErrors } = passwordValidator(
     password as string
   );
-  errors.password = [...passwordErrors];
+  errors.password = [...(passwordErrors ?? [])];
 
   const {
     validatedPassword: validatedConfirmPassword,
     passwordErrors: passwordConfirmErrors,
   } = passwordValidator(confirm_password as string);
-  errors.confirm_password = [...passwordConfirmErrors];
+  errors.confirm_password = [...(passwordConfirmErrors ?? [])];
 
-  if (Object.keys(errors).length > 0) {
+  if (Object.values(errors).filter((item) => item.length > 0).length > 0) {
     return {
       message: "Validation Error",
       errors,
@@ -151,8 +175,27 @@ export async function forgotPasswordAction(
     };
   }
 
+  const result = await fetchApiData(apiUrls.register, {
+    method: "POST",
+    data: {
+      first_name: validatedFirstName,
+      email: validatedEmail,
+      password: validatedPassword,
+      confirm_password: validatedConfirmPassword,
+    },
+  });
+
+  if (!result?.success) {
+    return {
+      message: "Registration Error!",
+      result,
+      success: false,
+    };
+  }
+
   return {
     message: "Password reset successful, Please login again!",
+    result,
     success: true,
   };
 }

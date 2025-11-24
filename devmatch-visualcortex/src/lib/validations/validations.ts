@@ -10,7 +10,6 @@ import {
   USER_NAME_REGEX,
   userProperties,
 } from "@/config/constants";
-import { AuthFormStateType } from "@/types/types";
 
 export const userNameValidator = (user_name: string) => {
   const userNameErrors: string[] = [];
@@ -32,10 +31,11 @@ export const userNameValidator = (user_name: string) => {
     userNameErrors.push(errorMessages.INVALID_USER_NAME_ERROR);
   }
 
-  return {
-    validatedUserName: value,
-    userNameErrors,
-  };
+  if (userNameErrors && userNameErrors?.length > 0) {
+    return { userNameErrors };
+  }
+
+  return { validatedUserName: value };
 };
 
 export const emailValidator = (email: string) => {
@@ -50,10 +50,11 @@ export const emailValidator = (email: string) => {
     emailErrors.push(errorMessages.INVALID_EMAIL_ERROR);
   }
 
-  return {
-    validatedEmail: value,
-    emailErrors,
-  };
+  if (emailErrors && emailErrors?.length > 0) {
+    return { emailErrors };
+  }
+
+  return { validatedEmail: value };
 };
 
 export const passwordValidator = (password: string) => {
@@ -88,10 +89,11 @@ export const passwordValidator = (password: string) => {
     passwordErrors.push(errorMessages.PASSWORD_SPECIAL_CHARACTERS_ERROR);
   }
 
-  return {
-    validatedPassword: value,
-    passwordErrors,
-  };
+  if (passwordErrors && passwordErrors?.length > 0) {
+    return { passwordErrors };
+  }
+
+  return { validatedPassword: value };
 };
 
 export const firstNameValidator = (firstName: string) => {
@@ -107,10 +109,11 @@ export const firstNameValidator = (firstName: string) => {
     userProperties.FIRST_NAME
   );
 
-  return {
-    validatedFirstName: validatedName,
-    firstNameErrors: [...firstNameErrors, ...nameErrors],
-  };
+  if (nameErrors && nameErrors?.length > 0) {
+    return { firstNameErrors: [...firstNameErrors, ...nameErrors] };
+  }
+
+  return { validatedFirstName: validatedName };
 };
 
 export const nameValidator = (name: string, type: string) => {
@@ -152,8 +155,9 @@ export const nameValidator = (name: string, type: string) => {
     }
   }
 
-  return {
-    validatedName: name,
-    nameErrors,
-  };
+  if (nameErrors && nameErrors?.length > 0) {
+    return { nameErrors };
+  }
+
+  return { validatedName: name };
 };

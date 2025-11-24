@@ -25,9 +25,6 @@ export const registerRequestMiddleware = (req, res, next) => {
       res
     );
 
-    console.log("debug from registerRequestMiddleware req?.body : ", req?.body);
-    console.log("debug from registerRequestMiddleware userName : ", userName);
-
     const {
       isUserNameValid,
       message: userNameErrorMessage,
