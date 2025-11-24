@@ -1,4 +1,5 @@
 import {
+  defaultUserProperties,
   errorMessages,
   status,
   successMessages,
@@ -12,6 +13,7 @@ import {
   isPasswordExpired,
 } from "../utils/authUtils.js";
 import User from "../models/user.js";
+import { selectObjectProperties } from "../utils/utils.js";
 
 export const checkAuth = async (req, res) => {
   try {
@@ -68,20 +70,25 @@ export const register = async (req, res) => {
 
     const hashedPassword = await getEncryptedPassword(password);
 
-    const user = await User.create({
+    const newUser = await User.create({
       userName,
       email,
       password: hashedPassword,
     });
 
-    if (!user) {
+    if (!newUser) {
       throw new DatabaseError(
         status.internalServerError,
         errorMessages.REGISTRATION_FAILED_ERROR,
-        { user },
+        { user: newUser },
         req?.url
       );
     }
+
+    const user = selectObjectProperties(
+      newUser.toObject(),
+      Object.values(defaultUserProperties)
+    );
 
     const token = getJwtToken(user?.id);
 
@@ -115,13 +122,18 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const { email, password } = req?.data;
+    const { userName, email, password } = req?.data;
 
-    const user = await User.findOne({ email }, [
-      userProperties.ID,
-      userProperties.PASSWORD,
-      userProperties.PASSWORD_LAST_UPDATED,
-    ]);
+    const user = await User.findOne(
+      {
+        $or: [{ userName }, { email }],
+      },
+      [
+        ...Object.values(defaultUserProperties),
+        userProperties.PASSWORD,
+        userProperties.PASSWORD_LAST_UPDATED,
+      ]
+    );
 
     if (!user) {
       throw new DatabaseError(
@@ -161,7 +173,10 @@ export const login = async (req, res) => {
         status: status.success.message,
         statusCode: status.success.statusCode,
         message: successMessages.LOGIN_SUCCESS,
-        userId: user?.id,
+        userId: selectObjectProperties(
+          user.toObject(),
+          Object.values(defaultUserProperties)
+        ),
       });
   } catch (error) {
     return res

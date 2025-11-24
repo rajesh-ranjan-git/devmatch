@@ -140,6 +140,7 @@ export const errorMessages = {
   USER_NAME_REQUIRED_ERROR: "User name is required!",
   FIRST_NAME_REQUIRED_ERROR: "First name is required!",
   EMAIL_REQUIRED_ERROR: "Email is required!",
+  USER_NAME_EMAIL_REQUIRED_ERROR: "User name / email is required!",
   PASSWORD_REQUIRED_ERROR: "Password is required!",
   OLD_PASSWORD_REQUIRED_ERROR: "Old Password is required!",
   NEW_PASSWORD_REQUIRED_ERROR: "New Password is required!",
@@ -343,6 +344,12 @@ export const addressProperties = {
   COUNTRY: "country",
   PIN_CODE: "pinCode",
 };
+
+export const defaultUserProperties = selectObjectProperties(userProperties, [
+  "EMAIL",
+  "USER_NAME",
+  "FIRST_NAME",
+]);
 
 export const publicProfileProperties = omitObjectProperties(userProperties, [
   "PASSWORD",

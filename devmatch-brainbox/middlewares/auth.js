@@ -1,4 +1,8 @@
-import { errorMessages, status, userProperties } from "../config/config.js";
+import {
+  defaultUserProperties,
+  errorMessages,
+  status,
+} from "../config/config.js";
 import { AuthenticationError, DatabaseError } from "../errors/CustomError.js";
 import { requestValidator } from "../validations/validation.js";
 import {
@@ -32,11 +36,10 @@ const auth = async (req, res, next) => {
       );
     }
 
-    const loggedInUser = await User.findById(decodedUserId, [
-      userProperties.EMAIL,
-      userProperties.FIRST_NAME,
-      userProperties.PASSWORD_LAST_UPDATED,
-    ]);
+    const loggedInUser = await User.findById(
+      decodedUserId,
+      defaultUserProperties
+    );
 
     if (!loggedInUser) {
       throw new DatabaseError(

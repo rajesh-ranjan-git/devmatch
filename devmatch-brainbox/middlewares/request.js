@@ -137,7 +137,13 @@ export const registerRequestMiddleware = (req, res, next) => {
 
 export const loginRequestMiddleware = (req, res, next) => {
   try {
-    const { email, password } = requestValidator(req, res);
+    const { userName, email, password } = requestValidator(req, res);
+
+    const {
+      isUserNameValid,
+      message: userNameErrorMessage,
+      validatedUserName,
+    } = userNameValidator(userName);
 
     const {
       isEmailValid,
@@ -145,16 +151,41 @@ export const loginRequestMiddleware = (req, res, next) => {
       validatedEmail,
     } = emailValidator(email);
 
-    if (!isEmailValid) {
-      throw new ValidationError(
-        status.badRequest,
-        emailErrorMessage,
-        {
-          email,
-          password,
-        },
-        req?.url
-      );
+    if (!isUserNameValid && !isEmailValid) {
+      if (!userName && !email) {
+        throw new ValidationError(
+          status.badRequest,
+          errorMessages.USER_NAME_EMAIL_REQUIRED_ERROR,
+          {
+            userName,
+            email,
+            password,
+          },
+          req?.url
+        );
+      } else if (userName) {
+        throw new ValidationError(
+          status.badRequest,
+          userNameErrorMessage,
+          {
+            userName,
+            email,
+            password,
+          },
+          req?.url
+        );
+      } else if (email) {
+        throw new ValidationError(
+          status.badRequest,
+          emailErrorMessage,
+          {
+            userName,
+            email,
+            password,
+          },
+          req?.url
+        );
+      }
     }
 
     const {
@@ -176,7 +207,11 @@ export const loginRequestMiddleware = (req, res, next) => {
       );
     }
 
-    req.data = { email: validatedEmail, password: validatedPassword };
+    req.data = {
+      userName: validatedUserName,
+      email: validatedEmail,
+      password: validatedPassword,
+    };
 
     next();
   } catch (error) {
