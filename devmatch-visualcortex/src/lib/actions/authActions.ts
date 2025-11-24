@@ -115,7 +115,11 @@ export async function loginAction(
 
   const result = await fetchApiData(apiUrls.login, {
     method: "POST",
-    data: { email: validatedEmail, password: validatedPassword },
+    data: {
+      userName: validatedUserName,
+      email: validatedEmail,
+      password: validatedPassword,
+    },
   });
 
   if (!result?.success) {

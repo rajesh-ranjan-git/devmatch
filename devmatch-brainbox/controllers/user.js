@@ -166,6 +166,11 @@ export const login = async (req, res) => {
 
     const token = getJwtToken(user?.id);
 
+    const loggedInUser = selectObjectProperties(
+      user.toObject(),
+      Object.values(defaultUserProperties)
+    );
+
     return res
       .status(status.success.statusCode)
       .cookie("authToken", token)
@@ -173,10 +178,7 @@ export const login = async (req, res) => {
         status: status.success.message,
         statusCode: status.success.statusCode,
         message: successMessages.LOGIN_SUCCESS,
-        userId: selectObjectProperties(
-          user.toObject(),
-          Object.values(defaultUserProperties)
-        ),
+        user: loggedInUser,
       });
   } catch (error) {
     return res
