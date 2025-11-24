@@ -25,10 +25,6 @@ export const getEncryptedPassword = async (password) => {
 };
 
 export const getJwtToken = (id) => {
-  console.log(
-    "debug BRAINBOX_JWT_SECRET_KEY : ",
-    process.env.BRAINBOX_JWT_SECRET_KEY
-  );
   const token = jwt.sign({ id }, process.env.BRAINBOX_JWT_SECRET_KEY, {
     expiresIn: "1h",
   });

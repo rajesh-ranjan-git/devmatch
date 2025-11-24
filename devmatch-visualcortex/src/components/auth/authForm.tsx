@@ -37,7 +37,6 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
   );
 
   useEffect(() => {
-    console.log("debug from authForm result : ", state?.result);
     if (!state?.result?.success && state?.result?.error) {
       showToast({
         title: toTitleCase(state?.result?.error?.code),
