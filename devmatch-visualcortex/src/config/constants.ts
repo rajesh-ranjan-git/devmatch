@@ -86,13 +86,13 @@ export const ACCOUNT_OPTIONS_DROPDOWN_ITEMS = {
 } as const;
 
 export const AUTH_FORM_FIELDS = {
-  user_name: "user_name",
-  first_name: "first_name",
+  userName: "userName",
+  firstName: "firstName",
   email: "email",
   login: "login",
   register: "register",
   password: "password",
-  confirm_password: "confirm_password",
+  confirmPassword: "confirmPassword",
   forgot_password: "forgot_password",
   update_profile: "update_profile",
   delete_account: "delete_account",

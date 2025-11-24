@@ -78,28 +78,28 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
               <div className="w-full">
                 <Input
                   name={
-                    authFormFieldInputItems?.user_name?.name ??
-                    AUTH_FORM_FIELDS.user_name
+                    authFormFieldInputItems?.userName?.name ??
+                    AUTH_FORM_FIELDS.userName
                   }
                   type={
-                    authFormFieldInputItems?.user_name?.type ?? INPUT_TYPES.text
+                    authFormFieldInputItems?.userName?.type ?? INPUT_TYPES.text
                   }
                   placeholder={
-                    authFormFieldInputItems?.user_name?.placeholder ??
-                    toTitleCase(AUTH_FORM_FIELDS.user_name)
+                    authFormFieldInputItems?.userName?.placeholder ??
+                    toTitleCase(AUTH_FORM_FIELDS.userName)
                   }
                   defaultValue={
                     state?.success === false &&
                     state?.inputs &&
-                    state?.inputs?.user_name
-                      ? (state?.inputs?.user_name as string)
+                    state?.inputs?.userName
+                      ? (state?.inputs?.userName as string)
                       : ""
                   }
                   className={
                     state?.success === false &&
                     state?.errors &&
-                    state?.errors?.user_name &&
-                    state?.errors?.user_name?.length > 0
+                    state?.errors?.userName &&
+                    state?.errors?.userName?.length > 0
                       ? "shadow-red-400"
                       : ""
                   }
@@ -107,8 +107,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
 
                 <FormErrorMessage
                   errors={
-                    !state?.success && state?.errors && state?.errors?.user_name
-                      ? state?.errors?.user_name
+                    !state?.success && state?.errors && state?.errors?.userName
+                      ? state?.errors?.userName
                       : null
                   }
                 />
@@ -195,36 +195,36 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
               <div className="w-full">
                 <Input
                   name={
-                    authFormFieldInputItems?.user_name?.name ??
-                    AUTH_FORM_FIELDS.user_name
+                    authFormFieldInputItems?.userName?.name ??
+                    AUTH_FORM_FIELDS.userName
                   }
                   type={
-                    authFormFieldInputItems?.user_name?.type ?? INPUT_TYPES.text
+                    authFormFieldInputItems?.userName?.type ?? INPUT_TYPES.text
                   }
                   placeholder={
-                    authFormFieldInputItems?.user_name?.placeholder ??
-                    toTitleCase(AUTH_FORM_FIELDS.user_name)
+                    authFormFieldInputItems?.userName?.placeholder ??
+                    toTitleCase(AUTH_FORM_FIELDS.userName)
                   }
                   defaultValue={
                     state?.success === false &&
                     state?.inputs &&
-                    state?.inputs?.user_name
-                      ? (state?.inputs?.user_name as string)
+                    state?.inputs?.userName
+                      ? (state?.inputs?.userName as string)
                       : ""
                   }
                   className={
                     state?.success === false &&
                     state?.errors &&
-                    state?.errors?.user_name &&
-                    state?.errors?.user_name?.length > 0
+                    state?.errors?.userName &&
+                    state?.errors?.userName?.length > 0
                       ? "shadow-red-400"
                       : ""
                   }
                 />
                 <FormErrorMessage
                   errors={
-                    !state?.success && state?.errors && state?.errors?.user_name
-                      ? state?.errors?.user_name
+                    !state?.success && state?.errors && state?.errors?.userName
+                      ? state?.errors?.userName
                       : null
                   }
                 />
@@ -307,29 +307,29 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
               <div className="w-full">
                 <Input
                   name={
-                    authFormFieldInputItems?.confirm_password?.name ??
-                    AUTH_FORM_FIELDS.confirm_password
+                    authFormFieldInputItems?.confirmPassword?.name ??
+                    AUTH_FORM_FIELDS.confirmPassword
                   }
                   type={
-                    authFormFieldInputItems?.confirm_password?.type ??
+                    authFormFieldInputItems?.confirmPassword?.type ??
                     INPUT_TYPES.password
                   }
                   placeholder={
-                    authFormFieldInputItems?.confirm_password?.placeholder ??
+                    authFormFieldInputItems?.confirmPassword?.placeholder ??
                     toTitleCase(INPUT_TYPES.password)
                   }
                   defaultValue={
                     state?.success === false &&
                     state?.inputs &&
-                    state?.inputs?.confirm_password
-                      ? (state?.inputs?.confirm_password as string)
+                    state?.inputs?.confirmPassword
+                      ? (state?.inputs?.confirmPassword as string)
                       : ""
                   }
                   className={
                     state?.success === false &&
                     state?.errors &&
-                    state?.errors?.confirm_password &&
-                    state?.errors?.confirm_password?.length > 0
+                    state?.errors?.confirmPassword &&
+                    state?.errors?.confirmPassword?.length > 0
                       ? "shadow-red-400"
                       : ""
                   }
@@ -338,8 +338,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   errors={
                     !state?.success &&
                     state?.errors &&
-                    state?.errors?.confirm_password
-                      ? state?.errors?.confirm_password
+                    state?.errors?.confirmPassword
+                      ? state?.errors?.confirmPassword
                       : null
                   }
                 />
@@ -390,29 +390,28 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
               <div className="w-full">
                 <Input
                   name={
-                    authFormFieldInputItems?.first_name?.name ??
-                    AUTH_FORM_FIELDS.first_name
+                    authFormFieldInputItems?.firstName?.name ??
+                    AUTH_FORM_FIELDS.firstName
                   }
                   type={
-                    authFormFieldInputItems?.first_name?.type ??
-                    INPUT_TYPES.text
+                    authFormFieldInputItems?.firstName?.type ?? INPUT_TYPES.text
                   }
                   placeholder={
-                    authFormFieldInputItems?.first_name?.placeholder ??
-                    toTitleCase(AUTH_FORM_FIELDS.first_name)
+                    authFormFieldInputItems?.firstName?.placeholder ??
+                    toTitleCase(AUTH_FORM_FIELDS.firstName)
                   }
                   defaultValue={
                     state?.success === false &&
                     state?.inputs &&
-                    state?.inputs?.first_name
-                      ? (state?.inputs?.first_name as string)
+                    state?.inputs?.firstName
+                      ? (state?.inputs?.firstName as string)
                       : ""
                   }
                   className={
                     state?.success === false &&
                     state?.errors &&
-                    state?.errors?.first_name &&
-                    state?.errors?.first_name?.length > 0
+                    state?.errors?.firstName &&
+                    state?.errors?.firstName?.length > 0
                       ? "shadow-red-400"
                       : ""
                   }
@@ -420,10 +419,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
 
                 <FormErrorMessage
                   errors={
-                    !state?.success &&
-                    state?.errors &&
-                    state?.errors?.first_name
-                      ? state?.errors?.first_name
+                    !state?.success && state?.errors && state?.errors?.firstName
+                      ? state?.errors?.firstName
                       : null
                   }
                 />
@@ -469,29 +466,29 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
               <div className="w-full">
                 <Input
                   name={
-                    authFormFieldInputItems?.confirm_password?.name ??
-                    AUTH_FORM_FIELDS.confirm_password
+                    authFormFieldInputItems?.confirmPassword?.name ??
+                    AUTH_FORM_FIELDS.confirmPassword
                   }
                   type={
-                    authFormFieldInputItems?.confirm_password?.type ??
+                    authFormFieldInputItems?.confirmPassword?.type ??
                     INPUT_TYPES.password
                   }
                   placeholder={
-                    authFormFieldInputItems?.confirm_password?.placeholder ??
+                    authFormFieldInputItems?.confirmPassword?.placeholder ??
                     toTitleCase(INPUT_TYPES.password)
                   }
                   defaultValue={
                     state?.success === false &&
                     state?.inputs &&
-                    state?.inputs?.confirm_password
-                      ? (state?.inputs?.confirm_password as string)
+                    state?.inputs?.confirmPassword
+                      ? (state?.inputs?.confirmPassword as string)
                       : ""
                   }
                   className={
                     state?.success === false &&
                     state?.errors &&
-                    state?.errors?.confirm_password &&
-                    state?.errors?.confirm_password?.length > 0
+                    state?.errors?.confirmPassword &&
+                    state?.errors?.confirmPassword?.length > 0
                       ? "shadow-red-400"
                       : ""
                   }
@@ -500,8 +497,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   errors={
                     !state?.success &&
                     state?.errors &&
-                    state?.errors?.confirm_password
-                      ? state?.errors?.confirm_password
+                    state?.errors?.confirmPassword
+                      ? state?.errors?.confirmPassword
                       : null
                   }
                 />

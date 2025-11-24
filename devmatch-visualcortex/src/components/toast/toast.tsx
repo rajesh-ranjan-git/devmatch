@@ -202,7 +202,7 @@ const ToastItem: React.FC<{
         damping: 40,
         mass: 1,
       }}
-      className={`relative w-80 ${config.bg} border rounded-lg shadow-lg overflow-hidden`}
+      className={`relative w-80 ${config.bg} m-2 border rounded-lg shadow-lg overflow-hidden`}
       style={{
         marginBottom: index > 0 ? "8px" : "0",
       }}

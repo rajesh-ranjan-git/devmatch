@@ -95,11 +95,11 @@ export type AuthFormStateType = {
   success?: boolean;
   inputs?: Record<string, FormDataEntryValue>;
   errors?: {
-    user_name?: string[];
+    userName?: string[];
     email?: string[];
     password?: string[];
-    confirm_password?: string[];
-    first_name?: string[];
+    confirmPassword?: string[];
+    firstName?: string[];
   };
   result?: any;
 };

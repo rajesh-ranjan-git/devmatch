@@ -15,17 +15,17 @@ export async function registerAction(
   prevState: AuthFormStateType,
   formData: FormData
 ) {
-  const user_name = formData.get("user_name");
+  const userName = formData.get("userName");
   const email = formData.get("email");
   const password = formData.get("password");
-  const confirm_password = formData.get("confirm_password");
+  const confirmPassword = formData.get("confirmPassword");
 
   const errors: AuthFormStateType["errors"] = {};
 
   const { validatedUserName, userNameErrors } = userNameValidator(
-    user_name as string
+    userName as string
   );
-  errors.user_name = [...(userNameErrors ?? [])];
+  errors.userName = [...(userNameErrors ?? [])];
 
   const { validatedEmail, emailErrors } = emailValidator(email as string);
   errors.email = [...(emailErrors ?? [])];
@@ -38,8 +38,8 @@ export async function registerAction(
   const {
     validatedPassword: validatedConfirmPassword,
     passwordErrors: passwordConfirmErrors,
-  } = passwordValidator(confirm_password as string);
-  errors.confirm_password = [...(passwordConfirmErrors ?? [])];
+  } = passwordValidator(confirmPassword as string);
+  errors.confirmPassword = [...(passwordConfirmErrors ?? [])];
 
   if (Object.values(errors).filter((item) => item.length > 0).length > 0) {
     return {
@@ -79,16 +79,16 @@ export async function loginAction(
   prevState: AuthFormStateType,
   formData: FormData
 ) {
-  const user_name = formData.get("user_name");
+  const userName = formData.get("userName");
   const email = formData.get("email");
   const password = formData.get("password");
 
   const errors: AuthFormStateType["errors"] = {};
 
   const { validatedUserName, userNameErrors } = userNameValidator(
-    user_name as string
+    userName as string
   );
-  errors.user_name = [...(userNameErrors ?? [])];
+  errors.userName = [...(userNameErrors ?? [])];
 
   const { validatedEmail, emailErrors } = emailValidator(email as string);
   errors.email = [...(emailErrors ?? [])];
@@ -96,7 +96,7 @@ export async function loginAction(
   if (validatedUserName && !validatedEmail) {
     errors.email = [];
   } else if (!validatedUserName && validatedEmail) {
-    errors.user_name = [];
+    errors.userName = [];
   }
 
   const { validatedPassword, passwordErrors } = passwordValidator(
@@ -138,9 +138,9 @@ export async function forgotPasswordAction(
   formData: FormData
 ) {
   const email = formData.get("email");
-  const first_name = formData.get("first_name");
+  const firstName = formData.get("firstName");
   const password = formData.get("password");
-  const confirm_password = formData.get("confirm_password");
+  const confirmPassword = formData.get("confirmPassword");
 
   const errors: AuthFormStateType["errors"] = {};
 
@@ -148,9 +148,9 @@ export async function forgotPasswordAction(
   errors.email = [...(emailErrors ?? [])];
 
   const { validatedFirstName, firstNameErrors } = firstNameValidator(
-    first_name as string
+    firstName as string
   );
-  errors.first_name = [...(firstNameErrors ?? [])];
+  errors.firstName = [...(firstNameErrors ?? [])];
 
   const { validatedPassword, passwordErrors } = passwordValidator(
     password as string
@@ -160,8 +160,8 @@ export async function forgotPasswordAction(
   const {
     validatedPassword: validatedConfirmPassword,
     passwordErrors: passwordConfirmErrors,
-  } = passwordValidator(confirm_password as string);
-  errors.confirm_password = [...(passwordConfirmErrors ?? [])];
+  } = passwordValidator(confirmPassword as string);
+  errors.confirmPassword = [...(passwordConfirmErrors ?? [])];
 
   if (Object.values(errors).filter((item) => item.length > 0).length > 0) {
     return {
@@ -175,10 +175,10 @@ export async function forgotPasswordAction(
   const result = await fetchApiData(apiUrls.register, {
     method: "POST",
     data: {
-      first_name: validatedFirstName,
+      firstName: validatedFirstName,
       email: validatedEmail,
       password: validatedPassword,
-      confirm_password: validatedConfirmPassword,
+      confirmPassword: validatedConfirmPassword,
     },
   });
 

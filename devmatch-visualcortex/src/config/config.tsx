@@ -269,18 +269,18 @@ export const cameraDropDownItems: CameraDropdownItemType[] = [
 ];
 
 export const authFormFieldInputItems: AuthFormFieldInputItemsType = {
-  user_name: {
-    name: AUTH_FORM_FIELDS.user_name,
+  userName: {
+    name: AUTH_FORM_FIELDS.userName,
     type: INPUT_TYPES.text,
-    label: toTitleCase(AUTH_FORM_FIELDS.user_name),
-    placeholder: toTitleCase(AUTH_FORM_FIELDS.user_name),
+    label: toTitleCase(AUTH_FORM_FIELDS.userName),
+    placeholder: toTitleCase(AUTH_FORM_FIELDS.userName),
     icon: <LuUser />,
   },
-  first_name: {
-    name: AUTH_FORM_FIELDS.first_name,
+  firstName: {
+    name: AUTH_FORM_FIELDS.firstName,
     type: INPUT_TYPES.text,
-    label: toTitleCase(AUTH_FORM_FIELDS.first_name),
-    placeholder: toTitleCase(AUTH_FORM_FIELDS.first_name),
+    label: toTitleCase(AUTH_FORM_FIELDS.firstName),
+    placeholder: toTitleCase(AUTH_FORM_FIELDS.firstName),
     icon: <LuUser />,
   },
   email: {
@@ -297,11 +297,11 @@ export const authFormFieldInputItems: AuthFormFieldInputItemsType = {
     placeholder: toTitleCase(AUTH_FORM_FIELDS.password),
     icon: <TbLockPassword />,
   },
-  confirm_password: {
-    name: AUTH_FORM_FIELDS.confirm_password,
+  confirmPassword: {
+    name: AUTH_FORM_FIELDS.confirmPassword,
     type: INPUT_TYPES.password,
-    label: toTitleCase(AUTH_FORM_FIELDS.confirm_password),
-    placeholder: toTitleCase(AUTH_FORM_FIELDS.confirm_password),
+    label: toTitleCase(AUTH_FORM_FIELDS.confirmPassword),
+    placeholder: toTitleCase(AUTH_FORM_FIELDS.confirmPassword),
     icon: <TbLockPassword />,
   },
 };
