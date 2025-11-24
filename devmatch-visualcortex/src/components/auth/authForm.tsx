@@ -113,8 +113,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
               </div>
-              <div className="mt-3 ml-5 w-full">OR</div>
-              <div className="w-full">
+              <div className="mt-2 ml-5 w-full">OR</div>
+              <div className="-mt-2 w-full">
                 <Input
                   name={
                     authFormFieldInputItems?.email?.name ??
