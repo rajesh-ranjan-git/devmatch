@@ -21,8 +21,11 @@ import SubmitButton from "@/components/ui/buttons/submitButton";
 import FormErrorMessage from "../errors/formErrorMessage";
 import { AuthFormStateType } from "@/types/types";
 import { useToast } from "../toast/toast";
+import { useRouter } from "next/navigation";
 
 const AuthForm = ({ type }: AuthFormWrapperProps) => {
+  const router = useRouter();
+
   const { showToast } = useToast();
 
   const initialState: AuthFormStateType = { message: "" };
@@ -37,15 +40,16 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
   );
 
   useEffect(() => {
-    if (!state?.result?.success && state?.result?.error) {
+    if (!state?.success && !state?.result?.success && state?.result?.error) {
       showToast({
-        title: toTitleCase(state?.result?.error?.code),
+        title: toTitleCase(state?.message),
         message: state?.result?.error?.message,
         variant: "error",
       });
     } else if (state?.result?.success) {
+      router.push("/explore");
       showToast({
-        title: toTitleCase(state?.result?.data?.code),
+        title: toTitleCase(state?.message),
         message: state?.result?.data?.message,
         variant: "success",
       });

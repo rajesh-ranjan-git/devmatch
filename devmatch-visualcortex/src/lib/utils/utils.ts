@@ -1,7 +1,7 @@
 export const getRandomItem = <T>(arr: T[]): T =>
   arr[Math.floor(Math.random() * arr.length)];
 
-export const toTitleCase = (text: string) => {
+export const toTitleCase = (text?: string) => {
   if (!text) {
     return "";
   }
@@ -23,7 +23,7 @@ export const toTitleCase = (text: string) => {
     .join(" ");
 };
 
-export const getUrlString = (text: string) => {
+export const getUrlString = (text?: string) => {
   if (!text) {
     return "";
   }
@@ -31,7 +31,7 @@ export const getUrlString = (text: string) => {
   return `/${text.toLowerCase().split(" ").join("-").split("_").join("-")}`;
 };
 
-export const formatDate = (dateString: string | Date) => {
+export const formatDate = (dateString?: string | Date) => {
   if (!dateString) return "N/A";
 
   return new Date(dateString).toLocaleDateString(undefined, {

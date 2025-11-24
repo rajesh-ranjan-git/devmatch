@@ -29,6 +29,7 @@ export enum ApiErrorType {
   AUTHENTICATION_ERROR = "AUTHENTICATION_ERROR",
   AUTHORIZATION_ERROR = "AUTHORIZATION_ERROR",
   NOT_FOUND_ERROR = "NOT_FOUND_ERROR",
+  CONFLICT_ERROR = "CONFLICT_ERROR",
   SERVER_ERROR = "SERVER_ERROR",
   RATE_LIMIT_ERROR = "RATE_LIMIT_ERROR",
   UNKNOWN_ERROR = "UNKNOWN_ERROR",
@@ -103,6 +104,8 @@ const getErrorType = (error: AxiosError): ApiErrorType => {
       return ApiErrorType.AUTHORIZATION_ERROR;
     case 404:
       return ApiErrorType.NOT_FOUND_ERROR;
+    case 409:
+      return ApiErrorType.CONFLICT_ERROR;
     case 429:
       return ApiErrorType.RATE_LIMIT_ERROR;
     case 500:
@@ -142,6 +145,7 @@ const getErrorMessage = (
     [ApiErrorType.AUTHORIZATION_ERROR]:
       "You do not have permission to perform this action.",
     [ApiErrorType.NOT_FOUND_ERROR]: "The requested resource was not found.",
+    [ApiErrorType.CONFLICT_ERROR]: "The requested resource already exists.",
     [ApiErrorType.SERVER_ERROR]: "Server error. Please try again later.",
     [ApiErrorType.RATE_LIMIT_ERROR]:
       "Too many requests. Please try again later.",

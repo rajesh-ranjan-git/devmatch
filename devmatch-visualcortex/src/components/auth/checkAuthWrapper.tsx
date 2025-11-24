@@ -28,6 +28,8 @@ const CheckAuthFormWrapper = ({ children }: ReactNodeProps) => {
   useEffect(() => {
     if (loggedInUser) return;
 
+    if (!loggedInUser && isPublicRoute) return;
+
     let isMounted = true;
 
     const fetchLoggedInUser = async () => {

@@ -9,13 +9,12 @@ import {
 } from "../validations/validations";
 import { fetchApiData } from "../api/fetchApiData";
 import { apiUrls } from "../api/apiUrls";
+import { toTitleCase } from "../utils/utils";
 
 export async function registerAction(
   prevState: AuthFormStateType,
   formData: FormData
 ) {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-
   const user_name = formData.get("user_name");
   const email = formData.get("email");
   const password = formData.get("password");
@@ -63,16 +62,16 @@ export async function registerAction(
 
   if (!result?.success) {
     return {
-      message: "Registration Error!",
+      message: "Registration Failed!",
       result,
-      success: false,
+      success: result?.success ?? false,
     };
   }
 
   return {
-    message: "Registration successful, Welcome!",
+    message: "Welcome!",
     result,
-    success: true,
+    success: result?.success ?? true,
   };
 }
 
@@ -123,14 +122,14 @@ export async function loginAction(
     return {
       message: "Authentication Error",
       result,
-      success: false,
+      success: result?.success ?? false,
     };
   }
 
   return {
-    message: "Login successful, Welcome back!",
+    message: "Welcome back!",
     result,
-    success: true,
+    success: result?.success ?? true,
   };
 }
 
@@ -138,8 +137,6 @@ export async function forgotPasswordAction(
   prevState: AuthFormStateType,
   formData: FormData
 ) {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-
   const email = formData.get("email");
   const first_name = formData.get("first_name");
   const password = formData.get("password");
@@ -189,13 +186,13 @@ export async function forgotPasswordAction(
     return {
       message: "Registration Error!",
       result,
-      success: false,
+      success: result?.success ?? false,
     };
   }
 
   return {
     message: "Password reset successful, Please login again!",
     result,
-    success: true,
+    success: result?.success ?? true,
   };
 }

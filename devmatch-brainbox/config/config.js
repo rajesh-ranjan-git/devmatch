@@ -96,6 +96,10 @@ export const status = {
     message: "BAD REQUEST",
     statusCode: 400,
   },
+  authenticationError: {
+    message: "AUTHENTICATION ERROR",
+    statusCode: 401,
+  },
   forbidden: {
     message: "FORBIDDEN",
     statusCode: 403,
