@@ -7,6 +7,7 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 export interface ApiResponse<T = any> {
   success: boolean;
   data?: T;
+  cookies?: string[];
   error?: {
     message: string;
     code?: string;
@@ -195,6 +196,7 @@ export async function apiCall<T = any>(
       return {
         success: true,
         data: response.data,
+        cookies: response.headers["set-cookie"],
         metadata: {
           timestamp: new Date().toISOString(),
           requestId: response.headers["x-request-id"],

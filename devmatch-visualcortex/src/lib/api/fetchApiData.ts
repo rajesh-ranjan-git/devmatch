@@ -31,6 +31,7 @@ export interface FetchApiOptions extends ApiCallOptions {
 export interface FetchApiResult<T = any> {
   success: boolean;
   data?: T;
+  cookies?: string[];
   error?: ApiResponse["error"];
   cancel?: () => void;
 }
@@ -170,6 +171,7 @@ export async function fetchApiData<T = any>(
       console.log("Success:", apiResponse.success);
       if (apiResponse.success) {
         console.log("Data:", apiResponse.data);
+        console.log("Cookies:", apiResponse.cookies);
       } else {
         console.error("Error:", apiResponse.error);
       }
@@ -190,6 +192,7 @@ export async function fetchApiData<T = any>(
       return {
         success: true,
         data: apiResponse.data,
+        cookies: apiResponse.cookies,
         cancel: cancelFunction,
       };
     }

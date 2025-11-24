@@ -9,7 +9,7 @@ import {
 } from "../validations/validations";
 import { fetchApiData } from "../api/fetchApiData";
 import { apiUrls } from "../api/apiUrls";
-import { toTitleCase } from "../utils/utils";
+import { cookies } from "next/headers";
 
 export async function registerAction(
   prevState: AuthFormStateType,
@@ -66,6 +66,22 @@ export async function registerAction(
       result,
       success: result?.success ?? false,
     };
+  }
+
+  const cookieStore = await cookies();
+  const rawCookie = result?.cookies?.[0];
+  const tokenMatch = rawCookie?.match(/authToken=([^;]+)/);
+  const token = tokenMatch?.[1];
+
+  if (token) {
+    cookieStore.set({
+      name: "authToken",
+      value: token,
+      httpOnly: true,
+      path: "/",
+    });
+  } else {
+    console.error("Auth token not found in cookies!");
   }
 
   return {
@@ -128,6 +144,22 @@ export async function loginAction(
       result,
       success: result?.success ?? false,
     };
+  }
+
+  const cookieStore = await cookies();
+  const rawCookie = result?.cookies?.[0];
+  const tokenMatch = rawCookie?.match(/authToken=([^;]+)/);
+  const token = tokenMatch?.[1];
+
+  if (token) {
+    cookieStore.set({
+      name: "authToken",
+      value: token,
+      httpOnly: true,
+      path: "/",
+    });
+  } else {
+    console.error("Auth token not found in cookies!");
   }
 
   return {
