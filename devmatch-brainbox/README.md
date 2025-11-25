@@ -8,6 +8,7 @@ devmatch
 🤖 devmatch-brainbox 🤖
 │
 ├── User APIs
+│   ├── GET -> /user/checkAuth
 │   ├── POST -> /user/register
 │   ├── POST -> /user/login
 │   ├── POST -> /user/logout
@@ -48,6 +49,7 @@ devmatch
 │   ├── password -> String
 │   ├── previousPassword -> String
 │   ├── passwordLastUpdated -> Date
+│   ├── userName -> String
 │   ├── firstName -> String
 │   ├── middleName -> String
 │   ├── lastName -> String
