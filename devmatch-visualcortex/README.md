@@ -82,7 +82,8 @@ devmatch
      │    │    │    └── requestsSheetItem.tsx
      │    │    │
      │    │    ├── 📁 errors
-     │    │    │    └── errorWrapper.tsx
+     │    │    │    ├── errorWrapper.tsx
+     │    │    │    └── formErrorMessage.tsx
      │    │    │
      │    │    ├── 📁 explore
      │    │    │    ├── explore.tsx
@@ -149,14 +150,29 @@ devmatch
      │    │    └── constants.ts
      │    │
      │    ├── 📁 hooks
-     │    │    ├── useCheckAuth.tsx
      │    │    ├── useContextMenu.tsx
      │    │    ├── useOutsideClick.tsx
      │    │    ├── useSheet.tsx
      │    │    └── useWebStorage.tsx
      │    │
      │    ├── 📁 lib
-     │    │    └── utils.ts
+     │    │    │
+     │    │    ├── 📁 actions
+     │    │    │    └── authActions.ts
+     │    │    │
+     │    │    ├── 📁 actions
+     │    │    │    ├── apiHandler.ts
+     │    │    │    ├── apiUrls.ts
+     │    │    │    └── fetchApiData.ts
+     │    │    │
+     │    │    ├── 📁 routes
+     │    │    │    └── routes.ts
+     │    │    │
+     │    │    ├── 📁 utils
+     │    │    │    └── utils.ts
+     │    │    │
+     │    │    └── 📁 validations
+     │    │         └── validations.ts
      │    │
      │    ├── 📁 store
      │    │    └── store.tsx
