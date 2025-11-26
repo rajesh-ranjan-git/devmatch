@@ -260,7 +260,6 @@ devmatch
 │    │    │    └── constants.ts
 │    │    │
 │    │    ├── 📁 hooks
-│    │    │    ├── useCheckAuth.tsx
 │    │    │    ├── useContextMenu.tsx
 │    │    │    ├── useOutsideClick.tsx
 │    │    │    ├── useSheet.tsx
