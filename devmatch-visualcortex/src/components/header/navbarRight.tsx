@@ -16,9 +16,22 @@ import NotificationsDropdownItems from "@/components/header/notificationsDropdow
 import NavbarButton from "@/components/ui/buttons/navbarButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 import Dropdown from "@/components/ui/dropdown/dropdown";
+import { useRouter } from "next/navigation";
 
 const NavbarRight = () => {
+  const router = useRouter();
+
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
+
+  const handleAccountOptionClick = (e: React.MouseEvent<HTMLUListElement>) => {
+    const target = e.target as HTMLElement;
+    const li = target.closest("[data-url]") as HTMLElement;
+    if (!li) return;
+
+    const url = li.dataset.url;
+
+    router.push(url ?? "");
+  };
 
   return (
     <div className="flex justify-center items-center gap-4">
@@ -56,19 +69,32 @@ const NavbarRight = () => {
             </div>
           </NavbarButton>
           <Dropdown id="account-options-dropdown">
-            <p className="p-2 px-4 font-bold text-lg">Rajesh Ranjan</p>
+            {loggedInUser?.userName && (
+              <p className="p-1 px-4 pb-0 font-bold text-sm">
+                {loggedInUser?.userName}
+              </p>
+            )}
+            {loggedInUser?.email && (
+              <p className="p-1 px-4 pb-2 font-bold text-md">
+                {loggedInUser?.email}
+              </p>
+            )}
             <HorizontalSeparator />
-            <div className="flex flex-col gap-1">
+            <ul
+              className="flex flex-col gap-1"
+              onClick={handleAccountOptionClick}
+            >
               {accountOptionsDropdownItems.map((item) => (
-                <p
+                <li
                   key={item.type}
+                  data-url={item.url}
                   className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg transition-all ease-in-out cursor-pointer"
                 >
                   <span>{item.icon}</span>
                   <span className="w-full">{toTitleCase(item.type)}</span>
-                </p>
+                </li>
               ))}
-            </div>
+            </ul>
           </Dropdown>
         </>
       )}

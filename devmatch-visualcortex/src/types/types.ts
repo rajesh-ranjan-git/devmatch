@@ -29,6 +29,7 @@ export type LoggedInUserType = {
   id: string;
   email: string;
   firsName: string;
+  userName: string;
 } | null;
 
 export type NavbarMenuItemTypes = keyof typeof NAVBAR_MENU_ITEMS;
