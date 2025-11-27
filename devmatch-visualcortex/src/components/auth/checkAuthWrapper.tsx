@@ -64,7 +64,7 @@ const CheckAuthFormWrapper = ({ children }: ReactNodeProps) => {
     return () => {
       isMounted = false;
     };
-  }, [loggedInUser, isPublicRoute, router, setLoggedInUser]);
+  }, [loggedInUser, isPublicRoute, router]);
 
   return <>{children}</>;
 };

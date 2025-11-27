@@ -8,7 +8,7 @@ import {
   navbarMenuItems,
   staticImages,
 } from "@/config/config";
-import { toTitleCase } from "@/lib/utils/utils";
+import { getUrlString, toTitleCase } from "@/lib/utils/utils";
 import { useDevMatchAppStore } from "@/store/store";
 import ThemeToggle from "@/components/theme/themeToggle";
 import Connections from "@/components/connections/connections";
@@ -16,12 +16,22 @@ import NotificationsDropdownItems from "@/components/header/notificationsDropdow
 import NavbarButton from "@/components/ui/buttons/navbarButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 import Dropdown from "@/components/ui/dropdown/dropdown";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { ACCOUNT_OPTIONS_DROPDOWN_ITEMS } from "@/config/constants";
+import { fetchApiData } from "@/lib/api/fetchApiData";
+import { apiUrls } from "@/lib/api/apiUrls";
+import { useToast } from "../toast/toast";
+import { authRoutes } from "@/lib/routes/routes";
+import { useEffect } from "react";
 
 const NavbarRight = () => {
+  const pathname = usePathname();
   const router = useRouter();
 
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
+  const setLoggedInUser = useDevMatchAppStore((state) => state.setLoggedInUser);
+
+  const { showToast } = useToast();
 
   const handleAccountOptionClick = (e: React.MouseEvent<HTMLUListElement>) => {
     const target = e.target as HTMLElement;
@@ -30,8 +40,32 @@ const NavbarRight = () => {
 
     const url = li.dataset.url;
 
-    router.push(url ?? "");
+    if (url?.includes(ACCOUNT_OPTIONS_DROPDOWN_ITEMS.logout)) {
+      handleLogout();
+    } else {
+      router.push(url ?? "");
+    }
   };
+
+  const handleLogout = async () => {
+    const logoutData = await fetchApiData(apiUrls.logout);
+
+    if (logoutData?.success) {
+      router.push(getUrlString(authRoutes.login));
+
+      showToast({
+        title: "Logout Successful!",
+        message: "See you soon!",
+        variant: "success",
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (pathname.includes(authRoutes.login)) {
+      setLoggedInUser(null);
+    }
+  }, [pathname]);
 
   return (
     <div className="flex justify-center items-center gap-4">
@@ -88,6 +122,7 @@ const NavbarRight = () => {
                 <li
                   key={item.type}
                   data-url={item.url}
+                  data-close-dropdown
                   className="flex justify-between items-center hover:bg-glass-surface-heavy p-1 rounded-lg transition-all ease-in-out cursor-pointer"
                 >
                   <span>{item.icon}</span>

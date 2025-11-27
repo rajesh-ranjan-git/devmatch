@@ -207,8 +207,8 @@ button[popovertarget="update-profile-cover-dropdown"] {
   opacity: 0;
   transform: scaleY(0);
   transform-origin: top;
-  transition: opacity 500ms, transform 500ms, overlay 500ms allow-discrete,
-    display 500ms allow-discrete;
+  transition: opacity 300ms, transform 300ms, overlay 300ms allow-discrete,
+    display 300ms allow-discrete;
   position-try-fallbacks: --bottom-left, --bottom-right, --top-right, --top-left;
 }
 
