@@ -1,3 +1,5 @@
+import { LoggedInUserType } from "@/types/types";
+
 export const getRandomItem = <T>(arr: T[]): T =>
   arr[Math.floor(Math.random() * arr.length)];
 
@@ -42,4 +44,8 @@ export const formatDate = (dateString?: string | Date) => {
     minute: "2-digit",
     hour12: true,
   });
+};
+
+export const getFullName = (user: LoggedInUserType) => {
+  return `${user?.firstName} ${user?.middleName} ${user?.lastName}`;
 };

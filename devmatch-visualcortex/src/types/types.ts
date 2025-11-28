@@ -28,8 +28,13 @@ export type StorageTypes = keyof typeof STORAGE;
 export type LoggedInUserType = {
   id: string;
   email: string;
-  firsName: string;
+  firstName?: string;
+  middleName?: string;
+  lastName?: string;
+  nickName?: string;
   userName: string;
+  coverPhotoUrl?: string;
+  avatarUrl?: string;
 } | null;
 
 export type NavbarMenuItemTypes = keyof typeof NAVBAR_MENU_ITEMS;

@@ -15,6 +15,16 @@ if (existsSync(envFilePath)) {
 
 const nextConfig = {
   reactCompiler: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
 
   // Optional: Expose NEXT_PUBLIC_* values to the client
   env: {

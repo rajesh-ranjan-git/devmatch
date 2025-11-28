@@ -2,16 +2,23 @@
 
 import Image from "next/image";
 import { cameraDropDownItems, staticImages } from "@/config/config";
+import { useDevMatchAppStore } from "@/store/store";
 import NameCardContent from "@/components/explore/nameCardContent";
 import ProfileCoverEditButton from "@/components/ui/buttons/profileCoverEditButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 import Dropdown from "@/components/ui/dropdown/dropdown";
 
 const ProfileCover = () => {
+  const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
+
   return (
     <div className="group relative flex justify-center items-center shadow-[0_0.3rem_1rem_rgba(0,0,0,0.2)] rounded-xl w-3/4 h-full overflow-hidden">
       <Image
-        src={staticImages.profilePlaceholder.src}
+        src={
+          loggedInUser && loggedInUser?.avatarUrl
+            ? loggedInUser?.avatarUrl
+            : staticImages.profilePlaceholder.src
+        }
         alt={staticImages.profilePlaceholder.alt}
         width={600}
         height={400}

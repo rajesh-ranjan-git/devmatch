@@ -7,19 +7,27 @@ import {
   cameraDropDownItems,
   staticImages,
 } from "@/config/config";
+import { useDevMatchAppStore } from "@/store/store";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 import Dropdown from "@/components/ui/dropdown/dropdown";
 import ProfilePhotoEditButton from "@/components/ui/buttons/profilePhotoEditButton";
+import { getFullName, toTitleCase } from "@/lib/utils/utils";
 
 const ProfileDetails = () => {
+  const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
+
   return (
     <div className="relative flex flex-col p-8 pb-4 w-full h-full">
       <div className="flex gap-4">
         <div className="relative border border-glass-border-bright rounded-full w-12 h-11 object-cover cursor-pointer">
           <Image
-            src={staticImages.profilePlaceholder.src}
+            src={
+              loggedInUser && loggedInUser?.avatarUrl
+                ? loggedInUser?.avatarUrl
+                : staticImages.profilePlaceholder.src
+            }
             alt={staticImages.profilePlaceholder.alt}
             width={100}
             height={100}
@@ -47,7 +55,7 @@ const ProfileDetails = () => {
           </Dropdown>
         </div>
         <h2 className="before:-bottom-2.5 before:left-0 before:absolute relative mb-4 before:rounded-full w-full before:w-20 before:h-1 font-arima font-extrabold text-glass-text-primary before:bg-glass-text-primary text-2xl before:content-[''] tracking-wider">
-          Rajesh Ranjan
+          {loggedInUser ? toTitleCase(getFullName(loggedInUser)) : "John Doe"}
         </h2>
       </div>
 
@@ -61,7 +69,11 @@ const ProfileDetails = () => {
               <td className="py-1 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
                 <div className="flex justify-between items-start w-full overflow-hidden">
                   <div className="pr-4 w-full">
-                    <span>Rajjo</span>
+                    <span>
+                      {loggedInUser
+                        ? toTitleCase(loggedInUser?.nickName)
+                        : "John"}
+                    </span>
                   </div>
                   <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm text-glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
                     <MdOutlineEdit className="group-hover/icon:hidden" />
@@ -77,7 +89,11 @@ const ProfileDetails = () => {
               <td className="py-1 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
                 <div className="flex justify-between items-start w-full overflow-hidden">
                   <div className="pr-4 w-full">
-                    <span>Full Stack Developer</span>
+                    <span>
+                      {loggedInUser
+                        ? toTitleCase(loggedInUser?.nickName)
+                        : "John"}
+                    </span>
                   </div>
                   <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm w-7glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
                     <MdOutlineEdit className="group-hover/icon:hidden" />

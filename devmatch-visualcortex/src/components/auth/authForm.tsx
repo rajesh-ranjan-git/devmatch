@@ -30,7 +30,6 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
 
   const { showToast } = useToast();
 
-  const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
   const setLoggedInUser = useDevMatchAppStore((state) => state.setLoggedInUser);
 
   const initialState: AuthFormStateType = { message: "" };
@@ -45,8 +44,6 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
   );
 
   useEffect(() => {
-    console.log("debug from authForm pathname : ", pathname);
-    console.log("debug from authForm state : ", state);
     if (!state?.success && !state?.result?.success && state?.result?.error) {
       showToast({
         title: toTitleCase(state?.message),
