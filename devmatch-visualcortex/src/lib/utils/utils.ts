@@ -47,5 +47,11 @@ export const formatDate = (dateString?: string | Date) => {
 };
 
 export const getFullName = (user: LoggedInUserType) => {
-  return `${user?.firstName} ${user?.middleName} ${user?.lastName}`;
+  return user?.firstName && user?.middleName && user?.lastName
+    ? `${user?.firstName} ${user?.middleName} ${user?.lastName}`
+    : user?.firstName && user?.lastName
+    ? `${user?.firstName} ${user?.lastName}`
+    : user?.firstName
+    ? `${user?.firstName}`
+    : "";
 };

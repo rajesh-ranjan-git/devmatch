@@ -11,7 +11,7 @@ import {
   navbarMenuItems,
   staticImages,
 } from "@/config/config";
-import { getUrlString, toTitleCase } from "@/lib/utils/utils";
+import { getFullName, getUrlString, toTitleCase } from "@/lib/utils/utils";
 import { fetchApiData } from "@/lib/api/fetchApiData";
 import { apiUrls } from "@/lib/api/apiUrls";
 import { authRoutes } from "@/lib/routes/routes";
@@ -32,6 +32,8 @@ const NavbarRight = () => {
   const setLoggedInUser = useDevMatchAppStore((state) => state.setLoggedInUser);
 
   const { showToast } = useToast();
+
+  const loggedInUserFullName = getFullName(loggedInUser);
 
   const handleAccountOptionClick = (e: React.MouseEvent<HTMLUListElement>) => {
     const target = e.target as HTMLElement;
@@ -92,7 +94,11 @@ const NavbarRight = () => {
             <div className="flex justify-center items-center gap-2 p-3">
               <div className="w-full object-contain">
                 <Image
-                  src={staticImages.avatarPlaceholder.src}
+                  src={
+                    loggedInUser && loggedInUser?.avatarUrl
+                      ? loggedInUser?.avatarUrl
+                      : staticImages.profilePlaceholder.src
+                  }
                   alt={staticImages.avatarPlaceholder.alt}
                   width={50}
                   height={50}
@@ -108,10 +114,16 @@ const NavbarRight = () => {
                 {loggedInUser?.userName}
               </p>
             )}
-            {loggedInUser?.email && (
+            {loggedInUserFullName ? (
               <p className="p-1 px-4 pb-2 font-bold text-md">
-                {loggedInUser?.email}
+                {toTitleCase(loggedInUserFullName)}
               </p>
+            ) : (
+              loggedInUser?.email && (
+                <p className="p-1 px-4 pb-2 font-bold text-md">
+                  {loggedInUser?.email}
+                </p>
+              )
             )}
             <HorizontalSeparator />
             <ul

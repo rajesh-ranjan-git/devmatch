@@ -31,9 +31,7 @@ export type LoggedInUserType = {
   firstName?: string;
   middleName?: string;
   lastName?: string;
-  nickName?: string;
   userName: string;
-  coverPhotoUrl?: string;
   avatarUrl?: string;
 } | null;
 

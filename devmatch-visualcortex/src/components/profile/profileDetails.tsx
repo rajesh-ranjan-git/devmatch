@@ -69,11 +69,7 @@ const ProfileDetails = () => {
               <td className="py-1 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
                 <div className="flex justify-between items-start w-full overflow-hidden">
                   <div className="pr-4 w-full">
-                    <span>
-                      {loggedInUser
-                        ? toTitleCase(loggedInUser?.nickName)
-                        : "John"}
-                    </span>
+                    <span>Rajesh</span>
                   </div>
                   <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm text-glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
                     <MdOutlineEdit className="group-hover/icon:hidden" />
@@ -89,11 +85,7 @@ const ProfileDetails = () => {
               <td className="py-1 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
                 <div className="flex justify-between items-start w-full overflow-hidden">
                   <div className="pr-4 w-full">
-                    <span>
-                      {loggedInUser
-                        ? toTitleCase(loggedInUser?.nickName)
-                        : "John"}
-                    </span>
+                    <span>Full Stack Developer</span>
                   </div>
                   <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm w-7glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
                     <MdOutlineEdit className="group-hover/icon:hidden" />

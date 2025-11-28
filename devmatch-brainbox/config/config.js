@@ -352,9 +352,7 @@ export const defaultUserProperties = selectObjectProperties(userProperties, [
   "FIRST_NAME",
   "MIDDLE_NAME",
   "LAST_NAME",
-  "NICK_NAME",
   "AVATAR_URL",
-  "COVER_PHOTO_URL",
 ]);
 
 export const publicProfileProperties = omitObjectProperties(userProperties, [
