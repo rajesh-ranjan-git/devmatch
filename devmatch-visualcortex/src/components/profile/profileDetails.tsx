@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { MdEdit, MdOutlineEdit } from "react-icons/md";
-import { BsCamera } from "react-icons/bs";
 import {
   authFormFieldButtonItems,
   cameraDropDownItems,
@@ -12,7 +11,7 @@ import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 import Dropdown from "@/components/ui/dropdown/dropdown";
-import ProfilePhotoEditButton from "../ui/buttons/profilePhotoEditButton";
+import ProfilePhotoEditButton from "@/components/ui/buttons/profilePhotoEditButton";
 
 const ProfileDetails = () => {
   return (

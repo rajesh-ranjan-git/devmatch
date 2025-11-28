@@ -3,11 +3,13 @@
 import { useActionState, useEffect } from "react";
 import Form from "next/form";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { AUTH_FORM_FIELDS, INPUT_TYPES } from "@/config/constants";
 import {
   authFormFieldInputItems,
   authFormFieldButtonItems,
 } from "@/config/config";
+import { AuthFormStateType } from "@/types/types";
 import { AuthFormWrapperProps } from "@/types/propTypes";
 import { authRoutes } from "@/lib/routes/routes";
 import { toTitleCase } from "@/lib/utils/utils";
@@ -16,13 +18,11 @@ import {
   registerAction,
   forgotPasswordAction,
 } from "@/lib/actions/authActions";
-import Input from "@/components/auth/input";
-import SubmitButton from "@/components/ui/buttons/submitButton";
-import FormErrorMessage from "../errors/formErrorMessage";
-import { AuthFormStateType } from "@/types/types";
-import { useToast } from "../toast/toast";
-import { useRouter } from "next/navigation";
 import { useDevMatchAppStore } from "@/store/store";
+import Input from "@/components/auth/input";
+import FormErrorMessage from "@/components/errors/formErrorMessage";
+import { useToast } from "@/components/toast/toast";
+import SubmitButton from "@/components/ui/buttons/submitButton";
 
 const AuthForm = ({ type }: AuthFormWrapperProps) => {
   const router = useRouter();

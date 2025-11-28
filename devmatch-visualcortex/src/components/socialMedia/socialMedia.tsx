@@ -1,5 +1,5 @@
-import SocialMediaItem from "@/components/socialMedia/socialMediaItem";
 import { socialMediaIcons } from "@/config/config";
+import SocialMediaItem from "@/components/socialMedia/socialMediaItem";
 
 const SocialMedia = () => {
   return (

@@ -1,6 +1,5 @@
 import { THEMES } from "@/config/constants";
 import { useDevMatchAppStore } from "@/store/store";
-import { useEffect } from "react";
 
 const ThemeToggle = () => {
   const switchTheme = useDevMatchAppStore((state) => state.switchTheme);

@@ -9,7 +9,7 @@ import { fetchApiData } from "@/lib/api/fetchApiData";
 import { authRoutes } from "@/lib/routes/routes";
 import { getUrlString } from "@/lib/utils/utils";
 import { useDevMatchAppStore } from "@/store/store";
-import { useToast } from "../toast/toast";
+import { useToast } from "@/components/toast/toast";
 
 const CheckAuthFormWrapper = ({ children }: ReactNodeProps) => {
   const pathname = usePathname();

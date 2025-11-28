@@ -1,28 +1,28 @@
 "use client";
 
+import { useEffect } from "react";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 import { LuBell } from "react-icons/lu";
 import { FaChevronDown } from "react-icons/fa6";
+import { ACCOUNT_OPTIONS_DROPDOWN_ITEMS } from "@/config/constants";
 import {
   accountOptionsDropdownItems,
   navbarMenuItems,
   staticImages,
 } from "@/config/config";
 import { getUrlString, toTitleCase } from "@/lib/utils/utils";
+import { fetchApiData } from "@/lib/api/fetchApiData";
+import { apiUrls } from "@/lib/api/apiUrls";
+import { authRoutes } from "@/lib/routes/routes";
 import { useDevMatchAppStore } from "@/store/store";
+import { useToast } from "@/components/toast/toast";
 import ThemeToggle from "@/components/theme/themeToggle";
 import Connections from "@/components/connections/connections";
 import NotificationsDropdownItems from "@/components/header/notificationsDropdownItems";
 import NavbarButton from "@/components/ui/buttons/navbarButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 import Dropdown from "@/components/ui/dropdown/dropdown";
-import { usePathname, useRouter } from "next/navigation";
-import { ACCOUNT_OPTIONS_DROPDOWN_ITEMS } from "@/config/constants";
-import { fetchApiData } from "@/lib/api/fetchApiData";
-import { apiUrls } from "@/lib/api/apiUrls";
-import { useToast } from "../toast/toast";
-import { authRoutes } from "@/lib/routes/routes";
-import { useEffect } from "react";
 
 const NavbarRight = () => {
   const pathname = usePathname();

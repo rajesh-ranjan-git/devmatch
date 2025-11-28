@@ -1,10 +1,10 @@
 "use client";
 
+import { useDevMatchAppStore } from "@/store/store";
 import AnimatedFloatingSquares from "@/components/background/animatedFloatingSquares";
-import VerticalSeparator from "@/components/ui/separators/verticalSeparator";
 import ProfileCover from "@/components/profile/profileCover";
 import ProfileDetails from "@/components/profile/profileDetails";
-import { useDevMatchAppStore } from "@/store/store";
+import VerticalSeparator from "@/components/ui/separators/verticalSeparator";
 
 const ProfileWrapper = () => {
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);

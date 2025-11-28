@@ -7,11 +7,11 @@ import {
   useCallback,
   useEffect,
 } from "react";
+import { motion } from "motion/react";
 import { FiCheckCircle, FiAlertCircle } from "react-icons/fi";
 import { TbAlertTriangle } from "react-icons/tb";
 import { FaInfoCircle } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
-import { motion } from "motion/react";
 
 export const TOAST_VARIANTS = {
   success: "success",

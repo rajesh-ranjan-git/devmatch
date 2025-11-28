@@ -1,5 +1,5 @@
-import { ButtonProps } from "@/types/propTypes";
 import { BsCamera } from "react-icons/bs";
+import { ButtonProps } from "@/types/propTypes";
 
 const ProfilePhotoEditButton = ({ popoverTarget }: ButtonProps) => {
   return (

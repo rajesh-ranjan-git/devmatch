@@ -4,7 +4,7 @@ import {
   createCancellableRequest,
   ApiResponse,
   ApiCallOptions,
-} from "./apiHandler";
+} from "@/lib/api/apiHandler";
 
 /**
  * HTTP methods supported by the API

@@ -1,15 +1,15 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { AuthFormStateType } from "@/types/types";
 import {
   emailValidator,
   firstNameValidator,
   passwordValidator,
   userNameValidator,
-} from "../validations/validations";
-import { fetchApiData } from "../api/fetchApiData";
-import { apiUrls } from "../api/apiUrls";
-import { cookies } from "next/headers";
+} from "@/lib/validations/validations";
+import { fetchApiData } from "@/lib/api/fetchApiData";
+import { apiUrls } from "@/lib/api/apiUrls";
 
 export async function registerAction(
   prevState: AuthFormStateType,
