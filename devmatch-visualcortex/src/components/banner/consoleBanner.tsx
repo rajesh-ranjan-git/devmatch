@@ -4,10 +4,16 @@ import { useEffect } from "react";
 import figlet from "figlet";
 import gradient from "gradient-string";
 import boxen from "boxen";
-import { BANNER_FONTS, BANNER_THEMES } from "@/config/constants";
+import {
+  APP,
+  BANNER_FONTS,
+  BANNER_THEMES,
+  ERROR_MESSAGES,
+  MESSAGE_TITLES,
+} from "@/config/constants";
 import { ConsoleBannerProps } from "@/types/propTypes";
 import { getRandomItem } from "@/lib/utils/utils";
-import { useToast } from "@/components/toast/toast";
+import { TOAST_VARIANTS, useToast } from "@/components/toast/toast";
 
 const systemInfo = (nodeVersion: string) => {
   const info = `
@@ -33,14 +39,14 @@ const ConsoleBanner = ({ nodeVersion }: ConsoleBannerProps) => {
   const bannerDescGradient = gradient(bannerDesc.gradient);
 
   useEffect(() => {
-    fetch("/assets/fonts/ansi_shadow.flf")
+    fetch(BANNER_FONTS.ansiShadow.url)
       .then((res) => res.text())
       .then((font) => {
         figlet.parseFont("ANSI Shadow", font);
 
         figlet.text(
-          "DEVMATCH",
-          { font: BANNER_FONTS.ansiShadow },
+          APP.name.toUpperCase(),
+          { font: BANNER_FONTS.ansiShadow.name },
           async (error, data) => {
             if (error) {
               console.error(
@@ -48,17 +54,15 @@ const ConsoleBanner = ({ nodeVersion }: ConsoleBannerProps) => {
                 error
               );
               showToast({
-                title: "Failed!",
-                message: "An error occurred while creating console banner!",
-                variant: "error",
+                title: MESSAGE_TITLES.bannerFailed,
+                message: ERROR_MESSAGES.bannerError,
+                variant: TOAST_VARIANTS.error,
               });
               return;
             }
 
             const output = bannerGradient.multiline(data as string);
-            const desc = bannerDescGradient.multiline(
-              "Tinder for Software Engineers!"
-            );
+            const desc = bannerDescGradient.multiline(APP.desc);
             const sysInfo = systemInfo(nodeVersion);
 
             console.log(`\n${output}\n${desc}\n\n${sysInfo}\n\n`);
@@ -69,9 +73,9 @@ const ConsoleBanner = ({ nodeVersion }: ConsoleBannerProps) => {
       .catch((err) => {
         console.error("An error occurred while creating console banner :", err);
         showToast({
-          title: "Failed!",
-          message: "An error occurred while creating console banner!",
-          variant: "error",
+          title: MESSAGE_TITLES.bannerFailed,
+          message: ERROR_MESSAGES.bannerError,
+          variant: TOAST_VARIANTS.error,
         });
       });
   }, []);

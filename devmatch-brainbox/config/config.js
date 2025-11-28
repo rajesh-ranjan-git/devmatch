@@ -3,6 +3,11 @@ import {
   selectObjectProperties,
 } from "../utils/utils.js";
 
+export const app = {
+  name: "devmatch",
+  desc: "Tinder for Software Engineers!",
+};
+
 export const bannerFonts = {
   big: "Big",
   doom: "Doom",
@@ -82,6 +87,8 @@ export const PHOTO_URL_REGEX =
   /^(https?:\/\/)([a-zA-Z0-9\-._~%]+@)?([a-zA-Z0-9\-._~%]+\.)+[a-zA-Z]{2,}(\/[^\s?#]*)*(\.(jpg|jpeg|png|gif|webp|svg))?(\?[^\s]*)?$/i;
 export const GITHUB_REGEX =
   /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9-]{1,39}\/?$/;
+export const LINKEDIN_REGEX =
+  /^https?:\/\/(www\.)?linkedin\.com\/[A-Za-z0-9-]{1,39}\/?$/;
 export const WEBSITE_REGEX =
   /^https?:\/\/(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+(:\d+)?(\/[^\s]*)?$/;
 export const COUNTRY_CODE_REGEX = /^\d{1,3}$/;
@@ -202,7 +209,7 @@ export const errorMessages = {
   INCORRECT_SECURITY_QUESTION_ANSWER_ERROR:
     "Incorrect security question's answer!",
   INCORRECT_OLD_PASSWORD_ERROR: "Incorrect old password! ",
-  PASSWORD_UPDATE_FAILED: "Unable to update password!",
+  PASSWORD_UPDATE_FAILED_ERROR: "Unable to update password!",
   PASSWORD_ALREADY_USED_ERROR:
     "New password must be different from previous password!",
   PASSWORD_EXPIRED_ERROR: "Password expired!",
@@ -232,7 +239,11 @@ export const errorMessages = {
   JOB_PROFILE_MAX_LENGTH_ERROR:
     "Job profile must not be longer than 100 characters!",
   INVALID_GITHUB_URL_ERROR: "Invalid github url!",
+  INVALID_LINKEDIN_URL_ERROR: "Invalid linkedin url!",
   INVALID_WEBSITE_URL_ERROR: "Invalid website url!",
+  INVALID_COMPANY_ERROR: "Invalid company!",
+  COMPANY_MIN_LENGTH_ERROR: "Company must be at least 2 characters long!",
+  COMPANY_MAX_LENGTH_ERROR: "Company must not be longer than 100 characters!",
   INVALID_ORGANIZATION_ERROR: "Invalid organization!",
   ORGANIZATION_MIN_LENGTH_ERROR:
     "Organization must be at least 2 characters long!",
@@ -314,7 +325,9 @@ export const userProperties = {
   JOB_PROFILE: "jobProfile",
   EXPERIENCE: "experience",
   GITHUB: "github",
+  LINKEDIN: "linkedin",
   WEBSITE: "website",
+  COMPANY: "company",
   ORGANIZATION: "organization",
   SKILLS: "skills",
   INTERESTS: "interests",

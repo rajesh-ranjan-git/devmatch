@@ -176,7 +176,7 @@ export const updatePassword = async (req, res) => {
     if (!updatedUser) {
       throw new DatabaseError(
         status.internalServerError,
-        errorMessages.PASSWORD_UPDATE_FAILED,
+        errorMessages.PASSWORD_UPDATE_FAILED_ERROR,
         { user: updatedUser },
         req?.url
       );

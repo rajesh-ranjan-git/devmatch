@@ -1,14 +1,14 @@
 import {
   ALLOWED_SPECIAL_CHARACTERS_REGEX,
   EMAIL_REGEX,
-  errorMessages,
+  ERROR_MESSAGES,
   LOWER_CASE_REGEX,
   NAME_REGEX,
   NUMBER_REGEX,
-  propertyConstraints,
+  USER_PROPERTY_CONSTRAINTS,
   UPPER_CASE_REGEX,
   USER_NAME_REGEX,
-  userProperties,
+  USER_PROPERTIES,
 } from "@/config/constants";
 
 export const userNameValidator = (user_name: string) => {
@@ -16,19 +16,19 @@ export const userNameValidator = (user_name: string) => {
   const value = user_name?.trim().toLowerCase();
 
   if (!value) {
-    userNameErrors.push(errorMessages.USER_NAME_REQUIRED_ERROR);
+    userNameErrors.push(ERROR_MESSAGES.userNameRequiredError);
   }
 
-  if (value.length < propertyConstraints.MIN_USER_NAME_LENGTH) {
-    userNameErrors.push(errorMessages.USER_NAME_MIN_LENGTH_ERROR);
+  if (value.length < USER_PROPERTY_CONSTRAINTS.minUserNameLength) {
+    userNameErrors.push(ERROR_MESSAGES.userNameMinLengthError);
   }
 
-  if (value.length > propertyConstraints.MAX_USER_NAME_LENGTH) {
-    userNameErrors.push(errorMessages.USER_NAME_MAX_LENGTH_ERROR);
+  if (value.length > USER_PROPERTY_CONSTRAINTS.maxUserNameLength) {
+    userNameErrors.push(ERROR_MESSAGES.userNameMaxLengthError);
   }
 
   if (!USER_NAME_REGEX.test(value)) {
-    userNameErrors.push(errorMessages.INVALID_USER_NAME_ERROR);
+    userNameErrors.push(ERROR_MESSAGES.invalidUserNameError);
   }
 
   if (userNameErrors && userNameErrors?.length > 0) {
@@ -43,11 +43,11 @@ export const emailValidator = (email: string) => {
   const value = email?.trim().toLowerCase();
 
   if (!value) {
-    emailErrors.push(errorMessages.EMAIL_REQUIRED_ERROR);
+    emailErrors.push(ERROR_MESSAGES.emailRequiredError);
   }
 
   if (!EMAIL_REGEX.test(value)) {
-    emailErrors.push(errorMessages.INVALID_EMAIL_ERROR);
+    emailErrors.push(ERROR_MESSAGES.invalidEmailError);
   }
 
   if (emailErrors && emailErrors?.length > 0) {
@@ -62,31 +62,31 @@ export const passwordValidator = (password: string) => {
   const value = password?.trim();
 
   if (!value) {
-    passwordErrors.push(errorMessages.PASSWORD_REQUIRED_ERROR);
+    passwordErrors.push(ERROR_MESSAGES.passwordRequiredError);
   }
 
-  if (value.length < propertyConstraints.MIN_PASSWORD_LENGTH) {
-    passwordErrors.push(errorMessages.PASSWORD_MIN_LENGTH_ERROR);
+  if (value.length < USER_PROPERTY_CONSTRAINTS.minPasswordLength) {
+    passwordErrors.push(ERROR_MESSAGES.passwordMinLengthError);
   }
 
-  if (value.length > propertyConstraints.MAX_PASSWORD_LENGTH) {
-    passwordErrors.push(errorMessages.PASSWORD_MAX_LENGTH_ERROR);
+  if (value.length > USER_PROPERTY_CONSTRAINTS.maxPasswordLength) {
+    passwordErrors.push(ERROR_MESSAGES.passwordMaxLengthError);
   }
 
   if (!UPPER_CASE_REGEX.test(value)) {
-    passwordErrors.push(errorMessages.PASSWORD_UPPERCASE_ERROR);
+    passwordErrors.push(ERROR_MESSAGES.passwordUppercaseError);
   }
 
   if (!LOWER_CASE_REGEX.test(value)) {
-    passwordErrors.push(errorMessages.PASSWORD_LOWERCASE_ERROR);
+    passwordErrors.push(ERROR_MESSAGES.passwordLowercaseError);
   }
 
   if (!NUMBER_REGEX.test(value)) {
-    passwordErrors.push(errorMessages.PASSWORD_NUMBER_ERROR);
+    passwordErrors.push(ERROR_MESSAGES.passwordNumberError);
   }
 
   if (!ALLOWED_SPECIAL_CHARACTERS_REGEX.test(value)) {
-    passwordErrors.push(errorMessages.PASSWORD_SPECIAL_CHARACTERS_ERROR);
+    passwordErrors.push(ERROR_MESSAGES.passwordSpecialCharactersError);
   }
 
   if (passwordErrors && passwordErrors?.length > 0) {
@@ -101,12 +101,12 @@ export const firstNameValidator = (firstName: string) => {
   const value = firstName?.trim().toLowerCase();
 
   if (!value) {
-    firstNameErrors.push(errorMessages.FIRST_NAME_REQUIRED_ERROR);
+    firstNameErrors.push(ERROR_MESSAGES.firstNameRequiredError);
   }
 
   const { validatedName, nameErrors } = nameValidator(
     value,
-    userProperties.FIRST_NAME
+    USER_PROPERTIES.firstName
   );
 
   if (nameErrors && nameErrors?.length > 0) {
@@ -119,39 +119,39 @@ export const firstNameValidator = (firstName: string) => {
 export const nameValidator = (name: string, type: string) => {
   const nameErrors: string[] = [];
 
-  if (name.length < propertyConstraints.MIN_NAME_LENGTH) {
-    if (type === userProperties.FIRST_NAME) {
-      nameErrors.push(errorMessages.FIRST_NAME_MIN_LENGTH_ERROR);
-    } else if (type === userProperties.MIDDLE_NAME) {
-      nameErrors.push(errorMessages.MIDDLE_NAME_MIN_LENGTH_ERROR);
-    } else if (type === userProperties.LAST_NAME) {
-      nameErrors.push(errorMessages.LAST_NAME_MIN_LENGTH_ERROR);
+  if (name.length < USER_PROPERTY_CONSTRAINTS.minNameLength) {
+    if (type === USER_PROPERTIES.firstName) {
+      nameErrors.push(ERROR_MESSAGES.firstNameMinLengthError);
+    } else if (type === USER_PROPERTIES.middleName) {
+      nameErrors.push(ERROR_MESSAGES.middleNameMinLengthError);
+    } else if (type === USER_PROPERTIES.lastName) {
+      nameErrors.push(ERROR_MESSAGES.lastNameMinLengthError);
     } else {
-      nameErrors.push(errorMessages.NICK_NAME_MIN_LENGTH_ERROR);
+      nameErrors.push(ERROR_MESSAGES.nickNameMinLengthError);
     }
   }
 
-  if (name.length > propertyConstraints.MAX_NAME_LENGTH) {
-    if (type === userProperties.FIRST_NAME) {
-      nameErrors.push(errorMessages.FIRST_NAME_MAX_LENGTH_ERROR);
-    } else if (type === userProperties.MIDDLE_NAME) {
-      nameErrors.push(errorMessages.MIDDLE_NAME_MAX_LENGTH_ERROR);
-    } else if (type === userProperties.LAST_NAME) {
-      nameErrors.push(errorMessages.LAST_NAME_MAX_LENGTH_ERROR);
+  if (name.length > USER_PROPERTY_CONSTRAINTS.maxNameLength) {
+    if (type === USER_PROPERTIES.firstName) {
+      nameErrors.push(ERROR_MESSAGES.firstNameMaxLengthError);
+    } else if (type === USER_PROPERTIES.middleName) {
+      nameErrors.push(ERROR_MESSAGES.middleNameMaxLengthError);
+    } else if (type === USER_PROPERTIES.lastName) {
+      nameErrors.push(ERROR_MESSAGES.lastNameMaxLengthError);
     } else {
-      nameErrors.push(errorMessages.NICK_NAME_MAX_LENGTH_ERROR);
+      nameErrors.push(ERROR_MESSAGES.nickNameMaxLengthError);
     }
   }
 
   if (!NAME_REGEX.test(name)) {
-    if (type === userProperties.FIRST_NAME) {
-      nameErrors.push(errorMessages.INVALID_FIRST_NAME_ERROR);
-    } else if (type === userProperties.MIDDLE_NAME) {
-      nameErrors.push(errorMessages.INVALID_MIDDLE_NAME_ERROR);
-    } else if (type === userProperties.LAST_NAME) {
-      nameErrors.push(errorMessages.INVALID_LAST_NAME_ERROR);
+    if (type === USER_PROPERTIES.firstName) {
+      nameErrors.push(ERROR_MESSAGES.invalidFirstNameError);
+    } else if (type === USER_PROPERTIES.middleName) {
+      nameErrors.push(ERROR_MESSAGES.invalidMiddleNameError);
+    } else if (type === USER_PROPERTIES.lastName) {
+      nameErrors.push(ERROR_MESSAGES.invalidLastNameError);
     } else {
-      nameErrors.push(errorMessages.INVALID_NICK_NAME_ERROR);
+      nameErrors.push(ERROR_MESSAGES.invalidNickNameError);
     }
   }
 

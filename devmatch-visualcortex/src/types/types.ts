@@ -149,10 +149,6 @@ export type SocialMediaIconType = Record<
   { url: string; Icon: IconType }
 >;
 
-export type ErrorMessageType = Record<string, string>;
-
-export type FallbackMessages = Record<string, string>;
-
 export type UserType = {
   ID?: string;
   EMAIL?: string;

@@ -27,8 +27,6 @@ import {
   AuthFormFieldButtonItemsType,
   AuthFormFieldInputItemsType,
   CameraDropdownItemType,
-  ErrorMessageType,
-  FallbackMessages,
   NavbarMenuItemType,
   NotificationsItemsType,
   SheetItemsType,
@@ -321,23 +319,23 @@ export const authFormFieldButtonItems: AuthFormFieldButtonItemsType = {
     url: getUrlString(AUTH_FORM_FIELDS.register),
     icon: <LuUserPlus />,
   },
-  forgot_password: {
-    name: AUTH_FORM_FIELDS.forgot_password,
+  forgotPassword: {
+    name: AUTH_FORM_FIELDS.forgotPassword,
     type: INPUT_TYPES.submit,
-    label: toTitleCase(AUTH_FORM_FIELDS.forgot_password),
-    url: getUrlString(AUTH_FORM_FIELDS.forgot_password),
+    label: toTitleCase(AUTH_FORM_FIELDS.forgotPassword),
+    url: getUrlString(AUTH_FORM_FIELDS.forgotPassword),
     icon: <TbLockPassword />,
   },
-  update_profile: {
-    name: AUTH_FORM_FIELDS.update_profile,
-    label: toTitleCase(AUTH_FORM_FIELDS.update_profile),
-    url: getUrlString(AUTH_FORM_FIELDS.update_profile),
+  updateProfile: {
+    name: AUTH_FORM_FIELDS.updateProfile,
+    label: toTitleCase(AUTH_FORM_FIELDS.updateProfile),
+    url: getUrlString(AUTH_FORM_FIELDS.updateProfile),
     icon: <LuUserPen />,
   },
-  delete_account: {
-    name: AUTH_FORM_FIELDS.delete_account,
-    label: toTitleCase(AUTH_FORM_FIELDS.delete_account),
-    url: getUrlString(AUTH_FORM_FIELDS.delete_account),
+  deleteAccount: {
+    name: AUTH_FORM_FIELDS.deleteAccount,
+    label: toTitleCase(AUTH_FORM_FIELDS.deleteAccount),
+    url: getUrlString(AUTH_FORM_FIELDS.deleteAccount),
     icon: <LuUserMinus />,
   },
 };
@@ -370,15 +368,6 @@ export const socialMediaIcons: SocialMediaIconType = {
   instagram: { url: "#", Icon: FaInstagram },
   twitter: { url: "#", Icon: FaXTwitter },
   github: { url: "#", Icon: FaGithub },
-};
-
-export const errorMessages: ErrorMessageType = {
-  GLOBAL_ERROR: "Something went wrong!",
-  PAGE_NOT_FOUND_ERROR: "Page Not Found!",
-};
-
-export const fallbackMessages: FallbackMessages = {
-  NO_NOTIFICATIONS: "All caught up!",
 };
 
 export const staticUsers: UserType[] = [

@@ -73,7 +73,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
             ? authFormFieldButtonItems?.login?.label
             : type === authRoutes.register
             ? authFormFieldButtonItems?.register?.label
-            : authFormFieldButtonItems?.forgot_password?.label}
+            : authFormFieldButtonItems?.forgotPassword?.label}
         </h2>
       </div>
       <div className="[&::-webkit-scrollbar-track]:bg-transparent mt-3 px-8 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 h-full overflow-x-visible overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
@@ -612,13 +612,13 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                     ></path>
                   </svg>
                 ) : (
-                  authFormFieldButtonItems?.forgot_password?.icon
+                  authFormFieldButtonItems?.forgotPassword?.icon
                 )
               }
               text={
                 isPending
                   ? "Resetting Password..."
-                  : authFormFieldButtonItems?.forgot_password?.label
+                  : authFormFieldButtonItems?.forgotPassword?.label
               }
               disabled={isPending}
               className={isPending ? "w-84" : "w-64"}
@@ -629,7 +629,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
             <div className="flex gap-2 mt-1.5 text-glass-text-primary text-sm">
               Forgot password?{" "}
               <Link
-                href={authFormFieldButtonItems?.forgot_password?.url ?? "#"}
+                href={authFormFieldButtonItems?.forgotPassword?.url ?? "#"}
                 className="font-semibold text-glass-text-primary hover:underline underline-offset-2 cursor-pointer"
               >
                 Click Here

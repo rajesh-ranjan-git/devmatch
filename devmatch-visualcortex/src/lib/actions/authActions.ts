@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { AuthFormStateType } from "@/types/types";
-import { errorMessages } from "@/config/constants";
+import { ERROR_MESSAGES } from "@/config/constants";
 import {
   emailValidator,
   firstNameValidator,
@@ -202,7 +202,7 @@ export async function forgotPasswordAction(
 
   if (validatedPassword !== validatedConfirmPassword) {
     errors.confirmPassword = [
-      errorMessages.PASSWORD_CONFIRM_PASSWORD_MISMATCH_ERROR,
+      ERROR_MESSAGES.PASSWORD_CONFIRM_PASSWORD_MISMATCH_ERROR,
     ];
   }
 

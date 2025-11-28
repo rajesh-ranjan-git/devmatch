@@ -11,6 +11,7 @@ import {
   propertyConstraints,
   status,
   WEBSITE_REGEX,
+  LINKEDIN_REGEX,
 } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
 import {
@@ -308,6 +309,25 @@ const addToValidatedProperties = (
 
       validatedProperties[property] = validatedGithub;
       return validatedProperties;
+    case allowedUpdateProfileProperties.LINKEDIN:
+      const {
+        isPropertyValid: isLinkedinValid,
+        message: linkedinErrorMessage,
+        validatedProperty: validatedLinkedin,
+      } = regexPropertiesValidator(
+        properties[property],
+        LINKEDIN_REGEX,
+        errorMessages.INVALID_LINKEDIN_URL_ERROR
+      );
+
+      if (!isLinkedinValid) {
+        throw new ValidationError(status.badRequest, linkedinErrorMessage, {
+          property: properties[property],
+        });
+      }
+
+      validatedProperties[property] = validatedLinkedin;
+      return validatedProperties;
     case allowedUpdateProfileProperties.WEBSITE:
       const {
         isPropertyValid: isWebsiteValid,
@@ -350,6 +370,31 @@ const addToValidatedProperties = (
       }
 
       validatedProperties[property] = validatedOrganization;
+
+      return validatedProperties;
+    case allowedUpdateProfileProperties.COMPANY:
+      const {
+        isPropertyValid: isCompanyValid,
+        message: companyErrorMessage,
+        validatedProperty: validatedCompany,
+      } = stringPropertiesValidator(
+        properties[property],
+        propertyConstraints.MIN_STRING_LENGTH,
+        propertyConstraints.MAX_STRING_LENGTH,
+        {
+          INVALID_ERROR: errorMessages.INVALID_COMPANY_ERROR,
+          MIN_LENGTH_ERROR: errorMessages.COMPANY_MIN_LENGTH_ERROR,
+          MAX_LENGTH_ERROR: errorMessages.COMPANY_MAX_LENGTH_ERROR,
+        }
+      );
+
+      if (!isCompanyValid) {
+        throw new ValidationError(status.badRequest, companyErrorMessage, {
+          property: properties[property],
+        });
+      }
+
+      validatedProperties[property] = validatedCompany;
 
       return validatedProperties;
     case allowedUpdateProfileProperties.SKILLS:

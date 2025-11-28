@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { IoIosWarning } from "react-icons/io";
-import { errorMessages, staticImages } from "@/config/config";
+import { ERROR_MESSAGES } from "@/config/constants";
+import { staticImages } from "@/config/config";
 
 const NotFound = () => {
   return (
@@ -17,7 +18,7 @@ const NotFound = () => {
           </div>
           <h2 className="flex justify-center items-center gap-4 w-full">
             <IoIosWarning className="text-glass-warning-text text-7xl" />
-            <span>{errorMessages.PAGE_NOT_FOUND_ERROR}</span>
+            <span>{ERROR_MESSAGES.pageNotFoundError}</span>
           </h2>
         </div>
       </div>

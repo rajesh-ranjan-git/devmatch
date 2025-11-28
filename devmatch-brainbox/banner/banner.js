@@ -2,7 +2,12 @@ import figlet from "figlet";
 import gradient from "gradient-string";
 import boxen from "boxen";
 
-import { bannerFonts, bannerThemes, errorMessages } from "../config/config.js";
+import {
+  app,
+  bannerFonts,
+  bannerThemes,
+  errorMessages,
+} from "../config/config.js";
 import { randomItem } from "../utils/utils.js";
 
 const systemInfo = (port = process.env.BRAINBOX_PORT) => {
@@ -28,13 +33,11 @@ export const showDevMatchBanner = async (port = process.env.BRAINBOX_PORT) => {
     const bannerDescGradient = gradient(bannerDesc.gradient);
 
     figlet.text(
-      "DEVMATCH",
+      app.name.toUpperCase(),
       { font: bannerFonts.ansiShadow },
       async (error, data) => {
         const output = bannerGradient.multiline(data);
-        const desc = bannerDescGradient.multiline(
-          "Tinder for Software Engineers!"
-        );
+        const desc = bannerDescGradient.multiline(app.desc);
         const sysInfo = systemInfo(port);
 
         console.log(`\n\n${output}\n${desc}\n\n${sysInfo}\n`);
