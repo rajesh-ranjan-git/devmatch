@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { apiUrls } from "@/lib/api/apiUrls";
 import { fetchApiData } from "@/lib/api/fetchApiData";
-import { authRoutes } from "@/lib/routes/routes";
+import { authRoutes, defaultRoute } from "@/lib/routes/routes";
 import { getUrlString } from "@/lib/utils/utils";
 import { useDevMatchAppStore } from "@/store/store";
 import { useToast } from "@/components/toast/toast";
@@ -26,7 +26,12 @@ const CheckAuthFormWrapper = ({ children }: ReactNodeProps) => {
   const isPublicRoute = publicRoutes.includes(pathname);
 
   useEffect(() => {
-    if (loggedInUser) return;
+    if (loggedInUser) {
+      if (pathname === defaultRoute.home) {
+        router.push(getUrlString(defaultRoute.explore));
+      }
+      return;
+    }
 
     if (!loggedInUser && isPublicRoute) return;
 

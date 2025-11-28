@@ -1,5 +1,3 @@
-"use client";
-
 import Main from "@/components/main/main";
 import DefaultMainContent from "@/components/main/defaultMainContent";
 

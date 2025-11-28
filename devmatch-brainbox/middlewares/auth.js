@@ -38,7 +38,7 @@ const auth = async (req, res, next) => {
 
     const loggedInUser = await User.findById(
       decodedUserId,
-      defaultUserProperties
+      Object.values(defaultUserProperties)
     );
 
     if (!loggedInUser) {
