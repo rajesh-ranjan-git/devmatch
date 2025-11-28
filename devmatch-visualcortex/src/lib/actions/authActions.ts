@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { AuthFormStateType } from "@/types/types";
+import { errorMessages } from "@/config/constants";
 import {
   emailValidator,
   firstNameValidator,
@@ -199,6 +200,12 @@ export async function forgotPasswordAction(
   } = passwordValidator(confirmPassword as string);
   errors.confirmPassword = [...(passwordConfirmErrors ?? [])];
 
+  if (validatedPassword !== validatedConfirmPassword) {
+    errors.confirmPassword = [
+      errorMessages.PASSWORD_CONFIRM_PASSWORD_MISMATCH_ERROR,
+    ];
+  }
+
   if (Object.values(errors).filter((item) => item.length > 0).length > 0) {
     return {
       message: "Validation Error",
@@ -208,8 +215,8 @@ export async function forgotPasswordAction(
     };
   }
 
-  const result = await fetchApiData(apiUrls.register, {
-    method: "POST",
+  const result = await fetchApiData(apiUrls.forgotPassword, {
+    method: "PATCH",
     data: {
       firstName: validatedFirstName,
       email: validatedEmail,
@@ -220,14 +227,14 @@ export async function forgotPasswordAction(
 
   if (!result?.success) {
     return {
-      message: "Registration Error!",
+      message: "Forgot Password Error!",
       result,
       success: result?.success ?? false,
     };
   }
 
   return {
-    message: "Password reset successful, Please login again!",
+    message: "Password Reset Successful!",
     result,
     success: result?.success ?? true,
   };

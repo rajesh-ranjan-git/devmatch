@@ -6,6 +6,7 @@ import {
   EMAIL_REGEX,
   PASSWORD_REGEX,
   PIN_CODE_REGEX,
+  PHONE_REGEX,
 } from "../config/config.js";
 
 const userSchema = mongoose.Schema(
@@ -88,8 +89,7 @@ const userSchema = mongoose.Schema(
     phone: {
       type: Number,
       required: false,
-      min: 10,
-      max: 10,
+      match: PHONE_REGEX,
     },
     gender: {
       type: String,
@@ -132,6 +132,10 @@ const userSchema = mongoose.Schema(
       required: false,
     },
     github: {
+      type: String,
+      required: false,
+    },
+    linkedin: {
       type: String,
       required: false,
     },

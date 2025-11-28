@@ -3,7 +3,7 @@
 import { useActionState, useEffect } from "react";
 import Form from "next/form";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { AUTH_FORM_FIELDS, INPUT_TYPES } from "@/config/constants";
 import {
   authFormFieldInputItems,
@@ -25,6 +25,7 @@ import { useToast } from "@/components/toast/toast";
 import SubmitButton from "@/components/ui/buttons/submitButton";
 
 const AuthForm = ({ type }: AuthFormWrapperProps) => {
+  const pathname = usePathname();
   const router = useRouter();
 
   const { showToast } = useToast();
@@ -44,6 +45,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
   );
 
   useEffect(() => {
+    console.log("debug from authForm pathname : ", pathname);
+    console.log("debug from authForm state : ", state);
     if (!state?.success && !state?.result?.success && state?.result?.error) {
       showToast({
         title: toTitleCase(state?.message),
@@ -52,7 +55,11 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
       });
     } else if (state?.result?.success && state?.result?.data) {
       setLoggedInUser(state?.result?.data?.user);
-      router.push("/explore");
+      if (pathname.includes(authRoutes.forgotPassword)) {
+        router.push("/login");
+      } else {
+        router.push("/explore");
+      }
       showToast({
         title: toTitleCase(state?.message),
         message: state?.result?.data?.message,

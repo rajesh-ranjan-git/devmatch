@@ -26,7 +26,7 @@ userRouter.post("/login", loginRequestMiddleware, login);
 userRouter.get("/logout", requestMiddleware, logout);
 
 userRouter.patch(
-  "/forgotPassword",
+  "/forgot-password",
   forgotPasswordRequestMiddleware,
   forgotPassword
 );
