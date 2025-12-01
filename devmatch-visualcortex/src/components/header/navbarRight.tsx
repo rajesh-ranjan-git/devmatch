@@ -91,8 +91,8 @@ const NavbarRight = () => {
             popoverTarget="account-options-dropdown"
             className="w-20"
           >
-            <div className="flex justify-center items-center gap-2 p-3">
-              <div className="w-full object-contain">
+            <div className="flex justify-center items-center gap-2 p-3 w-full">
+              <div className="bg-red-900 rounded-full w-20 h-10 object-cover">
                 <Image
                   src={
                     loggedInUser && loggedInUser?.avatarUrl
@@ -100,9 +100,9 @@ const NavbarRight = () => {
                       : staticImages.profilePlaceholder.src
                   }
                   alt={staticImages.avatarPlaceholder.alt}
-                  width={50}
-                  height={50}
-                  className="rounded-full w-full"
+                  width={100}
+                  height={100}
+                  className="rounded-full w-full h-full object-cover select-none"
                 />
               </div>
               <FaChevronDown />
