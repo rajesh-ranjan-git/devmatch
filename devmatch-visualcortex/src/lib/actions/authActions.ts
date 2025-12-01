@@ -12,7 +12,7 @@ import {
 import { fetchApiData } from "@/lib/api/fetchApiData";
 import { apiUrls } from "@/lib/api/apiUrls";
 
-const registerAction = async (
+export const registerAction = async (
   prevState: AuthFormStateType,
   formData: FormData
 ) => {
@@ -92,7 +92,7 @@ const registerAction = async (
   };
 };
 
-const loginAction = async (
+export const loginAction = async (
   prevState: AuthFormStateType,
   formData: FormData
 ) => {
@@ -170,7 +170,7 @@ const loginAction = async (
   };
 };
 
-const forgotPasswordAction = async (
+export const forgotPasswordAction = async (
   prevState: AuthFormStateType,
   formData: FormData
 ) => {
@@ -239,5 +239,3 @@ const forgotPasswordAction = async (
     success: result?.success ?? true,
   };
 };
-
-export { registerAction, loginAction, forgotPasswordAction };
