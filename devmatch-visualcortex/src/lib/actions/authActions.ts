@@ -12,10 +12,10 @@ import {
 import { fetchApiData } from "@/lib/api/fetchApiData";
 import { apiUrls } from "@/lib/api/apiUrls";
 
-export async function registerAction(
+const registerAction = async (
   prevState: AuthFormStateType,
   formData: FormData
-) {
+) => {
   const userName = formData.get("userName");
   const email = formData.get("email");
   const password = formData.get("password");
@@ -90,12 +90,12 @@ export async function registerAction(
     result,
     success: result?.success ?? true,
   };
-}
+};
 
-export async function loginAction(
+const loginAction = async (
   prevState: AuthFormStateType,
   formData: FormData
-) {
+) => {
   const userName = formData.get("userName");
   const email = formData.get("email");
   const password = formData.get("password");
@@ -168,12 +168,12 @@ export async function loginAction(
     result,
     success: result?.success ?? true,
   };
-}
+};
 
-export async function forgotPasswordAction(
+const forgotPasswordAction = async (
   prevState: AuthFormStateType,
   formData: FormData
-) {
+) => {
   const email = formData.get("email");
   const firstName = formData.get("firstName");
   const password = formData.get("password");
@@ -202,7 +202,7 @@ export async function forgotPasswordAction(
 
   if (validatedPassword !== validatedConfirmPassword) {
     errors.confirmPassword = [
-      ERROR_MESSAGES.PASSWORD_CONFIRM_PASSWORD_MISMATCH_ERROR,
+      ERROR_MESSAGES.passwordConfirmPasswordMismatchError,
     ];
   }
 
@@ -238,4 +238,6 @@ export async function forgotPasswordAction(
     result,
     success: result?.success ?? true,
   };
-}
+};
+
+export { registerAction, loginAction, forgotPasswordAction };
