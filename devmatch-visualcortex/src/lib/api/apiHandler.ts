@@ -28,7 +28,7 @@ export enum ApiErrorType {
   TIMEOUT_ERROR = "TIMEOUT_ERROR",
   VALIDATION_ERROR = "VALIDATION_ERROR",
   AUTHENTICATION_ERROR = "AUTHENTICATION_ERROR",
-  AUTHORIZATION_ERROR = "AUTHORIZATION_ERROR",
+  FORBIDDEN_ERROR = "FORBIDDEN_ERROR",
   NOT_FOUND_ERROR = "NOT_FOUND_ERROR",
   CONFLICT_ERROR = "CONFLICT_ERROR",
   SERVER_ERROR = "SERVER_ERROR",
@@ -105,7 +105,7 @@ const getErrorType = (error: AxiosError): ApiErrorType => {
     case 401:
       return ApiErrorType.AUTHENTICATION_ERROR;
     case 403:
-      return ApiErrorType.AUTHORIZATION_ERROR;
+      return ApiErrorType.FORBIDDEN_ERROR;
     case 404:
       return ApiErrorType.NOT_FOUND_ERROR;
     case 409:
@@ -146,7 +146,7 @@ const getErrorMessage = (
       "Invalid request data. Please check your input.",
     [ApiErrorType.AUTHENTICATION_ERROR]:
       "Authentication failed. Please log in again.",
-    [ApiErrorType.AUTHORIZATION_ERROR]:
+    [ApiErrorType.FORBIDDEN_ERROR]:
       "You do not have permission to perform this action.",
     [ApiErrorType.NOT_FOUND_ERROR]: "The requested resource was not found.",
     [ApiErrorType.CONFLICT_ERROR]: "The requested resource already exists.",

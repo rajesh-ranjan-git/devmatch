@@ -137,7 +137,6 @@ export const ERROR_TYPES = {
   timeoutError: "TIMEOUT_ERROR",
   validationError: "VALIDATION_ERROR",
   authenticationError: "AUTHENTICATION_ERROR",
-  authorizationError: "AUTHORIZATION_ERROR",
   forbiddenError: "FORBIDDEN_ERROR",
   connectionError: "CONNECTION_ERROR",
   notificationError: "NOTIFICATION_ERROR",

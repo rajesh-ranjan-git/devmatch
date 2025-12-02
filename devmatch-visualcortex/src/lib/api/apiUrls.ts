@@ -7,4 +7,5 @@ export const apiUrls = {
   login: `${BASE_API_URL}/user/login`,
   logout: `${BASE_API_URL}/user/logout`,
   forgotPassword: `${BASE_API_URL}/user/forgot-password`,
+  viewProfile: `${BASE_API_URL}/profile/view`,
 } as const;
