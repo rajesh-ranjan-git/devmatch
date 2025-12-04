@@ -2,7 +2,12 @@ import { ObjectId } from "mongodb";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-import { errorMessages, jwtKnownErrors, status } from "../config/config.js";
+import {
+  errorMessages,
+  jwtKnownErrors,
+  status,
+  timeline,
+} from "../config/config.js";
 import { BcryptError, JwtError } from "../errors/CustomError.js";
 
 export const isValidMongoDbObjectId = (id) => {
@@ -88,6 +93,7 @@ export const comparePassword = async (incomingPassword, existingPassword) => {
 };
 
 export const isPasswordExpired = (passwordLastUpdated) => {
-  const THREE_MONTHS = 1000 * 60 * 60 * 24 * 90;
-  return Date.now() - new Date(passwordLastUpdated).getTime() > THREE_MONTHS;
+  return (
+    Date.now() - new Date(passwordLastUpdated).getTime() > timeline.THREE_MONTHS
+  );
 };

@@ -3,6 +3,7 @@ import {
   errorMessages,
   status,
   successMessages,
+  timeline,
   userProperties,
 } from "../config/config.js";
 import { AuthenticationError, DatabaseError } from "../errors/CustomError.js";
@@ -94,7 +95,9 @@ export const register = async (req, res) => {
 
     return res
       .status(status.created.statusCode)
-      .cookie("authToken", token)
+      .cookie("authToken", token, {
+        expires: new Date(Date.now() + timeline.THREE_MONTHS),
+      })
       .json({
         status: status.created.message,
         statusCode: status.created.statusCode,
@@ -173,7 +176,9 @@ export const login = async (req, res) => {
 
     return res
       .status(status.success.statusCode)
-      .cookie("authToken", token)
+      .cookie("authToken", token, {
+        expires: new Date(Date.now() + timeline.THREE_MONTHS),
+      })
       .json({
         status: status.success.message,
         statusCode: status.success.statusCode,

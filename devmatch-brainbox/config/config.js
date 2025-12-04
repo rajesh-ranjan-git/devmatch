@@ -73,6 +73,27 @@ export const bannerThemes = [
   },
 ];
 
+export const timeline = {
+  ONE_HOUR: 1000 * 60 * 60,
+  TWO_HOURS: 1000 * 60 * 60 * 2,
+  THREE_HOURS: 1000 * 60 * 60 * 3,
+  SIX_HOURS: 1000 * 60 * 60 * 6,
+  HALF_DAY: 1000 * 60 * 60 * 12,
+  ONE_DAY: 1000 * 60 * 60 * 24,
+  TWO_DAYS: 1000 * 60 * 60 * 24 * 2,
+  THREE_DAYS: 1000 * 60 * 60 * 24 * 3,
+  ONE_WEEK: 1000 * 60 * 60 * 24 * 7,
+  TWO_WEEKS: 1000 * 60 * 60 * 24 * 7 * 2,
+  THREE_WEEKS: 1000 * 60 * 60 * 24 * 7 * 3,
+  ONE_MONTH: 1000 * 60 * 60 * 24 * 30,
+  TWO_MONTHS: 1000 * 60 * 60 * 24 * 30 * 2,
+  THREE_MONTHS: 1000 * 60 * 60 * 24 * 30 * 3,
+  SIX_MONTHS: 1000 * 60 * 60 * 24 * 30 * 6,
+  ONE_YEAR: 1000 * 60 * 60 * 24 * 30 * 12,
+  TWO_YEARS: 1000 * 60 * 60 * 24 * 30 * 12 * 2,
+  THREE_YEARS: 1000 * 60 * 60 * 24 * 30 * 12 * 3,
+};
+
 export const NAME_REGEX = /^[A-Za-z]+$/;
 export const USER_NAME_REGEX = /^[A-Za-z0-9!@#$%&_]{4,}$/;
 export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
