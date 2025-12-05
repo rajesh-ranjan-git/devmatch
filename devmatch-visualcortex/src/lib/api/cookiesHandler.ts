@@ -1,0 +1,29 @@
+"use server";
+
+import { AxiosResponse } from "axios";
+import { cookies } from "next/headers";
+
+export async function setCookies(cookiesData) {
+  const cookieStore = await cookies();
+  const cookieList = Array.isArray(cookiesData) ? cookiesData : [cookiesData];
+
+  cookieList.forEach((cookie) => {
+    const [nameValue, ...attributes] = cookie.split(";").map((s) => s.trim());
+    const [name, value] = nameValue.split("=");
+
+    const options: any = { path: "/" };
+    attributes.forEach((attr) => {
+      const [key, val] = attr.split("=");
+      const lowerKey = key.toLowerCase();
+      if (lowerKey === "max-age") options.maxAge = parseInt(val);
+      else if (lowerKey === "expires") options.expires = new Date(val);
+      else if (lowerKey === "path") options.path = val;
+      else if (lowerKey === "domain") options.domain = val;
+      else if (lowerKey === "secure") options.secure = true;
+      else if (lowerKey === "httponly") options.httpOnly = true;
+      else if (lowerKey === "samesite") options.sameSite = val as any;
+    });
+
+    cookieStore.set(name, value, options);
+  });
+}

@@ -1,5 +1,5 @@
-import { apiUrls } from "@/lib/api/apiUrls";
-import { api } from "../api/apiHandler";
+import { apiUrls } from "@/lib/api/apiUtils";
+import { api } from "@/lib/api/apiHandler";
 
 export const getUserDetails = async (id?: string) => {
   const result = await api.get(

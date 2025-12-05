@@ -1,6 +1,5 @@
 "use server";
 
-import { cookies } from "next/headers";
 import { AuthFormStateType } from "@/types/types";
 import { ERROR_MESSAGES } from "@/config/constants";
 import {
@@ -9,8 +8,9 @@ import {
   passwordValidator,
   userNameValidator,
 } from "@/lib/validations/validations";
-import { apiUrls } from "@/lib/api/apiUrls";
-import { api } from "../api/apiHandler";
+import { apiUrls } from "@/lib/api/apiUtils";
+import { api } from "@/lib/api/apiHandler";
+import { apiRequest } from "../api/api";
 
 export const registerAction = async (
   prevState: AuthFormStateType,
@@ -52,12 +52,10 @@ export const registerAction = async (
   }
 
   const result = await api.post(apiUrls.register, {
-    data: {
-      userName: validatedUserName,
-      email: validatedEmail,
-      password: validatedPassword,
-      confirmPassword: validatedConfirmPassword,
-    },
+    userName: validatedUserName,
+    email: validatedEmail,
+    password: validatedPassword,
+    confirmPassword: validatedConfirmPassword,
   });
 
   if (!result?.success) {
@@ -67,22 +65,6 @@ export const registerAction = async (
       success: result?.success ?? false,
     };
   }
-
-  const cookieStore = await cookies();
-  // const rawCookie = result?.cookies?.[0];
-  // const tokenMatch = rawCookie?.match(/authToken=([^;]+)/);
-  // const token = tokenMatch?.[1];
-
-  // if (token) {
-  //   cookieStore.set({
-  //     name: "authToken",
-  //     value: token,
-  //     httpOnly: true,
-  //     path: "/",
-  //   });
-  // } else {
-  //   console.error("Auth token not found in cookies!");
-  // }
 
   return {
     message: "Welcome!",
@@ -129,7 +111,9 @@ export const loginAction = async (
     };
   }
 
-  const result = await api.post(apiUrls.login, {
+  const result = await apiRequest({
+    method: "post",
+    url: apiUrls.login,
     data: {
       userName: validatedUserName,
       email: validatedEmail,
@@ -144,22 +128,6 @@ export const loginAction = async (
       success: result?.success ?? false,
     };
   }
-
-  const cookieStore = await cookies();
-  // const rawCookie = result?.cookies?.[0];
-  // const tokenMatch = rawCookie?.match(/authToken=([^;]+)/);
-  // const token = tokenMatch?.[1];
-
-  // if (token) {
-  //   cookieStore.set({
-  //     name: "authToken",
-  //     value: token,
-  //     httpOnly: true,
-  //     path: "/",
-  //   });
-  // } else {
-  //   console.error("Auth token not found in cookies!");
-  // }
 
   return {
     message: "Welcome back!",

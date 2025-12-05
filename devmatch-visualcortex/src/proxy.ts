@@ -2,11 +2,12 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { authRoutes } from "@/lib/routes/routes";
 import { getUrlString } from "@/lib/utils/utils";
-import { apiUrls } from "@/lib/api/apiUrls";
-import { api } from "@/lib/api/apiHandler";
+import { apiUrls } from "@/lib/api/apiUtils";
+import { apiRequest } from "./lib/api/api";
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const cookieHeader = request.cookies.toString();
 
   const isPublicRoute = Object.values(authRoutes).some((route) =>
     pathname.startsWith(getUrlString(route))
@@ -38,9 +39,16 @@ export async function proxy(request: NextRequest) {
   }
 
   try {
-    const checkAuthResponse = await api.get(apiUrls.checkAuth);
+    const checkAuthResult = await apiRequest({
+      url: apiUrls.checkAuth,
+      options: {
+        headers: {
+          Cookie: request.cookies.toString(),
+        },
+      },
+    });
 
-    if (!checkAuthResponse.success) {
+    if (!checkAuthResult.success) {
       const response = NextResponse.redirect(
         new URL(authRoutes.login, request.nextUrl.origin)
       );

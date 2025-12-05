@@ -12,7 +12,7 @@ import {
   staticImages,
 } from "@/config/config";
 import { getFullName, getUrlString, toTitleCase } from "@/lib/utils/utils";
-import { apiUrls } from "@/lib/api/apiUrls";
+import { apiUrls } from "@/lib/api/apiUtils";
 import { authRoutes } from "@/lib/routes/routes";
 import { useDevMatchAppStore } from "@/store/store";
 import { useToast } from "@/components/toast/toast";

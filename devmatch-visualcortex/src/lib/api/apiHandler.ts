@@ -1,5 +1,3 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-
 export interface ApiResponse<T = any> {
   success: boolean;
   data?: T;
@@ -8,6 +6,11 @@ export interface ApiResponse<T = any> {
     code: string;
     statusCode?: number;
     details?: any;
+  };
+  metadata?: {
+    timestamp: string;
+    cookies?: string[];
+    requestId?: string;
   };
 }
 
@@ -25,33 +28,27 @@ export enum ApiErrorType {
   UNKNOWN_ERROR = "UNKNOWN_ERROR",
 }
 
-export interface ApiOptions
-  extends Omit<AxiosRequestConfig, "method" | "url" | "data"> {
+export interface ApiOptions extends Omit<RequestInit, "method" | "body"> {
   retryAttempts?: number;
   retryDelay?: number;
+  timeout?: number;
+  credentials?: RequestCredentials;
+  headers?: HeadersInit;
 }
 
-const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BRAINBOX_HOST_URL,
-  timeout: 30000,
-  headers: {
-    "Content-Type": "application/json",
-  },
-  withCredentials: true,
-});
+const DEFAULT_TIMEOUT = 30000;
+const BASE_URL = process.env.NEXT_PUBLIC_BRAINBOX_HOST_URL || "";
 
-const getErrorType = (error: AxiosError): ApiErrorType => {
-  if (!error.response) {
-    if (error.code === "ECONNABORTED" || error.message.includes("timeout")) {
-      return ApiErrorType.TIMEOUT_ERROR;
-    }
-    if (axios.isCancel(error)) {
-      return ApiErrorType.CANCELLED_ERROR;
-    }
-    return ApiErrorType.NETWORK_ERROR;
-  }
+const getErrorType = (
+  statusCode?: number,
+  isTimeout?: boolean,
+  isNetworkError?: boolean
+): ApiErrorType => {
+  if (isTimeout) return ApiErrorType.TIMEOUT_ERROR;
+  if (isNetworkError) return ApiErrorType.NETWORK_ERROR;
 
-  const statusCode = error.response.status;
+  if (!statusCode) return ApiErrorType.NETWORK_ERROR;
+
   const errorMap: Record<number, ApiErrorType> = {
     400: ApiErrorType.VALIDATION_ERROR,
     401: ApiErrorType.AUTHENTICATION_ERROR,
@@ -69,15 +66,10 @@ const getErrorType = (error: AxiosError): ApiErrorType => {
 };
 
 const getErrorMessage = (
-  error: AxiosError,
-  errorType: ApiErrorType
+  errorType: ApiErrorType,
+  customMessage?: string
 ): string => {
-  if (error.response?.data) {
-    const data = error.response.data as any;
-    if (data.message) return data.message;
-    if (data.error)
-      return typeof data.error === "string" ? data.error : data.error.message;
-  }
+  if (customMessage) return customMessage;
 
   const messages: Record<ApiErrorType, string> = {
     [ApiErrorType.NETWORK_ERROR]:
@@ -103,76 +95,186 @@ const getErrorMessage = (
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+const fetchWithTimeout = async (
+  url: string,
+  options: RequestInit,
+  timeout: number
+): Promise<Response> => {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+    return response;
+  } catch (error: any) {
+    clearTimeout(timeoutId);
+    if (error.name === "AbortError") {
+      throw new Error("TIMEOUT");
+    }
+    throw error;
+  }
+};
+
 async function handleRequest<T>(
-  config: AxiosRequestConfig,
+  url: string,
+  method: string = "GET",
+  body?: any,
   options: ApiOptions = {}
 ): Promise<ApiResponse<T>> {
-  const { retryAttempts = 0, retryDelay = 1000, ...axiosConfig } = options;
+  const {
+    retryAttempts = 0,
+    retryDelay = 1000,
+    timeout = DEFAULT_TIMEOUT,
+    credentials = "include",
+    headers: customHeaders,
+    ...fetchOptions
+  } = options;
 
-  let lastError: AxiosError | null = null;
+  const fullUrl = url.startsWith("http") ? url : `${BASE_URL}${url}`;
+
+  const headers: HeadersInit = {
+    "Content-Type": "application/json",
+    ...customHeaders,
+  };
+
+  let lastError: any = null;
   let attempt = 0;
+  let statusCode: number | undefined;
+  let isTimeout = false;
+  let isNetworkError = false;
 
   while (attempt <= retryAttempts) {
     try {
-      const response: AxiosResponse<T> = await axiosInstance({
-        ...config,
-        ...axiosConfig,
-      });
+      const response = await fetchWithTimeout(
+        fullUrl,
+        {
+          method,
+          headers,
+          credentials,
+          body: body ? JSON.stringify(body) : undefined,
+          ...fetchOptions,
+        },
+        timeout
+      );
+
+      statusCode = response.status;
+
+      if (!response.ok) {
+        let errorData: any;
+        try {
+          errorData = await response.json();
+        } catch {
+          errorData = await response.text();
+        }
+
+        const errorType = getErrorType(statusCode);
+        const customMessage =
+          typeof errorData === "object" && errorData?.message
+            ? errorData.message
+            : typeof errorData === "object" && errorData?.error
+            ? typeof errorData.error === "string"
+              ? errorData.error
+              : errorData.error.message
+            : undefined;
+
+        const shouldRetry =
+          attempt < retryAttempts &&
+          (errorType === ApiErrorType.SERVER_ERROR ||
+            errorType === ApiErrorType.RATE_LIMIT_ERROR);
+
+        if (shouldRetry) {
+          attempt++;
+          await sleep(retryDelay * Math.pow(2, attempt - 1));
+          continue;
+        }
+
+        return {
+          success: false,
+          error: {
+            message: getErrorMessage(errorType, customMessage),
+            code: errorType,
+            statusCode,
+            details: errorData,
+          },
+        };
+      }
+
+      let data: T;
+      const contentType = response.headers.get("content-type");
+
+      if (contentType?.includes("application/json")) {
+        data = await response.json();
+      } else {
+        data = (await response.text()) as any;
+      }
+
+      const setCookieHeader = response.headers.get("set-cookie");
+      const cookies = setCookieHeader ? [setCookieHeader] : undefined;
 
       return {
         success: true,
-        data: response.data,
+        data,
+        metadata: {
+          timestamp: new Date().toISOString(),
+          cookies,
+          requestId: response.headers.get("x-request-id") || undefined,
+        },
       };
-    } catch (error) {
-      lastError = error as AxiosError;
+    } catch (error: any) {
+      lastError = error;
       attempt++;
 
-      if (axios.isAxiosError(error)) {
-        const errorType = getErrorType(error);
-        const shouldRetry =
-          attempt <= retryAttempts &&
-          (errorType === ApiErrorType.NETWORK_ERROR ||
-            errorType === ApiErrorType.TIMEOUT_ERROR ||
-            errorType === ApiErrorType.SERVER_ERROR);
-
-        if (shouldRetry && attempt <= retryAttempts) {
+      if (error.message === "TIMEOUT") {
+        isTimeout = true;
+        const shouldRetry = attempt <= retryAttempts;
+        if (shouldRetry) {
+          await sleep(retryDelay * Math.pow(2, attempt - 1));
+          continue;
+        }
+      } else if (error.name === "TypeError" || !navigator.onLine) {
+        isNetworkError = true;
+        const shouldRetry = attempt <= retryAttempts;
+        if (shouldRetry) {
           await sleep(retryDelay * Math.pow(2, attempt - 1));
           continue;
         }
       }
+
       break;
     }
   }
 
-  const errorType = getErrorType(lastError!);
-  const errorMessage = getErrorMessage(lastError!, errorType);
+  const errorType = getErrorType(statusCode, isTimeout, isNetworkError);
+  const errorMessage = getErrorMessage(errorType);
 
   return {
     success: false,
     error: {
       message: errorMessage,
       code: errorType,
-      statusCode: lastError?.response?.status,
-      details: lastError?.response?.data,
+      statusCode,
+      details: lastError?.message,
     },
   };
 }
 
 export const api = {
   get: <T = any>(url: string, options?: ApiOptions) =>
-    handleRequest<T>({ method: "GET", url }, options),
+    handleRequest<T>(url, "GET", undefined, options),
 
   post: <T = any>(url: string, data?: any, options?: ApiOptions) =>
-    handleRequest<T>({ method: "POST", url, data }, options),
+    handleRequest<T>(url, "POST", data, options),
 
   put: <T = any>(url: string, data?: any, options?: ApiOptions) =>
-    handleRequest<T>({ method: "PUT", url, data }, options),
+    handleRequest<T>(url, "PUT", data, options),
 
   patch: <T = any>(url: string, data?: any, options?: ApiOptions) =>
-    handleRequest<T>({ method: "PATCH", url, data }, options),
+    handleRequest<T>(url, "PATCH", data, options),
 
   delete: <T = any>(url: string, options?: ApiOptions) =>
-    handleRequest<T>({ method: "DELETE", url }, options),
+    handleRequest<T>(url, "DELETE", undefined, options),
 };
-
-export { axiosInstance };

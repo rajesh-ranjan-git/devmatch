@@ -102,7 +102,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                     state?.inputs &&
                     state?.inputs?.userName
                       ? (state?.inputs?.userName as string)
-                      : ""
+                      : "rajesh"
                   }
                   className={
                     state?.success === false &&
@@ -179,7 +179,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                     state?.inputs &&
                     state?.inputs?.password
                       ? (state?.inputs?.password as string)
-                      : ""
+                      : "Rajesh@0"
                   }
                   className={
                     state?.success === false &&
