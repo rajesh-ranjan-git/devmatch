@@ -35,6 +35,7 @@ import {
   UserType,
 } from "@/types/types";
 import { formatDate, getUrlString, toTitleCase } from "@/lib/utils/utils";
+import { authRoutes } from "@/lib/routes/routes";
 
 export const alkatra = Alkatra({
   variable: "--font-alkatra",
@@ -309,21 +310,21 @@ export const authFormFieldButtonItems: AuthFormFieldButtonItemsType = {
     name: AUTH_FORM_FIELDS.login,
     type: INPUT_TYPES.submit,
     label: toTitleCase(AUTH_FORM_FIELDS.login),
-    url: getUrlString(AUTH_FORM_FIELDS.login),
+    url: getUrlString(authRoutes.login),
     icon: <LuLogIn />,
   },
   register: {
     name: AUTH_FORM_FIELDS.register,
     type: INPUT_TYPES.submit,
     label: toTitleCase(AUTH_FORM_FIELDS.register),
-    url: getUrlString(AUTH_FORM_FIELDS.register),
+    url: getUrlString(authRoutes.register),
     icon: <LuUserPlus />,
   },
   forgotPassword: {
     name: AUTH_FORM_FIELDS.forgotPassword,
     type: INPUT_TYPES.submit,
     label: toTitleCase(AUTH_FORM_FIELDS.forgotPassword),
-    url: getUrlString(AUTH_FORM_FIELDS.forgotPassword),
+    url: getUrlString(authRoutes.forgotPassword),
     icon: <TbLockPassword />,
   },
   updateProfile: {

@@ -9,6 +9,7 @@ import ErrorWrapper from "@/components/errors/errorWrapper";
 import Header from "@/components/header/header";
 import ConsoleBanner from "@/components/banner/consoleBanner";
 import "@/app/globals.css";
+import Flash from "@/components/flash/flash";
 
 export const metadata: Metadata = {
   title: {
@@ -31,8 +32,9 @@ export default function RootLayout({ children }: Readonly<ReactNodeProps>) {
           <ConsoleBanner nodeVersion={process.version} />
           <ThemeManager />
           <DefaultAnimatedBackground />
+          <Flash />
           <ErrorWrapper>
-            <InitialLoader />
+            {/* <InitialLoader /> */}
             <Header />
             {children}
           </ErrorWrapper>

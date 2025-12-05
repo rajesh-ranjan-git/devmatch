@@ -8,4 +8,6 @@ export const apiUrls = {
   logout: `${BASE_API_URL}/user/logout`,
   forgotPassword: `${BASE_API_URL}/user/forgot-password`,
   viewProfile: `${BASE_API_URL}/profile/view`,
+  updateProfile: `${BASE_API_URL}/profile/update`,
+  deleteAccount: `${BASE_API_URL}/profile/delete`,
 } as const;
