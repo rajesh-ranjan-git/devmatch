@@ -12,7 +12,6 @@ import {
   staticImages,
 } from "@/config/config";
 import { getFullName, getUrlString, toTitleCase } from "@/lib/utils/utils";
-import { fetchApiData } from "@/lib/api/fetchApiData";
 import { apiUrls } from "@/lib/api/apiUrls";
 import { authRoutes } from "@/lib/routes/routes";
 import { useDevMatchAppStore } from "@/store/store";
@@ -23,6 +22,7 @@ import NotificationsDropdownItems from "@/components/header/notificationsDropdow
 import NavbarButton from "@/components/ui/buttons/navbarButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 import Dropdown from "@/components/ui/dropdown/dropdown";
+import { api } from "@/lib/api/apiHandler";
 
 const NavbarRight = () => {
   const pathname = usePathname();
@@ -50,7 +50,7 @@ const NavbarRight = () => {
   };
 
   const handleLogout = async () => {
-    const logoutData = await fetchApiData(apiUrls.logout);
+    const logoutData = await api.get(apiUrls.logout);
 
     if (logoutData?.success) {
       router.push(getUrlString(authRoutes.login));

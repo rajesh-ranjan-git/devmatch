@@ -9,8 +9,8 @@ import {
   passwordValidator,
   userNameValidator,
 } from "@/lib/validations/validations";
-import { fetchApiData } from "@/lib/api/fetchApiData";
 import { apiUrls } from "@/lib/api/apiUrls";
+import { api } from "../api/apiHandler";
 
 export const registerAction = async (
   prevState: AuthFormStateType,
@@ -51,8 +51,7 @@ export const registerAction = async (
     };
   }
 
-  const result = await fetchApiData(apiUrls.register, {
-    method: "POST",
+  const result = await api.post(apiUrls.register, {
     data: {
       userName: validatedUserName,
       email: validatedEmail,
@@ -70,20 +69,20 @@ export const registerAction = async (
   }
 
   const cookieStore = await cookies();
-  const rawCookie = result?.cookies?.[0];
-  const tokenMatch = rawCookie?.match(/authToken=([^;]+)/);
-  const token = tokenMatch?.[1];
+  // const rawCookie = result?.cookies?.[0];
+  // const tokenMatch = rawCookie?.match(/authToken=([^;]+)/);
+  // const token = tokenMatch?.[1];
 
-  if (token) {
-    cookieStore.set({
-      name: "authToken",
-      value: token,
-      httpOnly: true,
-      path: "/",
-    });
-  } else {
-    console.error("Auth token not found in cookies!");
-  }
+  // if (token) {
+  //   cookieStore.set({
+  //     name: "authToken",
+  //     value: token,
+  //     httpOnly: true,
+  //     path: "/",
+  //   });
+  // } else {
+  //   console.error("Auth token not found in cookies!");
+  // }
 
   return {
     message: "Welcome!",
@@ -130,8 +129,7 @@ export const loginAction = async (
     };
   }
 
-  const result = await fetchApiData(apiUrls.login, {
-    method: "POST",
+  const result = await api.post(apiUrls.login, {
     data: {
       userName: validatedUserName,
       email: validatedEmail,
@@ -148,20 +146,20 @@ export const loginAction = async (
   }
 
   const cookieStore = await cookies();
-  const rawCookie = result?.cookies?.[0];
-  const tokenMatch = rawCookie?.match(/authToken=([^;]+)/);
-  const token = tokenMatch?.[1];
+  // const rawCookie = result?.cookies?.[0];
+  // const tokenMatch = rawCookie?.match(/authToken=([^;]+)/);
+  // const token = tokenMatch?.[1];
 
-  if (token) {
-    cookieStore.set({
-      name: "authToken",
-      value: token,
-      httpOnly: true,
-      path: "/",
-    });
-  } else {
-    console.error("Auth token not found in cookies!");
-  }
+  // if (token) {
+  //   cookieStore.set({
+  //     name: "authToken",
+  //     value: token,
+  //     httpOnly: true,
+  //     path: "/",
+  //   });
+  // } else {
+  //   console.error("Auth token not found in cookies!");
+  // }
 
   return {
     message: "Welcome back!",
@@ -215,8 +213,7 @@ export const forgotPasswordAction = async (
     };
   }
 
-  const result = await fetchApiData(apiUrls.forgotPassword, {
-    method: "PATCH",
+  const result = await api.patch(apiUrls.forgotPassword, {
     data: {
       firstName: validatedFirstName,
       email: validatedEmail,

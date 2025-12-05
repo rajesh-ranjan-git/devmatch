@@ -1,8 +1,8 @@
 import { apiUrls } from "@/lib/api/apiUrls";
-import { fetchApiData } from "@/lib/api/fetchApiData";
+import { api } from "../api/apiHandler";
 
 export const getUserDetails = async (id?: string) => {
-  const result = await fetchApiData(
+  const result = await api.get(
     id ? `${apiUrls.viewProfile}/${id}` : apiUrls.viewProfile
   );
 

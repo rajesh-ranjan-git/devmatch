@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { useDevMatchAppStore } from "@/store/store";
 import AnimatedFloatingSquares from "@/components/background/animatedFloatingSquares";
 import ProfileCover from "@/components/profile/profileCover";
 import ProfileDetails from "@/components/profile/profileDetails";
@@ -12,8 +11,6 @@ import { useParams } from "next/navigation";
 
 const ProfilePage = () => {
   const { id } = useParams<{ id: string }>();
-
-  const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
 
   const { showToast } = useToast();
 
@@ -40,8 +37,6 @@ const ProfilePage = () => {
 
     fetchUserDetails();
   }, [id]);
-
-  if (!loggedInUser) return;
 
   return (
     <div className="relative flex justify-center items-center w-full h-[85vh] overflow-hidden">

@@ -1,4 +1,4 @@
-export const defaultRoute = {
+export const defaultRoutes = {
   home: "/",
   explore: "explore",
 };

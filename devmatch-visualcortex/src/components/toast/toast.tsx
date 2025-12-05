@@ -39,7 +39,6 @@ export const TOAST_PROGRESS_DIRECTIONS = {
   rightToLeft: "right-to-left",
 } as const;
 
-// Types
 type ToastVariant = keyof typeof TOAST_VARIANTS;
 type ToastPosition = (typeof TOAST_POSITIONS)[keyof typeof TOAST_POSITIONS];
 type ToastProgressPosition = keyof typeof TOAST_PROGRESS_POSITIONS;
@@ -71,10 +70,8 @@ interface ToastContextType {
   removeToast: (id: string) => void;
 }
 
-// Context
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
-// Variant configurations
 const variantConfig = {
   success: {
     bg: "bg-glass-success border-glass-success-border backdrop-blur-2xl",
@@ -106,7 +103,6 @@ const variantConfig = {
   },
 };
 
-// Position styles
 const positionStyles: Record<ToastPosition, string> = {
   "top-left": "top-4 left-4",
   "top-right": "top-4 right-4",
@@ -116,7 +112,6 @@ const positionStyles: Record<ToastPosition, string> = {
   "bottom-center": "bottom-4 left-1/2 -translate-x-1/2",
 };
 
-// Animation variants based on position
 const getAnimationVariants = (position: ToastPosition) => {
   const isLeft = position.includes("left");
   const isRight = position.includes("right");
@@ -148,7 +143,6 @@ const getAnimationVariants = (position: ToastPosition) => {
   };
 };
 
-// Toast Component
 const ToastItem: React.FC<{
   toast: Toast;
   onRemove: (id: string) => void;
@@ -179,7 +173,6 @@ const ToastItem: React.FC<{
     return () => clearInterval(interval);
   }, [toast.id, toast.duration, onRemove]);
 
-  // Fix: Proper progress bar styling based on direction
   const isLeftToRight =
     toast.toastProgressDirection === TOAST_PROGRESS_DIRECTIONS.leftToRight;
 
@@ -255,7 +248,6 @@ const ToastItem: React.FC<{
   );
 };
 
-// Toast Container
 const ToastContainer: React.FC<{
   toasts: Toast[];
   position: ToastPosition;
@@ -276,7 +268,6 @@ const ToastContainer: React.FC<{
   );
 };
 
-// Toast Provider
 export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
