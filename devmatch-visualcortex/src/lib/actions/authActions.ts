@@ -59,6 +59,7 @@ export const registerAction = async (
       password: validatedPassword,
       confirmPassword: validatedConfirmPassword,
     },
+    requiresAuth: false,
   });
 
   if (!result?.success) {
@@ -122,6 +123,7 @@ export const loginAction = async (
       email: validatedEmail,
       password: validatedPassword,
     },
+    requiresAuth: false,
   });
 
   if (!result?.success) {
@@ -188,13 +190,12 @@ export const forgotPasswordAction = async (
     method: "patch",
     url: apiUrls.forgotPassword,
     data: {
-      data: {
-        firstName: validatedFirstName,
-        email: validatedEmail,
-        password: validatedPassword,
-        confirmPassword: validatedConfirmPassword,
-      },
+      firstName: validatedFirstName,
+      email: validatedEmail,
+      password: validatedPassword,
+      confirmPassword: validatedConfirmPassword,
     },
+    requiresAuth: false,
   });
 
   if (!result?.success) {

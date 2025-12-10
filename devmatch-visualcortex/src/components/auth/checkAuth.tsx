@@ -36,7 +36,7 @@ const CheckAuth = ({ children }: ReactNodeProps) => {
         router.push(getUrlString(authRoutes.login));
       }
 
-      setLoggedInUser(user);
+      setLoggedInUser(user!);
     };
 
     if ((isPublicRoute || pathname === defaultRoutes.home) && loggedInUser) {

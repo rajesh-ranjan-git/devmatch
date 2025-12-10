@@ -8,7 +8,7 @@ const envFilePath = `./env/.env-${mode}`;
 
 if (existsSync(envFilePath)) {
   loadEnv({ path: envFilePath });
-  console.log(`ℹ️️  INFO :: 🔵 Loaded env file: ${envFilePath}`);
+  console.log(`🔵 Loaded env file: ${envFilePath}`);
 } else {
   console.warn(`⚠️ WARNING :: Env file not found: ${envFilePath}`);
 }
@@ -19,6 +19,12 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "picsum.photos",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.pravatar.cc",
         port: "",
         pathname: "/**",
       },

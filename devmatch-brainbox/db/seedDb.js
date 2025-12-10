@@ -315,6 +315,10 @@ const generateRandomUser = async (index) => {
   }
 
   if (Math.random() > 0.3) {
+    user.company = `${randomElement(lastNames)} technologies`;
+  }
+
+  if (Math.random() > 0.3) {
     user.organization = `${randomElement(lastNames)} technologies`;
   }
 

@@ -107,6 +107,10 @@ export interface StoredData<T> {
   expiresAt?: number;
 }
 
+export interface ProfileComponentProps {
+  user: UserType;
+}
+
 export interface UserCardProps {
   user: UserType;
   users: UserType[];

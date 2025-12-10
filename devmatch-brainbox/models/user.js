@@ -143,6 +143,12 @@ const userSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    company: {
+      type: String,
+      required: false,
+      minlength: 2,
+      maxlength: 100,
+    },
     organization: {
       type: String,
       required: false,

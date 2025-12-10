@@ -2,17 +2,27 @@
 
 import Image from "next/image";
 import { cameraDropDownItems, staticImages } from "@/config/config";
+import { ProfileComponentProps } from "@/types/propTypes";
+import { getFullName, toTitleCase } from "@/lib/utils/utils";
 import NameCardContent from "@/components/explore/nameCardContent";
 import ProfileCoverEditButton from "@/components/ui/buttons/profileCoverEditButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 import Dropdown from "@/components/ui/dropdown/dropdown";
 
-const ProfileCover = () => {
+const ProfileCover = ({ user }: ProfileComponentProps) => {
   return (
     <div className="group relative flex justify-center items-center shadow-[0_0.3rem_1rem_rgba(0,0,0,0.2)] rounded-xl w-3/4 h-full overflow-hidden">
       <Image
-        src={staticImages.profilePlaceholder.src}
-        alt={staticImages.profilePlaceholder.alt}
+        src={
+          user?.coverPhotoUrl
+            ? user?.coverPhotoUrl
+            : staticImages.profilePlaceholder.src
+        }
+        alt={
+          user?.userName
+            ? `${user?.userName}'s cover`
+            : staticImages.profilePlaceholder.alt
+        }
         width={600}
         height={400}
         className="w-full h-full object-cover select-none"
@@ -43,7 +53,9 @@ const ProfileCover = () => {
         </Dropdown>
       </div>
 
-      <NameCardContent name="Rajesh Ranjan" />
+      <NameCardContent
+        name={toTitleCase(getFullName(user)) ?? "Rajesh Ranjan"}
+      />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { LoggedInUserType } from "@/types/types";
+import { UserType } from "@/types/types";
 
 export const getRandomItem = <T>(arr: T[]): T =>
   arr[Math.floor(Math.random() * arr.length)];
@@ -46,7 +46,7 @@ export const formatDate = (dateString?: string | Date) => {
   });
 };
 
-export const getFullName = (user: LoggedInUserType) => {
+export const getFullName = (user?: UserType) => {
   return user?.firstName && user?.middleName && user?.lastName
     ? `${user?.firstName} ${user?.middleName} ${user?.lastName}`
     : user?.firstName && user?.lastName

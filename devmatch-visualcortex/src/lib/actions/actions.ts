@@ -1,19 +1,18 @@
 import { apiRequest } from "@/lib/api/api";
 import { apiUrls } from "@/lib/api/apiUtils";
-import { getCookies } from "@/lib/api/cookiesHandler";
-
-let authorizedUser;
 
 export const checkAuth = async () => {
-  const token = await getCookies("authToken");
-
   const result = await apiRequest({
-    url: apiUrls.checkAuth,
-    options: { headers: { Authorization: `Bearer ${token}` } },
+    url: apiUrls?.checkAuth,
   });
 
-  if (result && result?.success && result?.data && result?.data?.user) {
-    authorizedUser = result?.data?.user;
-    return authorizedUser;
-  }
+  return result?.success ? result?.data?.user : null;
+};
+
+export const getUserDetails = async (id?: string) => {
+  const result = await apiRequest({
+    url: id ? `${apiUrls?.viewProfile}/${id}` : apiUrls?.viewProfile,
+  });
+
+  return result?.success ? result?.data?.user : null;
 };

@@ -50,7 +50,7 @@ export const view = async (req, res) => {
     return res.status(status.success.statusCode).json({
       status: status.success.message,
       statusCode: status.success.statusCode,
-      data: { user },
+      user,
       message: successMessages.FETCH_PROFILE_SUCCESS,
     });
   } catch (error) {
@@ -95,7 +95,7 @@ export const update = async (req, res) => {
     return res.status(status.success.statusCode).json({
       status: status.success.message,
       statusCode: status.success.statusCode,
-      data: { user },
+      user,
       message: successMessages.USER_UPDATE_SUCCESS,
     });
   } catch (error) {

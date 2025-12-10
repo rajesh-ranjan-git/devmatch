@@ -42,3 +42,19 @@ export async function getCookies(name?: string) {
 
   return allCookies;
 }
+
+export async function clearCookies(name?: string) {
+  const cookieStore = await cookies();
+
+  if (name) {
+    cookieStore.delete(name);
+    return true;
+  }
+
+  const all = cookieStore.getAll();
+  all.forEach((cookie) => {
+    cookieStore.delete(cookie.name);
+  });
+
+  return true;
+}
