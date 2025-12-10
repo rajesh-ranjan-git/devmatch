@@ -1,9 +1,8 @@
 "use server";
 
-import { AxiosResponse } from "axios";
 import { cookies } from "next/headers";
 
-export async function setCookies(cookiesData) {
+export async function setCookies(cookiesData: string[]) {
   const cookieStore = await cookies();
   const cookieList = Array.isArray(cookiesData) ? cookiesData : [cookiesData];
 

@@ -9,8 +9,7 @@ import {
   userNameValidator,
 } from "@/lib/validations/validations";
 import { apiUrls } from "@/lib/api/apiUtils";
-import { api } from "@/lib/api/apiHandler";
-import { apiRequest } from "../api/api";
+import { apiRequest } from "@/lib/api/api";
 
 export const registerAction = async (
   prevState: AuthFormStateType,
@@ -51,11 +50,15 @@ export const registerAction = async (
     };
   }
 
-  const result = await api.post(apiUrls.register, {
-    userName: validatedUserName,
-    email: validatedEmail,
-    password: validatedPassword,
-    confirmPassword: validatedConfirmPassword,
+  const result = await apiRequest({
+    method: "post",
+    url: apiUrls.register,
+    data: {
+      userName: validatedUserName,
+      email: validatedEmail,
+      password: validatedPassword,
+      confirmPassword: validatedConfirmPassword,
+    },
   });
 
   if (!result?.success) {
@@ -181,12 +184,16 @@ export const forgotPasswordAction = async (
     };
   }
 
-  const result = await api.patch(apiUrls.forgotPassword, {
+  const result = await apiRequest({
+    method: "patch",
+    url: apiUrls.forgotPassword,
     data: {
-      firstName: validatedFirstName,
-      email: validatedEmail,
-      password: validatedPassword,
-      confirmPassword: validatedConfirmPassword,
+      data: {
+        firstName: validatedFirstName,
+        email: validatedEmail,
+        password: validatedPassword,
+        confirmPassword: validatedConfirmPassword,
+      },
     },
   });
 

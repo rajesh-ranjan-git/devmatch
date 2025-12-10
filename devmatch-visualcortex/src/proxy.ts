@@ -2,12 +2,9 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { authRoutes } from "@/lib/routes/routes";
 import { getUrlString } from "@/lib/utils/utils";
-import { apiUrls } from "@/lib/api/apiUtils";
-import { apiRequest } from "./lib/api/api";
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  const cookieHeader = request.cookies.toString();
 
   const isPublicRoute = Object.values(authRoutes).some((route) =>
     pathname.startsWith(getUrlString(route))
@@ -38,68 +35,7 @@ export async function proxy(request: NextRequest) {
     return response;
   }
 
-  try {
-    const checkAuthResult = await apiRequest({
-      url: apiUrls.checkAuth,
-      options: {
-        headers: {
-          Cookie: request.cookies.toString(),
-        },
-      },
-    });
-
-    if (!checkAuthResult.success) {
-      const response = NextResponse.redirect(
-        new URL(authRoutes.login, request.nextUrl.origin)
-      );
-      response.cookies.set(
-        "flash",
-        JSON.stringify({
-          type: "error",
-          message: "Session expired. Please login again",
-          authenticated: false,
-        }),
-        {
-          maxAge: 10,
-          path: "/",
-        }
-      );
-      response.cookies.delete("authToken");
-      return response;
-    }
-
-    const response = NextResponse.next();
-    response.cookies.set(
-      "flash",
-      JSON.stringify({
-        type: "success",
-        message: "Authentication successful",
-        authenticated: true,
-      }),
-      {
-        maxAge: 10,
-        path: "/",
-      }
-    );
-    return response;
-  } catch (error) {
-    const response = NextResponse.redirect(
-      new URL(authRoutes.login, request.nextUrl.origin)
-    );
-    response.cookies.set(
-      "flash",
-      JSON.stringify({
-        type: "error",
-        message: "Authentication error. Please try again",
-        authenticated: false,
-      }),
-      {
-        maxAge: 10,
-        path: "/",
-      }
-    );
-    return response;
-  }
+  return NextResponse.next();
 }
 
 export const config = {

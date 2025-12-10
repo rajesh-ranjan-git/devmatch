@@ -14,7 +14,6 @@ if (existsSync(envFilePath)) {
 }
 
 const nextConfig = {
-  reactCompiler: true,
   images: {
     remotePatterns: [
       {

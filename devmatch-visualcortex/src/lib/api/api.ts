@@ -1,7 +1,12 @@
 "use server";
 
-import { api, ApiErrorType, ApiOptions, ApiResponse } from "./apiHandler";
-import { setCookies } from "./cookiesHandler";
+import {
+  api,
+  ApiErrorType,
+  ApiOptions,
+  ApiResponse,
+} from "@/lib/api/apiHandler";
+import { setCookies } from "@/lib/api/cookiesHandler";
 
 export type ApiMethod =
   | "GET"
