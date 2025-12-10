@@ -16,16 +16,19 @@ const auth = async (req, res, next) => {
   try {
     const body = requestValidator(req, res);
 
-    if (!req?.cookies || !req?.cookies?.authToken) {
+    const authHeader = req.headers["authorization"];
+    const authToken = authHeader && authHeader.split(" ")[1];
+
+    if (!authToken) {
       throw new AuthenticationError(
         status.forbidden,
         errorMessages.UNAUTHORIZED_USER_ERROR,
-        { token: req?.cookies?.authToken },
+        { token: authToken },
         req?.url
       );
     }
 
-    const decodedUserId = verifyJwtToken(req?.cookies?.authToken);
+    const decodedUserId = verifyJwtToken(authToken);
 
     if (!isValidMongoDbObjectId(decodedUserId)) {
       throw new DatabaseError(

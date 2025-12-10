@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import { alkatra, arima, inter, tourney } from "@/config/config";
 import { ReactNodeProps } from "@/types/propTypes";
 import { ToastProvider } from "@/components/toast/toast";
+import Flash from "@/components/flash/flash";
+import ConsoleBanner from "@/components/banner/consoleBanner";
 import ThemeManager from "@/components/theme/themeManager";
 import DefaultAnimatedBackground from "@/components/background/defaultAnimatedBackground";
 import InitialLoader from "@/components/ui/loaders/initialLoader";
 import ErrorWrapper from "@/components/errors/errorWrapper";
+import CheckAuth from "@/components/auth/checkAuth";
 import Header from "@/components/header/header";
-import ConsoleBanner from "@/components/banner/consoleBanner";
 import "@/app/globals.css";
-import Flash from "@/components/flash/flash";
 
 export const metadata: Metadata = {
   title: {
@@ -33,10 +34,12 @@ export default function RootLayout({ children }: Readonly<ReactNodeProps>) {
           <ThemeManager />
           <DefaultAnimatedBackground />
           <Flash />
+          {/* <InitialLoader /> */}
           <ErrorWrapper>
-            {/* <InitialLoader /> */}
-            <Header />
-            {children}
+            <CheckAuth>
+              <Header />
+              {children}
+            </CheckAuth>
           </ErrorWrapper>
         </ToastProvider>
       </body>

@@ -44,7 +44,7 @@ export const showDevMatchBanner = async (port = process.env.BRAINBOX_PORT) => {
       }
     );
   } catch (error) {
-    console.error(
+    console.warn(
       `⚠️  WARNING :: ${errorMessages.BANNER_ERROR} : ${error.message}`
     );
     return;

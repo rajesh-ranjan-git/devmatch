@@ -1,14 +1,18 @@
 "use client";
 
 import { useEffect } from "react";
+import { useToast } from "@/components/toast/toast";
 
 interface FlashMessage {
   type: "success" | "error" | "info";
+  title: string;
   message: string;
   authenticated: boolean;
 }
 
 export default function Flash() {
+  const { showToast } = useToast();
+
   useEffect(() => {
     const getCookie = (name: string): string | null => {
       const value = `; ${document.cookie}`;
@@ -31,17 +35,15 @@ export default function Flash() {
           decodeURIComponent(flashCookie)
         );
 
-        if (flashData.authenticated) {
-          console.log("✅ Authentication successful:", flashData.message);
-        } else {
-          console.log("❌ Authentication failed:", flashData.message);
-        }
-
-        console.log("Flash data:", flashData);
+        showToast({
+          title: flashData.title,
+          message: flashData.message,
+          variant: flashData.type,
+        });
 
         deleteCookie("flash");
       } catch (error) {
-        console.error("Error parsing flash cookie:", error);
+        console.warn("⚠️ WARNING :: Error parsing flash cookie:", error);
         deleteCookie("flash");
       }
     }

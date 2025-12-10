@@ -15,23 +15,28 @@ export async function proxy(request: NextRequest) {
   }
 
   const authToken = request.cookies.get("authToken")?.value;
+  const flashCookie = request.cookies.get("flash");
 
   if (!authToken) {
     const response = NextResponse.redirect(
       new URL(authRoutes.login, request.nextUrl.origin)
     );
-    response.cookies.set(
-      "flash",
-      JSON.stringify({
-        type: "error",
-        message: "Please login to access this page",
-        authenticated: false,
-      }),
-      {
-        maxAge: 10,
-        path: "/",
-      }
-    );
+
+    if (!flashCookie) {
+      response.cookies.set(
+        "flash",
+        JSON.stringify({
+          type: "error",
+          title: "Authentication Failed!",
+          message: "Please login to continue!",
+          authenticated: false,
+        }),
+        {
+          maxAge: 10,
+          path: "/",
+        }
+      );
+    }
     return response;
   }
 
@@ -40,6 +45,6 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|public/|assets/|login|register|forgot-password).*)",
+    "/((?!_next/static|_next/image|favicon.ico|public/|assets/|login|register|forgot-password|\\.well-known/appspecific).*)",
   ],
 };

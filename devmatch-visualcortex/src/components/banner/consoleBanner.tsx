@@ -49,8 +49,8 @@ const ConsoleBanner = ({ nodeVersion }: ConsoleBannerProps) => {
           { font: BANNER_FONTS.ansiShadow.name },
           async (error, data) => {
             if (error) {
-              console.error(
-                "An error occurred while creating console banner :",
+              console.warn(
+                "⚠️ WARNING :: An error occurred while creating console banner :",
                 error
               );
               showToast({
@@ -71,7 +71,10 @@ const ConsoleBanner = ({ nodeVersion }: ConsoleBannerProps) => {
         );
       })
       .catch((err) => {
-        console.error("An error occurred while creating console banner :", err);
+        console.warn(
+          "⚠️ WARNING :: An error occurred while creating console banner :",
+          err
+        );
         showToast({
           title: MESSAGE_TITLES.bannerFailed,
           message: ERROR_MESSAGES.bannerError,

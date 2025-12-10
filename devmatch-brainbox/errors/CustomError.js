@@ -31,7 +31,7 @@ class ErrorHandlerManager {
       try {
         this.config.onError(errorObject);
       } catch (callbackError) {
-        console.error("Error in onError callback:", callbackError);
+        console.error("❌ ERROR :: Error in onError callback:", callbackError);
       }
     }
   }
@@ -190,7 +190,7 @@ errorManager.configure({
   logLevel: "error",
   onError: (error) => {
     if (process.env.NODE_ENV === "development") {
-      console.log("‼️  ERROR LOG :: [Error] ", {
+      console.error("‼️  ERROR LOG :: [Error] ", {
         status: error?.status?.message,
         statusCode: error?.status?.statusCode,
         url: error?.apiUrl || "",
@@ -199,7 +199,7 @@ errorManager.configure({
         data: error?.data,
         timestamp: error?.timestamp,
       });
-      // console.log("‼️  ERROR LOG :: [Error Stack trace] ", error?.stack);
+      // console.error("‼️  ERROR LOG :: [Error Stack trace] ", error?.stack);
     }
   },
 });

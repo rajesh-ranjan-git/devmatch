@@ -42,7 +42,7 @@ export const useWebStorage = <T,>({
       };
       storage.setItem(key, JSON.stringify(payload));
     } catch (err) {
-      console.error("Error setting storage:", err);
+      console.error("❌ ERROR :: Error setting storage:", err);
     }
   }, [key, storedValue, expiresIn, storage]);
 
@@ -60,7 +60,7 @@ export const useWebStorage = <T,>({
             setStoredValue(parsed.data);
           }
         } catch (err) {
-          console.error("Error syncing storage:", err);
+          console.error("❌ ERROR :: Error syncing storage:", err);
         }
       }
     };
@@ -75,7 +75,7 @@ export const useWebStorage = <T,>({
         newValue instanceof Function ? newValue(prev) : newValue
       );
     } catch (err) {
-      console.error("Error setting storage:", err);
+      console.error("❌ ERROR :: Error setting storage:", err);
     }
   };
 

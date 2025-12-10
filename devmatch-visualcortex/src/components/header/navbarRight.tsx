@@ -12,8 +12,9 @@ import {
   staticImages,
 } from "@/config/config";
 import { getFullName, getUrlString, toTitleCase } from "@/lib/utils/utils";
-import { apiUrls } from "@/lib/api/apiUtils";
 import { authRoutes } from "@/lib/routes/routes";
+import { apiRequest } from "@/lib/api/api";
+import { apiUrls } from "@/lib/api/apiUtils";
 import { useDevMatchAppStore } from "@/store/store";
 import { useToast } from "@/components/toast/toast";
 import ThemeToggle from "@/components/theme/themeToggle";
@@ -22,16 +23,16 @@ import NotificationsDropdownItems from "@/components/header/notificationsDropdow
 import NavbarButton from "@/components/ui/buttons/navbarButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 import Dropdown from "@/components/ui/dropdown/dropdown";
-import { api } from "@/lib/api/apiHandler";
+import { setCookies } from "@/lib/api/cookiesHandler";
 
 const NavbarRight = () => {
   const pathname = usePathname();
   const router = useRouter();
 
+  const { showToast } = useToast();
+
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
   const setLoggedInUser = useDevMatchAppStore((state) => state.setLoggedInUser);
-
-  const { showToast } = useToast();
 
   const loggedInUserFullName = getFullName(loggedInUser);
 
@@ -50,16 +51,39 @@ const NavbarRight = () => {
   };
 
   const handleLogout = async () => {
-    const logoutData = await api.get(apiUrls.logout);
+    const logoutData = await apiRequest({ url: apiUrls.logout });
 
     if (logoutData?.success) {
-      router.push(getUrlString(authRoutes.login));
-
       showToast({
         title: "Logout Successful!",
         message: "See you soon!",
         variant: "success",
       });
+
+      const cookieName = "flash";
+
+      const cookieValue = JSON.stringify({
+        type: "success",
+        title: "Logout Successful!",
+        message: "See you soon!",
+        authenticated: true,
+      });
+
+      const cookieOptions = {
+        maxAge: 1,
+        path: "/",
+      };
+
+      const flashCookie = [
+        `${cookieName}=${cookieValue}`,
+        cookieOptions.maxAge ? `Max-Age=${cookieOptions.maxAge}` : "",
+        cookieOptions.path ? `Path=${cookieOptions.path}` : "",
+      ]
+        .filter(Boolean)
+        .join("; ");
+
+      setCookies([flashCookie]);
+      router.push(getUrlString(authRoutes.login));
     }
   };
 

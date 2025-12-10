@@ -26,3 +26,19 @@ export async function setCookies(cookiesData: string[]) {
     cookieStore.set(name, value, options);
   });
 }
+
+export async function getCookies(name?: string) {
+  const cookieStore = await cookies();
+
+  if (name) {
+    return cookieStore.get(name)?.value ?? null;
+  }
+
+  const allCookies: Record<string, string> = {};
+
+  cookieStore.getAll().forEach((cookie) => {
+    allCookies[cookie.name] = cookie.value;
+  });
+
+  return allCookies;
+}
