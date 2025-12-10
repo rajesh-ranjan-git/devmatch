@@ -60,14 +60,11 @@ export async function apiRequest<T = any, D = any>({
   const handleResponse = async <R>(
     result: ApiResponse<R>
   ): Promise<ApiResponse<R>> => {
-    if (
-      !result.success &&
-      result.error?.code === ApiErrorType.FORBIDDEN_ERROR
-    ) {
+    if (!result.success && result.error) {
       return {
         success: false,
         error: {
-          message: "Session expired. Please log in again.",
+          message: result.error.message,
           code: ApiErrorType.FORBIDDEN_ERROR,
         },
       };

@@ -16,6 +16,8 @@ import Dropdown from "@/components/ui/dropdown/dropdown";
 import ProfilePhotoEditButton from "@/components/ui/buttons/profilePhotoEditButton";
 
 const ProfileDetails = ({ user }: ProfileComponentProps) => {
+  console.log("debug from ProfileDetails user : ", user);
+
   return (
     <div className="relative flex flex-col p-8 pb-4 w-full h-full">
       <div className="flex gap-4">

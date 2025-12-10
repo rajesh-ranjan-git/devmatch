@@ -2,6 +2,7 @@ import Image from "next/image";
 import { motion, useMotionValue, useTransform } from "motion/react";
 import { staticImages } from "@/config/config";
 import { UserCardProps } from "@/types/propTypes";
+import { getFullName, toTitleCase } from "@/lib/utils/utils";
 import NameCardContent from "@/components/explore/nameCardContent";
 import UserDetailsCardContent from "@/components/explore/userDetailsCardContent";
 import UserInfoButton from "@/components/ui/buttons/userInfoButton";
@@ -12,10 +13,10 @@ const UserCard = ({ user, users, setUsers }: UserCardProps) => {
   const opacity = useTransform(x, [-150, -50, 0, 50, 150], [0, 1, 1, 1, 0]);
   const rotateRow = useTransform(x, [-150, 150], [-18, 18]);
 
-  const isFront = user?.ID === users?.[users?.length - 1]?.ID;
+  const isFront = user?.id === users?.[users?.length - 1]?.id;
 
   const rotate = useTransform(() => {
-    const offset = isFront ? 0 : Number(user?.ID) % 2 ? 6 : -6;
+    const offset = isFront ? 0 : Number(user?.id) % 2 ? 6 : -6;
 
     return `${rotateRow.get() + offset}deg`;
   });
@@ -24,7 +25,7 @@ const UserCard = ({ user, users, setUsers }: UserCardProps) => {
     if (Math.abs(x.get()) > 50) {
       setUsers((prev) =>
         prev.filter((u) => {
-          return u?.ID !== user?.ID;
+          return u?.id !== user?.id;
         })
       );
     }
@@ -40,7 +41,7 @@ const UserCard = ({ user, users, setUsers }: UserCardProps) => {
         opacity,
         rotate,
         transition: "0.125s transform",
-        zIndex: user?.ID,
+        zIndex: user?.id,
       }}
       animate={{
         scale: isFront ? 1 : 0.98,
@@ -62,12 +63,12 @@ const UserCard = ({ user, users, setUsers }: UserCardProps) => {
         className="w-full h-full object-cover pointer-events-none select-none"
       />
 
-      <NameCardContent name={user?.NAME} />
+      <NameCardContent name={toTitleCase(getFullName(user))} />
 
       <UserDetailsCardContent
-        name={user?.NAME}
-        jobProfile={user?.JOB_PROFILE}
-        organization={user?.ORGANIZATION}
+        name={toTitleCase(getFullName(user))}
+        jobProfile={user?.jobProfile}
+        organization={user?.organization}
       />
     </motion.div>
   );

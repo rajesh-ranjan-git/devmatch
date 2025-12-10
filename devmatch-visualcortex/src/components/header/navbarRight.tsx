@@ -15,6 +15,7 @@ import { getFullName, getUrlString, toTitleCase } from "@/lib/utils/utils";
 import { authRoutes } from "@/lib/routes/routes";
 import { apiRequest } from "@/lib/api/api";
 import { apiUrls } from "@/lib/api/apiUtils";
+import { setCookies } from "@/lib/api/cookiesHandler";
 import { useDevMatchAppStore } from "@/store/store";
 import { useToast } from "@/components/toast/toast";
 import ThemeToggle from "@/components/theme/themeToggle";
@@ -23,7 +24,6 @@ import NotificationsDropdownItems from "@/components/header/notificationsDropdow
 import NavbarButton from "@/components/ui/buttons/navbarButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 import Dropdown from "@/components/ui/dropdown/dropdown";
-import { setCookies } from "@/lib/api/cookiesHandler";
 
 const NavbarRight = () => {
   const pathname = usePathname();

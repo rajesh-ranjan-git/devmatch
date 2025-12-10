@@ -19,9 +19,9 @@ import {
   forgotPasswordAction,
 } from "@/lib/actions/authActions";
 import { useDevMatchAppStore } from "@/store/store";
+import { useToast } from "@/components/toast/toast";
 import Input from "@/components/auth/input";
 import FormErrorMessage from "@/components/errors/formErrorMessage";
-import { useToast } from "@/components/toast/toast";
 import SubmitButton from "@/components/ui/buttons/submitButton";
 
 const AuthForm = ({ type }: AuthFormWrapperProps) => {

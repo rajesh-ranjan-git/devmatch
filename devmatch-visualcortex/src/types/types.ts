@@ -13,8 +13,8 @@ import {
 export type DevMatchAppState = {
   switchTheme: ThemeTypes;
   setSwitchTheme: (value: ThemeTypes) => void;
-  loggedInUser: LoggedInUserType;
-  setLoggedInUser: (value: LoggedInUserType) => void;
+  loggedInUser: UserType;
+  setLoggedInUser: (value: UserType) => void;
   activeSheet: SheetTypes;
   setActiveSheet: (name: SheetTypes) => void;
   activeContextMenu: ContextMenuTypes;
@@ -24,16 +24,6 @@ export type DevMatchAppState = {
 export type ThemeTypes = keyof typeof THEMES;
 
 export type StorageTypes = keyof typeof STORAGE;
-
-export type LoggedInUserType = {
-  id: string;
-  email: string;
-  firstName?: string;
-  middleName?: string;
-  lastName?: string;
-  userName: string;
-  avatarUrl?: string;
-} | null;
 
 export type NavbarMenuItemTypes = keyof typeof NAVBAR_MENU_ITEMS;
 
@@ -160,7 +150,6 @@ export type UserType = {
   middleName?: string;
   lastName?: string;
   nickName?: string;
-  name?: string;
   age?: string;
   phone?: string;
   gender?: string;
@@ -178,4 +167,4 @@ export type UserType = {
   address?: string;
   createdAt?: string;
   updatedAt?: string;
-};
+} | null;

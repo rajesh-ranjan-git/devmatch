@@ -1,9 +1,9 @@
 import { use } from "react";
+import { getUserDetails } from "@/lib/actions/actions";
 import AnimatedFloatingSquares from "@/components/background/animatedFloatingSquares";
 import ProfileCover from "@/components/profile/profileCover";
 import ProfileDetails from "@/components/profile/profileDetails";
 import VerticalSeparator from "@/components/ui/separators/verticalSeparator";
-import { getUserDetails } from "@/lib/actions/actions";
 
 const Profile = () => {
   const user = use(getUserDetails());

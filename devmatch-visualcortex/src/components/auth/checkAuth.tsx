@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { ReactNodeProps } from "@/types/propTypes";
 import { checkAuth } from "@/lib/actions/actions";
 import { authRoutes, defaultRoutes } from "@/lib/routes/routes";
+import { clearCookies } from "@/lib/api/cookiesHandler";
 import { getUrlString } from "@/lib/utils/utils";
 import { useDevMatchAppStore } from "@/store/store";
 import { useToast } from "@/components/toast/toast";
@@ -33,6 +34,7 @@ const CheckAuth = ({ children }: ReactNodeProps) => {
           variant: "error",
         });
 
+        clearCookies();
         router.push(getUrlString(authRoutes.login));
       }
 
