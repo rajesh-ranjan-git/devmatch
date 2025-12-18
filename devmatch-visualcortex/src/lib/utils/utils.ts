@@ -3,6 +3,16 @@ import { UserType } from "@/types/types";
 export const getRandomItem = <T>(arr: T[]): T =>
   arr[Math.floor(Math.random() * arr.length)];
 
+export const toSentenceCase = (text?: string) => {
+  if (!text) {
+    return "";
+  }
+
+  let temp = text.toLowerCase().split("_").join(" ").split("-").join(" ");
+
+  return temp.charAt(0).toUpperCase() + temp.slice(1) + ".";
+};
+
 export const toTitleCase = (text?: string) => {
   if (!text) {
     return "";

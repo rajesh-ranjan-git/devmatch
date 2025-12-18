@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { MdEdit, MdOutlineEdit } from "react-icons/md";
 import {
   authFormFieldButtonItems,
   cameraDropDownItems,
@@ -9,6 +8,7 @@ import {
 } from "@/config/config";
 import { getFullName, toTitleCase } from "@/lib/utils/utils";
 import { ProfileComponentProps } from "@/types/propTypes";
+import ProfileTabularData from "@/components/profile/profileTabularData";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
@@ -16,7 +16,21 @@ import Dropdown from "@/components/ui/dropdown/dropdown";
 import ProfilePhotoEditButton from "@/components/ui/buttons/profilePhotoEditButton";
 
 const ProfileDetails = ({ user }: ProfileComponentProps) => {
-  console.log("debug from ProfileDetails user : ", user);
+  if (!user) return;
+
+  const selectedUserProperties = Object.fromEntries(
+    Object.entries(user ?? {}).filter(
+      ([key]) =>
+        ![
+          "userName",
+          "firstName",
+          "middleName",
+          "lastName",
+          "avatarUrl",
+          "coverPhotoUrl",
+        ].includes(key)
+    )
+  );
 
   return (
     <div className="relative flex flex-col p-8 pb-4 w-full h-full">
@@ -58,258 +72,7 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
       <div className="[&::-webkit-scrollbar-track]:bg-transparent mt-4 mb-8 pr-4 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar]:w-1 overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
         <table className="w-full text-glass-text-primary table-fixed">
           <tbody>
-            <tr className="w-full table-fixed">
-              <td className="py-1 w-1/4 font-semibold text-glass-text-primary text-sm align-top">
-                Nick Name
-              </td>
-              <td className="py-1 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
-                <div className="flex justify-between items-start w-full overflow-hidden">
-                  <div className="pr-4 w-full">
-                    <span>
-                      {user ? toTitleCase(user?.nickName) : "John Doe"}
-                    </span>
-                  </div>
-                  <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm text-glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
-                    <MdOutlineEdit className="group-hover/icon:hidden" />
-                    <MdEdit className="hidden group-hover/icon:block" />
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr className="w-full table-fixed">
-              <td className="py-1 w-1/4 font-semibold text-glass-text-primary text-sm align-top">
-                Job Profile
-              </td>
-              <td className="py-1 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
-                <div className="flex justify-between items-start w-full overflow-hidden">
-                  <div className="pr-4 w-full">
-                    <span>{user?.jobProfile}</span>
-                  </div>
-                  <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm w-7glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
-                    <MdOutlineEdit className="group-hover/icon:hidden" />
-                    <MdEdit className="hidden group-hover/icon:block" />
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr className="w-full table-fixed">
-              <td className="py-1 w-1/4 font-semibold text-glass-text-primary text-sm align-top">
-                Company
-              </td>
-              <td className="py-1 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
-                <div className="flex justify-between items-start w-full overflow-hidden">
-                  <div className="pr-4 w-full">
-                    <span>{user?.organization}</span>
-                  </div>
-                  <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm text-glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
-                    <MdOutlineEdit className="group-hover/icon:hidden" />
-                    <MdEdit className="hidden group-hover/icon:block" />
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr className="w-full table-fixed">
-              <td className="py-1 w-1/4 font-semibold text-glass-text-primary text-sm align-top">
-                Organization
-              </td>
-              <td className="py-1 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
-                <div className="flex justify-between items-start w-full overflow-hidden">
-                  <div className="pr-4 w-full">
-                    <span>{user?.organization}</span>
-                  </div>
-                  <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm w-7glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
-                    <MdOutlineEdit className="group-hover/icon:hidden" />
-                    <MdEdit className="hidden group-hover/icon:block" />
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr className="w-full table-fixed">
-              <td className="py-1 w-1/4 font-semibold text-glass-text-primary text-sm align-top">
-                Experience
-              </td>
-              <td className="py-1 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
-                <div className="flex justify-between items-start w-full overflow-hidden">
-                  <div className="pr-4 w-full">
-                    <span>{user?.experience}+ yrs</span>
-                  </div>
-                  <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm text-glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
-                    <MdOutlineEdit className="group-hover/icon:hidden" />
-                    <MdEdit className="hidden group-hover/icon:block" />
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr className="w-full table-fixed">
-              <td className="py-1 w-1/4 font-semibold text-glass-text-primary text-sm align-top">
-                Skills
-              </td>
-              <td className="py-1 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
-                <div className="flex justify-between items-start w-full overflow-hidden">
-                  <div className="pr-4 w-full overflow-hidden">
-                    <ul className="flex flex-wrap w-full wrap-break-words">
-                      {[
-                        "JavaScript",
-                        "TypeScript",
-                        "Next JS",
-                        "React JS",
-                        "Mongo DB",
-                        "MySQL",
-                        "Java",
-                        "Python",
-                      ].map((hobby, i, arr) => (
-                        <li
-                          key={i}
-                          className="mr-1 after:content-[','] last:after:content-['']"
-                        >
-                          {hobby}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm w-7glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
-                    <MdOutlineEdit className="group-hover/icon:hidden" />
-                    <MdEdit className="hidden group-hover/icon:block" />
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr className="w-full table-fixed">
-              <td className="py-1 w-1/4 font-semibold text-glass-text-primary text-sm align-top">
-                Hobbies
-              </td>
-              <td className="py-1 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
-                <div className="flex justify-between items-start w-full">
-                  <div className="pr-4 w-full overflow-hidden">
-                    <ul className="flex flex-wrap w-full wrap-break-words">
-                      {[
-                        "Computer Games",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Vibe Coding",
-                      ].map((hobby, i, arr) => (
-                        <li
-                          key={i}
-                          className="mr-1 after:content-[','] last:after:content-['']"
-                        >
-                          {hobby}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm text-glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
-                    <MdOutlineEdit className="group-hover/icon:hidden" />
-                    <MdEdit className="hidden group-hover/icon:block" />
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr className="w-full table-fixed">
-              <td className="py-1 w-1/4 font-semibold text-glass-text-primary text-sm align-top">
-                Hobbies
-              </td>
-              <td className="py-1 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
-                <div className="flex justify-between items-start w-full">
-                  <div className="pr-4 w-full overflow-hidden">
-                    <ul className="flex flex-wrap w-full wrap-break-words">
-                      {[
-                        "Computer Games",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Vibe Coding",
-                      ].map((hobby, i, arr) => (
-                        <li
-                          key={i}
-                          className="mr-1 after:content-[','] last:after:content-['']"
-                        >
-                          {hobby}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm text-glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
-                    <MdOutlineEdit className="group-hover/icon:hidden" />
-                    <MdEdit className="hidden group-hover/icon:block" />
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr className="w-full table-fixed">
-              <td className="py-1 w-1/4 font-semibold text-glass-text-primary text-sm align-top">
-                Hobbies
-              </td>
-              <td className="py-1 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
-                <div className="flex justify-between items-start w-full">
-                  <div className="pr-4 w-full overflow-hidden">
-                    <ul className="flex flex-wrap w-full wrap-break-words">
-                      {[
-                        "Computer Games",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Vibe Coding",
-                      ].map((hobby, i, arr) => (
-                        <li
-                          key={i}
-                          className="mr-1 after:content-[','] last:after:content-['']"
-                        >
-                          {hobby}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm text-glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
-                    <MdOutlineEdit className="group-hover/icon:hidden" />
-                    <MdEdit className="hidden group-hover/icon:block" />
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr className="w-full table-fixed">
-              <td className="py-1 w-1/4 font-semibold text-glass-text-primary text-sm align-top">
-                Hobbies
-              </td>
-              <td className="py-1 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
-                <div className="flex justify-between items-start w-full">
-                  <div className="pr-4 w-full overflow-hidden">
-                    <ul className="flex flex-wrap w-full wrap-break-words">
-                      {[
-                        "Computer Games",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Taekwondo",
-                        "Vibe Coding",
-                      ].map((hobby, i, arr) => (
-                        <li
-                          key={i}
-                          className="mr-1 after:content-[','] last:after:content-['']"
-                        >
-                          {hobby}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm text-glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
-                    <MdOutlineEdit className="group-hover/icon:hidden" />
-                    <MdEdit className="hidden group-hover/icon:block" />
-                  </div>
-                </div>
-              </td>
-            </tr>
+            <ProfileTabularData user={selectedUserProperties} />
           </tbody>
         </table>
       </div>
