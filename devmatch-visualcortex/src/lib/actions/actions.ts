@@ -16,3 +16,11 @@ export const getUserDetails = async (id?: string) => {
 
   return result?.success ? result?.data?.user : null;
 };
+
+export const getAllUsers = async () => {
+  const result = await apiRequest({
+    url: apiUrls?.explore,
+  });
+
+  return result?.success ? result?.data?.data?.users : null;
+};

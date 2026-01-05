@@ -468,3 +468,30 @@ export const getNotificationBody = (name, type, connectionStatus) => {
     return "Chat feature is not built yet!";
   }
 };
+
+export const sanitizeSingleDocument = (doc) => {
+  if (!doc || typeof doc !== "object") {
+    return doc;
+  }
+
+  const sanitized = { ...doc };
+
+  if (sanitized._id) {
+    sanitized.id = sanitized._id.toString();
+    delete sanitized._id;
+  }
+
+  return sanitized;
+}
+
+export const sanitizeMongoData = (data) => {
+  if (!data) {
+    return data;
+  }
+
+  if (Array.isArray(data)) {
+    return data.map((doc) => sanitizeSingleDocument(doc));
+  }
+
+  return sanitizeSingleDocument(data);
+};

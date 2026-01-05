@@ -6,6 +6,7 @@ import { getFullName, toTitleCase } from "@/lib/utils/utils";
 import NameCardContent from "@/components/explore/nameCardContent";
 import UserDetailsCardContent from "@/components/explore/userDetailsCardContent";
 import UserInfoButton from "@/components/ui/buttons/userInfoButton";
+import { useEffect } from "react";
 
 const UserCard = ({ user, users, setUsers }: UserCardProps) => {
   const x = useMotionValue(0);
@@ -14,9 +15,10 @@ const UserCard = ({ user, users, setUsers }: UserCardProps) => {
   const rotateRow = useTransform(x, [-150, 150], [-18, 18]);
 
   const isFront = user?.id === users?.[users?.length - 1]?.id;
+  const cardIndex = users.findIndex((u) => u?.id === user?.id);
 
   const rotate = useTransform(() => {
-    const offset = isFront ? 0 : Number(user?.id) % 2 ? 6 : -6;
+    const offset = isFront ? 0 : cardIndex % 2 ? 6 : -6;
 
     return `${rotateRow.get() + offset}deg`;
   });
@@ -41,7 +43,7 @@ const UserCard = ({ user, users, setUsers }: UserCardProps) => {
         opacity,
         rotate,
         transition: "0.125s transform",
-        zIndex: user?.id,
+        zIndex: cardIndex,
       }}
       animate={{
         scale: isFront ? 1 : 0.98,
@@ -67,8 +69,8 @@ const UserCard = ({ user, users, setUsers }: UserCardProps) => {
 
       <UserDetailsCardContent
         name={toTitleCase(getFullName(user))}
-        jobProfile={user?.jobProfile}
-        organization={user?.organization}
+        jobProfile={toTitleCase(user?.jobProfile)}
+        organization={toTitleCase(user?.organization)}
       />
     </motion.div>
   );

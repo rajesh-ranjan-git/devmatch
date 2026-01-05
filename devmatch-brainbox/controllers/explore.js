@@ -12,6 +12,7 @@ import Connection from "../models/connection.js";
 import User from "../models/user.js";
 import { limitValidator, pageValidator } from "../validations/validation.js";
 import { DatabaseError } from "../errors/CustomError.js";
+import { sanitizeMongoData } from "../utils/utils.js";
 
 export const explore = async (req, res) => {
   try {
@@ -116,13 +117,15 @@ export const explore = async (req, res) => {
       );
     }
 
+    const sanitizedUsers = sanitizeMongoData(users);
+
     const totalCount = users?.length;
 
     return res.status(status.success.statusCode).json({
       status: status.success.message,
       statusCode: status.success.statusCode,
       data: {
-        users,
+        users: sanitizedUsers,
         pagination: {
           total: totalCount || "",
           page: validatedPage || "",
