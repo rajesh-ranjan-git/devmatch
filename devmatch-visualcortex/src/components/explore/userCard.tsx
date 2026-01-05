@@ -1,78 +1,51 @@
-import Image from "next/image";
-import { motion, useMotionValue, useTransform } from "motion/react";
-import { staticImages } from "@/config/config";
+import { useState } from "react";
+import { EXPLORE_VISIBLE_USER_CARDS } from "@/config/constants";
 import { UserCardProps } from "@/types/propTypes";
-import { getFullName, toTitleCase } from "@/lib/utils/utils";
-import NameCardContent from "@/components/explore/nameCardContent";
-import UserDetailsCardContent from "@/components/explore/userDetailsCardContent";
-import UserInfoButton from "@/components/ui/buttons/userInfoButton";
-import { useEffect } from "react";
+import SingleUserCard from "@/components/explore/singleUserCard";
 
-const UserCard = ({ user, users, setUsers }: UserCardProps) => {
-  const x = useMotionValue(0);
+const UserCard = ({ allUsers }: UserCardProps) => {
+  const [cards, setCards] = useState(() =>
+    allUsers.slice(0, EXPLORE_VISIBLE_USER_CARDS)
+  );
+  const [nextIndex, setNextIndex] = useState(EXPLORE_VISIBLE_USER_CARDS);
 
-  const opacity = useTransform(x, [-150, -50, 0, 50, 150], [0, 1, 1, 1, 0]);
-  const rotateRow = useTransform(x, [-150, 150], [-18, 18]);
+  const handleRemoveUserCard = (userId: string) => {
+    setCards((prev) => {
+      const remaining = prev.filter((u) => u?.id !== userId);
 
-  const isFront = user?.id === users?.[users?.length - 1]?.id;
-  const cardIndex = users.findIndex((u) => u?.id === user?.id);
+      if (nextIndex < allUsers.length) {
+        remaining.unshift(allUsers[nextIndex]);
+        setNextIndex((i) => i + 1);
+      }
 
-  const rotate = useTransform(() => {
-    const offset = isFront ? 0 : cardIndex % 2 ? 6 : -6;
-
-    return `${rotateRow.get() + offset}deg`;
-  });
-
-  const handleDragEnd = () => {
-    if (Math.abs(x.get()) > 50) {
-      setUsers((prev) =>
-        prev.filter((u) => {
-          return u?.id !== user?.id;
-        })
-      );
-    }
+      return remaining;
+    });
   };
 
+  if (cards.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        <p className="text-gray-500 text-xl">No more users to show!</p>
+      </div>
+    );
+  }
+
   return (
-    <motion.div
-      className="group relative flex justify-center items-center shadow-glass-shadow-heavy shadow-md m-2 rounded-2xl w-96 h-[90%] overflow-hidden hover:cursor-grab active:cursor-grabbing"
-      style={{
-        gridRow: 1,
-        gridColumn: 1,
-        x,
-        opacity,
-        rotate,
-        transition: "0.125s transform",
-        zIndex: cardIndex,
-      }}
-      animate={{
-        scale: isFront ? 1 : 0.98,
-      }}
-      drag="x"
-      dragConstraints={{
-        left: 0,
-        right: 0,
-      }}
-      onDragEnd={handleDragEnd}
-    >
-      <UserInfoButton />
+    <>
+      {cards.map((user, index) => {
+        const isFront = index === cards.length - 1;
 
-      <Image
-        src={staticImages.profilePlaceholder.src}
-        alt={staticImages.profilePlaceholder.alt}
-        width={600}
-        height={400}
-        className="w-full h-full object-cover pointer-events-none select-none"
-      />
-
-      <NameCardContent name={toTitleCase(getFullName(user))} />
-
-      <UserDetailsCardContent
-        name={toTitleCase(getFullName(user))}
-        jobProfile={toTitleCase(user?.jobProfile)}
-        organization={toTitleCase(user?.organization)}
-      />
-    </motion.div>
+        return (
+          <SingleUserCard
+            key={user?.id}
+            user={user}
+            isFront={isFront}
+            cardIndex={index}
+            onRemove={handleRemoveUserCard}
+          />
+        );
+      })}
+    </>
   );
 };
 

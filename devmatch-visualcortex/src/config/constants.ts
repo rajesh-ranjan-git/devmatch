@@ -7,6 +7,8 @@ export const ACTIVITY_MODE = { visible: "visible", hidden: "hidden" } as const;
 
 export const STORAGE = { local: "local", session: "session" } as const;
 
+export const EXPLORE_VISIBLE_USER_CARDS = 10;
+
 export const BANNER_FONTS = {
   ansiShadow: { name: "ANSI Shadow", url: "/assets/fonts/ansi_shadow.flf" },
 } as const;

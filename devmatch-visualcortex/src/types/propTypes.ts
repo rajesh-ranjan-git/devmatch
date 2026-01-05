@@ -112,9 +112,14 @@ export interface ProfileComponentProps {
 }
 
 export interface UserCardProps {
+  allUsers: UserType[];
+}
+
+export interface SingleUserCardProps {
   user: UserType;
-  users: UserType[];
-  setUsers: Dispatch<React.SetStateAction<UserType[]>>;
+  isFront: boolean;
+  cardIndex: number;
+  onRemove: (userId: string) => void;
 }
 
 export interface RequestsSheetItemProps {

@@ -19,7 +19,7 @@ export const getUserDetails = async (id?: string) => {
 
 export const getAllUsers = async () => {
   const result = await apiRequest({
-    url: apiUrls?.explore,
+    url: `${apiUrls?.explore}?page=1&limit=10`,
   });
 
   return result?.success ? result?.data?.data?.users : null;

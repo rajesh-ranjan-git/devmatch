@@ -10,5 +10,5 @@ export const apiUrls = {
   viewProfile: `${BASE_API_URL}/profile/view`,
   updateProfile: `${BASE_API_URL}/profile/update`,
   deleteAccount: `${BASE_API_URL}/profile/delete`,
-  explore: `${BASE_API_URL}/explore?page=1&limit=10`,
+  explore: `${BASE_API_URL}/explore`,
 } as const;
