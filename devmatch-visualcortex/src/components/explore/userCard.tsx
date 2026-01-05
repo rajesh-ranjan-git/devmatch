@@ -13,13 +13,12 @@ const UserCard = ({ allUsers }: UserCardProps) => {
     setCards((prev) => {
       const remaining = prev.filter((u) => u?.id !== userId);
 
-      if (nextIndex < allUsers.length) {
-        remaining.unshift(allUsers[nextIndex]);
-        setNextIndex((i) => i + 1);
-      }
-
-      return remaining;
+      return nextIndex < allUsers.length
+        ? [allUsers[nextIndex], ...remaining]
+        : remaining;
     });
+
+    setNextIndex((i) => (i < allUsers.length ? i + 1 : i));
   };
 
   if (cards.length === 0) {
