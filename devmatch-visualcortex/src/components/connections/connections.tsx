@@ -5,6 +5,7 @@ import {
   connectionsSheetItems,
 } from "@/config/config";
 import useSheet from "@/hooks/useSheet";
+import { toTitleCase } from "@/lib/utils/utils";
 import ConnectionsSheetItem from "@/components/connections/connectionsSheetItem";
 import RequestsSheetItem from "@/components/connections/requestsSheetItem";
 import ConnectionsButton from "@/components/ui/buttons/connectionsButton";
@@ -24,7 +25,7 @@ const Connections = ({ type, icon }: ConnectionProps) => {
         open={connectionsSheet.isOpen}
         onClose={() => connectionsSheet.close()}
       >
-        <h1 className="p-1">{type}</h1>
+        <h1 className="p-1">{toTitleCase(type ?? "")}</h1>
 
         <div className="h-[92%]">
           <div className="[&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 h-full overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
