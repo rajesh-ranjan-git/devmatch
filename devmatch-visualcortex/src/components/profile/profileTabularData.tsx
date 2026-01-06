@@ -21,6 +21,18 @@ const ProfileTabularData = ({ user }: ProfileComponentProps) => {
     }
 
     if (typeof value !== "string") {
+      if (typeof value === "object" && key === "address") {
+        console.log(
+          `debug from ProfileTabularData key : ${key} and value : ${JSON.stringify(
+            value,
+            null,
+            2
+          )}`
+        );
+
+        return toTitleCase(Object.values(value).join(", "));
+      }
+
       return String(value);
     }
 
@@ -42,7 +54,7 @@ const ProfileTabularData = ({ user }: ProfileComponentProps) => {
       key === USER_PROPERTIES.updatedAt ||
       key === USER_PROPERTIES.passwordLastUpdated
     ) {
-      return formatDate(new Date(value).toLocaleString());
+      return formatDate(value);
     }
 
     if (key === USER_PROPERTIES.bio) {
@@ -55,6 +67,7 @@ const ProfileTabularData = ({ user }: ProfileComponentProps) => {
 
     return toTitleCase(value);
   };
+
   return (
     <>
       {Object.values(USER_PROPERTIES).map((key, idx) => {

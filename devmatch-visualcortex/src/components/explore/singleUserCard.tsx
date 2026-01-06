@@ -54,10 +54,10 @@ const SingleUserCard = ({
       }}
       onDragEnd={handleDragEnd}
     >
-      <UserInfoButton />
+      <UserInfoButton profileUrl={user?.id ? `/profile/${user?.id}` : "#"} />
 
       <Image
-        src={user?.avatarUrl ?? staticImages.avatarPlaceholder.src}
+        src={user?.coverPhotoUrl ?? staticImages.avatarPlaceholder.src}
         alt={user?.firstName ?? staticImages.avatarPlaceholder.alt}
         width={600}
         height={400}

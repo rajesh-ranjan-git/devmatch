@@ -122,6 +122,10 @@ export interface SingleUserCardProps {
   onRemove: (userId: string) => void;
 }
 
+export interface UserInfoButtonProps {
+  profileUrl: string;
+}
+
 export interface RequestsSheetItemProps {
   item: SheetItemType;
 }

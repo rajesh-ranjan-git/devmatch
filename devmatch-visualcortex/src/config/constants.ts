@@ -326,6 +326,15 @@ export const USER_PROPERTIES = {
   updatedAt: "updatedAt",
 } as const;
 
+export const ADDRESS_PROPERTIES = {
+  street: "Street",
+  city: "City",
+  state: "State",
+  countryCode: "Country Code",
+  country: "Country",
+  pinCode: "Pin Code",
+};
+
 export const USER_PROPERTY_LABELS = {
   id: "ID",
   email: "Email",

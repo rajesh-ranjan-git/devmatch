@@ -46,7 +46,7 @@ export const getUrlString = (text?: string) => {
 export const formatDate = (dateString?: string | Date) => {
   if (!dateString) return "N/A";
 
-  return new Date(dateString).toLocaleDateString(undefined, {
+  return new Date(dateString).toLocaleDateString("en-IN", {
     year: "numeric",
     month: "short",
     day: "numeric",
