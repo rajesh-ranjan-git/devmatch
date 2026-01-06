@@ -109,6 +109,7 @@ const fetchWithTimeout = async (
       signal: controller.signal,
     });
     clearTimeout(timeoutId);
+
     return response;
   } catch (error: any) {
     clearTimeout(timeoutId);

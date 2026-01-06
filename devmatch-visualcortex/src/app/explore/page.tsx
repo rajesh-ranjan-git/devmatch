@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { UserType } from "@/types/types";
 import { getAllUsers } from "@/lib/actions/actions";
-import UserCard from "@/components/explore/userCard";
+import UserCards from "@/components/explore/userCards";
 
 const Explore = () => {
   const [allUsers, setAllUsers] = useState<UserType[]>([]);
@@ -28,7 +28,7 @@ const Explore = () => {
             <p className="text-gray-500 text-xl">No users to show!</p>
           </div>
         ) : (
-          <UserCard allUsers={allUsers} />
+          <UserCards allUsers={allUsers} />
         )}
       </div>
     </div>

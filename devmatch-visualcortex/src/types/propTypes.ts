@@ -111,7 +111,7 @@ export interface ProfileComponentProps {
   user: UserType;
 }
 
-export interface UserCardProps {
+export interface UserCardsProps {
   allUsers: UserType[];
 }
 
@@ -119,7 +119,7 @@ export interface SingleUserCardProps {
   user: UserType;
   isFront: boolean;
   cardIndex: number;
-  onRemove: (userId: string) => void;
+  onRemove: (userId: string, status: boolean) => void;
 }
 
 export interface UserInfoButtonProps {

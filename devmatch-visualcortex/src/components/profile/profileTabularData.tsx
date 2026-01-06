@@ -22,14 +22,6 @@ const ProfileTabularData = ({ user }: ProfileComponentProps) => {
 
     if (typeof value !== "string") {
       if (typeof value === "object" && key === "address") {
-        console.log(
-          `debug from ProfileTabularData key : ${key} and value : ${JSON.stringify(
-            value,
-            null,
-            2
-          )}`
-        );
-
         return toTitleCase(Object.values(value).join(", "));
       }
 

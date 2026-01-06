@@ -132,7 +132,7 @@ export const MESSAGE_TITLES = {
   updateFailed: "Update Failed",
   welcome: "Welcome",
   welcomeBack: "Welcome Back",
-};
+} as const;
 
 export const ERROR_TYPES = {
   networkError: "NETWORK_ERROR",
@@ -333,7 +333,7 @@ export const ADDRESS_PROPERTIES = {
   countryCode: "Country Code",
   country: "Country",
   pinCode: "Pin Code",
-};
+} as const;
 
 export const USER_PROPERTY_LABELS = {
   id: "ID",
@@ -365,7 +365,7 @@ export const USER_PROPERTY_LABELS = {
   address: "Address",
   createdAt: "Member Since",
   updatedAt: "Profile Updated",
-};
+} as const;
 
 export const USER_PROPERTY_CONSTRAINTS = {
   minUserNameLength: 1,
@@ -382,4 +382,12 @@ export const USER_PROPERTY_CONSTRAINTS = {
   maxStringLength: 100,
   phoneLength: 10,
   pinCodeLength: 6,
-};
+} as const;
+
+export const CONNECTION_STATUS_PROPERTIES = {
+  interested: "interested",
+  notInterested: "not-interested",
+  accepted: "accepted",
+  rejected: "rejected",
+  blocked: "blocked",
+} as const;

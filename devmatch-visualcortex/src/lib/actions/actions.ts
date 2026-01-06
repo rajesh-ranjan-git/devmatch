@@ -24,3 +24,13 @@ export const getAllUsers = async () => {
 
   return result?.success ? result?.data?.data?.users : null;
 };
+
+export const sendConnectionRequest = async (status: string, userId: string) => {
+  const result = await apiRequest({
+    method: "POST",
+    url: `${apiUrls?.connect}/${status}/${userId}`,
+  });
+
+  // return result?.success ? result?.data?.data?.connection?.receiverId : null;
+  return result?.success ? result?.data?.message : null;
+};

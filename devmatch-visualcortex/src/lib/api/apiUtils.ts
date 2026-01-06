@@ -11,4 +11,5 @@ export const apiUrls = {
   updateProfile: `${BASE_API_URL}/profile/update`,
   deleteAccount: `${BASE_API_URL}/profile/delete`,
   explore: `${BASE_API_URL}/explore`,
+  connect: `${BASE_API_URL}/connection/connect`,
 } as const;

@@ -20,7 +20,7 @@ import Connection from "../models/connection.js";
 import Notification from "../models/notification.js";
 import User from "../models/user.js";
 import { isValidMongoDbObjectId } from "../utils/authUtils.js";
-import { getNotificationBody, toTitleCase } from "../utils/utils.js";
+import { getNotificationBody } from "../utils/utils.js";
 import {
   limitValidator,
   pageValidator,

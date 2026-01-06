@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { EXPLORE_VISIBLE_USER_CARDS } from "@/config/constants";
-import { UserCardProps } from "@/types/propTypes";
+import {
+  CONNECTION_STATUS_PROPERTIES,
+  EXPLORE_VISIBLE_USER_CARDS,
+} from "@/config/constants";
+import { UserCardsProps } from "@/types/propTypes";
 import SingleUserCard from "@/components/explore/singleUserCard";
+import { sendConnectionRequest } from "@/lib/actions/actions";
 
-const UserCard = ({ allUsers }: UserCardProps) => {
+const UserCards = ({ allUsers }: UserCardsProps) => {
   const [cards, setCards] = useState(() =>
     allUsers.slice(0, EXPLORE_VISIBLE_USER_CARDS)
   );
   const [nextIndex, setNextIndex] = useState(EXPLORE_VISIBLE_USER_CARDS);
 
-  const handleRemoveUserCard = (userId: string) => {
+  const handleRemoveUserCard = (userId: string, status: boolean) => {
     setCards((prev) => {
       const remaining = prev.filter((u) => u?.id !== userId);
 
@@ -19,6 +23,13 @@ const UserCard = ({ allUsers }: UserCardProps) => {
     });
 
     setNextIndex((i) => (i < allUsers.length ? i + 1 : i));
+
+    sendConnectionRequest(
+      status
+        ? CONNECTION_STATUS_PROPERTIES.interested
+        : CONNECTION_STATUS_PROPERTIES.notInterested,
+      userId
+    );
   };
 
   if (cards.length === 0) {
@@ -48,4 +59,4 @@ const UserCard = ({ allUsers }: UserCardProps) => {
   );
 };
 
-export default UserCard;
+export default UserCards;
