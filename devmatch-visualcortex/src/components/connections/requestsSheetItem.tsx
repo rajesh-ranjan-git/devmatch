@@ -41,7 +41,7 @@ const RequestsSheetItem = ({ item }: RequestsSheetItemProps) => {
           />
         </div>
       </div>
-      <UserInfoButton />
+      <UserInfoButton profileUrl="#" />
     </div>
   );
 };

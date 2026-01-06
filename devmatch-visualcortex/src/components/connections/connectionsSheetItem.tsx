@@ -42,7 +42,7 @@ const ConnectionsSheetItem = ({ item }: ConnectionsSheetItemProps) => {
           />
         </div>
       </div>
-      <UserInfoButton />
+      <UserInfoButton profileUrl="#" />
     </div>
   );
 };
