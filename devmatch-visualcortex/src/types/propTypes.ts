@@ -2,6 +2,7 @@ import { Dispatch, ReactNode, RefObject } from "react";
 import { IconType } from "react-icons";
 import {
   ContextMenuTypes,
+  RequestsSheetItemType,
   SheetItemType,
   SheetTypes,
   StorageTypes,
@@ -127,7 +128,7 @@ export interface UserInfoButtonProps {
 }
 
 export interface RequestsSheetItemProps {
-  item: SheetItemType;
+  request: RequestsSheetItemType;
 }
 
 export interface ConnectionsSheetItemProps {

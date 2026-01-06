@@ -119,59 +119,6 @@ export const notificationsDropdownItems: NotificationsItemsType = {
   ],
 };
 
-export const requestsSheetItems: SheetItemsType = {
-  requests: [
-    {
-      name: "Rajesh Ranjan",
-      designation: "Full Stack Developer",
-      body: "Rajesh sent you a friend request!",
-      url: "/profile",
-    },
-    {
-      name: "Kripanidhan",
-      designation: "Software Development Engineer",
-      body: "Kripanidhan sent you a friend request!",
-      url: "/profile",
-    },
-    {
-      name: "Sayantanee Mohanta",
-      designation: "HelpDesk Senior Associate",
-      body: "Sayantanee sent you a friend request!",
-      url: "/profile",
-    },
-    {
-      name: "Rahee",
-      designation: "Software Engineer",
-      body: "Rahee sent you a friend request!",
-      url: "/profile",
-    },
-    {
-      name: "Rajesh Ranjan",
-      designation: "Full Stack Developer",
-      body: "Rajesh sent you a friend request!",
-      url: "/profile",
-    },
-    {
-      name: "Kripanidhan",
-      designation: "Software Development Engineer",
-      body: "Kripanidhan sent you a friend request!",
-      url: "/profile",
-    },
-    {
-      name: "Sayantanee Mohanta",
-      designation: "HelpDesk Senior Associate",
-      body: "Sayantanee sent you a friend request!",
-      url: "/profile",
-    },
-    {
-      name: "Rahee",
-      designation: "Software Engineer",
-      body: "Rahee sent you a friend request!",
-      url: "/profile",
-    },
-  ],
-};
-
 export const connectionsSheetItems: SheetItemsType = {
   connections: [
     {

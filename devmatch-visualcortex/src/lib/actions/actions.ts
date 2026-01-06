@@ -34,3 +34,15 @@ export const sendConnectionRequest = async (status: string, userId: string) => {
   // return result?.success ? result?.data?.data?.connection?.receiverId : null;
   return result?.success ? result?.data?.message : null;
 };
+
+export const getConnectionsAndRequests = async () => {
+  // const connectionsResult = await apiRequest({
+  //   url: apiUrls?.viewConnections,
+  // });
+
+  const requestsResult = await apiRequest({
+    url: apiUrls?.viewRequests,
+  });
+
+  return { requests: requestsResult?.data?.data?.connections };
+};

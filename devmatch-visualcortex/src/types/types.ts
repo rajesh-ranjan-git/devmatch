@@ -63,6 +63,18 @@ export type SheetItemType = {
   url: string;
 };
 
+export type ConnectionRequestsDataType = {
+  connectionStatus?: string;
+  senderId?: UserType;
+  updatedAt?: string;
+};
+
+export type RequestsSheetItemType = {
+  status?: string;
+  sender?: UserType;
+  receivedRequestOn?: string;
+};
+
 export type SheetItemsType = Partial<
   Record<Exclude<SheetTypes, null>, SheetItemType[]>
 >;
