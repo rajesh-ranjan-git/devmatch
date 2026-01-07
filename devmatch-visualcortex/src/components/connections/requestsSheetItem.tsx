@@ -6,9 +6,18 @@ import ButtonSuccess from "@/components/ui/buttons/buttonSuccess";
 import ButtonWarning from "@/components/ui/buttons/buttonWarning";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import UserInfoButton from "@/components/ui/buttons/userInfoButton";
-import { formatDate, getFullName, toTitleCase } from "@/lib/utils/utils";
+import {
+  formatDate,
+  getFullName,
+  getUrlString,
+  toTitleCase,
+} from "@/lib/utils/utils";
+import { profileRoutes } from "@/lib/routes/routes";
 
-const RequestsSheetItem = ({ request }: RequestsSheetItemProps) => {
+const RequestsSheetItem = ({
+  request,
+  onSheetClose,
+}: RequestsSheetItemProps) => {
   return (
     <div className="relative flex flex-col items-center gap-2 hover:bg-glass-surface-heavy p-2 rounded-lg w-full transition-all ease-in-out">
       <div className="flex justify-center items-center gap-4 w-full">
@@ -57,7 +66,14 @@ const RequestsSheetItem = ({ request }: RequestsSheetItemProps) => {
           className="w-full text-sm"
         />
       </div>
-      <UserInfoButton profileUrl="#" />
+      <UserInfoButton
+        profileUrl={
+          request?.sender?.id
+            ? `${getUrlString(profileRoutes.profile)}/${request?.sender?.id}`
+            : "#"
+        }
+        onClick={onSheetClose}
+      />
     </div>
   );
 };

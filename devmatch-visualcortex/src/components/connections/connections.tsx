@@ -69,7 +69,11 @@ const Connections = ({ type, icon }: ConnectionProps) => {
             {type === navbarMenuItems[0].type ? (
               requests && requests?.length > 0 ? (
                 requests?.map((request, index) => (
-                  <RequestsSheetItem key={index} request={request} />
+                  <RequestsSheetItem
+                    key={index}
+                    request={request}
+                    onSheetClose={() => connectionsSheet.close()}
+                  />
                 ))
               ) : (
                 <div className="flex justify-center items-center w-full h-full text-sm">

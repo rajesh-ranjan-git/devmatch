@@ -125,10 +125,12 @@ export interface SingleUserCardProps {
 
 export interface UserInfoButtonProps {
   profileUrl: string;
+  onClick?: () => void;
 }
 
 export interface RequestsSheetItemProps {
   request: RequestsSheetItemType;
+  onSheetClose: () => void;
 }
 
 export interface ConnectionsSheetItemProps {
