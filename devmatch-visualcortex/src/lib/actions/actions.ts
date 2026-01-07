@@ -25,7 +25,10 @@ export const getAllUsers = async () => {
   return result?.success ? result?.data?.data?.users : null;
 };
 
-export const sendConnectionRequest = async (status: string, userId: string) => {
+export const updateConnectionStatus = async (
+  status: string,
+  userId: string
+) => {
   const result = await apiRequest({
     method: "POST",
     url: `${apiUrls?.connect}/${status}/${userId}`,
@@ -36,13 +39,16 @@ export const sendConnectionRequest = async (status: string, userId: string) => {
 };
 
 export const getConnectionsAndRequests = async () => {
-  // const connectionsResult = await apiRequest({
-  //   url: apiUrls?.viewConnections,
-  // });
+  const connectionsResult = await apiRequest({
+    url: apiUrls?.viewConnections,
+  });
 
   const requestsResult = await apiRequest({
     url: apiUrls?.viewRequests,
   });
 
-  return { requests: requestsResult?.data?.data?.connections };
+  return {
+    connections: connectionsResult?.data?.data?.connections,
+    requests: requestsResult?.data?.data?.requests,
+  };
 };

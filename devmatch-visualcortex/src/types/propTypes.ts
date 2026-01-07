@@ -1,6 +1,7 @@
 import { Dispatch, ReactNode, RefObject } from "react";
 import { IconType } from "react-icons";
 import {
+  ConnectionsSheetItemType,
   ContextMenuTypes,
   RequestsSheetItemType,
   SheetItemType,
@@ -130,9 +131,12 @@ export interface UserInfoButtonProps {
 
 export interface RequestsSheetItemProps {
   request: RequestsSheetItemType;
+  handleConnectionAction?: (id: string, status: string) => void;
   onSheetClose: () => void;
 }
 
 export interface ConnectionsSheetItemProps {
-  item: SheetItemType;
+  connection: ConnectionsSheetItemType;
+  handleConnectionAction?: (id: string, status: string) => void;
+  onSheetClose: () => void;
 }

@@ -13,9 +13,11 @@ import {
   toTitleCase,
 } from "@/lib/utils/utils";
 import { profileRoutes } from "@/lib/routes/routes";
+import { CONNECTION_STATUS_PROPERTIES } from "@/config/constants";
 
 const RequestsSheetItem = ({
   request,
+  handleConnectionAction,
   onSheetClose,
 }: RequestsSheetItemProps) => {
   return (
@@ -54,16 +56,34 @@ const RequestsSheetItem = ({
           icon={<MdCheck />}
           text="accept"
           className="w-full text-sm"
+          onClick={() =>
+            handleConnectionAction?.(
+              CONNECTION_STATUS_PROPERTIES.accepted,
+              request?.sender?.id as string
+            )
+          }
         />
         <ButtonWarning
           icon={<MdCancel />}
           text="reject"
           className="w-full text-sm"
+          onClick={() =>
+            handleConnectionAction?.(
+              CONNECTION_STATUS_PROPERTIES.rejected,
+              request?.sender?.id as string
+            )
+          }
         />
         <ButtonDestructive
           icon={<MdBlock />}
           text="block"
           className="w-full text-sm"
+          onClick={() =>
+            handleConnectionAction?.(
+              CONNECTION_STATUS_PROPERTIES.blocked,
+              request?.sender?.id as string
+            )
+          }
         />
       </div>
       <UserInfoButton

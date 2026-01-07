@@ -12,6 +12,6 @@ export const apiUrls = {
   deleteAccount: `${BASE_API_URL}/profile/delete`,
   explore: `${BASE_API_URL}/explore`,
   connect: `${BASE_API_URL}/connection/connect`,
-  viewConnections: `${BASE_API_URL}/connection/view`,
-  viewRequests: `${BASE_API_URL}/connection/view`,
+  viewConnections: `${BASE_API_URL}/connection/connections`,
+  viewRequests: `${BASE_API_URL}/connection/requests`,
 } as const;

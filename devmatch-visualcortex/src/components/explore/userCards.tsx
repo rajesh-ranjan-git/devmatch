@@ -5,7 +5,7 @@ import {
 } from "@/config/constants";
 import { UserCardsProps } from "@/types/propTypes";
 import SingleUserCard from "@/components/explore/singleUserCard";
-import { sendConnectionRequest } from "@/lib/actions/actions";
+import { updateConnectionStatus } from "@/lib/actions/actions";
 
 const UserCards = ({ allUsers }: UserCardsProps) => {
   const [cards, setCards] = useState(() =>
@@ -24,7 +24,7 @@ const UserCards = ({ allUsers }: UserCardsProps) => {
 
     setNextIndex((i) => (i < allUsers.length ? i + 1 : i));
 
-    sendConnectionRequest(
+    updateConnectionStatus(
       status
         ? CONNECTION_STATUS_PROPERTIES.interested
         : CONNECTION_STATUS_PROPERTIES.notInterested,

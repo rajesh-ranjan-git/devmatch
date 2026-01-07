@@ -55,12 +55,12 @@ export const tourney = Tourney({
 
 export const navbarMenuItems: NavbarMenuItemType[] = [
   {
-    type: "requests",
-    icon: <LuUserPlus />,
-  },
-  {
     type: "connections",
     icon: <LuHandshake />,
+  },
+  {
+    type: "requests",
+    icon: <LuUserPlus />,
   },
 ];
 

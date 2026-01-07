@@ -66,7 +66,16 @@ export type SheetItemType = {
 export type ConnectionRequestsDataType = {
   connectionStatus?: string;
   senderId?: UserType;
+  otherUser?: UserType;
+  otherUserId?: string;
   updatedAt?: string;
+};
+
+export type ConnectionsSheetItemType = {
+  status?: string;
+  otherUser?: UserType;
+  otherUserId?: string;
+  connectedSince?: string;
 };
 
 export type RequestsSheetItemType = {

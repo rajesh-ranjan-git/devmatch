@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import {
   connectionProperties,
   connectionStatusProperties,
@@ -529,7 +530,7 @@ export const connect = async (req, res) => {
   }
 };
 
-export const view = async (req, res) => {
+export const connections = async (req, res) => {
   try {
     const { id } = await req?.data;
     const { page, limit } = await req?.query;
@@ -538,7 +539,119 @@ export const view = async (req, res) => {
 
     const validatedLimit = limitValidator(limit);
 
-    const connections = await Connection.find({
+    const otherUserProjection = Object.values(
+      publicProfilePropertiesForExplore
+    ).reduce((acc, field) => ({ ...acc, [`otherUser.${field}`]: 1 }), {});
+
+    const connections = await Connection.aggregate([
+      {
+        $match: {
+          connectionStatus: connectionStatusProperties.ACCEPTED,
+          $or: [
+            { senderId: Types.ObjectId.createFromHexString(id) },
+            { receiverId: Types.ObjectId.createFromHexString(id) },
+          ],
+        },
+      },
+      {
+        $addFields: {
+          userId: Types.ObjectId.createFromHexString(id),
+          otherUserId: {
+            $cond: {
+              if: {
+                $eq: ["$senderId", Types.ObjectId.createFromHexString(id)],
+              },
+              then: "$receiverId",
+              else: "$senderId",
+            },
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "otherUserId",
+          foreignField: "_id",
+          as: "otherUser",
+        },
+      },
+      { $unwind: "$otherUser" },
+      {
+        $project: {
+          userId: 1,
+          otherUserId: 1,
+          connectionStatus: 1,
+          updatedAt: 1,
+          ...otherUserProjection,
+        },
+      },
+      { $skip: ((validatedPage || 1) - 1) * (validatedLimit || 10) },
+      { $limit: validatedLimit || 10 },
+    ]);
+
+    if (!connections) {
+      throw new DatabaseError(
+        status.internalServerError,
+        errorMessages.VIEW_CONNECTION_REQUEST_FAILED_ERROR,
+        { connections },
+        req?.url
+      );
+    }
+
+    const sanitizedConnections = sanitizeMongoData(connections);
+
+    const totalCount = await Connection.countDocuments({
+      senderId: { $ne: id },
+      receiverId: id,
+      connectionStatus: connectionStatusProperties.ACCEPTED,
+    });
+
+    return res.status(status.success.statusCode).json({
+      status: status.success.message,
+      statusCode: status.success.statusCode,
+      data: {
+        connections: sanitizedConnections,
+        pagination: {
+          total: totalCount || "",
+          page: validatedPage || "",
+          limit: validatedLimit || "",
+          totalPages:
+            totalCount && validatedLimit
+              ? Math.ceil(totalCount / validatedLimit)
+              : "",
+        },
+      },
+      message: successMessages.VIEW_CONNECTION_REQUEST_SUCCESS,
+    });
+  } catch (error) {
+    return res
+      .status(
+        error?.status?.statusCode || status.internalServerError.statusCode
+      )
+      .json({
+        status: error?.status?.message || status.internalServerError.message,
+        statusCode:
+          error?.status?.statusCode || status.internalServerError.statusCode,
+        apiUrl: error?.apiUrl || req?.url,
+        error: {
+          type: error?.type,
+          message: error?.message,
+          data: error?.data,
+        },
+      });
+  }
+};
+
+export const requests = async (req, res) => {
+  try {
+    const { id } = await req?.data;
+    const { page, limit } = await req?.query;
+
+    const validatedPage = pageValidator(page);
+
+    const validatedLimit = limitValidator(limit);
+
+    const requests = await Connection.find({
       $and: [
         { senderId: { $ne: id } },
         { receiverId: id },
@@ -558,16 +671,16 @@ export const view = async (req, res) => {
       .limit(validatedLimit || 10)
       .skip(((validatedPage || 1) - 1) * (validatedLimit || 10));
 
-    if (!connections) {
+    if (!requests) {
       throw new DatabaseError(
         status.internalServerError,
         errorMessages.VIEW_CONNECTION_REQUEST_FAILED_ERROR,
-        { connections },
+        { requests },
         req?.url
       );
     }
 
-    const sanitizedConnections = sanitizeMongoData(connections);
+    const sanitizedRequests = sanitizeMongoData(requests);
 
     const totalCount = await Connection.countDocuments({
       senderId: { $ne: id },
@@ -579,7 +692,7 @@ export const view = async (req, res) => {
       status: status.success.message,
       statusCode: status.success.statusCode,
       data: {
-        connections: sanitizedConnections,
+        requests: sanitizedRequests,
         pagination: {
           total: totalCount || "",
           page: validatedPage || "",
