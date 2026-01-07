@@ -65,23 +65,23 @@ const Connections = ({ type, icon }: ConnectionProps) => {
         <h1 className="p-1">{toTitleCase(type ?? "")}</h1>
 
         <div className="h-[92%]">
-          <div className="[&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 h-full overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
-            {type === navbarMenuItems[0].type &&
-            requests &&
-            requests?.length > 0 ? (
-              requests?.map((request, index) => (
-                <RequestsSheetItem key={index} request={request} />
-              ))
+          <div className="flex flex-col gap-2 [&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 h-full overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
+            {type === navbarMenuItems[0].type ? (
+              requests && requests?.length > 0 ? (
+                requests?.map((request, index) => (
+                  <RequestsSheetItem key={index} request={request} />
+                ))
+              ) : (
+                <div className="flex justify-center items-center w-full h-full text-sm">
+                  <p>No pending requests...</p>
+                </div>
+              )
             ) : (
-              <div className="flex justify-center items-center w-full h-full text-sm">
-                <p>No pending requests...</p>
-              </div>
-            )}
-
-            {type === navbarMenuItems[1].type &&
+              type === navbarMenuItems[1].type &&
               connectionsSheetItems?.connections?.map((item, index) => (
                 <ConnectionsSheetItem key={index} item={item} />
-              ))}
+              ))
+            )}
           </div>
         </div>
       </Sheet>
