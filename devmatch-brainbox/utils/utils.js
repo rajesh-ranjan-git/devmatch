@@ -474,15 +474,40 @@ export const sanitizeSingleDocument = (doc) => {
     return doc;
   }
 
-  const sanitized = { ...doc };
+  if (Array.isArray(doc)) {
+    return doc.map((item) => sanitizeSingleDocument(item));
+  }
+
+  if (doc.constructor && doc.constructor.name === "ObjectId") {
+    return doc.toString();
+  }
+
+  if (doc instanceof Date) {
+    return doc;
+  }
+
+  let plainDoc = doc;
+  if (doc.toObject && typeof doc.toObject === "function") {
+    plainDoc = doc.toObject();
+  }
+
+  const sanitized = { ...plainDoc };
 
   if (sanitized._id) {
     sanitized.id = sanitized._id.toString();
     delete sanitized._id;
   }
 
+  Object.keys(sanitized).forEach((key) => {
+    const value = sanitized[key];
+
+    if (value && typeof value === "object") {
+      sanitized[key] = sanitizeSingleDocument(value);
+    }
+  });
+
   return sanitized;
-}
+};
 
 export const sanitizeMongoData = (data) => {
   if (!data) {

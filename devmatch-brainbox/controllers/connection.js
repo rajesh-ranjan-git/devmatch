@@ -20,7 +20,7 @@ import Connection from "../models/connection.js";
 import Notification from "../models/notification.js";
 import User from "../models/user.js";
 import { isValidMongoDbObjectId } from "../utils/authUtils.js";
-import { getNotificationBody } from "../utils/utils.js";
+import { getNotificationBody, sanitizeMongoData } from "../utils/utils.js";
 import {
   limitValidator,
   pageValidator,
@@ -567,6 +567,8 @@ export const view = async (req, res) => {
       );
     }
 
+    const sanitizedConnections = sanitizeMongoData(connections);
+
     const totalCount = await Connection.countDocuments({
       senderId: { $ne: id },
       receiverId: id,
@@ -577,7 +579,7 @@ export const view = async (req, res) => {
       status: status.success.message,
       statusCode: status.success.statusCode,
       data: {
-        connections,
+        connections: sanitizedConnections,
         pagination: {
           total: totalCount || "",
           page: validatedPage || "",
