@@ -1,6 +1,27 @@
 import { create } from "zustand";
-import { DevMatchAppState } from "@/types/types";
 import { THEMES } from "@/config/constants";
+import {
+  ContextMenuTypes,
+  SheetItemType,
+  SheetTypes,
+  ThemeTypes,
+  UserType,
+} from "@/types/types";
+
+export type DevMatchAppState = {
+  switchTheme: ThemeTypes;
+  setSwitchTheme: (value: ThemeTypes) => void;
+  loggedInUser: UserType;
+  setLoggedInUser: (value: UserType) => void;
+  activeSheet: SheetTypes;
+  setActiveSheet: (name: SheetTypes) => void;
+  activeContextMenu: ContextMenuTypes;
+  setActiveContextMenu: (name: ContextMenuTypes) => void;
+  connections: SheetItemType[];
+  setConnections: (connections: SheetItemType[]) => void;
+  requests: SheetItemType[];
+  setRequests: (requests: SheetItemType[]) => void;
+};
 
 export const useDevMatchAppStore = create<DevMatchAppState>((set) => ({
   switchTheme: THEMES.dark,

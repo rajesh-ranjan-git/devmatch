@@ -10,21 +10,6 @@ import {
   THEMES,
 } from "@/config/constants";
 
-export type DevMatchAppState = {
-  switchTheme: ThemeTypes;
-  setSwitchTheme: (value: ThemeTypes) => void;
-  loggedInUser: UserType;
-  setLoggedInUser: (value: UserType) => void;
-  activeSheet: SheetTypes;
-  setActiveSheet: (name: SheetTypes) => void;
-  activeContextMenu: ContextMenuTypes;
-  setActiveContextMenu: (name: ContextMenuTypes) => void;
-  connections: SheetItemType[];
-  setConnections: (connections: SheetItemType[]) => void;
-  requests: SheetItemType[];
-  setRequests: (requests: SheetItemType[]) => void;
-};
-
 export type ThemeTypes = keyof typeof THEMES;
 
 export type StorageTypes = keyof typeof STORAGE;
