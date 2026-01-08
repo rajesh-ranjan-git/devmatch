@@ -57,7 +57,7 @@ const SingleUserCard = ({
     >
       <UserInfoButton
         profileUrl={
-          user?.id ? `${getUrlString(profileRoutes.profile)}/${user?.id}}` : "#"
+          user?.id ? `${getUrlString(profileRoutes.profile)}/${user?.id}` : "#"
         }
       />
 
