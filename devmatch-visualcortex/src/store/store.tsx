@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { THEMES } from "@/config/constants";
+import { THEMES, EXPLORE_VISIBLE_USER_CARDS } from "@/config/constants";
 import {
   ContextMenuTypes,
   SheetItemType,
@@ -17,6 +17,12 @@ type DevMatchAppState = {
   setActiveSheet: (name: SheetTypes) => void;
   activeContextMenu: ContextMenuTypes;
   setActiveContextMenu: (name: ContextMenuTypes) => void;
+  userCards: UserType[];
+  setUserCards: (
+    value: UserType[] | ((prev: UserType[]) => UserType[])
+  ) => void;
+  userCardsNextIndex: number;
+  setUserCardsNextIndex: (value: number | ((prev: number) => number)) => void;
   connections: SheetItemType[];
   setConnections: (connections: SheetItemType[]) => void;
   requests: SheetItemType[];
@@ -29,9 +35,20 @@ export const useDevMatchAppStore = create<DevMatchAppState>((set) => ({
   loggedInUser: null,
   setLoggedInUser: (value) => set({ loggedInUser: value }),
   activeSheet: null,
-  setActiveSheet: (name) => set({ activeSheet: name }),
+  setActiveSheet: (value) => set({ activeSheet: value }),
   activeContextMenu: null,
-  setActiveContextMenu: (name) => set({ activeContextMenu: name }),
+  setActiveContextMenu: (value) => set({ activeContextMenu: value }),
+  userCards: [],
+  setUserCards: (value) =>
+    set((state) => ({
+      userCards: typeof value === "function" ? value(state.userCards) : value,
+    })),
+  userCardsNextIndex: EXPLORE_VISIBLE_USER_CARDS,
+  setUserCardsNextIndex: (value) =>
+    set((state) => ({
+      userCardsNextIndex:
+        typeof value === "function" ? value(state.userCardsNextIndex) : value,
+    })),
   connections: [],
   setConnections: (value) => set({ connections: value }),
   requests: [],

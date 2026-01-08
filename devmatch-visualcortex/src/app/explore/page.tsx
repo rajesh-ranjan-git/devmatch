@@ -3,10 +3,13 @@
 import { useEffect, useState } from "react";
 import { UserType } from "@/types/types";
 import { getAllUsers } from "@/lib/actions/actions";
+import { useDevMatchAppStore } from "@/store/store";
 import UserCards from "@/components/explore/userCards";
 
 const Explore = () => {
   const [allUsers, setAllUsers] = useState<UserType[]>([]);
+
+  const setUserCards = useDevMatchAppStore((state) => state.setUserCards);
 
   useEffect(() => {
     const getAllUsersData = async () => {
@@ -19,6 +22,12 @@ const Explore = () => {
 
     getAllUsersData();
   }, []);
+
+  useEffect(() => {
+    if (allUsers?.length) {
+      setUserCards(allUsers);
+    }
+  }, [allUsers]);
 
   return (
     <div className="relative flex justify-center items-center h-[80vh]">

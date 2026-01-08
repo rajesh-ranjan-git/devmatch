@@ -1,8 +1,5 @@
-import { useState } from "react";
-import {
-  CONNECTION_STATUS_PROPERTIES,
-  EXPLORE_VISIBLE_USER_CARDS,
-} from "@/config/constants";
+import { CONNECTION_STATUS_PROPERTIES } from "@/config/constants";
+import { UserType } from "@/types/types";
 import { UserCardsProps } from "@/types/propTypes";
 import { updateConnectionStatus } from "@/lib/actions/actions";
 import { useDevMatchAppStore } from "@/store/store";
@@ -10,11 +7,14 @@ import { useToast } from "@/components/toast/toast";
 import SingleUserCard from "@/components/explore/singleUserCard";
 
 const UserCards = ({ allUsers }: UserCardsProps) => {
-  const [cards, setCards] = useState(() =>
-    allUsers.slice(0, EXPLORE_VISIBLE_USER_CARDS)
+  const userCards = useDevMatchAppStore((state) => state.userCards);
+  const setUserCards = useDevMatchAppStore((state) => state.setUserCards);
+  const userCardsNextIndex = useDevMatchAppStore(
+    (state) => state.userCardsNextIndex
   );
-  const [nextIndex, setNextIndex] = useState(EXPLORE_VISIBLE_USER_CARDS);
-
+  const setUserCardsNextIndex = useDevMatchAppStore(
+    (state) => state.setUserCardsNextIndex
+  );
   const connections = useDevMatchAppStore((state) => state.connections);
   const setConnections = useDevMatchAppStore((state) => state.setConnections);
   const requests = useDevMatchAppStore((state) => state.requests);
@@ -25,14 +25,14 @@ const UserCards = ({ allUsers }: UserCardsProps) => {
   const handleConnectionAction = async (status: string, id: string) => {
     const prevConnections = connections;
     const prevRequests = requests;
-    const prevCards = cards;
+    const prevCards = userCards;
 
     const updatedConnections = await updateConnectionStatus(status, id);
 
     if (!updatedConnections?.status) {
       setConnections(prevConnections);
       setRequests(prevRequests);
-      setCards(prevCards);
+      setUserCards(prevCards);
 
       showToast({
         title: "Connection update failed!",
@@ -43,15 +43,15 @@ const UserCards = ({ allUsers }: UserCardsProps) => {
   };
 
   const handleRemoveUserCard = (userId: string, status: string) => {
-    setCards((prev) => {
-      const remaining = prev.filter((u) => u?.id !== userId);
+    setUserCards((prev: UserType[]) => {
+      const remaining = prev.filter((u: UserType) => u?.id !== userId);
 
-      return nextIndex < allUsers.length
-        ? [allUsers[nextIndex], ...remaining]
+      return userCardsNextIndex < allUsers.length
+        ? [allUsers[userCardsNextIndex], ...remaining]
         : remaining;
     });
 
-    setNextIndex((i) => (i < allUsers.length ? i + 1 : i));
+    setUserCardsNextIndex((i: number) => (i < allUsers.length ? i + 1 : i));
 
     if (status === CONNECTION_STATUS_PROPERTIES.accepted) {
       const request = requests.find((r) => r.sender?.id === userId);
@@ -79,7 +79,7 @@ const UserCards = ({ allUsers }: UserCardsProps) => {
     handleConnectionAction(status, userId);
   };
 
-  if (cards.length === 0) {
+  if (userCards.length === 0) {
     return (
       <div className="flex justify-center items-center h-full">
         <p className="text-gray-500 text-xl">No more users to show!</p>
@@ -89,8 +89,8 @@ const UserCards = ({ allUsers }: UserCardsProps) => {
 
   return (
     <>
-      {cards.map((user, index) => {
-        const isFront = index === cards.length - 1;
+      {userCards.map((user, index) => {
+        const isFront = index === userCards.length - 1;
 
         return (
           <SingleUserCard
