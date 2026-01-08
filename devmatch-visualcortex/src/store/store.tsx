@@ -17,6 +17,8 @@ type DevMatchAppState = {
   setActiveSheet: (name: SheetTypes) => void;
   activeContextMenu: ContextMenuTypes;
   setActiveContextMenu: (name: ContextMenuTypes) => void;
+  allUsers: UserType[];
+  setAllUsers: (allUsers: UserType[]) => void;
   userCards: UserType[];
   setUserCards: (
     value: UserType[] | ((prev: UserType[]) => UserType[])
@@ -38,6 +40,8 @@ export const useDevMatchAppStore = create<DevMatchAppState>((set) => ({
   setActiveSheet: (value) => set({ activeSheet: value }),
   activeContextMenu: null,
   setActiveContextMenu: (value) => set({ activeContextMenu: value }),
+  allUsers: [],
+  setAllUsers: (value) => set({ allUsers: value }),
   userCards: [],
   setUserCards: (value) =>
     set((state) => ({

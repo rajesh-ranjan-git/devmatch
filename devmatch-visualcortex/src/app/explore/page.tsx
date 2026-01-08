@@ -1,14 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { UserType } from "@/types/types";
+import { useEffect } from "react";
 import { getAllUsers } from "@/lib/actions/actions";
 import { useDevMatchAppStore } from "@/store/store";
 import UserCards from "@/components/explore/userCards";
 
 const Explore = () => {
-  const [allUsers, setAllUsers] = useState<UserType[]>([]);
-
+  const allUsers = useDevMatchAppStore((state) => state.allUsers);
+  const setAllUsers = useDevMatchAppStore((state) => state.setAllUsers);
   const setUserCards = useDevMatchAppStore((state) => state.setUserCards);
 
   useEffect(() => {

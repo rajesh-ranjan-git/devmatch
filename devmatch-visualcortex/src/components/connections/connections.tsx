@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { CONNECTION_STATUS_PROPERTIES } from "@/config/constants";
 import { navbarMenuItems } from "@/config/config";
-import { SheetItemType } from "@/types/types";
+import { SheetItemType, UserType } from "@/types/types";
 import { ConnectionProps } from "@/types/propTypes";
 import useSheet from "@/hooks/useSheet";
 import { useToast } from "@/components/toast/toast";
@@ -16,6 +16,15 @@ import Sheet from "@/components/ui/sheet/sheet";
 import SheetItem from "@/components/connections/sheetItem";
 
 const Connections = ({ type, icon }: ConnectionProps) => {
+  const allUsers = useDevMatchAppStore((state) => state.allUsers);
+  const userCards = useDevMatchAppStore((state) => state.userCards);
+  const setUserCards = useDevMatchAppStore((state) => state.setUserCards);
+  const userCardsNextIndex = useDevMatchAppStore(
+    (state) => state.userCardsNextIndex
+  );
+  const setUserCardsNextIndex = useDevMatchAppStore(
+    (state) => state.setUserCardsNextIndex
+  );
   const connections = useDevMatchAppStore((state) => state.connections);
   const setConnections = useDevMatchAppStore((state) => state.setConnections);
   const requests = useDevMatchAppStore((state) => state.requests);
@@ -48,6 +57,22 @@ const Connections = ({ type, icon }: ConnectionProps) => {
       }
 
       setRequests(requests.filter((r) => r?.sender?.id !== id));
+    }
+
+    if (
+      (status === CONNECTION_STATUS_PROPERTIES.accepted ||
+        status === CONNECTION_STATUS_PROPERTIES.blocked) &&
+      userCards.find((user) => user?.id === id)
+    ) {
+      setUserCards((prev: UserType[]) => {
+        const remaining = prev.filter((u: UserType) => u?.id !== id);
+
+        return userCardsNextIndex < allUsers.length
+          ? [allUsers[userCardsNextIndex], ...remaining]
+          : remaining;
+      });
+
+      setUserCardsNextIndex((i: number) => (i < allUsers.length ? i + 1 : i));
     }
 
     const updatedConnections = await updateConnectionStatus(status, id);
