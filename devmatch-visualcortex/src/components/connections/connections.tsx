@@ -153,37 +153,6 @@ const Connections = ({ type, icon }: ConnectionProps) => {
                 </div>
               )
             ) : null}
-            {/* {type === navbarMenuItems[0].type ? (
-              connections && connections?.length > 0 ? (
-                connections?.map((connection, index) => (
-                  <ConnectionsSheetItem
-                    key={index}
-                    connection={connection}
-                    handleConnectionAction={handleConnectionAction}
-                    onSheetClose={() => connectionsSheet.close()}
-                  />
-                ))
-              ) : (
-                <div className="flex justify-center items-center w-full h-full text-sm">
-                  <p>No connections yet...</p>
-                </div>
-              )
-            ) : type === navbarMenuItems[1].type ? (
-              requests && requests?.length > 0 ? (
-                requests?.map((request, index) => (
-                  <RequestsSheetItem
-                    key={index}
-                    request={request}
-                    handleConnectionAction={handleConnectionAction}
-                    onSheetClose={() => connectionsSheet.close()}
-                  />
-                ))
-              ) : (
-                <div className="flex justify-center items-center w-full h-full text-sm">
-                  <p>No pending requests...</p>
-                </div>
-              )
-            ) : null} */}
           </div>
         </div>
       </Sheet>
