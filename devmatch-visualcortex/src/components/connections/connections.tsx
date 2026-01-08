@@ -4,15 +4,16 @@ import { navbarMenuItems } from "@/config/config";
 import { SheetItemType } from "@/types/types";
 import { ConnectionProps } from "@/types/propTypes";
 import useSheet from "@/hooks/useSheet";
+import { useToast } from "@/components/toast/toast";
 import { toTitleCase } from "@/lib/utils/utils";
 import {
   getConnectionsAndRequests,
   updateConnectionStatus,
 } from "@/lib/actions/actions";
 import { useDevMatchAppStore } from "@/store/store";
-import SheetItem from "@/components/connections/sheetItem";
 import ConnectionsButton from "@/components/ui/buttons/connectionsButton";
 import Sheet from "@/components/ui/sheet/sheet";
+import SheetItem from "@/components/connections/sheetItem";
 
 const Connections = ({ type, icon }: ConnectionProps) => {
   const connections = useDevMatchAppStore((state) => state.connections);
@@ -21,6 +22,7 @@ const Connections = ({ type, icon }: ConnectionProps) => {
   const setRequests = useDevMatchAppStore((state) => state.setRequests);
 
   const connectionsSheet = useSheet({ type: type });
+  const { showToast } = useToast();
 
   const handleConnectionAction = async (status: string, id: string) => {
     const prevRequests = requests;
@@ -53,6 +55,12 @@ const Connections = ({ type, icon }: ConnectionProps) => {
     if (!updatedConnections?.status) {
       setConnections(prevConnections);
       setRequests(prevRequests);
+
+      showToast({
+        title: toTitleCase(updatedConnections?.error?.type),
+        message: toTitleCase(updatedConnections?.error?.message),
+        variant: "error",
+      });
     }
   };
 
