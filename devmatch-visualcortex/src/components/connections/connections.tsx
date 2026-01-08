@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { navbarMenuItems } from "@/config/config";
 import { ConnectionRequestsDataType, SheetItemType } from "@/types/types";
 import { ConnectionProps } from "@/types/propTypes";
