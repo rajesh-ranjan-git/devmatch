@@ -253,10 +253,6 @@ const generateWebsite = (userName) => {
   return `https://www.${userName.replace(/[^A-Za-z0-9-]/g, "")}.com`;
 };
 
-const generateAvatarUrl = (index) => {
-  return `https://i.pravatar.cc/150?img=${index}`;
-};
-
 const randomSubset = (arr, max) => {
   const count = randomInt(1, Math.min(max, arr.length));
   const shuffled = [...arr].sort(() => Math.random() - 0.5);
@@ -300,11 +296,11 @@ const generateRandomUser = async (index) => {
   }
 
   if (Math.random() > 0.3) {
-    user.avatarUrl = generateAvatarUrl(index);
+    user.avatarUrl = `https://picsum.photos/800/600?random=${index}`;
   }
 
   if (Math.random() > 0.3) {
-    user.coverPhotoUrl = `https://picsum.photos/1200/400?random=${index}`;
+    user.coverPhotoUrl = `https://picsum.photos/1200/600?random=${index}`;
   }
 
   if (Math.random() > 0.3) {

@@ -25,7 +25,7 @@ const Explore = () => {
 
   useEffect(() => {
     if (allUsers?.length) {
-      setUserCards(allUsers.slice(0, EXPLORE_VISIBLE_USER_CARDS));
+      setUserCards(allUsers.reverse().slice(0, EXPLORE_VISIBLE_USER_CARDS));
     }
   }, [allUsers]);
 
