@@ -11,7 +11,7 @@ const SubmitButton = ({
 }: ButtonProps) => {
   return (
     <button
-      className={`before:top-1/2 before:left-1/2 before:absolute relative before:bg-[rgba(30,255,69,0.8)] my-8 before:rounded-xl hover:before:rounded-4xl w-40 before:w-14 hover:before:w-full h-12 before:h-14 hover:before:h-full before:content-[''] before:rotate-45 hover:before:rotate-0 before:transition-all before:-translate-x-1/2 before:-translate-y-1/2 hover:before:-translate-x-1/2 hover:before:-translate-y-1/2 before:duration-500 before:pointer-events-none select-none before:[box-shadow:0_0_0.3rem_rgba(30,255,69,0.8),0_0_1rem_rgba(30,255,69,0.8),0_0_2rem_rgba(30,255,69,0.8),0_0_3.5rem_rgba(30,255,69,0.8)] transition-all ease-in-out duration-500 flex-nowrap ${
+      className={`before:top-1/2 before:left-1/2 before:absolute relative before:bg-[rgba(30,255,69,0.8)] my-8 before:rounded-xl hover:before:rounded-4xl min-w-40 before:w-14 hover:before:w-full h-12 before:h-14 hover:before:h-full before:content-[''] before:rotate-45 hover:before:rotate-0 before:transition-all before:-translate-x-1/2 before:-translate-y-1/2 hover:before:-translate-x-1/2 hover:before:-translate-y-1/2 before:duration-500 before:pointer-events-none select-none before:[box-shadow:0_0_0.3rem_rgba(30,255,69,0.8),0_0_1rem_rgba(30,255,69,0.8),0_0_2rem_rgba(30,255,69,0.8),0_0_3.5rem_rgba(30,255,69,0.8)] transition-all ease-in-out duration-500 flex-nowrap ${
         disabled ? "cursor-not-allowed" : "cursor-pointer"
       } ${className}`}
       disabled={disabled}
