@@ -57,8 +57,8 @@ const Connections = ({ type, icon }: ConnectionProps) => {
       setRequests(prevRequests);
 
       showToast({
-        title: toTitleCase(updatedConnections?.error?.type),
-        message: toTitleCase(updatedConnections?.error?.message),
+        title: "Connection update failed!",
+        message: "Unable to update connection status.",
         variant: "error",
       });
     }
