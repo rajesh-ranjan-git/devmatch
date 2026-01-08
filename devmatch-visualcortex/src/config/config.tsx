@@ -11,10 +11,12 @@ import {
 import { TbLockPassword } from "react-icons/tb";
 import {
   FaFacebookF,
-  FaGithub,
   FaInstagram,
-  FaUpload,
   FaXTwitter,
+  FaGithub,
+  FaLinkedin,
+  FaYoutube,
+  FaUpload,
 } from "react-icons/fa6";
 import { BsCamera } from "react-icons/bs";
 import {
@@ -245,4 +247,6 @@ export const socialMediaIcons: SocialMediaIconType = {
   instagram: { url: "#", Icon: FaInstagram },
   twitter: { url: "#", Icon: FaXTwitter },
   github: { url: "#", Icon: FaGithub },
+  linkedin: { url: "#", Icon: FaLinkedin },
+  youtube: { url: "#", Icon: FaYoutube },
 };

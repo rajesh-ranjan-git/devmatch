@@ -148,7 +148,12 @@ export type UserType = {
   maritalStatus?: string;
   jobProfile?: string;
   experience?: string;
+  facebook?: string;
+  instagram?: string;
+  twitter?: string;
   github?: string;
+  linkedin?: string;
+  youtube?: string;
   website?: string;
   organization?: string;
   skills?: string;

@@ -185,26 +185,34 @@ const generateEmail = (firstName, lastName) => {
   return `${firstName}${lastName}${randomInt(1, 99)}@${randomElement(domains)}`;
 };
 
+// const generatePassword = async () => {
+//   const upper = String.fromCharCode(randomInt(65, 90));
+//   const lower = String.fromCharCode(randomInt(97, 122));
+//   const digit = randomInt(0, 9);
+//   const special = randomElement(passwordSpecialChars);
+
+//   const chars =
+//     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+//   let password = upper + lower + digit + special;
+
+//   for (let i = 0; i < randomInt(2, 6); i++) {
+//     password += chars.charAt(Math.floor(Math.random() * chars.length));
+//   }
+
+//   const hashedPassword = await getEncryptedPassword(
+//     password
+//       .split("")
+//       .sort(() => Math.random() - 0.5)
+//       .join("")
+//   );
+
+//   return hashedPassword;
+// };
+
 const generatePassword = async () => {
-  const upper = String.fromCharCode(randomInt(65, 90));
-  const lower = String.fromCharCode(randomInt(97, 122));
-  const digit = randomInt(0, 9);
-  const special = randomElement(passwordSpecialChars);
+  let password = "Rajesh@2";
 
-  const chars =
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let password = upper + lower + digit + special;
-
-  for (let i = 0; i < randomInt(2, 6); i++) {
-    password += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-
-  const hashedPassword = await getEncryptedPassword(
-    password
-      .split("")
-      .sort(() => Math.random() - 0.5)
-      .join("")
-  );
+  const hashedPassword = await getEncryptedPassword(password);
 
   return hashedPassword;
 };
@@ -217,12 +225,28 @@ const generatePinCode = () => {
   return randomInt(100000, 999999);
 };
 
+const generateFacebookUrl = (userName) => {
+  return `https://facebook.com/${userName.replace(/[^A-Za-z0-9-]/g, "")}`;
+};
+
+const generateInstagramUrl = (userName) => {
+  return `https://instagram.com/${userName.replace(/[^A-Za-z0-9-]/g, "")}`;
+};
+
+const generateTwitterUrl = (userName) => {
+  return `https://x.com/${userName.replace(/[^A-Za-z0-9-]/g, "")}`;
+};
+
 const generateGithubUrl = (userName) => {
   return `https://github.com/${userName.replace(/[^A-Za-z0-9-]/g, "")}`;
 };
 
 const generateLinkedinUrl = (userName) => {
   return `https://linkedin.com/in/${userName.replace(/[^A-Za-z0-9-]/g, "")}`;
+};
+
+const generateYoutubeUrl = (userName) => {
+  return `https://youtube.com/in/${userName.replace(/[^A-Za-z0-9-]/g, "")}`;
 };
 
 const generateWebsite = (userName) => {
@@ -303,11 +327,27 @@ const generateRandomUser = async (index) => {
   }
 
   if (Math.random() > 0.3) {
+    user.facebook = generateFacebookUrl(userName);
+  }
+
+  if (Math.random() > 0.3) {
+    user.instagram = generateInstagramUrl(userName);
+  }
+
+  if (Math.random() > 0.3) {
+    user.twitter = generateTwitterUrl(userName);
+  }
+
+  if (Math.random() > 0.3) {
     user.github = generateGithubUrl(userName);
   }
 
   if (Math.random() > 0.3) {
     user.linkedin = generateLinkedinUrl(userName);
+  }
+
+  if (Math.random() > 0.3) {
+    user.youtube = generateYoutubeUrl(userName);
   }
 
   if (Math.random() > 0.3) {

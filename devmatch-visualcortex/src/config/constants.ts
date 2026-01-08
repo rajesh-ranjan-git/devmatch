@@ -97,6 +97,8 @@ export const SOCIAL_MEDIA = {
   instagram: "instagram",
   twitter: "twitter",
   github: "github",
+  linkedin: "linkedin",
+  youtube: "youtube",
 } as const;
 
 export const INPUT_TYPES = {
@@ -226,8 +228,12 @@ export const ERROR_MESSAGES = {
   jobProfileMinLengthError: "Job profile must be at least 2 characters long!",
   jobProfileMaxLengthError:
     "Job profile must not be longer than 100 characters!",
+  invalidFacebookUrlError: "Invalid facebook url!",
+  invalidInstagramUrlError: "Invalid instagram url!",
+  invalidTwitterUrlError: "Invalid twitter url!",
   invalidGithubUrlError: "Invalid github url!",
   invalidLinkedinUrlError: "Invalid linkedin url!",
+  invalidYoutubeUrlError: "Invalid youtube url!",
   invalidWebsiteUrlError: "Invalid website url!",
   invalidCompanyError: "Invalid company!",
   companyMinLengthError: "Company must be at least 2 characters long!",
@@ -280,8 +286,18 @@ export const ALLOWED_SPECIAL_CHARACTERS_REGEX = /[@#$%&]/;
 export const PHONE_REGEX = /^\d{10}$/;
 export const PHOTO_URL_REGEX =
   /^(https?:\/\/)([a-zA-Z0-9\-._~%]+@)?([a-zA-Z0-9\-._~%]+\.)+[a-zA-Z]{2,}(\/[^\s?#]*)*(\.(jpg|jpeg|png|gif|webp|svg))?(\?[^\s]*)?$/i;
+export const FACEBOOK_REGEX =
+  /^https?:\/\/(www\.)?(facebook\.com|fb\.com)\/[A-Za-z0-9-]{1,39}\/?$/;
+export const INSTAGRAM_REGEX =
+  /^https?:\/\/(www\.)?instagram\.com\/[A-Za-z0-9-]{1,39}\/?$/;
+export const TWITTER_REGEX =
+  /^https?:\/\/(www\.)?(twitter\.com|x\.com)\/[A-Za-z0-9-]{1,39}\/?$/;
 export const GITHUB_REGEX =
   /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9-]{1,39}\/?$/;
+export const LINKEDIN_REGEX =
+  /^https?:\/\/(www\.)?linkedin\.com\/[A-Za-z0-9-]{1,39}\/?$/;
+export const YOUTUBE_REGEX =
+  /^https?:\/\/(www\.)?youtube\.com\/[A-Za-z0-9-]{1,39}\/?$/;
 export const WEBSITE_REGEX =
   /^https?:\/\/(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+(:\d+)?(\/[^\s]*)?$/;
 export const COUNTRY_CODE_REGEX = /^\d{1,3}$/;
@@ -307,8 +323,12 @@ export const USER_PROPERTIES = {
   maritalStatus: "maritalStatus",
   jobProfile: "jobProfile",
   experience: "experience",
+  facebook: "facebook",
+  instagram: "instagram",
+  twitter: "twitter",
   github: "github",
   linkedin: "linkedin",
+  youtube: "youtube",
   website: "website",
   company: "company",
   organization: "organization",
@@ -348,8 +368,12 @@ export const USER_PROPERTY_LABELS = {
   maritalStatus: "Marital Status",
   jobProfile: "Job Profile",
   experience: "Experience",
+  facebook: "Facebook",
+  instagram: "Instagram",
+  twitter: "Twitter",
   github: "GitHub",
   linkedin: "LinkedIn",
+  youtube: "Youtube",
   website: "Website",
   company: "Company",
   organization: "Organization",

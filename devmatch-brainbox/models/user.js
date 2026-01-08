@@ -131,11 +131,27 @@ const userSchema = mongoose.Schema(
       max: 70,
       required: false,
     },
+    facebook: {
+      type: String,
+      required: false,
+    },
+    instagram: {
+      type: String,
+      required: false,
+    },
+    twitter: {
+      type: String,
+      required: false,
+    },
     github: {
       type: String,
       required: false,
     },
     linkedin: {
+      type: String,
+      required: false,
+    },
+    youtube: {
       type: String,
       required: false,
     },

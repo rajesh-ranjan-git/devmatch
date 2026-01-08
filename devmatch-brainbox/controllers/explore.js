@@ -123,7 +123,7 @@ export const explore = async (req, res) => {
       );
     }
 
-    const sanitizedUsers = sanitizeMongoData(users.slice(0, 2));
+    const sanitizedUsers = sanitizeMongoData(users);
 
     const totalCount = users?.length;
 

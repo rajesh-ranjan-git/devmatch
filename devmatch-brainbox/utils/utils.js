@@ -1,17 +1,21 @@
 import {
   allowedUpdateProfileProperties,
   PHOTO_URL_REGEX,
+  PHONE_REGEX,
+  FACEBOOK_REGEX,
+  INSTAGRAM_REGEX,
+  TWITTER_REGEX,
+  GITHUB_REGEX,
+  LINKEDIN_REGEX,
+  YOUTUBE_REGEX,
+  WEBSITE_REGEX,
   connectionStatusProperties,
   errorMessages,
   genderProperties,
-  GITHUB_REGEX,
   maritalStatusProperties,
   notificationTypes,
-  PHONE_REGEX,
   propertyConstraints,
   status,
-  WEBSITE_REGEX,
-  LINKEDIN_REGEX,
 } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
 import {
@@ -290,6 +294,63 @@ const addToValidatedProperties = (
 
       validatedProperties[property] = validatedExperience;
       return validatedProperties;
+    case allowedUpdateProfileProperties.FACEBOOK:
+      const {
+        isPropertyValid: isFacebookValid,
+        message: facebookErrorMessage,
+        validatedProperty: validatedFacebook,
+      } = regexPropertiesValidator(
+        properties[property],
+        FACEBOOK_REGEX,
+        errorMessages.INVALID_FACEBOOK_URL_ERROR
+      );
+
+      if (!isFacebookValid) {
+        throw new ValidationError(status.badRequest, facebookErrorMessage, {
+          property: properties[property],
+        });
+      }
+
+      validatedProperties[property] = validatedFacebook;
+      return validatedProperties;
+    case allowedUpdateProfileProperties.INSTAGRAM:
+      const {
+        isPropertyValid: isInstagramValid,
+        message: instagramErrorMessage,
+        validatedProperty: validatedInstagram,
+      } = regexPropertiesValidator(
+        properties[property],
+        INSTAGRAM_REGEX,
+        errorMessages.INVALID_INSTAGRAM_URL_ERROR
+      );
+
+      if (!isInstagramValid) {
+        throw new ValidationError(status.badRequest, instagramErrorMessage, {
+          property: properties[property],
+        });
+      }
+
+      validatedProperties[property] = validatedInstagram;
+      return validatedProperties;
+    case allowedUpdateProfileProperties.TWITTER:
+      const {
+        isPropertyValid: isTwitterValid,
+        message: twitterErrorMessage,
+        validatedProperty: validatedTwitter,
+      } = regexPropertiesValidator(
+        properties[property],
+        TWITTER_REGEX,
+        errorMessages.INVALID_TWITTER_URL_ERROR
+      );
+
+      if (!isTwitterValid) {
+        throw new ValidationError(status.badRequest, twitterErrorMessage, {
+          property: properties[property],
+        });
+      }
+
+      validatedProperties[property] = validatedTwitter;
+      return validatedProperties;
     case allowedUpdateProfileProperties.GITHUB:
       const {
         isPropertyValid: isGithubValid,
@@ -327,6 +388,25 @@ const addToValidatedProperties = (
       }
 
       validatedProperties[property] = validatedLinkedin;
+      return validatedProperties;
+    case allowedUpdateProfileProperties.YOUTUBE:
+      const {
+        isPropertyValid: isYoutubeValid,
+        message: youtubeErrorMessage,
+        validatedProperty: validatedYoutube,
+      } = regexPropertiesValidator(
+        properties[property],
+        YOUTUBE_REGEX,
+        errorMessages.INVALID_YOUTUBE_URL_ERROR
+      );
+
+      if (!isYoutubeValid) {
+        throw new ValidationError(status.badRequest, youtubeErrorMessage, {
+          property: properties[property],
+        });
+      }
+
+      validatedProperties[property] = validatedYoutube;
       return validatedProperties;
     case allowedUpdateProfileProperties.WEBSITE:
       const {

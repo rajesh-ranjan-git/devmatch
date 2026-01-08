@@ -106,10 +106,18 @@ export const ALLOWED_SPECIAL_CHARACTERS_REGEX = /[@#$%&]/;
 export const PHONE_REGEX = /^\d{10}$/;
 export const PHOTO_URL_REGEX =
   /^(https?:\/\/)([a-zA-Z0-9\-._~%]+@)?([a-zA-Z0-9\-._~%]+\.)+[a-zA-Z]{2,}(\/[^\s?#]*)*(\.(jpg|jpeg|png|gif|webp|svg))?(\?[^\s]*)?$/i;
+export const FACEBOOK_REGEX =
+  /^https?:\/\/(www\.)?(facebook\.com|fb\.com)\/[A-Za-z0-9-]{1,39}\/?$/;
+export const INSTAGRAM_REGEX =
+  /^https?:\/\/(www\.)?instagram\.com\/[A-Za-z0-9-]{1,39}\/?$/;
+export const TWITTER_REGEX =
+  /^https?:\/\/(www\.)?(twitter\.com|x\.com)\/[A-Za-z0-9-]{1,39}\/?$/;
 export const GITHUB_REGEX =
   /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9-]{1,39}\/?$/;
 export const LINKEDIN_REGEX =
   /^https?:\/\/(www\.)?linkedin\.com\/[A-Za-z0-9-]{1,39}\/?$/;
+export const YOUTUBE_REGEX =
+  /^https?:\/\/(www\.)?youtube\.com\/[A-Za-z0-9-]{1,39}\/?$/;
 export const WEBSITE_REGEX =
   /^https?:\/\/(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+(:\d+)?(\/[^\s]*)?$/;
 export const COUNTRY_CODE_REGEX = /^\d{1,3}$/;
@@ -259,8 +267,12 @@ export const errorMessages = {
     "Job profile must be at least 2 characters long!",
   JOB_PROFILE_MAX_LENGTH_ERROR:
     "Job profile must not be longer than 100 characters!",
+  INVALID_FACEBOOK_URL_ERROR: "Invalid facebook url!",
+  INVALID_INSTAGRAM_URL_ERROR: "Invalid instagram url!",
+  INVALID_TWITTER_URL_ERROR: "Invalid twitter url!",
   INVALID_GITHUB_URL_ERROR: "Invalid github url!",
   INVALID_LINKEDIN_URL_ERROR: "Invalid linkedin url!",
+  INVALID_YOUTUBE_URL_ERROR: "Invalid youtube url!",
   INVALID_WEBSITE_URL_ERROR: "Invalid website url!",
   INVALID_COMPANY_ERROR: "Invalid company!",
   COMPANY_MIN_LENGTH_ERROR: "Company must be at least 2 characters long!",
@@ -345,8 +357,12 @@ export const userProperties = {
   MARITAL_STATUS: "maritalStatus",
   JOB_PROFILE: "jobProfile",
   EXPERIENCE: "experience",
+  FACEBOOK: "facebook",
+  INSTAGRAM: "instagram",
+  TWITTER: "twitter",
   GITHUB: "github",
   LINKEDIN: "linkedin",
+  YOUTUBE: "youtube",
   WEBSITE: "website",
   COMPANY: "company",
   ORGANIZATION: "organization",

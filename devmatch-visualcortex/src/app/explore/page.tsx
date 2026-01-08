@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { EXPLORE_VISIBLE_USER_CARDS } from "@/config/constants";
 import { getAllUsers } from "@/lib/actions/actions";
 import { useDevMatchAppStore } from "@/store/store";
 import UserCards from "@/components/explore/userCards";
@@ -24,7 +25,7 @@ const Explore = () => {
 
   useEffect(() => {
     if (allUsers?.length) {
-      setUserCards(allUsers);
+      setUserCards(allUsers.slice(0, EXPLORE_VISIBLE_USER_CARDS));
     }
   }, [allUsers]);
 
