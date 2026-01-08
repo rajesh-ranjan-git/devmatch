@@ -34,7 +34,6 @@ export const updateConnectionStatus = async (
     url: `${apiUrls?.connect}/${status}/${userId}`,
   });
 
-  // return result?.success ? result?.data?.data?.connection?.receiverId : null;
   return result?.success ? result?.data : null;
 };
 

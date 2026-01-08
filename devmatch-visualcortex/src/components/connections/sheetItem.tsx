@@ -50,7 +50,7 @@ const SheetItem = ({
       formatDate(connection?.connectedSince).split(",")[0] ??
       sheetItemData.date;
     sheetItemData.successButtonIcon = <IoIosChatboxes />;
-    sheetItemData.successButtonText = "Chat";
+    sheetItemData.successButtonText = "chat";
     sheetItemData.profileUrl = `${getUrlString(profileRoutes.profile)}/${
       connection?.otherUserId
     }`;
@@ -77,7 +77,7 @@ const SheetItem = ({
       formatDate(request?.receivedRequestOn).split(",")[0] ??
       sheetItemData.date;
     sheetItemData.successButtonIcon = <MdCheck />;
-    sheetItemData.successButtonText = "Accept";
+    sheetItemData.successButtonText = "accept";
     sheetItemData.profileUrl = `${getUrlString(profileRoutes.profile)}/${
       request?.sender?.id
     }`;

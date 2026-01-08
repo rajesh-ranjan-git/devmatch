@@ -5,6 +5,7 @@ import {
 } from "@/config/constants";
 import { UserCardsProps } from "@/types/propTypes";
 import { updateConnectionStatus } from "@/lib/actions/actions";
+import { useToast } from "@/components/toast/toast";
 import SingleUserCard from "@/components/explore/singleUserCard";
 
 const UserCards = ({ allUsers }: UserCardsProps) => {
@@ -13,7 +14,21 @@ const UserCards = ({ allUsers }: UserCardsProps) => {
   );
   const [nextIndex, setNextIndex] = useState(EXPLORE_VISIBLE_USER_CARDS);
 
-  const handleRemoveUserCard = (userId: string, status: boolean) => {
+  const { showToast } = useToast();
+
+  const handleConnectionAction = async (status: string, id: string) => {
+    const updatedConnections = await updateConnectionStatus(status, id);
+
+    if (!updatedConnections?.status) {
+      showToast({
+        title: "Connection update failed!",
+        message: "Unable to update connection status.",
+        variant: "error",
+      });
+    }
+  };
+
+  const handleRemoveUserCard = (userId: string, type?: string | null) => {
     setCards((prev) => {
       const remaining = prev.filter((u) => u?.id !== userId);
 
@@ -24,12 +39,14 @@ const UserCards = ({ allUsers }: UserCardsProps) => {
 
     setNextIndex((i) => (i < allUsers.length ? i + 1 : i));
 
-    updateConnectionStatus(
-      status
-        ? CONNECTION_STATUS_PROPERTIES.interested
-        : CONNECTION_STATUS_PROPERTIES.notInterested,
-      userId
-    );
+    if (type && type === "right") {
+      handleConnectionAction(CONNECTION_STATUS_PROPERTIES.interested, userId);
+    } else if (type && type === "left") {
+      handleConnectionAction(
+        CONNECTION_STATUS_PROPERTIES.notInterested,
+        userId
+      );
+    }
   };
 
   if (cards.length === 0) {

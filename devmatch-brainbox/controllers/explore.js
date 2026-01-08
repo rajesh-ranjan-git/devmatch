@@ -13,6 +13,7 @@ import User from "../models/user.js";
 import { limitValidator, pageValidator } from "../validations/validation.js";
 import { DatabaseError } from "../errors/CustomError.js";
 import { sanitizeMongoData } from "../utils/utils.js";
+import { Types } from "mongoose";
 
 export const explore = async (req, res) => {
   try {
@@ -54,8 +55,10 @@ export const explore = async (req, res) => {
       );
     }
 
-    const acceptedOrBlockedUsers = connections?.map((user) =>
-      user?.senderId?.toString()
+    const acceptedOrBlockedUsers = connections?.map((connection) =>
+      connection?.senderId?.toString() === id
+        ? connection?.receiverId?.toString()
+        : connection?.senderId?.toString()
     );
 
     acceptedOrBlockedUsers.push(id);
@@ -64,8 +67,8 @@ export const explore = async (req, res) => {
       {
         $match: {
           _id: {
-            $nin: Array.from(acceptedOrBlockedUsers).map(
-              (id) => new ObjectId(id)
+            $nin: Array.from(acceptedOrBlockedUsers).map((id) =>
+              Types.ObjectId.createFromHexString(id)
             ),
           },
         },
@@ -81,7 +84,10 @@ export const explore = async (req, res) => {
                   $and: [
                     { $eq: ["$senderId", "$$userId"] },
                     {
-                      $eq: ["$receiverId", new ObjectId(id)],
+                      $eq: [
+                        "$receiverId",
+                        Types.ObjectId.createFromHexString(id),
+                      ],
                     },
                     { $eq: ["$connectionStatus", "interested"] },
                   ],

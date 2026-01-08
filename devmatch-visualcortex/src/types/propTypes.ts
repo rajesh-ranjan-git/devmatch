@@ -120,7 +120,7 @@ export interface SingleUserCardProps {
   user: UserType;
   isFront: boolean;
   cardIndex: number;
-  onRemove: (userId: string, status: boolean) => void;
+  onRemove: (userId: string, type?: string | null) => void;
 }
 
 export interface UserInfoButtonProps {
