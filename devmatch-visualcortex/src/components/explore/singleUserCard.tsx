@@ -6,10 +6,8 @@ import { CONNECTION_STATUS_PROPERTIES } from "@/config/constants";
 import { staticImages } from "@/config/config";
 import { profileRoutes } from "@/lib/routes/routes";
 import { SingleUserCardProps } from "@/types/propTypes";
-import { updateConnectionStatus } from "@/lib/actions/actions";
 import { getFullName, getUrlString, toTitleCase } from "@/lib/utils/utils";
 import { useDevMatchAppStore } from "@/store/store";
-import { useToast } from "@/components/toast/toast";
 import NameCardContent from "@/components/explore/nameCardContent";
 import UserDetailsCardContent from "@/components/explore/userDetailsCardContent";
 import UserInfoButton from "@/components/ui/buttons/userInfoButton";
@@ -23,12 +21,7 @@ const SingleUserCard = ({
   cardIndex,
   onRemove,
 }: SingleUserCardProps) => {
-  const connections = useDevMatchAppStore((state) => state.connections);
-  const setConnections = useDevMatchAppStore((state) => state.setConnections);
   const requests = useDevMatchAppStore((state) => state.requests);
-  const setRequests = useDevMatchAppStore((state) => state.setRequests);
-
-  const { showToast } = useToast();
 
   const sender = requests.find((r) => r?.sender?.id === user?.id)?.sender;
 
@@ -36,20 +29,11 @@ const SingleUserCard = ({
     successButtonIcon: <IoIosChatboxes />,
     successButtonText: "chat",
     onAccept: () =>
-      handleConnectionAction?.(
-        CONNECTION_STATUS_PROPERTIES.accepted,
-        sender?.id as string
-      ),
+      onRemove(sender?.id as string, CONNECTION_STATUS_PROPERTIES.accepted),
     onReject: () =>
-      handleConnectionAction?.(
-        CONNECTION_STATUS_PROPERTIES.rejected,
-        sender?.id as string
-      ),
+      onRemove(sender?.id as string, CONNECTION_STATUS_PROPERTIES.rejected),
     onBlock: () =>
-      handleConnectionAction?.(
-        CONNECTION_STATUS_PROPERTIES.blocked,
-        sender?.id as string
-      ),
+      onRemove(sender?.id as string, CONNECTION_STATUS_PROPERTIES.blocked),
   };
 
   const x = useMotionValue(0);
@@ -67,55 +51,16 @@ const SingleUserCard = ({
     if (Math.abs(x.get()) > 50) {
       onRemove(
         user?.id ?? "",
-        !sender ? (x.get() > 0 ? "right" : "left") : null
-      );
-
-      if (sender) {
-        handleConnectionAction(
-          x.get() > 0
+        sender
+          ? x.get() > 0
             ? CONNECTION_STATUS_PROPERTIES.accepted
-            : CONNECTION_STATUS_PROPERTIES.rejected,
-          sender?.id ?? ""
-        );
-      }
+            : CONNECTION_STATUS_PROPERTIES.rejected
+          : x.get() > 0
+          ? CONNECTION_STATUS_PROPERTIES.interested
+          : CONNECTION_STATUS_PROPERTIES.notInterested
+      );
     } else {
       x.set(0);
-    }
-  };
-
-  const handleConnectionAction = async (status: string, id: string) => {
-    const prevRequests = requests;
-    const prevConnections = connections;
-
-    const request = requests.find((r) => r.sender?.id === id);
-
-    onRemove(id);
-
-    if (status === CONNECTION_STATUS_PROPERTIES.accepted) {
-      setConnections([
-        ...connections,
-        {
-          connectionStatus: status,
-          otherUser: request?.sender,
-          otherUserId: request?.sender?.id,
-          connectedSince: request?.receivedRequestOn,
-        },
-      ]);
-    }
-
-    setRequests(requests.filter((r) => r?.sender?.id !== id));
-
-    const updatedConnections = await updateConnectionStatus(status, id);
-
-    if (!updatedConnections?.status) {
-      setConnections(prevConnections);
-      setRequests(prevRequests);
-
-      showToast({
-        title: "Connection update failed!",
-        message: "Unable to update connection status.",
-        variant: "error",
-      });
     }
   };
 

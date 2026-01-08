@@ -5,6 +5,7 @@ import {
 } from "@/config/constants";
 import { UserCardsProps } from "@/types/propTypes";
 import { updateConnectionStatus } from "@/lib/actions/actions";
+import { useDevMatchAppStore } from "@/store/store";
 import { useToast } from "@/components/toast/toast";
 import SingleUserCard from "@/components/explore/singleUserCard";
 
@@ -14,12 +15,25 @@ const UserCards = ({ allUsers }: UserCardsProps) => {
   );
   const [nextIndex, setNextIndex] = useState(EXPLORE_VISIBLE_USER_CARDS);
 
+  const connections = useDevMatchAppStore((state) => state.connections);
+  const setConnections = useDevMatchAppStore((state) => state.setConnections);
+  const requests = useDevMatchAppStore((state) => state.requests);
+  const setRequests = useDevMatchAppStore((state) => state.setRequests);
+
   const { showToast } = useToast();
 
   const handleConnectionAction = async (status: string, id: string) => {
+    const prevConnections = connections;
+    const prevRequests = requests;
+    const prevCards = cards;
+
     const updatedConnections = await updateConnectionStatus(status, id);
 
     if (!updatedConnections?.status) {
+      setConnections(prevConnections);
+      setRequests(prevRequests);
+      setCards(prevCards);
+
       showToast({
         title: "Connection update failed!",
         message: "Unable to update connection status.",
@@ -28,7 +42,7 @@ const UserCards = ({ allUsers }: UserCardsProps) => {
     }
   };
 
-  const handleRemoveUserCard = (userId: string, type?: string | null) => {
+  const handleRemoveUserCard = (userId: string, status: string) => {
     setCards((prev) => {
       const remaining = prev.filter((u) => u?.id !== userId);
 
@@ -39,14 +53,30 @@ const UserCards = ({ allUsers }: UserCardsProps) => {
 
     setNextIndex((i) => (i < allUsers.length ? i + 1 : i));
 
-    if (type && type === "right") {
-      handleConnectionAction(CONNECTION_STATUS_PROPERTIES.interested, userId);
-    } else if (type && type === "left") {
-      handleConnectionAction(
-        CONNECTION_STATUS_PROPERTIES.notInterested,
-        userId
-      );
+    if (status === CONNECTION_STATUS_PROPERTIES.accepted) {
+      const request = requests.find((r) => r.sender?.id === userId);
+
+      setConnections([
+        ...connections,
+        {
+          connectionStatus: status,
+          otherUser: request?.sender,
+          otherUserId: request?.sender?.id,
+          connectedSince: request?.receivedRequestOn,
+        },
+      ]);
+
+      setRequests(requests.filter((r) => r?.sender?.id !== userId));
+    } else if (
+      status === CONNECTION_STATUS_PROPERTIES.rejected ||
+      status === CONNECTION_STATUS_PROPERTIES.blocked
+    ) {
+      setConnections(connections.filter((c) => c?.otherUserId !== userId));
+
+      setRequests(requests.filter((r) => r?.sender?.id !== userId));
     }
+
+    handleConnectionAction(status, userId);
   };
 
   if (cards.length === 0) {
