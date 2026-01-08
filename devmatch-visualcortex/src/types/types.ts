@@ -71,9 +71,12 @@ export type SheetItemType = {
 export type ConnectionRequestsDataType = {
   connectionStatus?: string;
   senderId?: UserType;
+  sender?: UserType;
   otherUser?: UserType;
   otherUserId?: string;
+  receivedRequestOn?: string;
   updatedAt?: string;
+  connectedSince?: string;
 };
 
 export type AccountOptionsDropdownTypes =

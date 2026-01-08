@@ -32,6 +32,9 @@ const SheetItem = ({
     successButtonIcon: <></>,
     successButtonText: "",
     profileUrl: "",
+    onAccept: () => {},
+    onReject: () => {},
+    onBlock: () => {},
   };
 
   if (type === navbarMenuItems[0].type) {
@@ -51,6 +54,17 @@ const SheetItem = ({
     sheetItemData.profileUrl = `${getUrlString(profileRoutes.profile)}/${
       connection?.otherUserId
     }`;
+    sheetItemData.onAccept = () => console.log("Chat window will open...");
+    sheetItemData.onReject = () =>
+      handleConnectionAction?.(
+        CONNECTION_STATUS_PROPERTIES.rejected,
+        connection?.otherUserId as string
+      );
+    sheetItemData.onBlock = () =>
+      handleConnectionAction?.(
+        CONNECTION_STATUS_PROPERTIES.blocked,
+        connection?.otherUserId as string
+      );
   } else if (type === navbarMenuItems[1].type) {
     sheetItemData.imageSrc =
       request?.sender?.avatarUrl ?? sheetItemData.imageSrc;
@@ -67,6 +81,21 @@ const SheetItem = ({
     sheetItemData.profileUrl = `${getUrlString(profileRoutes.profile)}/${
       request?.sender?.id
     }`;
+    sheetItemData.onAccept = () =>
+      handleConnectionAction?.(
+        CONNECTION_STATUS_PROPERTIES.accepted,
+        request?.sender?.id as string
+      );
+    sheetItemData.onReject = () =>
+      handleConnectionAction?.(
+        CONNECTION_STATUS_PROPERTIES.rejected,
+        request?.sender?.id as string
+      );
+    sheetItemData.onBlock = () =>
+      handleConnectionAction?.(
+        CONNECTION_STATUS_PROPERTIES.blocked,
+        request?.sender?.id as string
+      );
   }
 
   return (
@@ -95,28 +124,19 @@ const SheetItem = ({
           icon={sheetItemData.successButtonIcon}
           text={sheetItemData.successButtonText}
           className="w-24 text-sm"
+          onClick={sheetItemData.onAccept}
         />
         <ButtonWarning
           icon={<MdCancel />}
           text="disconnect"
           className="w-32 text-sm"
-          onClick={() =>
-            handleConnectionAction?.(
-              CONNECTION_STATUS_PROPERTIES.rejected,
-              connection?.otherUserId as string
-            )
-          }
+          onClick={sheetItemData.onReject}
         />
         <ButtonDestructive
           icon={<MdBlock />}
           text="block"
           className="w-24 text-sm"
-          onClick={() =>
-            handleConnectionAction?.(
-              CONNECTION_STATUS_PROPERTIES.blocked,
-              connection?.otherUserId as string
-            )
-          }
+          onClick={sheetItemData.onBlock}
         />
       </div>
       <UserInfoButton

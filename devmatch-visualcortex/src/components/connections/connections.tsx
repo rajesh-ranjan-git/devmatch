@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { CONNECTION_STATUS_PROPERTIES } from "@/config/constants";
 import { navbarMenuItems } from "@/config/config";
 import { ConnectionRequestsDataType, SheetItemType } from "@/types/types";
 import { ConnectionProps } from "@/types/propTypes";
@@ -8,10 +9,10 @@ import {
   getConnectionsAndRequests,
   updateConnectionStatus,
 } from "@/lib/actions/actions";
+import { useDevMatchAppStore } from "@/store/store";
 import SheetItem from "@/components/connections/sheetItem";
 import ConnectionsButton from "@/components/ui/buttons/connectionsButton";
 import Sheet from "@/components/ui/sheet/sheet";
-import { useDevMatchAppStore } from "@/store/store";
 
 const Connections = ({ type, icon }: ConnectionProps) => {
   const connections = useDevMatchAppStore((state) => state.connections);
@@ -24,18 +25,36 @@ const Connections = ({ type, icon }: ConnectionProps) => {
   const handleConnectionAction = async (status: string, id: string) => {
     updateConnectionStatus(status, id);
 
-    setRequests(
-      requests.filter(
-        (request: ConnectionRequestsDataType) => request?.senderId !== id
-      )
-    );
+    if (type === navbarMenuItems[0].type) {
+      setConnections(
+        connections.filter(
+          (connection: ConnectionRequestsDataType) =>
+            connection?.otherUserId !== id
+        )
+      );
+    }
 
-    setConnections(
-      connections.filter(
-        (connection: ConnectionRequestsDataType) =>
-          connection?.otherUserId !== id
-      )
-    );
+    if (type === navbarMenuItems[1].type) {
+      if (status === CONNECTION_STATUS_PROPERTIES.accepted) {
+        setConnections([
+          ...connections,
+          {
+            connectionStatus: status,
+            otherUser: requests.find((req) => req?.sender?.id === id)?.sender,
+            otherUserId: requests.find((req) => req?.sender?.id === id)?.sender
+              ?.id,
+            connectedSince: requests.find((req) => req?.sender?.id === id)
+              ?.receivedRequestOn,
+          },
+        ]);
+      }
+
+      setRequests(
+        requests.filter(
+          (request: ConnectionRequestsDataType) => request?.sender?.id !== id
+        )
+      );
+    }
   };
 
   useEffect(() => {
