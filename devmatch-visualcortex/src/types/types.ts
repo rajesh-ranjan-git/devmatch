@@ -56,37 +56,13 @@ export type ContextMenuTypes =
 export type SheetTypes = "requests" | "connections" | null;
 
 export type SheetItemType = {
-  name: string;
-  designation: string;
-  body?: string;
-  connectedSince?: string;
-  url: string;
-};
-
-export type ConnectionRequestsDataType = {
-  connectionStatus?: string;
-  senderId?: UserType;
-  otherUser?: UserType;
-  otherUserId?: string;
-  updatedAt?: string;
-};
-
-export type ConnectionsSheetItemType = {
   status?: string;
   otherUser?: UserType;
   otherUserId?: string;
   connectedSince?: string;
-};
-
-export type RequestsSheetItemType = {
-  status?: string;
   sender?: UserType;
   receivedRequestOn?: string;
 };
-
-export type SheetItemsType = Partial<
-  Record<Exclude<SheetTypes, null>, SheetItemType[]>
->;
 
 export type AccountOptionsDropdownTypes =
   keyof typeof ACCOUNT_OPTIONS_DROPDOWN_ITEMS;

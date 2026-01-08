@@ -3,8 +3,6 @@ export const APP = {
   desc: "Tinder for Software Engineers!",
 } as const;
 
-export const ACTIVITY_MODE = { visible: "visible", hidden: "hidden" } as const;
-
 export const STORAGE = { local: "local", session: "session" } as const;
 
 export const EXPLORE_VISIBLE_USER_CARDS = 5;
@@ -74,11 +72,6 @@ export const THEMES = {
 export const NAVBAR_MENU_ITEMS = {
   requests: "requests",
   connections: "connections",
-} as const;
-
-export const NOTIFICATION_DROPDOWN_ITEMS = {
-  profile: "profile",
-  logout: "logout",
 } as const;
 
 export const ACCOUNT_OPTIONS_DROPDOWN_ITEMS = {

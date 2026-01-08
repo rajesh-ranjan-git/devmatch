@@ -29,10 +29,8 @@ import {
   CameraDropdownItemType,
   NavbarMenuItemType,
   NotificationsItemsType,
-  SheetItemsType,
   SocialMediaIconType,
   StaticImageType,
-  UserType,
 } from "@/types/types";
 import { formatDate, getUrlString, toTitleCase } from "@/lib/utils/utils";
 import { authRoutes } from "@/lib/routes/routes";
@@ -114,75 +112,6 @@ export const notificationsDropdownItems: NotificationsItemsType = {
       name: "Rahee",
       designation: "Software Engineer",
       body: "Rahee sent you a message!",
-      url: "/profile",
-    },
-  ],
-};
-
-export const connectionsSheetItems: SheetItemsType = {
-  connections: [
-    {
-      name: "Rajesh Ranjan",
-      designation: "Full Stack Developer",
-      connectedSince: `Connected since ${formatDate(
-        Date.now().toLocaleString()
-      )}`,
-      url: "/profile",
-    },
-    {
-      name: "Kripanidhan",
-      designation: "Software Development Engineer",
-      connectedSince: `Connected since ${formatDate(
-        Date.now().toLocaleString()
-      )}`,
-      url: "/profile",
-    },
-    {
-      name: "Sayantanee Mohanta",
-      designation: "HelpDesk Senior Associate",
-      connectedSince: `Connected since ${formatDate(
-        Date.now().toLocaleString()
-      )}`,
-      url: "/profile",
-    },
-    {
-      name: "Rahee",
-      designation: "Software Engineer",
-      connectedSince: `Connected since ${formatDate(
-        Date.now().toLocaleString()
-      )}`,
-      url: "/profile",
-    },
-    {
-      name: "Rajesh Ranjan",
-      designation: "Full Stack Developer",
-      connectedSince: `Connected since ${formatDate(
-        Date.now().toLocaleString()
-      )}`,
-      url: "/profile",
-    },
-    {
-      name: "Kripanidhan",
-      designation: "Software Development Engineer",
-      connectedSince: `Connected since ${formatDate(
-        Date.now().toLocaleString()
-      )}`,
-      url: "/profile",
-    },
-    {
-      name: "Sayantanee Mohanta",
-      designation: "HelpDesk Senior Associate",
-      connectedSince: `Connected since ${formatDate(
-        Date.now().toLocaleString()
-      )}`,
-      url: "/profile",
-    },
-    {
-      name: "Rahee",
-      designation: "Software Engineer",
-      connectedSince: `Connected since ${formatDate(
-        Date.now().toLocaleString()
-      )}`,
       url: "/profile",
     },
   ],
@@ -317,34 +246,3 @@ export const socialMediaIcons: SocialMediaIconType = {
   twitter: { url: "#", Icon: FaXTwitter },
   github: { url: "#", Icon: FaGithub },
 };
-
-export const staticUsers: UserType[] = [
-  {
-    id: "1",
-    firstName: "Rajesh",
-    lastName: "Ranjan",
-    jobProfile: "Full Stack Developer",
-    organization: "India Today Group",
-  },
-  {
-    id: "2",
-    firstName: "Kripanidhan",
-    lastName: "Kumar",
-    jobProfile: "Full Stack Developer",
-    organization: "India Today Group",
-  },
-  {
-    id: "3",
-    firstName: "Sayantanee",
-    lastName: "Mohanta",
-    jobProfile: "HelpDesk Senior Associate",
-    organization: "NTT Data Services",
-  },
-  {
-    id: "4",
-    firstName: "Rahee",
-    lastName: "Mohanta",
-    jobProfile: "HelpDesk Senior Associate",
-    organization: "NTT Data Services",
-  },
-];

@@ -1,9 +1,8 @@
-import { Dispatch, ReactNode, RefObject } from "react";
+import { ReactNode, RefObject } from "react";
 import { IconType } from "react-icons";
 import {
-  ConnectionsSheetItemType,
   ContextMenuTypes,
-  RequestsSheetItemType,
+  NavbarMenuItemTypes,
   SheetItemType,
   SheetTypes,
   StorageTypes,
@@ -129,14 +128,10 @@ export interface UserInfoButtonProps {
   onClick?: () => void;
 }
 
-export interface RequestsSheetItemProps {
-  request: RequestsSheetItemType;
-  handleConnectionAction?: (id: string, status: string) => void;
-  onSheetClose: () => void;
-}
-
-export interface ConnectionsSheetItemProps {
-  connection: ConnectionsSheetItemType;
+export interface SheetItemProps {
+  type: NavbarMenuItemTypes;
+  connection?: SheetItemType;
+  request?: SheetItemType;
   handleConnectionAction?: (id: string, status: string) => void;
   onSheetClose: () => void;
 }

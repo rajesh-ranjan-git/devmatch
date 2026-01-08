@@ -2,8 +2,6 @@ import { ConnectionProps } from "@/types/propTypes";
 import { navbarMenuItems } from "@/config/config";
 import useSheet from "@/hooks/useSheet";
 import { toTitleCase } from "@/lib/utils/utils";
-import ConnectionsSheetItem from "@/components/connections/connectionsSheetItem";
-import RequestsSheetItem from "@/components/connections/requestsSheetItem";
 import ConnectionsButton from "@/components/ui/buttons/connectionsButton";
 import Sheet from "@/components/ui/sheet/sheet";
 import { useEffect, useState } from "react";
@@ -16,6 +14,7 @@ import {
   ConnectionsSheetItemType,
   RequestsSheetItemType,
 } from "@/types/types";
+import SheetItem from "./sheetItem";
 
 const Connections = ({ type, icon }: ConnectionProps) => {
   const [connections, setConnections] = useState([]);
@@ -105,6 +104,39 @@ const Connections = ({ type, icon }: ConnectionProps) => {
             {type === navbarMenuItems[0].type ? (
               connections && connections?.length > 0 ? (
                 connections?.map((connection, index) => (
+                  <SheetItem
+                    key={index}
+                    type={type}
+                    connection={connection}
+                    handleConnectionAction={handleConnectionAction}
+                    onSheetClose={() => connectionsSheet.close()}
+                  />
+                ))
+              ) : (
+                <div className="flex justify-center items-center w-full h-full text-sm">
+                  <p>No connections yet...</p>
+                </div>
+              )
+            ) : type === navbarMenuItems[1].type ? (
+              requests && requests?.length > 0 ? (
+                requests?.map((request, index) => (
+                  <SheetItem
+                    key={index}
+                    type={type}
+                    request={request}
+                    handleConnectionAction={handleConnectionAction}
+                    onSheetClose={() => connectionsSheet.close()}
+                  />
+                ))
+              ) : (
+                <div className="flex justify-center items-center w-full h-full text-sm">
+                  <p>No pending requests...</p>
+                </div>
+              )
+            ) : null}
+            {/* {type === navbarMenuItems[0].type ? (
+              connections && connections?.length > 0 ? (
+                connections?.map((connection, index) => (
                   <ConnectionsSheetItem
                     key={index}
                     connection={connection}
@@ -132,7 +164,7 @@ const Connections = ({ type, icon }: ConnectionProps) => {
                   <p>No pending requests...</p>
                 </div>
               )
-            ) : null}
+            ) : null} */}
           </div>
         </div>
       </Sheet>
