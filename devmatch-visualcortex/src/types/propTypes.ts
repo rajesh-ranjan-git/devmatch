@@ -62,6 +62,15 @@ export interface UserDetailsCardContentProps {
   name?: string;
   jobProfile?: string;
   organization?: string;
+  socialMedia: {
+    facebook?: string;
+    instagram?: string;
+    twitter?: string;
+    github?: string;
+    linkedin?: string;
+    youtube?: string;
+    website?: string;
+  };
 }
 
 export interface AuthFormWrapperProps {
@@ -74,6 +83,18 @@ export interface InputProps {
   placeholder: string;
   defaultValue?: string;
   className?: string;
+}
+
+export interface SocialMediaProps {
+  socialMedia: {
+    facebook?: string;
+    instagram?: string;
+    twitter?: string;
+    github?: string;
+    linkedin?: string;
+    youtube?: string;
+    website?: string;
+  };
 }
 
 export interface SocialMediaItemProps {

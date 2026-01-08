@@ -425,6 +425,13 @@ export const publicProfilePropertiesForExplore = selectObjectProperties(
     "COVER_PHOTO_URL",
     "JOB_PROFILE",
     "ORGANIZATION",
+    "FACEBOOK",
+    "INSTAGRAM",
+    "TWITTER",
+    "GITHUB",
+    "LINKEDIN",
+    "YOUTUBE",
+    "WEBSITE",
   ]
 );
 

@@ -99,6 +99,7 @@ export const SOCIAL_MEDIA = {
   github: "github",
   linkedin: "linkedin",
   youtube: "youtube",
+  website: "website",
 } as const;
 
 export const INPUT_TYPES = {

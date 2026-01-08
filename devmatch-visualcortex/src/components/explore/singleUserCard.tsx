@@ -120,7 +120,7 @@ const SingleUserCard = ({
         alt={user?.firstName ?? staticImages.avatarPlaceholder.alt}
         width={600}
         height={400}
-        className="w-full h-full object-cover pointer-events-none select-none"
+        className="bg-white w-full h-full object-cover pointer-events-none select-none"
       />
 
       <NameCardContent name={toTitleCase(getFullName(user))} />
@@ -129,6 +129,15 @@ const SingleUserCard = ({
         name={toTitleCase(getFullName(user))}
         jobProfile={toTitleCase(user?.jobProfile)}
         organization={toTitleCase(user?.organization)}
+        socialMedia={{
+          facebook: user?.facebook,
+          instagram: user?.instagram,
+          twitter: user?.twitter,
+          github: user?.github,
+          linkedin: user?.linkedin,
+          youtube: user?.youtube,
+          website: user?.website,
+        }}
       />
     </motion.div>
   );

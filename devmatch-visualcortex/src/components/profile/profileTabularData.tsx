@@ -3,8 +3,11 @@ import { MdEdit, MdOutlineEdit } from "react-icons/md";
 import { USER_PROPERTIES, USER_PROPERTY_LABELS } from "@/config/constants";
 import { ProfileComponentProps } from "@/types/propTypes";
 import { formatDate, toSentenceCase, toTitleCase } from "@/lib/utils/utils";
+import { useDevMatchAppStore } from "@/store/store";
 
 const ProfileTabularData = ({ user }: ProfileComponentProps) => {
+  const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
+
   const renderValue = (key: string, value: string) => {
     if (value === null || value === undefined) {
       return null;
@@ -77,10 +80,12 @@ const ProfileTabularData = ({ user }: ProfileComponentProps) => {
                 <div className="pr-4 w-full">
                   <span>{renderValue(key, value)}</span>
                 </div>
-                <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm w-7glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
-                  <MdOutlineEdit className="group-hover/icon:hidden" />
-                  <MdEdit className="hidden group-hover/icon:block" />
-                </div>
+                {loggedInUser?.id === user?.id && (
+                  <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm w-7glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
+                    <MdOutlineEdit className="group-hover/icon:hidden" />
+                    <MdEdit className="hidden group-hover/icon:block" />
+                  </div>
+                )}
               </div>
             </td>
           </tr>

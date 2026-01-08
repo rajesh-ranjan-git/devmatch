@@ -8,7 +8,7 @@ import {
   LuUserPen,
   LuUserPlus,
 } from "react-icons/lu";
-import { TbLockPassword } from "react-icons/tb";
+import { TbLockPassword, TbWorld } from "react-icons/tb";
 import {
   FaFacebookF,
   FaInstagram,
@@ -201,19 +201,19 @@ export const authFormFieldButtonItems: AuthFormFieldButtonItemsType = {
   forgotPassword: {
     name: AUTH_FORM_FIELDS.forgotPassword,
     type: INPUT_TYPES.submit,
-    label: toTitleCase(AUTH_FORM_FIELDS.forgotPassword),
+    label: "Forgot Password",
     url: getUrlString(authRoutes.forgotPassword),
     icon: <TbLockPassword />,
   },
   updateProfile: {
     name: AUTH_FORM_FIELDS.updateProfile,
-    label: toTitleCase(AUTH_FORM_FIELDS.updateProfile),
+    label: "Update Profile",
     url: getUrlString(AUTH_FORM_FIELDS.updateProfile),
     icon: <LuUserPen />,
   },
   deleteAccount: {
     name: AUTH_FORM_FIELDS.deleteAccount,
-    label: toTitleCase(AUTH_FORM_FIELDS.deleteAccount),
+    label: "Delete Account",
     url: getUrlString(AUTH_FORM_FIELDS.deleteAccount),
     icon: <LuUserMinus />,
   },
@@ -233,20 +233,21 @@ export const staticImages: StaticImageType = {
     alt: "404-error",
   },
   avatarPlaceholder: {
-    src: "/assets/avatar/default-avatar-profile-picture-male-icon.webp",
+    src: "/assets/avatar/user.webp",
     alt: "avatar-icon",
   },
   profilePlaceholder: {
-    src: "/assets/profile_photo_square.png",
+    src: "/assets/avatar/user.webp",
     alt: "profile-pic",
   },
 };
 
 export const socialMediaIcons: SocialMediaIconType = {
-  facebook: { url: "#", Icon: FaFacebookF },
-  instagram: { url: "#", Icon: FaInstagram },
-  twitter: { url: "#", Icon: FaXTwitter },
-  github: { url: "#", Icon: FaGithub },
-  linkedin: { url: "#", Icon: FaLinkedin },
-  youtube: { url: "#", Icon: FaYoutube },
+  facebook: { Icon: FaFacebookF },
+  instagram: { Icon: FaInstagram },
+  twitter: { Icon: FaXTwitter },
+  github: { Icon: FaGithub },
+  linkedin: { Icon: FaLinkedin },
+  youtube: { Icon: FaYoutube },
+  website: { Icon: TbWorld },
 };

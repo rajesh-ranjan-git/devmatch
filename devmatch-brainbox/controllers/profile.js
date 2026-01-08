@@ -12,7 +12,10 @@ import {
   getEncryptedPassword,
   isValidMongoDbObjectId,
 } from "../utils/authUtils.js";
-import { validatePropertiesToUpdate } from "../utils/utils.js";
+import {
+  sanitizeMongoData,
+  validatePropertiesToUpdate,
+} from "../utils/utils.js";
 import User from "../models/user.js";
 
 export const view = async (req, res) => {
@@ -47,10 +50,12 @@ export const view = async (req, res) => {
       );
     }
 
+    const sanitizedUser = sanitizeMongoData(user);
+
     return res.status(status.success.statusCode).json({
       status: status.success.message,
       statusCode: status.success.statusCode,
-      user,
+      user: sanitizedUser,
       message: successMessages.FETCH_PROFILE_SUCCESS,
     });
   } catch (error) {
@@ -92,10 +97,12 @@ export const update = async (req, res) => {
       );
     }
 
+    const sanitizedUser = sanitizeMongoData(user);
+
     return res.status(status.success.statusCode).json({
       status: status.success.message,
       statusCode: status.success.statusCode,
-      user,
+      user: sanitizedUser,
       message: successMessages.USER_UPDATE_SUCCESS,
     });
   } catch (error) {
@@ -173,11 +180,13 @@ export const updatePassword = async (req, res) => {
       passwordLastUpdated: Date.now(),
     });
 
+    const sanitizedUser = sanitizeMongoData(updatedUser);
+
     if (!updatedUser) {
       throw new DatabaseError(
         status.internalServerError,
         errorMessages.PASSWORD_UPDATE_FAILED_ERROR,
-        { user: updatedUser },
+        { user: sanitizedUser },
         req?.url
       );
     }

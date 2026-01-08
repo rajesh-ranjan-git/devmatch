@@ -123,10 +123,7 @@ export type StaticImageType = Record<
 
 export type SocialMediaTypes = keyof typeof SOCIAL_MEDIA;
 
-export type SocialMediaIconType = Record<
-  SocialMediaTypes,
-  { url: string; Icon: IconType }
->;
+export type SocialMediaIconType = Record<SocialMediaTypes, { Icon: IconType }>;
 
 export type UserType = {
   id?: string;

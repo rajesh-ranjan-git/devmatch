@@ -5,6 +5,7 @@ const UserDetailsCardContent = ({
   name,
   jobProfile,
   organization,
+  socialMedia,
 }: UserDetailsCardContentProps) => {
   return (
     <div className="-bottom-40 group-hover:bottom-0 z-10 absolute flex flex-col justify-center items-center gap-4 bg-glass-surface-light shadow-[0_-0.6rem_0.6rem_rgba(0,0,0,0.1)] backdrop-blur-2xl border-glass-border-subtle border-t rounded-t-xl w-full h-40 transition-[bottom] duration-500 delay-700 group-hover:delay-[0s]">
@@ -18,7 +19,7 @@ const UserDetailsCardContent = ({
         </span>
       </h3>
 
-      <SocialMedia />
+      <SocialMedia socialMedia={socialMedia} />
     </div>
   );
 };

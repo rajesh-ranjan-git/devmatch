@@ -14,7 +14,7 @@ import {
   isPasswordExpired,
 } from "../utils/authUtils.js";
 import User from "../models/user.js";
-import { selectObjectProperties } from "../utils/utils.js";
+import { sanitizeMongoData, selectObjectProperties } from "../utils/utils.js";
 
 export const checkAuth = async (req, res) => {
   try {
@@ -29,11 +29,13 @@ export const checkAuth = async (req, res) => {
       );
     }
 
+    const sanitizedUser = sanitizeMongoData(user);
+
     return res.status(status.success.statusCode).json({
       status: status.success.message,
       statusCode: status.success.statusCode,
       message: successMessages.AUTHENTICATION_SUCCESS,
-      user: user,
+      user: sanitizedUser,
     });
   } catch (error) {
     return res
@@ -93,6 +95,8 @@ export const register = async (req, res) => {
 
     const token = getJwtToken(user?.id);
 
+    const sanitizedUser = sanitizeMongoData(user);
+
     return res
       .status(status.created.statusCode)
       .cookie("authToken", token, {
@@ -102,7 +106,7 @@ export const register = async (req, res) => {
         status: status.created.message,
         statusCode: status.created.statusCode,
         message: successMessages.REGISTRATION_SUCCESS,
-        user: user,
+        user: sanitizedUser,
       });
   } catch (error) {
     return res
@@ -174,6 +178,8 @@ export const login = async (req, res) => {
       Object.values(defaultUserProperties)
     );
 
+    const sanitizedUser = sanitizeMongoData(loggedInUser);
+
     return res
       .status(status.success.statusCode)
       .cookie("authToken", token, {
@@ -183,7 +189,7 @@ export const login = async (req, res) => {
         status: status.success.message,
         statusCode: status.success.statusCode,
         message: successMessages.LOGIN_SUCCESS,
-        user: loggedInUser,
+        user: sanitizedUser,
       });
   } catch (error) {
     return res

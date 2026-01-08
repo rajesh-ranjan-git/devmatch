@@ -8,6 +8,7 @@ import {
 } from "@/config/config";
 import { getFullName, toTitleCase } from "@/lib/utils/utils";
 import { ProfileComponentProps } from "@/types/propTypes";
+import { useDevMatchAppStore } from "@/store/store";
 import ProfileTabularData from "@/components/profile/profileTabularData";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
@@ -17,6 +18,8 @@ import ProfilePhotoEditButton from "@/components/ui/buttons/profilePhotoEditButt
 
 const ProfileDetails = ({ user }: ProfileComponentProps) => {
   if (!user) return;
+
+  const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
 
   const selectedUserProperties = Object.fromEntries(
     Object.entries(user ?? {}).filter(
@@ -35,16 +38,22 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
   return (
     <div className="relative flex flex-col p-8 pb-4 w-full h-full">
       <div className="flex gap-4">
-        <div className="relative border border-glass-border-bright rounded-full w-12 h-11 object-cover cursor-pointer">
+        <div
+          className={`relative border border-glass-border-bright rounded-full w-12 h-11 object-cover ${
+            loggedInUser?.id === user?.id && "cursor-pointer"
+          }`}
+        >
           <Image
             src={user?.avatarUrl ?? staticImages.profilePlaceholder.src}
             alt={staticImages.profilePlaceholder.alt}
             width={100}
             height={100}
-            className="rounded-full w-full h-full object-cover select-none"
+            className="bg-white rounded-full w-full h-full object-cover select-none"
           />
 
-          <ProfilePhotoEditButton popoverTarget="update-profile-photo-dropdown" />
+          {loggedInUser?.id === user?.id && (
+            <ProfilePhotoEditButton popoverTarget="update-profile-photo-dropdown" />
+          )}
 
           <Dropdown id="update-profile-photo-dropdown">
             <div>
@@ -69,25 +78,31 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
         </h2>
       </div>
 
-      <div className="[&::-webkit-scrollbar-track]:bg-transparent mt-4 mb-8 pr-4 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar]:w-1 overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
+      <div
+        className={`[&::-webkit-scrollbar-track]:bg-transparent  pr-4 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar]:w-1 overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out ${
+          loggedInUser?.id === user?.id ? "mt-4 mb-8" : "my-4"
+        }`}
+      >
         <table className="w-full text-glass-text-primary table-fixed">
           <tbody>
             <ProfileTabularData user={selectedUserProperties} />
           </tbody>
         </table>
       </div>
-      <div className="flex justify-center items-center gap-4">
-        <ButtonNormal
-          icon={authFormFieldButtonItems?.updateProfile?.icon}
-          text={authFormFieldButtonItems?.updateProfile?.label}
-          className="w-46 h-10"
-        />
-        <ButtonDestructive
-          icon={authFormFieldButtonItems?.deleteAccount?.icon}
-          text={authFormFieldButtonItems?.deleteAccount?.label}
-          className="w-46 h-10"
-        />
-      </div>
+      {loggedInUser?.id === user?.id && (
+        <div className="flex justify-center items-center gap-4">
+          <ButtonNormal
+            icon={authFormFieldButtonItems?.updateProfile?.icon}
+            text={authFormFieldButtonItems?.updateProfile?.label}
+            className="w-46 h-10"
+          />
+          <ButtonDestructive
+            icon={authFormFieldButtonItems?.deleteAccount?.icon}
+            text={authFormFieldButtonItems?.deleteAccount?.label}
+            className="w-46 h-10"
+          />
+        </div>
+      )}
     </div>
   );
 };
