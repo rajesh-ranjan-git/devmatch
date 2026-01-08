@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { CONNECTION_STATUS_PROPERTIES } from "@/config/constants";
 import { navbarMenuItems } from "@/config/config";
-import { ConnectionRequestsDataType, SheetItemType } from "@/types/types";
+import { SheetItemType } from "@/types/types";
 import { ConnectionProps } from "@/types/propTypes";
 import useSheet from "@/hooks/useSheet";
 import { toTitleCase } from "@/lib/utils/utils";
@@ -23,37 +23,36 @@ const Connections = ({ type, icon }: ConnectionProps) => {
   const connectionsSheet = useSheet({ type: type });
 
   const handleConnectionAction = async (status: string, id: string) => {
-    updateConnectionStatus(status, id);
+    const prevRequests = requests;
+    const prevConnections = connections;
 
     if (type === navbarMenuItems[0].type) {
-      setConnections(
-        connections.filter(
-          (connection: ConnectionRequestsDataType) =>
-            connection?.otherUserId !== id
-        )
-      );
+      setConnections(connections.filter((c) => c?.otherUserId !== id));
     }
 
     if (type === navbarMenuItems[1].type) {
+      const request = requests.find((r) => r.sender?.id === id);
+
       if (status === CONNECTION_STATUS_PROPERTIES.accepted) {
         setConnections([
           ...connections,
           {
             connectionStatus: status,
-            otherUser: requests.find((req) => req?.sender?.id === id)?.sender,
-            otherUserId: requests.find((req) => req?.sender?.id === id)?.sender
-              ?.id,
-            connectedSince: requests.find((req) => req?.sender?.id === id)
-              ?.receivedRequestOn,
+            otherUser: request?.sender,
+            otherUserId: request?.sender?.id,
+            connectedSince: request?.receivedRequestOn,
           },
         ]);
       }
 
-      setRequests(
-        requests.filter(
-          (request: ConnectionRequestsDataType) => request?.sender?.id !== id
-        )
-      );
+      setRequests(requests.filter((r) => r?.sender?.id !== id));
+    }
+
+    const updatedConnections = await updateConnectionStatus(status, id);
+
+    if (!updatedConnections?.status) {
+      setConnections(prevConnections);
+      setRequests(prevRequests);
     }
   };
 
@@ -64,7 +63,7 @@ const Connections = ({ type, icon }: ConnectionProps) => {
       if (data?.connections && data?.connections?.length > 0) {
         setConnections(
           data?.connections?.reduce(
-            (acc: SheetItemType[], curr: ConnectionRequestsDataType) => [
+            (acc: SheetItemType[], curr: SheetItemType) => [
               {
                 status: curr?.connectionStatus,
                 otherUser: curr?.otherUser,
@@ -81,7 +80,7 @@ const Connections = ({ type, icon }: ConnectionProps) => {
       if (data?.requests && data?.requests?.length > 0) {
         setRequests(
           data?.requests?.reduce(
-            (acc: SheetItemType[], curr: ConnectionRequestsDataType) => [
+            (acc: SheetItemType[], curr: SheetItemType) => [
               {
                 status: curr?.connectionStatus,
                 sender: curr?.senderId,

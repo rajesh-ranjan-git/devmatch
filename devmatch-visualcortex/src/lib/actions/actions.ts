@@ -35,7 +35,7 @@ export const updateConnectionStatus = async (
   });
 
   // return result?.success ? result?.data?.data?.connection?.receiverId : null;
-  return result?.success ? result?.data?.message : null;
+  return result?.success ? result?.data : null;
 };
 
 export const getConnectionsAndRequests = async () => {

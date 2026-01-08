@@ -19,10 +19,10 @@ export type DevMatchAppState = {
   setActiveSheet: (name: SheetTypes) => void;
   activeContextMenu: ContextMenuTypes;
   setActiveContextMenu: (name: ContextMenuTypes) => void;
-  connections: ConnectionRequestsDataType[];
-  setConnections: (connections: ConnectionRequestsDataType[]) => void;
-  requests: ConnectionRequestsDataType[];
-  setRequests: (requests: ConnectionRequestsDataType[]) => void;
+  connections: SheetItemType[];
+  setConnections: (connections: SheetItemType[]) => void;
+  requests: SheetItemType[];
+  setRequests: (requests: SheetItemType[]) => void;
 };
 
 export type ThemeTypes = keyof typeof THEMES;
@@ -61,14 +61,6 @@ export type SheetTypes = "requests" | "connections" | null;
 
 export type SheetItemType = {
   status?: string;
-  otherUser?: UserType;
-  otherUserId?: string;
-  connectedSince?: string;
-  sender?: UserType;
-  receivedRequestOn?: string;
-};
-
-export type ConnectionRequestsDataType = {
   connectionStatus?: string;
   senderId?: UserType;
   sender?: UserType;
