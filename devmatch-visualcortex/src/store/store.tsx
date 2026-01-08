@@ -8,7 +8,7 @@ import {
   UserType,
 } from "@/types/types";
 
-export type DevMatchAppState = {
+type DevMatchAppState = {
   switchTheme: ThemeTypes;
   setSwitchTheme: (value: ThemeTypes) => void;
   loggedInUser: UserType;
