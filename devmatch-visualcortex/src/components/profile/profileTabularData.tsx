@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { MdEdit, MdOutlineEdit } from "react-icons/md";
-import { ProfileComponentProps } from "@/types/propTypes";
 import { USER_PROPERTIES, USER_PROPERTY_LABELS } from "@/config/constants";
+import { ProfileComponentProps } from "@/types/propTypes";
 import { formatDate, toSentenceCase, toTitleCase } from "@/lib/utils/utils";
 
 const ProfileTabularData = ({ user }: ProfileComponentProps) => {

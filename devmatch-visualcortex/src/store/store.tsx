@@ -11,4 +11,8 @@ export const useDevMatchAppStore = create<DevMatchAppState>((set) => ({
   setActiveSheet: (name) => set({ activeSheet: name }),
   activeContextMenu: null,
   setActiveContextMenu: (name) => set({ activeContextMenu: name }),
+  connections: [],
+  setConnections: (value) => set({ connections: value }),
+  requests: [],
+  setRequests: (value) => set({ requests: value }),
 }));

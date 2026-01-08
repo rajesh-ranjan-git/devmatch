@@ -32,7 +32,7 @@ import {
   SocialMediaIconType,
   StaticImageType,
 } from "@/types/types";
-import { formatDate, getUrlString, toTitleCase } from "@/lib/utils/utils";
+import { getUrlString, toTitleCase } from "@/lib/utils/utils";
 import { authRoutes } from "@/lib/routes/routes";
 
 export const alkatra = Alkatra({

@@ -11,10 +11,10 @@ import {
   navbarMenuItems,
   staticImages,
 } from "@/config/config";
-import { getFullName, getUrlString, toTitleCase } from "@/lib/utils/utils";
 import { authRoutes } from "@/lib/routes/routes";
-import { apiRequest } from "@/lib/api/api";
 import { apiUrls } from "@/lib/api/apiUtils";
+import { apiRequest } from "@/lib/api/api";
+import { getFullName, getUrlString, toTitleCase } from "@/lib/utils/utils";
 import { setCookies } from "@/lib/api/cookiesHandler";
 import { useDevMatchAppStore } from "@/store/store";
 import { useToast } from "@/components/toast/toast";

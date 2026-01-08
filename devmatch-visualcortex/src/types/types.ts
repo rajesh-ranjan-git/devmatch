@@ -19,6 +19,10 @@ export type DevMatchAppState = {
   setActiveSheet: (name: SheetTypes) => void;
   activeContextMenu: ContextMenuTypes;
   setActiveContextMenu: (name: ContextMenuTypes) => void;
+  connections: ConnectionRequestsDataType[];
+  setConnections: (connections: ConnectionRequestsDataType[]) => void;
+  requests: ConnectionRequestsDataType[];
+  setRequests: (requests: ConnectionRequestsDataType[]) => void;
 };
 
 export type ThemeTypes = keyof typeof THEMES;
@@ -62,6 +66,14 @@ export type SheetItemType = {
   connectedSince?: string;
   sender?: UserType;
   receivedRequestOn?: string;
+};
+
+export type ConnectionRequestsDataType = {
+  connectionStatus?: string;
+  senderId?: UserType;
+  otherUser?: UserType;
+  otherUserId?: string;
+  updatedAt?: string;
 };
 
 export type AccountOptionsDropdownTypes =

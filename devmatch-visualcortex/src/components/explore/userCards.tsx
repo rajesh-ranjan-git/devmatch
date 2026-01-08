@@ -4,8 +4,8 @@ import {
   EXPLORE_VISIBLE_USER_CARDS,
 } from "@/config/constants";
 import { UserCardsProps } from "@/types/propTypes";
-import SingleUserCard from "@/components/explore/singleUserCard";
 import { updateConnectionStatus } from "@/lib/actions/actions";
+import SingleUserCard from "@/components/explore/singleUserCard";
 
 const UserCards = ({ allUsers }: UserCardsProps) => {
   const [cards, setCards] = useState(() =>

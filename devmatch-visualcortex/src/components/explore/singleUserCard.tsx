@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { motion, useMotionValue, useTransform } from "motion/react";
 import { staticImages } from "@/config/config";
+import { profileRoutes } from "@/lib/routes/routes";
 import { SingleUserCardProps } from "@/types/propTypes";
 import { getFullName, getUrlString, toTitleCase } from "@/lib/utils/utils";
 import NameCardContent from "@/components/explore/nameCardContent";
 import UserDetailsCardContent from "@/components/explore/userDetailsCardContent";
 import UserInfoButton from "@/components/ui/buttons/userInfoButton";
-import { profileRoutes } from "@/lib/routes/routes";
 
 const SingleUserCard = ({
   user,

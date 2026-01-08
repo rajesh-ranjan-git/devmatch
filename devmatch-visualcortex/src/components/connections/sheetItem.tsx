@@ -1,20 +1,20 @@
 import Image from "next/image";
 import { MdCancel, MdBlock, MdCheck } from "react-icons/md";
 import { IoIosChatboxes } from "react-icons/io";
+import { CONNECTION_STATUS_PROPERTIES } from "@/config/constants";
 import { navbarMenuItems, staticImages } from "@/config/config";
+import { profileRoutes } from "@/lib/routes/routes";
 import { SheetItemProps } from "@/types/propTypes";
-import ButtonSuccess from "@/components/ui/buttons/buttonSuccess";
-import ButtonWarning from "@/components/ui/buttons/buttonWarning";
-import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
-import UserInfoButton from "@/components/ui/buttons/userInfoButton";
 import {
   formatDate,
   getFullName,
   getUrlString,
   toTitleCase,
 } from "@/lib/utils/utils";
-import { profileRoutes } from "@/lib/routes/routes";
-import { CONNECTION_STATUS_PROPERTIES } from "@/config/constants";
+import ButtonSuccess from "@/components/ui/buttons/buttonSuccess";
+import ButtonWarning from "@/components/ui/buttons/buttonWarning";
+import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
+import UserInfoButton from "@/components/ui/buttons/userInfoButton";
 
 const SheetItem = ({
   type,
@@ -30,6 +30,7 @@ const SheetItem = ({
     dateLabel: "",
     date: "",
     successButtonIcon: <></>,
+    successButtonText: "",
     profileUrl: "",
   };
 
@@ -46,6 +47,7 @@ const SheetItem = ({
       formatDate(connection?.connectedSince).split(",")[0] ??
       sheetItemData.date;
     sheetItemData.successButtonIcon = <IoIosChatboxes />;
+    sheetItemData.successButtonText = "Chat";
     sheetItemData.profileUrl = `${getUrlString(profileRoutes.profile)}/${
       connection?.otherUserId
     }`;
@@ -61,6 +63,7 @@ const SheetItem = ({
       formatDate(request?.receivedRequestOn).split(",")[0] ??
       sheetItemData.date;
     sheetItemData.successButtonIcon = <MdCheck />;
+    sheetItemData.successButtonText = "Accept";
     sheetItemData.profileUrl = `${getUrlString(profileRoutes.profile)}/${
       request?.sender?.id
     }`;
@@ -90,7 +93,7 @@ const SheetItem = ({
       <div className="relative flex gap-2">
         <ButtonSuccess
           icon={sheetItemData.successButtonIcon}
-          text="chat"
+          text={sheetItemData.successButtonText}
           className="w-24 text-sm"
         />
         <ButtonWarning

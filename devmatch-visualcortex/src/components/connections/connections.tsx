@@ -1,38 +1,37 @@
-import { ConnectionProps } from "@/types/propTypes";
+import { useEffect, useState } from "react";
 import { navbarMenuItems } from "@/config/config";
+import { ConnectionRequestsDataType, SheetItemType } from "@/types/types";
+import { ConnectionProps } from "@/types/propTypes";
 import useSheet from "@/hooks/useSheet";
 import { toTitleCase } from "@/lib/utils/utils";
-import ConnectionsButton from "@/components/ui/buttons/connectionsButton";
-import Sheet from "@/components/ui/sheet/sheet";
-import { useEffect, useState } from "react";
 import {
   getConnectionsAndRequests,
   updateConnectionStatus,
 } from "@/lib/actions/actions";
-import {
-  ConnectionRequestsDataType,
-  ConnectionsSheetItemType,
-  RequestsSheetItemType,
-} from "@/types/types";
-import SheetItem from "./sheetItem";
+import SheetItem from "@/components/connections/sheetItem";
+import ConnectionsButton from "@/components/ui/buttons/connectionsButton";
+import Sheet from "@/components/ui/sheet/sheet";
+import { useDevMatchAppStore } from "@/store/store";
 
 const Connections = ({ type, icon }: ConnectionProps) => {
-  const [connections, setConnections] = useState([]);
-  const [requests, setRequests] = useState([]);
+  const connections = useDevMatchAppStore((state) => state.connections);
+  const setConnections = useDevMatchAppStore((state) => state.setConnections);
+  const requests = useDevMatchAppStore((state) => state.requests);
+  const setRequests = useDevMatchAppStore((state) => state.setRequests);
 
   const connectionsSheet = useSheet({ type: type });
 
   const handleConnectionAction = async (status: string, id: string) => {
     updateConnectionStatus(status, id);
 
-    setRequests((prevRequests) =>
-      prevRequests.filter(
+    setRequests(
+      requests.filter(
         (request: ConnectionRequestsDataType) => request?.senderId !== id
       )
     );
 
-    setConnections((prevConnections) =>
-      prevConnections.filter(
+    setConnections(
+      connections.filter(
         (connection: ConnectionRequestsDataType) =>
           connection?.otherUserId !== id
       )
@@ -46,10 +45,7 @@ const Connections = ({ type, icon }: ConnectionProps) => {
       if (data?.connections && data?.connections?.length > 0) {
         setConnections(
           data?.connections?.reduce(
-            (
-              acc: ConnectionsSheetItemType[],
-              curr: ConnectionRequestsDataType
-            ) => [
+            (acc: SheetItemType[], curr: ConnectionRequestsDataType) => [
               {
                 status: curr?.connectionStatus,
                 otherUser: curr?.otherUser,
@@ -66,10 +62,7 @@ const Connections = ({ type, icon }: ConnectionProps) => {
       if (data?.requests && data?.requests?.length > 0) {
         setRequests(
           data?.requests?.reduce(
-            (
-              acc: RequestsSheetItemType[],
-              curr: ConnectionRequestsDataType
-            ) => [
+            (acc: SheetItemType[], curr: ConnectionRequestsDataType) => [
               {
                 status: curr?.connectionStatus,
                 sender: curr?.senderId,
