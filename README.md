@@ -23,32 +23,43 @@
 
 ## 🔥 Features (Planned & In Progress)
 
-### Frontend (devmatch-visualcortex):
+### 🎨 Frontend (devmatch-visualcortex):
 
-- [ ] User registration & login
-- [ ] Developer profile creation
-- [ ] Swipe-based match interface
-- [ ] Skill-based match suggestions
+- [x] User registration & login
+- [x] Developer profile creation
+- [x] Swipe-based match interface
 - [ ] In-app messaging between matched users
 - [ ] Real-time notifications
-- [ ] Block/report functionality
-- [ ] Profile visibility controls
-- [ ] GitHub/LinkedIn integration (future)
-- [ ] Admin dashboard for moderation (future)
+- [x] Block functionality
+- [ ] Report functionality
+- [x] Profile visibility controls
+- [ ] Profile update controls
+- [ ] GitHub/LinkedIn integration
+- [ ] Admin dashboard for moderation
 
-### Backend (devmatch-brainbox):
+### 🤖 Backend (devmatch-brainbox):
 
 - [x] User registration, login, logout, forgot password
 - [x] Authentication
 - [x] Real-time notifications
 - [x] Explore and connect with fellow developers
-- [x] Block/report functionality
+- [x] Block functionality
+- [ ] Report functionality
 - [x] Profile visibility controls
+- [x] Profile update controls
 - [ ] Google Authentication integration
-- [ ] Skill-based match suggestions
 - [ ] In-app messaging between matched users
-- [ ] GitHub/LinkedIn integration (future)
-- [ ] Admin dashboard for moderation (future)
+- [ ] GitHub/LinkedIn integration
+- [ ] Admin dashboard for moderation
+
+---
+
+## 🪲 Known Bugs
+
+- [ ] Explore page seems like it keeps refreshing till toast notification is active.
+- [ ] While logging in the submit button when changes state from normal to loading or vice-versa, animation is not smooth.
+- [ ] When connection action is taken, the item removes in flash, it should be removed smoothly to the left with opacity transition.
+- [ ] Sometimes after login, the page is not moving explore, upon refresh the page sometimes still stays on login and does not move to explore.
 
 ---
 
@@ -75,7 +86,9 @@ devmatch
 │    │    └── user.js
 │    │
 │    ├── 📁 db
-│    │    └── connectDB.js
+│    │    ├── connectDB.js
+│    │    ├── sample_user.js
+│    │    └── seedDb.js
 │    │
 │    ├── 📁 env
 │    │    ├── .env-development
@@ -121,7 +134,7 @@ devmatch
 │    ├── 📁 public
 │    │    └── 📁 assets
 │    │         ├── 📁 avatar
-│    │         │    └── default-avatar-profile-picture-male-icon.webp
+│    │         │    └── user.webp
 │    │         │
 │    │         ├── 📁 error
 │    │         │    └── 404-error.webp
@@ -129,19 +142,16 @@ devmatch
 │    │         ├── 📁 fonts
 │    │         │    └── ansi_shadow.flf
 │    │         │
-│    │         ├── 📁 logo
-│    │         │    ├── devmatch-logo-transparent-circular.png
-│    │         │    ├── devmatch-logo-transparent-circular.webp
-│    │         │    ├── devmatch-logo-transparent.png
-│    │         │    ├── devmatch-logo-transparent.webp
-│    │         │    ├── devmatch-logo-white-circular.png
-│    │         │    ├── devmatch-logo-white-circular.webp
-│    │         │    ├── devmatch-logo-white.png
-│    │         │    ├── devmatch-logo-white.webp
-│    │         │    └── favicon.ico
-│    │         │
-│    │         ├── IMG_8.JPG
-│    │         └── profile_photo_square.png
+│    │         └── 📁 logo
+│    │              ├── devmatch-logo-transparent-circular.png
+│    │              ├── devmatch-logo-transparent-circular.webp
+│    │              ├── devmatch-logo-transparent.png
+│    │              ├── devmatch-logo-transparent.webp
+│    │              ├── devmatch-logo-white-circular.png
+│    │              ├── devmatch-logo-white-circular.webp
+│    │              ├── devmatch-logo-white.png
+│    │              ├── devmatch-logo-white.webp
+│    │              └── favicon.ico
 │    │
 │    ├── 📁 src
 │    │    ├── 📁 app
@@ -162,7 +172,11 @@ devmatch
 │    │    │    │    └── page.tsx
 │    │    │    │
 │    │    │    ├── 📁 profile
-│    │    │    │     └── page.tsx
+│    │    │    │    │
+│    │    │    │    ├── 📁 login
+│    │    │    │    │    └── page.tsx
+│    │    │    │    │
+│    │    │    │    └── page.tsx
 │    │    │    │
 │    │    │    ├── favicon.ico
 │    │    │    ├── global-error.tsx
@@ -188,16 +202,15 @@ devmatch
 │    │    │    │
 │    │    │    ├── 📁 connections
 │    │    │    │    ├── connections.tsx
-│    │    │    │    ├── connectionsSheetItem.tsx
-│    │    │    │    └── requestsSheetItem.tsx
+│    │    │    │    └── sheetItem.tsx
 │    │    │    │
 │    │    │    ├── 📁 errors
 │    │    │    │    ├── errorWrapper.tsx
 │    │    │    │    └── formErrorMessage.tsx
 │    │    │    │
 │    │    │    ├── 📁 explore
-│    │    │    │    ├── explore.tsx
 │    │    │    │    ├── nameCardContent.tsx
+│    │    │    │    ├── singleUserCard.tsx
 │    │    │    │    ├── userCard.tsx
 │    │    │    │    └── userDetailsCardContent.tsx
 │    │    │    │
@@ -215,11 +228,14 @@ devmatch
 │    │    │    ├── 📁 profile
 │    │    │    │    ├── profileCover.tsx
 │    │    │    │    ├── profileDetails.tsx
-│    │    │    │    └── profileWrapper.tsx
+│    │    │    │    └── profileTabularData.tsx
 │    │    │    │
 │    │    │    ├── 📁 socialMedia
 │    │    │    │    ├── socialMedia.tsx
 │    │    │    │    └── socialMediaItem.tsx
+│    │    │    │
+│    │    │    ├── 📁 toast
+│    │    │    │    └── toast.tsx
 │    │    │    │
 │    │    │    ├── 📁 theme
 │    │    │    │    ├── themeManager.tsx
@@ -268,12 +284,14 @@ devmatch
 │    │    ├── 📁 lib
 │    │    │    │
 │    │    │    ├── 📁 actions
+│    │    │    │    ├── actions.ts
 │    │    │    │    └── authActions.ts
 │    │    │    │
-│    │    │    ├── 📁 actions
+│    │    │    ├── 📁 api
+│    │    │    │    ├── api.ts
 │    │    │    │    ├── apiHandler.ts
-│    │    │    │    ├── apiUrls.ts
-│    │    │    │    └── fetchApiData.ts
+│    │    │    │    ├── apiUtils.ts
+│    │    │    │    └── cookiesHandler.ts
 │    │    │    │
 │    │    │    ├── 📁 routes
 │    │    │    │    └── routes.ts

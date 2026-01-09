@@ -16,7 +16,7 @@ profileRouter.get("/view/:id", auth, view);
 profileRouter.post("/update", auth, updateProfileRequestMiddleware, update);
 
 profileRouter.post(
-  "/updatePassword",
+  "/update-password",
   auth,
   updatePasswordRequestMiddleware,
   updatePassword

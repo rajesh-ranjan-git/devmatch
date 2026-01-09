@@ -7,25 +7,29 @@ devmatch
 │
 🤖 devmatch-brainbox 🤖
 │
+├── Default API
+│   └── GET -> /api
+│
 ├── User APIs
-│   ├── GET -> /user/checkAuth
-│   ├── POST -> /user/register
-│   ├── POST -> /user/login
-│   ├── POST -> /user/logout
-│   └── POST -> /user/forgotPassword
+│   ├── GET -> /api/user/checkAuth
+│   ├── POST -> /api/user/register
+│   ├── POST -> /api/user/login
+│   ├── POST -> /api/user/logout
+│   └── POST -> /api/user/forgot-password
 │
 ├── Profile APIs
-│   ├── GET -> /profile/view
-│   ├── GET -> /profile/view:id
-│   ├── POST -> /profile/update
-│   └── POST -> /profile/updatePassword
+│   ├── GET -> /api/profile/view
+│   ├── GET -> /api/profile/view/:id
+│   ├── POST -> /api/profile/update
+│   └── POST -> /api/profile/update-password
 │
 ├── Explore API
-│   └── GET -> /explore
+│   └── GET -> /api/explore
 │
 ├── Connection APIs
-│   ├── POST -> /connection/connect/:status/:id
-│   └── GET -> /connection/view
+│   ├── POST -> /api/connection/:status/:id
+│   └── GET -> /api/connection/connections
+│   └── GET -> /api/connection/requests
 │
 ├── Notification APIs
 │   ├── GET -> /notification/view
@@ -63,8 +67,14 @@ devmatch
 │   ├── maritalStatus -> String
 │   ├── jobProfile -> String
 │   ├── experience -> Number
+│   ├── facebook -> String
+│   ├── instagram -> String
+│   ├── twitter -> String
 │   ├── github -> String
+│   ├── linkedin -> String
+│   ├── youtube -> String
 │   ├── website -> String
+│   ├── company -> String
 │   ├── organization -> String
 │   ├── skills -> [String]
 │   ├── interests -> [String]
