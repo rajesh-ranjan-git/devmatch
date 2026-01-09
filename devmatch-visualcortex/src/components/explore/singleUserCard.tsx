@@ -120,6 +120,7 @@ const SingleUserCard = ({
         alt={user?.firstName ?? staticImages.avatarPlaceholder.alt}
         width={600}
         height={400}
+        loading="eager"
         className="bg-white w-full h-full object-cover pointer-events-none select-none"
       />
 

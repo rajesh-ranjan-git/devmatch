@@ -3,11 +3,13 @@ import { IconType } from "react-icons";
 import {
   ContextMenuTypes,
   NavbarMenuItemTypes,
+  NotificationItemType,
   SheetItemType,
   SheetTypes,
   StorageTypes,
   UserType,
 } from "@/types/types";
+import { NOTIFICATION_TYPES } from "@/config/constants";
 
 export interface ReactNodeProps {
   children: ReactNode;
@@ -159,4 +161,14 @@ export interface SheetItemProps {
   request?: SheetItemType;
   handleConnectionAction?: (id: string, status: string) => void;
   onSheetClose: () => void;
+}
+
+export interface NotificationsHeadingProps {
+  type: string;
+  notificationAction: () => void;
+}
+
+export interface NotificationsItemProps {
+  notification: NotificationItemType;
+  notificationAction: () => void;
 }

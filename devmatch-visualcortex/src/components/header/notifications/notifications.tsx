@@ -5,8 +5,8 @@ import { getNotifications } from "@/lib/actions/actions";
 import { useDevMatchAppStore } from "@/store/store";
 import { useToast } from "@/components/toast/toast";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
-import NotificationsDropdownHeading from "@/components/header/notifications/notificationsHeading";
-import NotificationsDropdownItem from "@/components/header/notifications/notificationsItem";
+import NotificationsHeading from "@/components/header/notifications/notificationsHeading";
+import NotificationsItem from "@/components/header/notifications/notificationsItem";
 
 const NotificationsDropdownItems = () => {
   const connectionNotifications = useDevMatchAppStore(
@@ -24,6 +24,10 @@ const NotificationsDropdownItems = () => {
 
   const { showToast } = useToast();
 
+  const notificationAction = () => {};
+
+  const clearAllNotifications = () => {};
+
   useEffect(() => {
     const getNotificationsData = async () => {
       const notificationsResult = await getNotifications();
@@ -31,13 +35,15 @@ const NotificationsDropdownItems = () => {
       if (notificationsResult) {
         setConnectionNotifications(
           notificationsResult.filter(
-            (n: NotificationItemType) => n?.type === "connection"
+            (n: NotificationItemType) =>
+              n?.type === Object.values(NOTIFICATION_TYPES)[0]
           )
         );
 
         setChatNotifications(
           notificationsResult.filter(
-            (n: NotificationItemType) => n?.type === "chat"
+            (n: NotificationItemType) =>
+              n?.type === Object.values(NOTIFICATION_TYPES)[1]
           )
         );
       } else {
@@ -61,12 +67,16 @@ const NotificationsDropdownItems = () => {
               connectionNotifications &&
               connectionNotifications?.length > 0 && (
                 <>
-                  <NotificationsDropdownHeading type={type} />
+                  <NotificationsHeading
+                    type={type}
+                    notificationAction={notificationAction}
+                  />
 
                   {connectionNotifications.map((notification) => (
-                    <NotificationsDropdownItem
+                    <NotificationsItem
                       key={notification?.id}
                       notification={notification}
+                      notificationAction={notificationAction}
                     />
                   ))}
                 </>
@@ -76,12 +86,16 @@ const NotificationsDropdownItems = () => {
               chatNotifications &&
               chatNotifications?.length > 0 && (
                 <>
-                  <NotificationsDropdownHeading type={type} />
+                  <NotificationsHeading
+                    type={type}
+                    notificationAction={notificationAction}
+                  />
 
                   {chatNotifications.map((notification) => (
-                    <NotificationsDropdownItem
+                    <NotificationsItem
                       key={notification?.id}
                       notification={notification}
+                      notificationAction={notificationAction}
                     />
                   ))}
                 </>
@@ -90,9 +104,12 @@ const NotificationsDropdownItems = () => {
         ))}
       </div>
       <HorizontalSeparator />
-      <div className="hover:bg-glass-surface-heavy m-1 p-1 px-4 rounded-lg text-sm cursor-pointer">
+      <button
+        className="hover:bg-glass-surface-heavy m-1 p-1 px-4 rounded-lg text-sm cursor-pointer"
+        onClick={clearAllNotifications}
+      >
         Clear
-      </div>
+      </button>
     </div>
   );
 };
