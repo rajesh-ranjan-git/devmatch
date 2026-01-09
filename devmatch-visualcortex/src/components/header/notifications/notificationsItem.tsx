@@ -12,7 +12,11 @@ const NotificationsItem = ({
     <div
       className="relative flex items-center gap-2 hover:bg-glass-surface-heavy my-1 p-1 rounded-lg w-full transition-all ease-in-out cursor-pointer"
       key={notification?.id}
-      onClick={notificationAction}
+      onClick={(e) => {
+        e.stopPropagation();
+
+        notificationAction({ id: notification?.id });
+      }}
     >
       <div className="border border-glass-border-bright rounded-full w-12 h-10 object-cover">
         <Image
@@ -36,7 +40,17 @@ const NotificationsItem = ({
         </p>
         <p className="w-full text-sm">{notification?.body}</p>
       </div>
-      <button className="top-[35%] right-2 absolute p-0.5 border border-glass-border-subtle hover:border-glass-border-bright rounded-md text-sm cursor-pointer">
+      <button
+        className="top-[35%] right-2 absolute p-0.5 border border-glass-border-subtle hover:border-glass-border-bright rounded-md text-sm cursor-pointer"
+        onClick={(e) => {
+          e.stopPropagation();
+
+          notificationAction({
+            id: notification?.id,
+            removeNotificationFlag: true,
+          });
+        }}
+      >
         <IoClose />
       </button>
     </div>

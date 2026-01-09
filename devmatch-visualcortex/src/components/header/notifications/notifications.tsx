@@ -1,14 +1,16 @@
 import { useEffect } from "react";
 import { NOTIFICATION_TYPES } from "@/config/constants";
-import { NotificationItemType } from "@/types/types";
+import { NotificationActionType, NotificationItemType } from "@/types/types";
 import { getNotifications } from "@/lib/actions/actions";
 import { useDevMatchAppStore } from "@/store/store";
+import useSheet from "@/hooks/useSheet";
 import { useToast } from "@/components/toast/toast";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 import NotificationsHeading from "@/components/header/notifications/notificationsHeading";
 import NotificationsItem from "@/components/header/notifications/notificationsItem";
+import { navbarMenuItems } from "@/config/config";
 
-const NotificationsDropdownItems = () => {
+const Notifications = () => {
   const connectionNotifications = useDevMatchAppStore(
     (state) => state.connectionNotifications
   );
@@ -23,10 +25,46 @@ const NotificationsDropdownItems = () => {
   );
 
   const { showToast } = useToast();
+  const connectionsSheet = useSheet({ type: navbarMenuItems[1].type });
 
-  const notificationAction = () => {};
+  const notificationAction = ({
+    type,
+    id,
+    removeNotificationFlag = false,
+  }: NotificationActionType) => {
+    console.log("debug from notificationAction type : ", type);
+    if (type) {
+      console.log(
+        `debug all notifications of type ${type} needs to be cleared`
+      );
 
-  const clearAllNotifications = () => {};
+      return;
+    }
+
+    if (id && removeNotificationFlag) {
+      console.log(
+        `debug notification with id ${id} needs to be marked read and cleared`
+      );
+
+      return;
+    }
+
+    if (id) {
+      console.log(
+        `debug notification with id ${id} needs to be marked read but not cleared`
+      );
+
+      if (document) {
+        document?.getElementById?.("notifications-dropdown")?.hidePopover();
+      }
+
+      connectionsSheet.open();
+
+      return;
+    }
+
+    console.log("debug all notifications needs to be cleared");
+  };
 
   useEffect(() => {
     const getNotificationsData = async () => {
@@ -106,7 +144,11 @@ const NotificationsDropdownItems = () => {
       <HorizontalSeparator />
       <button
         className="hover:bg-glass-surface-heavy m-1 p-1 px-4 rounded-lg text-sm cursor-pointer"
-        onClick={clearAllNotifications}
+        onClick={(e) => {
+          e.stopPropagation();
+
+          notificationAction({});
+        }}
       >
         Clear
       </button>
@@ -114,4 +156,4 @@ const NotificationsDropdownItems = () => {
   );
 };
 
-export default NotificationsDropdownItems;
+export default Notifications;

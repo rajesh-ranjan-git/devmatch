@@ -1,8 +1,9 @@
-import { ReactNode, RefObject } from "react";
+import { MouseEvent, ReactNode, RefObject } from "react";
 import { IconType } from "react-icons";
 import {
   ContextMenuTypes,
   NavbarMenuItemTypes,
+  NotificationActionType,
   NotificationItemType,
   SheetItemType,
   SheetTypes,
@@ -165,10 +166,10 @@ export interface SheetItemProps {
 
 export interface NotificationsHeadingProps {
   type: string;
-  notificationAction: () => void;
+  notificationAction: (notification: NotificationActionType) => void;
 }
 
 export interface NotificationsItemProps {
   notification: NotificationItemType;
-  notificationAction: () => void;
+  notificationAction: (notification: NotificationActionType) => void;
 }

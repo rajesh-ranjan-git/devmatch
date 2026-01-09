@@ -14,7 +14,7 @@ const NotificationsHeading = ({
 
         <button
           className="top-[25%] right-2 absolute p-0.5 border border-glass-border-subtle hover:border-glass-border-bright rounded-md text-sm cursor-pointer"
-          onClick={notificationAction}
+          onClick={() => notificationAction({ type })}
         >
           <IoClose />
         </button>

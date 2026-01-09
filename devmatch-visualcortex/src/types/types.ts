@@ -155,3 +155,9 @@ export type UserType = {
   createdAt?: string;
   updatedAt?: string;
 } | null;
+
+export type NotificationActionType = {
+  type?: string;
+  id?: string;
+  removeNotificationFlag?: boolean;
+};
