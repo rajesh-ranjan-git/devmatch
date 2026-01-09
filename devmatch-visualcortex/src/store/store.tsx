@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { THEMES, EXPLORE_VISIBLE_USER_CARDS } from "@/config/constants";
 import {
   ContextMenuTypes,
+  NotificationItemType,
   SheetItemType,
   SheetTypes,
   ThemeTypes,
@@ -29,32 +30,44 @@ type DevMatchAppState = {
   setConnections: (connections: SheetItemType[]) => void;
   requests: SheetItemType[];
   setRequests: (requests: SheetItemType[]) => void;
+  connectionNotifications: NotificationItemType[];
+  setConnectionNotifications: (connections: NotificationItemType[]) => void;
+  chatNotifications: NotificationItemType[];
+  setChatNotifications: (connections: NotificationItemType[]) => void;
 };
 
 export const useDevMatchAppStore = create<DevMatchAppState>((set) => ({
   switchTheme: THEMES.dark,
-  setSwitchTheme: (value) => set({ switchTheme: value }),
+  setSwitchTheme: (theme) => set({ switchTheme: theme }),
   loggedInUser: null,
-  setLoggedInUser: (value) => set({ loggedInUser: value }),
+  setLoggedInUser: (user) => set({ loggedInUser: user }),
   activeSheet: null,
-  setActiveSheet: (value) => set({ activeSheet: value }),
+  setActiveSheet: (sheet) => set({ activeSheet: sheet }),
   activeContextMenu: null,
-  setActiveContextMenu: (value) => set({ activeContextMenu: value }),
+  setActiveContextMenu: (contextMenu) =>
+    set({ activeContextMenu: contextMenu }),
   allUsers: [],
-  setAllUsers: (value) => set({ allUsers: value }),
+  setAllUsers: (users) => set({ allUsers: users }),
   userCards: [],
-  setUserCards: (value) =>
+  setUserCards: (card) =>
     set((state) => ({
-      userCards: typeof value === "function" ? value(state.userCards) : value,
+      userCards: typeof card === "function" ? card(state.userCards) : card,
     })),
   userCardsNextIndex: EXPLORE_VISIBLE_USER_CARDS,
-  setUserCardsNextIndex: (value) =>
+  setUserCardsNextIndex: (cardNextIndex) =>
     set((state) => ({
       userCardsNextIndex:
-        typeof value === "function" ? value(state.userCardsNextIndex) : value,
+        typeof cardNextIndex === "function"
+          ? cardNextIndex(state.userCardsNextIndex)
+          : cardNextIndex,
     })),
   connections: [],
-  setConnections: (value) => set({ connections: value }),
+  setConnections: (connection) => set({ connections: connection }),
   requests: [],
-  setRequests: (value) => set({ requests: value }),
+  setRequests: (request) => set({ requests: request }),
+  connectionNotifications: [],
+  setConnectionNotifications: (connection) =>
+    set({ connectionNotifications: connection }),
+  chatNotifications: [],
+  setChatNotifications: (connection) => set({ chatNotifications: connection }),
 }));

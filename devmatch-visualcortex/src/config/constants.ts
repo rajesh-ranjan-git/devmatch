@@ -74,6 +74,11 @@ export const NAVBAR_MENU_ITEMS = {
   connections: "connections",
 } as const;
 
+export const NOTIFICATION_TYPES = {
+  connection: "connection",
+  chat: "chat",
+};
+
 export const ACCOUNT_OPTIONS_DROPDOWN_ITEMS = {
   profile: "profile",
   logout: "logout",

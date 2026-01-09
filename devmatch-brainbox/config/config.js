@@ -439,6 +439,7 @@ export const publicProfilePropertiesForExplore = selectObjectProperties(
 export const publicProfilePropertiesForNotification = selectObjectProperties(
   userProperties,
   [
+    "ID",
     "EMAIL",
     "USER_NAME",
     "FIRST_NAME",
@@ -446,6 +447,7 @@ export const publicProfilePropertiesForNotification = selectObjectProperties(
     "LAST_NAME",
     "AVATAR_URL",
     "COVER_PHOTO_URL",
+    "JOB_PROFILE",
   ]
 );
 

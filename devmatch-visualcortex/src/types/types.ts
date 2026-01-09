@@ -5,6 +5,7 @@ import {
   AUTH_FORM_FIELDS,
   INPUT_TYPES,
   NAVBAR_MENU_ITEMS,
+  NOTIFICATION_TYPES,
   SOCIAL_MEDIA,
   STORAGE,
   THEMES,
@@ -21,19 +22,14 @@ export type NavbarMenuItemType = {
   icon: ReactNode;
 };
 
-export type NotificationTypes = "request" | "chat";
-
 export type NotificationItemType = {
-  name: string;
-  designation: string;
+  id: string;
+  from: UserType;
+  status: string;
+  title: string;
   body: string;
-  url: string;
+  type: keyof typeof NOTIFICATION_TYPES;
 };
-
-export type NotificationsItemsType = Record<
-  NotificationTypes,
-  NotificationItemType[]
->;
 
 export type ContextMenuTypes =
   | "notificationsContext"

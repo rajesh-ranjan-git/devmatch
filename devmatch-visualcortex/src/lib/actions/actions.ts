@@ -51,3 +51,11 @@ export const getConnectionsAndRequests = async () => {
     requests: requestsResult?.data?.data?.requests,
   };
 };
+
+export const getNotifications = async () => {
+  const result = await apiRequest({
+    url: apiUrls?.viewNotifications,
+  });
+
+  return result?.success ? result?.data?.data?.notifications : null;
+};

@@ -8,6 +8,7 @@ import {
 import { NotificationError } from "../errors/CustomError.js";
 import Notification from "../models/notification.js";
 import { isValidMongoDbObjectId } from "../utils/authUtils.js";
+import { sanitizeMongoData } from "../utils/utils.js";
 import {
   limitValidator,
   pageValidator,
@@ -46,13 +47,16 @@ export const view = async (req, res) => {
         req?.url
       );
     }
+
+    const sanitizedNotifications = sanitizeMongoData(notifications);
+
     const totalCount = await Notification.countDocuments({ to: id });
 
     return res.status(status.success.statusCode).json({
       status: status.success.message,
       statusCode: status.success.statusCode,
       data: {
-        notifications,
+        notifications: sanitizedNotifications,
         pagination: {
           total: totalCount || "",
           page: validatedPage || "",

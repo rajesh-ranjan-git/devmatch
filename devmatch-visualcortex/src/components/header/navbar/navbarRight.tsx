@@ -20,7 +20,7 @@ import { useDevMatchAppStore } from "@/store/store";
 import { useToast } from "@/components/toast/toast";
 import ThemeToggle from "@/components/theme/themeToggle";
 import Connections from "@/components/connections/connections";
-import NotificationsDropdownItems from "@/components/header/notificationsDropdownItems";
+import NotificationsDropdownItems from "@/components/header/notifications/notifications";
 import NavbarButton from "@/components/ui/buttons/navbarButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 import Dropdown from "@/components/ui/dropdown/dropdown";

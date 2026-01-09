@@ -14,4 +14,5 @@ export const apiUrls = {
   connect: `${BASE_API_URL}/connection/connect`,
   viewConnections: `${BASE_API_URL}/connection/connections`,
   viewRequests: `${BASE_API_URL}/connection/requests`,
+  viewNotifications: `${BASE_API_URL}/notification/view`,
 } as const;

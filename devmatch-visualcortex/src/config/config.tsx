@@ -30,7 +30,6 @@ import {
   AuthFormFieldInputItemsType,
   CameraDropdownItemType,
   NavbarMenuItemType,
-  NotificationsItemsType,
   SocialMediaIconType,
   StaticImageType,
 } from "@/types/types";
@@ -63,61 +62,6 @@ export const navbarMenuItems: NavbarMenuItemType[] = [
     icon: <LuUserPlus />,
   },
 ];
-
-export const notificationsDropdownItems: NotificationsItemsType = {
-  request: [
-    {
-      name: "Rajesh Ranjan",
-      designation: "Full Stack Developer",
-      body: "Rajesh sent you a friend request!",
-      url: "/profile",
-    },
-    {
-      name: "Kripanidhan",
-      designation: "Software Development Engineer",
-      body: "Kripanidhan sent you a friend request!",
-      url: "/profile",
-    },
-    {
-      name: "Sayantanee Mohanta",
-      designation: "HelpDesk Senior Associate",
-      body: "Sayantanee sent you a friend request!",
-      url: "/profile",
-    },
-    {
-      name: "Rahee",
-      designation: "Software Engineer",
-      body: "Rahee sent you a friend request!",
-      url: "/profile",
-    },
-  ],
-  chat: [
-    {
-      name: "Rajesh Ranjan",
-      designation: "Full Stack Developer",
-      body: "Rajesh sent you a message!",
-      url: "/profile",
-    },
-    {
-      name: "Kripanidhan",
-      designation: "Software Development Engineer",
-      body: "Kripanidhan sent you a message!",
-      url: "/profile",
-    },
-    {
-      name: "Sayantanee Mohanta",
-      designation: "HelpDesk Senior Associate",
-      body: "Sayantanee sent you a message!",
-      url: "/profile",
-    },
-    {
-      name: "Rahee",
-      designation: "Software Engineer",
-      body: "Rahee sent you a message!",
-      url: "/profile",
-    },
-  ],
-};
 
 export const accountOptionsDropdownItems: AccountOptionsDropdownItemType[] = [
   {
