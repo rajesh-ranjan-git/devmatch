@@ -61,7 +61,7 @@
 - [ ] When connection action is taken, the item removes in flash, it should be removed smoothly to the left with opacity transition.
 - [ ] Sometimes after login, the page is not moving explore, upon refresh the page sometimes still stays on login and does not move to explore.
 - [ ] Repeated code blocks related to connection actions.
-- [ ] Unnecessary multiple api calls in explore and connection actions.
+- [ ] Unnecessary multiple api calls in explore and connection actions probably because of proxy.
 
 ---
 
