@@ -71,7 +71,7 @@ const UserCards = ({ allUsers }: UserCardsProps) => {
       status === CONNECTION_STATUS_PROPERTIES.rejected ||
       status === CONNECTION_STATUS_PROPERTIES.blocked
     ) {
-      setConnections(connections.filter((c) => c?.otherUserId !== userId));
+      setConnections(connections.filter((c) => c?.otherUser?.id !== userId));
 
       setRequests(requests.filter((r) => r?.sender?.id !== userId));
     }

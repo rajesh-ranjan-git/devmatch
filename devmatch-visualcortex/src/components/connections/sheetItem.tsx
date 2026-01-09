@@ -52,18 +52,18 @@ const SheetItem = ({
     sheetItemData.successButtonIcon = <IoIosChatboxes />;
     sheetItemData.successButtonText = "chat";
     sheetItemData.profileUrl = `${getUrlString(profileRoutes.profile)}/${
-      connection?.otherUserId
+      connection?.otherUser?.id
     }`;
     sheetItemData.onAccept = () => console.log("Chat window will open...");
     sheetItemData.onReject = () =>
       handleConnectionAction?.(
         CONNECTION_STATUS_PROPERTIES.rejected,
-        connection?.otherUserId as string
+        connection?.otherUser?.id as string
       );
     sheetItemData.onBlock = () =>
       handleConnectionAction?.(
         CONNECTION_STATUS_PROPERTIES.blocked,
-        connection?.otherUserId as string
+        connection?.otherUser?.id as string
       );
   } else if (type === navbarMenuItems[1].type) {
     sheetItemData.imageSrc =

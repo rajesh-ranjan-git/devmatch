@@ -415,6 +415,7 @@ export const publicProfileProperties = omitObjectProperties(userProperties, [
 export const publicProfilePropertiesForExplore = selectObjectProperties(
   userProperties,
   [
+    "ID",
     "EMAIL",
     "USER_NAME",
     "FIRST_NAME",

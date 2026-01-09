@@ -38,7 +38,7 @@ const Connections = ({ type, icon }: ConnectionProps) => {
     const prevConnections = connections;
 
     if (type === navbarMenuItems[0].type) {
-      setConnections(connections.filter((c) => c?.otherUserId !== id));
+      setConnections(connections.filter((c) => c?.otherUser?.id !== id));
     }
 
     if (type === navbarMenuItems[1].type) {
