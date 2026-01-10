@@ -59,3 +59,12 @@ export const getNotifications = async () => {
 
   return result?.success ? result?.data?.data?.notifications : null;
 };
+
+export const markNotificationRead = async (id: string) => {
+  const result = await apiRequest({
+    method: "POST",
+    url: `${apiUrls?.markNotificationRead}/read/${id}`,
+  });
+
+  return result?.success ? result?.data?.notification : null;
+};

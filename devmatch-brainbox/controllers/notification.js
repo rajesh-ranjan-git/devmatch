@@ -109,7 +109,10 @@ export const mark = async (req, res) => {
       notificationId,
       { status: validatedNotificationStatus },
       { new: true }
-    );
+    ).populate({
+      path: notificationProperties.FROM,
+      select: Object.values(publicProfilePropertiesForNotification),
+    });
 
     if (!notification) {
       throw new NotificationError(
@@ -120,10 +123,12 @@ export const mark = async (req, res) => {
       );
     }
 
+    const sanitizedNotification = sanitizeMongoData(notification);
+
     return res.status(status.success.statusCode).json({
       status: status.success.message,
       statusCode: status.success.statusCode,
-      data: { notification },
+      notification: sanitizedNotification,
       message: successMessages.NOTIFICATION_READ_SUCCESS,
     });
   } catch (error) {

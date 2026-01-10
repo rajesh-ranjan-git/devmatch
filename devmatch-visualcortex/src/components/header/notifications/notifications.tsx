@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { NOTIFICATION_TYPES } from "@/config/constants";
+import { FALLBACK_MESSAGES, NOTIFICATION_TYPES } from "@/config/constants";
 import { NotificationActionType, NotificationItemType } from "@/types/types";
-import { getNotifications } from "@/lib/actions/actions";
+import { getNotifications, markNotificationRead } from "@/lib/actions/actions";
 import { useDevMatchAppStore } from "@/store/store";
 import useSheet from "@/hooks/useSheet";
 import { useToast } from "@/components/toast/toast";
@@ -27,7 +27,7 @@ const Notifications = () => {
   const { showToast } = useToast();
   const connectionsSheet = useSheet({ type: navbarMenuItems[1].type });
 
-  const notificationAction = ({
+  const notificationAction = async ({
     type,
     id,
     removeNotificationFlag = false,
@@ -42,9 +42,28 @@ const Notifications = () => {
     }
 
     if (id && removeNotificationFlag) {
-      console.log(
-        `debug notification with id ${id} needs to be marked read and cleared`
-      );
+      const markNotificationReadData = await markNotificationRead(id);
+
+      const newNotification = {
+        id: markNotificationReadData?.id,
+        from: markNotificationReadData?.from,
+        status: markNotificationReadData?.status,
+        title: markNotificationReadData?.title,
+        body: markNotificationReadData?.body,
+        type: markNotificationReadData?.type,
+      };
+
+      if (markNotificationReadData?.type === NOTIFICATION_TYPES.connection) {
+        const remaining = connectionNotifications.filter((p) => p.id !== id);
+
+        setConnectionNotifications([newNotification, ...remaining]);
+      }
+
+      if (markNotificationReadData?.type === NOTIFICATION_TYPES.chat) {
+        const remaining = chatNotifications.filter((p) => p.id !== id);
+
+        setChatNotifications([newNotification, ...remaining]);
+      }
 
       return;
     }
@@ -96,9 +115,13 @@ const Notifications = () => {
     getNotificationsData();
   }, []);
 
+  useEffect(() => {
+    console.log("debug connectionNotifications : ", connectionNotifications);
+  }, [connectionNotifications]);
+
   return (
-    <div className="flex flex-col gap-1 min-w-92 max-h-[80vh]">
-      <div className="[&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
+    <div className="flex flex-col gap-1 min-w-84 max-h-[80vh]">
+      <div className="[&::-webkit-scrollbar-thumb]:hover:bg-glass-surface-lighter [&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary transition-all ease-in-out">
         {Object.values(NOTIFICATION_TYPES).map((type) => (
           <div key={type}>
             {type === Object.values(NOTIFICATION_TYPES)[0] &&
@@ -110,7 +133,7 @@ const Notifications = () => {
                     notificationAction={notificationAction}
                   />
 
-                  {connectionNotifications.map((notification) => (
+                  {connectionNotifications?.map((notification) => (
                     <NotificationsItem
                       key={notification?.id}
                       notification={notification}
@@ -129,7 +152,7 @@ const Notifications = () => {
                     notificationAction={notificationAction}
                   />
 
-                  {chatNotifications.map((notification) => (
+                  {chatNotifications?.map((notification) => (
                     <NotificationsItem
                       key={notification?.id}
                       notification={notification}
@@ -141,17 +164,26 @@ const Notifications = () => {
           </div>
         ))}
       </div>
-      <HorizontalSeparator />
-      <button
-        className="hover:bg-glass-surface-heavy m-1 p-1 px-4 rounded-lg text-sm cursor-pointer"
-        onClick={(e) => {
-          e.stopPropagation();
 
-          notificationAction({});
-        }}
-      >
-        Clear
-      </button>
+      {connectionNotifications?.length > 0 || chatNotifications?.length > 0 ? (
+        <>
+          <HorizontalSeparator />
+          <button
+            className="hover:bg-glass-surface-heavy m-1 p-1 px-4 rounded-lg text-sm cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+
+              notificationAction({});
+            }}
+          >
+            Clear
+          </button>
+        </>
+      ) : (
+        <div className="text-glass-text-secondary">
+          {FALLBACK_MESSAGES.noNotifications}
+        </div>
+      )}
     </div>
   );
 };

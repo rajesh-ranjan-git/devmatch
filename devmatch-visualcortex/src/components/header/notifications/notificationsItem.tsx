@@ -10,7 +10,11 @@ const NotificationsItem = ({
 }: NotificationsItemProps) => {
   return (
     <div
-      className="relative flex items-center gap-2 hover:bg-glass-surface-heavy my-1 p-1 rounded-lg w-full transition-all ease-in-out cursor-pointer"
+      className={`relative flex items-center gap-2 bg-glass-surface-light hover:bg-glass-surface-heavy my-1 p-1 rounded-lg w-full transition-all ease-in-out cursor-pointer ${
+        notification?.status === "read"
+          ? "bg-transparent hover:bg-transparent"
+          : "bg-glass-surface-lighter font-semibold backdrop-blur-3xl"
+      }`}
       key={notification?.id}
       onClick={(e) => {
         e.stopPropagation();
