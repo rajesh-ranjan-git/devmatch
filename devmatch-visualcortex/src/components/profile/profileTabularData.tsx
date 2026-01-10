@@ -66,6 +66,8 @@ const ProfileTabularData = ({ user }: ProfileComponentProps) => {
   return (
     <>
       {Object.values(USER_PROPERTIES).map((key, idx) => {
+        if (key === USER_PROPERTIES.id) return null;
+
         const value = user?.[key as keyof typeof user];
 
         if (!value || (Array.isArray(value) && value?.length < 1)) return null;
