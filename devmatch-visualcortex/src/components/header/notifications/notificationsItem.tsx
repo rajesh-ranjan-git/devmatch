@@ -19,7 +19,7 @@ const NotificationsItem = ({
       onClick={(e) => {
         e.stopPropagation();
 
-        notificationAction({ id: notification?.id });
+        notificationAction({ type: notification?.type, id: notification?.id });
       }}
     >
       <div className="border border-glass-border-bright rounded-full w-12 h-10 object-cover">

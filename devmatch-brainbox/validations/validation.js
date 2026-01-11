@@ -14,6 +14,7 @@ import {
   COUNTRY_CODE_REGEX,
   connectionStatusProperties,
   notificationStatusProperties,
+  notificationTypes,
 } from "../config/config.js";
 import { errorMessages } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
@@ -551,6 +552,25 @@ export const validateConnectionStatus = (connectionStatus) => {
   }
 
   return connectionStatus?.trim().toLowerCase();
+};
+
+export const validateNotificationType = (notificationType) => {
+  if (!notificationType) return;
+
+  if (
+    typeof notificationType !== "string" ||
+    !Object.values(notificationTypes).includes(
+      notificationType?.trim().toLowerCase()
+    )
+  ) {
+    throw new ValidationError(
+      status.badRequest,
+      errorMessages.INVALID_NOTIFICATION_TYPE_ERROR,
+      { notificationType }
+    );
+  }
+
+  return notificationType?.trim().toLowerCase();
 };
 
 export const validateNotificationStatus = (notificationStatus) => {

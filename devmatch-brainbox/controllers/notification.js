@@ -5,7 +5,7 @@ import {
   status,
   successMessages,
 } from "../config/config.js";
-import { NotificationError } from "../errors/CustomError.js";
+import { NotificationError, ValidationError } from "../errors/CustomError.js";
 import Notification from "../models/notification.js";
 import { isValidMongoDbObjectId } from "../utils/authUtils.js";
 import { sanitizeMongoData } from "../utils/utils.js";
@@ -13,6 +13,7 @@ import {
   limitValidator,
   pageValidator,
   validateNotificationStatus,
+  validateNotificationType,
 } from "../validations/validation.js";
 
 export const view = async (req, res) => {
@@ -90,37 +91,79 @@ export const view = async (req, res) => {
 
 export const mark = async (req, res) => {
   try {
-    const { status: notificationStatus, id: notificationId } =
-      await req?.params;
+    const {
+      status: notificationStatus,
+      type: notificationType,
+      id: notificationId,
+    } = await req?.params;
+
+    const { id: loggedInUserId } = req?.data;
 
     if (notificationId && !isValidMongoDbObjectId(notificationId)) {
       throw new ValidationError(
         status.forbidden,
         errorMessages.INVALID_NOTIFICATION_ID_FORMAT_ERROR,
-        { otherUserId },
+        { notificationId },
         req?.url
       );
     }
 
+    const validatedNotificationType = notificationType
+      ? validateNotificationType(notificationType)
+      : null;
+
     const validatedNotificationStatus =
       validateNotificationStatus(notificationStatus);
 
-    const notification = await Notification.findByIdAndUpdate(
-      notificationId,
-      { status: validatedNotificationStatus },
-      { new: true }
-    ).populate({
-      path: notificationProperties.FROM,
-      select: Object.values(publicProfilePropertiesForNotification),
-    });
+    let notification = notificationId
+      ? await Notification.findByIdAndUpdate(
+          notificationId,
+          { status: validatedNotificationStatus },
+          { new: true }
+        ).populate({
+          path: notificationProperties.FROM,
+          select: Object.values(publicProfilePropertiesForNotification),
+        })
+      : validatedNotificationType
+      ? await Notification.updateMany(
+          {
+            to: loggedInUserId,
+            type: validatedNotificationType,
+          },
+          { $set: { status: validatedNotificationStatus } }
+        ).populate({
+          path: notificationProperties.FROM,
+          select: Object.values(publicProfilePropertiesForNotification),
+        })
+      : await Notification.updateMany(
+          { to: loggedInUserId },
+          { $set: { status: validatedNotificationStatus } }
+        );
 
-    if (!notification) {
+    if (!notification || (!notification?.id && !notification?.acknowledged)) {
       throw new NotificationError(
         status.internalServerError,
         errorMessages.NOTIFICATION_READ_FAILED_ERROR,
         { notification },
         req?.url
       );
+    }
+
+    if (!notification?.id && notification?.acknowledged) {
+      notification = validatedNotificationType
+        ? await Notification.find({
+            to: loggedInUserId,
+            type: validatedNotificationType,
+          }).populate({
+            path: notificationProperties.FROM,
+            select: Object.values(publicProfilePropertiesForNotification),
+          })
+        : await Notification.find({
+            to: loggedInUserId,
+          }).populate({
+            path: notificationProperties.FROM,
+            select: Object.values(publicProfilePropertiesForNotification),
+          });
     }
 
     const sanitizedNotification = sanitizeMongoData(notification);

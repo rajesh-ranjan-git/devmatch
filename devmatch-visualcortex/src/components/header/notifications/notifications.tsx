@@ -32,17 +32,22 @@ const Notifications = () => {
     id,
     removeNotificationFlag = false,
   }: NotificationActionType) => {
-    console.log("debug from notificationAction type : ", type);
     if (type) {
+      const markNotificationReadData = await markNotificationRead({ type });
+
       console.log(
-        `debug all notifications of type ${type} needs to be cleared`
+        `debug from ${type} notifications markNotificationReadData : ${JSON.stringify(
+          markNotificationReadData,
+          null,
+          2
+        )}`
       );
 
       return;
     }
 
     if (id && removeNotificationFlag) {
-      const markNotificationReadData = await markNotificationRead(id);
+      const markNotificationReadData = await markNotificationRead({ id });
 
       const newNotification = {
         id: markNotificationReadData?.id,
@@ -54,13 +59,13 @@ const Notifications = () => {
       };
 
       if (markNotificationReadData?.type === NOTIFICATION_TYPES.connection) {
-        const remaining = connectionNotifications.filter((p) => p.id !== id);
+        const remaining = connectionNotifications.filter((n) => n.id !== id);
 
         setConnectionNotifications([newNotification, ...remaining]);
       }
 
       if (markNotificationReadData?.type === NOTIFICATION_TYPES.chat) {
-        const remaining = chatNotifications.filter((p) => p.id !== id);
+        const remaining = chatNotifications.filter((n) => n.id !== id);
 
         setChatNotifications([newNotification, ...remaining]);
       }
@@ -69,20 +74,47 @@ const Notifications = () => {
     }
 
     if (id) {
-      console.log(
-        `debug notification with id ${id} needs to be marked read but not cleared`
-      );
-
       if (document) {
         document?.getElementById?.("notifications-dropdown")?.hidePopover();
       }
 
       connectionsSheet.open();
 
+      const markNotificationReadData = await markNotificationRead({ id });
+
+      const newNotification = {
+        id: markNotificationReadData?.id,
+        from: markNotificationReadData?.from,
+        status: markNotificationReadData?.status,
+        title: markNotificationReadData?.title,
+        body: markNotificationReadData?.body,
+        type: markNotificationReadData?.type,
+      };
+
+      if (markNotificationReadData?.type === NOTIFICATION_TYPES.connection) {
+        const remaining = connectionNotifications.filter((n) => n.id !== id);
+
+        setConnectionNotifications([newNotification, ...remaining]);
+      }
+
+      if (markNotificationReadData?.type === NOTIFICATION_TYPES.chat) {
+        const remaining = chatNotifications.filter((n) => n.id !== id);
+
+        setChatNotifications([newNotification, ...remaining]);
+      }
+
       return;
     }
 
-    console.log("debug all notifications needs to be cleared");
+    const markNotificationReadData = await markNotificationRead({});
+
+    console.log(
+      `debug from notifications  markNotificationReadData : ${JSON.stringify(
+        markNotificationReadData,
+        null,
+        2
+      )}`
+    );
   };
 
   useEffect(() => {

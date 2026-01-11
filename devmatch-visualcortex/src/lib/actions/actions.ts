@@ -60,11 +60,23 @@ export const getNotifications = async () => {
   return result?.success ? result?.data?.data?.notifications : null;
 };
 
-export const markNotificationRead = async (id: string) => {
+export const markNotificationRead = async ({
+  id,
+  type,
+}: {
+  id?: string;
+  type?: string;
+}) => {
   const result = await apiRequest({
     method: "POST",
-    url: `${apiUrls?.markNotificationRead}/read/${id}`,
+    url: id
+      ? `${apiUrls?.markNotificationRead}/read/${type}/${id}`
+      : type
+      ? `${apiUrls?.markNotificationRead}/read/${type}`
+      : `${apiUrls?.markNotificationRead}/read`,
   });
+
+  console.log("debug from actions result : ", result);
 
   return result?.success ? result?.data?.notification : null;
 };
