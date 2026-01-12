@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { FALLBACK_MESSAGES, NOTIFICATION_TYPES } from "@/config/constants";
+import { navbarMenuItems } from "@/config/config";
 import { NotificationActionType, NotificationItemType } from "@/types/types";
 import { getNotifications, markNotificationRead } from "@/lib/actions/actions";
 import { useDevMatchAppStore } from "@/store/store";
@@ -8,7 +9,6 @@ import { useToast } from "@/components/toast/toast";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 import NotificationsHeading from "@/components/header/notifications/notificationsHeading";
 import NotificationsItem from "@/components/header/notifications/notificationsItem";
-import { navbarMenuItems } from "@/config/config";
 
 const Notifications = () => {
   const connectionNotifications = useDevMatchAppStore(
@@ -32,136 +32,81 @@ const Notifications = () => {
     id,
     removeNotificationFlag = false,
   }: NotificationActionType) => {
-    const prevConnectionNotifications = connectionNotifications;
-    const prevChatNotifications = chatNotifications;
+    const backupState = {
+      connection:
+        type === NOTIFICATION_TYPES.connection || !type
+          ? [...connectionNotifications]
+          : null,
+      chat:
+        type === NOTIFICATION_TYPES.chat || !type
+          ? [...chatNotifications]
+          : null,
+    };
 
-    if (type && !id) {
-      const markNotificationReadData = await markNotificationRead({ type });
+    try {
+      const markNotificationReadData = await markNotificationRead(
+        id && type ? { id, type } : type ? { type } : {}
+      );
 
-      if (type === NOTIFICATION_TYPES.connection) {
+      if (!markNotificationReadData) {
+        throw new Error("Failed to mark notification as read");
+      }
+
+      if (removeNotificationFlag && id && type) {
+        updateNotificationState(
+          markNotificationReadData.type,
+          (notifications) =>
+            notifications.filter((n) => n?.id !== markNotificationReadData.id)
+        );
+      } else if (id && type) {
+        document?.getElementById?.("notifications-dropdown")?.hidePopover();
+        connectionsSheet.open();
+
+        updateNotificationState(
+          markNotificationReadData.type,
+          (notifications) =>
+            notifications.map((n) =>
+              n?.id === markNotificationReadData.id
+                ? { ...n, status: markNotificationReadData.status }
+                : n
+            )
+        );
+      } else if (type && !id) {
+        updateNotificationState(type, () => []);
+      } else {
         setConnectionNotifications([]);
-      } else if (type === NOTIFICATION_TYPES.chat) {
         setChatNotifications([]);
       }
-
-      if (!markNotificationReadData) {
-        if (type === NOTIFICATION_TYPES.connection) {
-          setConnectionNotifications(prevConnectionNotifications);
-        } else if (type === NOTIFICATION_TYPES.chat) {
-          setChatNotifications(prevChatNotifications);
-        }
-
-        showToast({
-          title: "Notifications update failed!",
-          message: "Unable to update notifications.",
-          variant: "error",
-        });
+    } catch (error) {
+      if (backupState.connection !== null) {
+        setConnectionNotifications(backupState.connection);
       }
-
-      return;
-    }
-
-    if (type && id && removeNotificationFlag) {
-      const markNotificationReadData = await markNotificationRead({ id, type });
-
-      if (markNotificationReadData?.type === NOTIFICATION_TYPES.connection) {
-        const updatedConnectionNotifications = connectionNotifications.filter(
-          (n) => n?.id === markNotificationReadData?.id
-        );
-
-        setConnectionNotifications(updatedConnectionNotifications);
-      }
-
-      if (markNotificationReadData?.type === NOTIFICATION_TYPES.chat) {
-        const updatedChatNotifications = chatNotifications.filter(
-          (n) => n?.id === markNotificationReadData?.id
-        );
-
-        setChatNotifications(updatedChatNotifications);
-      }
-
-      if (!markNotificationReadData) {
-        if (type === NOTIFICATION_TYPES.connection) {
-          setConnectionNotifications(prevConnectionNotifications);
-        } else if (type === NOTIFICATION_TYPES.chat) {
-          setChatNotifications(prevChatNotifications);
-        }
-
-        showToast({
-          title: "Notifications update failed!",
-          message: "Unable to update notifications.",
-          variant: "error",
-        });
-      }
-
-      return;
-    }
-
-    if (id && type) {
-      if (document) {
-        document?.getElementById?.("notifications-dropdown")?.hidePopover();
-      }
-
-      connectionsSheet.open();
-
-      const markNotificationReadData = await markNotificationRead({ id, type });
-
-      if (markNotificationReadData?.type === NOTIFICATION_TYPES.connection) {
-        const updatedConnectionNotifications = connectionNotifications.map(
-          (n) =>
-            n?.id === markNotificationReadData?.id
-              ? { ...n, status: markNotificationReadData?.status }
-              : n
-        );
-
-        setConnectionNotifications(updatedConnectionNotifications);
-      }
-
-      if (markNotificationReadData?.type === NOTIFICATION_TYPES.chat) {
-        const updatedChatNotifications = chatNotifications.map((n) =>
-          n?.id === markNotificationReadData?.id
-            ? { ...n, status: markNotificationReadData?.status }
-            : n
-        );
-
-        setChatNotifications(updatedChatNotifications);
-      }
-
-      if (!markNotificationReadData) {
-        if (type === NOTIFICATION_TYPES.connection) {
-          setConnectionNotifications(prevConnectionNotifications);
-        } else if (type === NOTIFICATION_TYPES.chat) {
-          setChatNotifications(prevChatNotifications);
-        }
-
-        showToast({
-          title: "Notifications update failed!",
-          message: "Unable to update notifications.",
-          variant: "error",
-        });
-      }
-
-      return;
-    }
-
-    const markNotificationReadData = await markNotificationRead({});
-
-    setConnectionNotifications([]);
-
-    setChatNotifications([]);
-
-    if (!markNotificationReadData) {
-      if (type === NOTIFICATION_TYPES.connection) {
-        setConnectionNotifications(prevConnectionNotifications);
-      } else if (type === NOTIFICATION_TYPES.chat) {
-        setChatNotifications(prevChatNotifications);
+      if (backupState.chat !== null) {
+        setChatNotifications(backupState.chat);
       }
 
       showToast({
         title: "Notifications update failed!",
-        message: "Unable to update notifications.",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Unable to update notifications.",
         variant: "error",
       });
+
+      console.error("Notification action error:", error);
+    }
+  };
+
+  const updateNotificationState = (
+    notificationType: string,
+    updateFn: (notifications: any[]) => any[]
+  ) => {
+    if (notificationType === NOTIFICATION_TYPES.connection) {
+      console.log("debug from notifications updateNotificationState in if");
+      setConnectionNotifications((prev) => updateFn(prev));
+    } else if (notificationType === NOTIFICATION_TYPES.chat) {
+      setChatNotifications((prev) => updateFn(prev));
     }
   };
 

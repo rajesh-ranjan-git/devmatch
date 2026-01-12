@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { create } from "zustand";
 import { THEMES, EXPLORE_VISIBLE_USER_CARDS } from "@/config/constants";
 import {
@@ -11,63 +12,126 @@ import {
 
 type DevMatchAppState = {
   switchTheme: ThemeTypes;
-  setSwitchTheme: (value: ThemeTypes) => void;
+  setSwitchTheme: Dispatch<SetStateAction<ThemeTypes>>;
   loggedInUser: UserType;
-  setLoggedInUser: (value: UserType) => void;
+  setLoggedInUser: Dispatch<SetStateAction<UserType>>;
   activeSheet: SheetTypes;
-  setActiveSheet: (name: SheetTypes) => void;
+  setActiveSheet: Dispatch<SetStateAction<SheetTypes>>;
   activeContextMenu: ContextMenuTypes;
-  setActiveContextMenu: (name: ContextMenuTypes) => void;
+  setActiveContextMenu: Dispatch<SetStateAction<ContextMenuTypes>>;
   allUsers: UserType[];
-  setAllUsers: (allUsers: UserType[]) => void;
+  setAllUsers: Dispatch<SetStateAction<UserType[]>>;
   userCards: UserType[];
-  setUserCards: (
-    value: UserType[] | ((prev: UserType[]) => UserType[])
-  ) => void;
+  setUserCards: Dispatch<SetStateAction<UserType[]>>;
   userCardsNextIndex: number;
-  setUserCardsNextIndex: (value: number | ((prev: number) => number)) => void;
+  setUserCardsNextIndex: Dispatch<SetStateAction<number>>;
   connections: SheetItemType[];
-  setConnections: (connections: SheetItemType[]) => void;
+  setConnections: Dispatch<SetStateAction<SheetItemType[]>>;
   requests: SheetItemType[];
-  setRequests: (requests: SheetItemType[]) => void;
+  setRequests: Dispatch<SetStateAction<SheetItemType[]>>;
   connectionNotifications: NotificationItemType[];
-  setConnectionNotifications: (connections: NotificationItemType[]) => void;
+  setConnectionNotifications: Dispatch<SetStateAction<NotificationItemType[]>>;
   chatNotifications: NotificationItemType[];
-  setChatNotifications: (connections: NotificationItemType[]) => void;
+  setChatNotifications: Dispatch<SetStateAction<NotificationItemType[]>>;
 };
 
 export const useDevMatchAppStore = create<DevMatchAppState>((set) => ({
   switchTheme: THEMES.dark,
-  setSwitchTheme: (theme) => set({ switchTheme: theme }),
-  loggedInUser: null,
-  setLoggedInUser: (user) => set({ loggedInUser: user }),
-  activeSheet: null,
-  setActiveSheet: (sheet) => set({ activeSheet: sheet }),
-  activeContextMenu: null,
-  setActiveContextMenu: (contextMenu) =>
-    set({ activeContextMenu: contextMenu }),
-  allUsers: [],
-  setAllUsers: (users) => set({ allUsers: users }),
-  userCards: [],
-  setUserCards: (card) =>
+  setSwitchTheme: (themeOrUpdater) =>
     set((state) => ({
-      userCards: typeof card === "function" ? card(state.userCards) : card,
+      switchTheme:
+        typeof themeOrUpdater === "function"
+          ? themeOrUpdater(state.switchTheme)
+          : themeOrUpdater,
     })),
+
+  loggedInUser: null,
+  setLoggedInUser: (userOrUpdater) =>
+    set((state) => ({
+      loggedInUser:
+        typeof userOrUpdater === "function"
+          ? userOrUpdater(state.loggedInUser)
+          : userOrUpdater,
+    })),
+
+  activeSheet: null,
+  setActiveSheet: (sheetOrUpdater) =>
+    set((state) => ({
+      activeSheet:
+        typeof sheetOrUpdater === "function"
+          ? sheetOrUpdater(state.activeSheet)
+          : sheetOrUpdater,
+    })),
+
+  activeContextMenu: null,
+  setActiveContextMenu: (contextMenuOrUpdater) =>
+    set((state) => ({
+      activeContextMenu:
+        typeof contextMenuOrUpdater === "function"
+          ? contextMenuOrUpdater(state.activeContextMenu)
+          : contextMenuOrUpdater,
+    })),
+
+  allUsers: [],
+  setAllUsers: (usersOrUpdater) =>
+    set((state) => ({
+      allUsers:
+        typeof usersOrUpdater === "function"
+          ? usersOrUpdater(state.allUsers)
+          : usersOrUpdater,
+    })),
+
+  userCards: [],
+  setUserCards: (cardsOrUpdater) =>
+    set((state) => ({
+      userCards:
+        typeof cardsOrUpdater === "function"
+          ? cardsOrUpdater(state.userCards)
+          : cardsOrUpdater,
+    })),
+
   userCardsNextIndex: EXPLORE_VISIBLE_USER_CARDS,
-  setUserCardsNextIndex: (cardNextIndex) =>
+  setUserCardsNextIndex: (indexOrUpdater) =>
     set((state) => ({
       userCardsNextIndex:
-        typeof cardNextIndex === "function"
-          ? cardNextIndex(state.userCardsNextIndex)
-          : cardNextIndex,
+        typeof indexOrUpdater === "function"
+          ? indexOrUpdater(state.userCardsNextIndex)
+          : indexOrUpdater,
     })),
+
   connections: [],
-  setConnections: (connection) => set({ connections: connection }),
+  setConnections: (connectionsOrUpdater) =>
+    set((state) => ({
+      connections:
+        typeof connectionsOrUpdater === "function"
+          ? connectionsOrUpdater(state.connections)
+          : connectionsOrUpdater,
+    })),
+
   requests: [],
-  setRequests: (request) => set({ requests: request }),
+  setRequests: (requestsOrUpdater) =>
+    set((state) => ({
+      requests:
+        typeof requestsOrUpdater === "function"
+          ? requestsOrUpdater(state.requests)
+          : requestsOrUpdater,
+    })),
+
   connectionNotifications: [],
-  setConnectionNotifications: (connection) =>
-    set({ connectionNotifications: connection }),
+  setConnectionNotifications: (notificationsOrUpdater) =>
+    set((state) => ({
+      connectionNotifications:
+        typeof notificationsOrUpdater === "function"
+          ? notificationsOrUpdater(state.connectionNotifications)
+          : notificationsOrUpdater,
+    })),
+
   chatNotifications: [],
-  setChatNotifications: (connection) => set({ chatNotifications: connection }),
+  setChatNotifications: (notificationsOrUpdater) =>
+    set((state) => ({
+      chatNotifications:
+        typeof notificationsOrUpdater === "function"
+          ? notificationsOrUpdater(state.chatNotifications)
+          : notificationsOrUpdater,
+    })),
 }));
