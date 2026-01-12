@@ -35,17 +35,11 @@ const Notifications = () => {
     if (type && !id) {
       const markNotificationReadData = await markNotificationRead({ type });
 
-      const newConnectionNotifications = markNotificationReadData?.filter(
-        (n: NotificationItemType) => n?.type !== NOTIFICATION_TYPES.connection
-      );
-
-      setConnectionNotifications(newConnectionNotifications);
-
-      const newChatNotifications = markNotificationReadData?.filter(
-        (n: NotificationItemType) => n?.type !== NOTIFICATION_TYPES.chat
-      );
-
-      setChatNotifications(newChatNotifications);
+      if (type === NOTIFICATION_TYPES.connection) {
+        setConnectionNotifications([]);
+      } else if (type === NOTIFICATION_TYPES.chat) {
+        setChatNotifications([]);
+      }
 
       return;
     }
@@ -107,17 +101,9 @@ const Notifications = () => {
 
     const markNotificationReadData = await markNotificationRead({});
 
-    const newConnectionNotifications = markNotificationReadData?.filter(
-      (n: NotificationItemType) => n?.type !== NOTIFICATION_TYPES.connection
-    );
+    setConnectionNotifications([]);
 
-    setConnectionNotifications(newConnectionNotifications);
-
-    const newChatNotifications = markNotificationReadData?.filter(
-      (n: NotificationItemType) => n?.type !== NOTIFICATION_TYPES.chat
-    );
-
-    setChatNotifications(newChatNotifications);
+    setChatNotifications([]);
   };
 
   useEffect(() => {
