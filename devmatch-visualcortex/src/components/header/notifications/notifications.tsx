@@ -36,13 +36,13 @@ const Notifications = () => {
       const markNotificationReadData = await markNotificationRead({ type });
 
       const newConnectionNotifications = markNotificationReadData?.filter(
-        (n) => n?.type !== NOTIFICATION_TYPES.connection
+        (n: NotificationItemType) => n?.type !== NOTIFICATION_TYPES.connection
       );
 
       setConnectionNotifications(newConnectionNotifications);
 
       const newChatNotifications = markNotificationReadData?.filter(
-        (n) => n?.type !== NOTIFICATION_TYPES.chat
+        (n: NotificationItemType) => n?.type !== NOTIFICATION_TYPES.chat
       );
 
       setChatNotifications(newChatNotifications);
@@ -113,13 +113,13 @@ const Notifications = () => {
     const markNotificationReadData = await markNotificationRead({});
 
     const newConnectionNotifications = markNotificationReadData?.filter(
-      (n) => n?.type !== NOTIFICATION_TYPES.connection
+      (n: NotificationItemType) => n?.type !== NOTIFICATION_TYPES.connection
     );
 
     setConnectionNotifications(newConnectionNotifications);
 
     const newChatNotifications = markNotificationReadData?.filter(
-      (n) => n?.type !== NOTIFICATION_TYPES.chat
+      (n: NotificationItemType) => n?.type !== NOTIFICATION_TYPES.chat
     );
 
     setChatNotifications(newChatNotifications);
