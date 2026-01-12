@@ -32,6 +32,9 @@ const Notifications = () => {
     id,
     removeNotificationFlag = false,
   }: NotificationActionType) => {
+    const prevConnectionNotifications = connectionNotifications;
+    const prevChatNotifications = chatNotifications;
+
     if (type && !id) {
       const markNotificationReadData = await markNotificationRead({ type });
 
@@ -39,6 +42,20 @@ const Notifications = () => {
         setConnectionNotifications([]);
       } else if (type === NOTIFICATION_TYPES.chat) {
         setChatNotifications([]);
+      }
+
+      if (!markNotificationReadData) {
+        if (type === NOTIFICATION_TYPES.connection) {
+          setConnectionNotifications(prevConnectionNotifications);
+        } else if (type === NOTIFICATION_TYPES.chat) {
+          setChatNotifications(prevChatNotifications);
+        }
+
+        showToast({
+          title: "Notifications update failed!",
+          message: "Unable to update notifications.",
+          variant: "error",
+        });
       }
 
       return;
@@ -61,6 +78,20 @@ const Notifications = () => {
         );
 
         setChatNotifications(updatedChatNotifications);
+      }
+
+      if (!markNotificationReadData) {
+        if (type === NOTIFICATION_TYPES.connection) {
+          setConnectionNotifications(prevConnectionNotifications);
+        } else if (type === NOTIFICATION_TYPES.chat) {
+          setChatNotifications(prevChatNotifications);
+        }
+
+        showToast({
+          title: "Notifications update failed!",
+          message: "Unable to update notifications.",
+          variant: "error",
+        });
       }
 
       return;
@@ -96,6 +127,20 @@ const Notifications = () => {
         setChatNotifications(updatedChatNotifications);
       }
 
+      if (!markNotificationReadData) {
+        if (type === NOTIFICATION_TYPES.connection) {
+          setConnectionNotifications(prevConnectionNotifications);
+        } else if (type === NOTIFICATION_TYPES.chat) {
+          setChatNotifications(prevChatNotifications);
+        }
+
+        showToast({
+          title: "Notifications update failed!",
+          message: "Unable to update notifications.",
+          variant: "error",
+        });
+      }
+
       return;
     }
 
@@ -104,6 +149,20 @@ const Notifications = () => {
     setConnectionNotifications([]);
 
     setChatNotifications([]);
+
+    if (!markNotificationReadData) {
+      if (type === NOTIFICATION_TYPES.connection) {
+        setConnectionNotifications(prevConnectionNotifications);
+      } else if (type === NOTIFICATION_TYPES.chat) {
+        setChatNotifications(prevChatNotifications);
+      }
+
+      showToast({
+        title: "Notifications update failed!",
+        message: "Unable to update notifications.",
+        variant: "error",
+      });
+    }
   };
 
   useEffect(() => {
