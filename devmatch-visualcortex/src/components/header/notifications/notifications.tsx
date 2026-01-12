@@ -53,25 +53,20 @@ const Notifications = () => {
     if (type && id && removeNotificationFlag) {
       const markNotificationReadData = await markNotificationRead({ id, type });
 
-      const newNotification = {
-        id: markNotificationReadData?.id,
-        from: markNotificationReadData?.from,
-        status: markNotificationReadData?.status,
-        title: markNotificationReadData?.title,
-        body: markNotificationReadData?.body,
-        type: markNotificationReadData?.type,
-      };
-
       if (markNotificationReadData?.type === NOTIFICATION_TYPES.connection) {
-        const remaining = connectionNotifications.filter((n) => n.id !== id);
+        const updatedConnectionNotifications = connectionNotifications.filter(
+          (n) => n?.id === markNotificationReadData?.id
+        );
 
-        setConnectionNotifications([newNotification, ...remaining]);
+        setConnectionNotifications(updatedConnectionNotifications);
       }
 
       if (markNotificationReadData?.type === NOTIFICATION_TYPES.chat) {
-        const remaining = chatNotifications.filter((n) => n.id !== id);
+        const updatedChatNotifications = chatNotifications.filter(
+          (n) => n?.id === markNotificationReadData?.id
+        );
 
-        setChatNotifications([newNotification, ...remaining]);
+        setChatNotifications(updatedChatNotifications);
       }
 
       return;
@@ -86,25 +81,25 @@ const Notifications = () => {
 
       const markNotificationReadData = await markNotificationRead({ id, type });
 
-      const newNotification = {
-        id: markNotificationReadData?.id,
-        from: markNotificationReadData?.from,
-        status: markNotificationReadData?.status,
-        title: markNotificationReadData?.title,
-        body: markNotificationReadData?.body,
-        type: markNotificationReadData?.type,
-      };
-
       if (markNotificationReadData?.type === NOTIFICATION_TYPES.connection) {
-        const remaining = connectionNotifications.filter((n) => n.id !== id);
+        const updatedConnectionNotifications = connectionNotifications.map(
+          (n) =>
+            n?.id === markNotificationReadData?.id
+              ? { ...n, status: markNotificationReadData?.status }
+              : n
+        );
 
-        setConnectionNotifications([newNotification, ...remaining]);
+        setConnectionNotifications(updatedConnectionNotifications);
       }
 
       if (markNotificationReadData?.type === NOTIFICATION_TYPES.chat) {
-        const remaining = chatNotifications.filter((n) => n.id !== id);
+        const updatedChatNotifications = chatNotifications.map((n) =>
+          n?.id === markNotificationReadData?.id
+            ? { ...n, status: markNotificationReadData?.status }
+            : n
+        );
 
-        setChatNotifications([newNotification, ...remaining]);
+        setChatNotifications(updatedChatNotifications);
       }
 
       return;
