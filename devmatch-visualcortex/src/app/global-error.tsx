@@ -2,7 +2,7 @@
 
 import { ERROR_MESSAGES } from "@/config/constants";
 import { alkatra, arima, inter, tourney } from "@/config/config";
-import { ToastProvider } from "@/components/toast/toast";
+import { ToastProvider } from "@/hooks/toast";
 import ThemeManager from "@/components/theme/themeManager";
 import Header from "@/components/header/header";
 import DefaultAnimatedBackground from "@/components/background/defaultAnimatedBackground";

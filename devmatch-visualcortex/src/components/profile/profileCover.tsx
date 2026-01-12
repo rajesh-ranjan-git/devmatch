@@ -10,7 +10,7 @@ import { ProfileComponentProps } from "@/types/propTypes";
 import { getFullName, toTitleCase } from "@/lib/utils/utils";
 import { updateConnectionStatus } from "@/lib/actions/actions";
 import { useDevMatchAppStore } from "@/store/store";
-import { useToast } from "@/components/toast/toast";
+import { useToast } from "@/hooks/toast";
 import NameCardContent from "@/components/explore/nameCardContent";
 import ProfileCoverEditButton from "@/components/ui/buttons/profileCoverEditButton";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";

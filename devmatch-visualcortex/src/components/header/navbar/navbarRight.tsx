@@ -17,7 +17,7 @@ import { apiRequest } from "@/lib/api/api";
 import { getFullName, getUrlString, toTitleCase } from "@/lib/utils/utils";
 import { setCookies } from "@/lib/api/cookiesHandler";
 import { useDevMatchAppStore } from "@/store/store";
-import { useToast } from "@/components/toast/toast";
+import { useToast } from "@/hooks/toast";
 import ThemeToggle from "@/components/theme/themeToggle";
 import Connections from "@/components/connections/connections";
 import Notifications from "@/components/header/notifications/notifications";

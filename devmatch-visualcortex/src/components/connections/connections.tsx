@@ -3,14 +3,14 @@ import { CONNECTION_STATUS_PROPERTIES } from "@/config/constants";
 import { navbarMenuItems } from "@/config/config";
 import { SheetItemType, UserType } from "@/types/types";
 import { ConnectionProps } from "@/types/propTypes";
-import useSheet from "@/hooks/useSheet";
-import { useToast } from "@/components/toast/toast";
 import { toTitleCase } from "@/lib/utils/utils";
 import {
   getConnectionsAndRequests,
   updateConnectionStatus,
 } from "@/lib/actions/actions";
 import { useDevMatchAppStore } from "@/store/store";
+import useSheet from "@/hooks/useSheet";
+import { useToast } from "@/hooks/toast";
 import ConnectionsButton from "@/components/ui/buttons/connectionsButton";
 import Sheet from "@/components/ui/sheet/sheet";
 import SheetItem from "@/components/connections/sheetItem";

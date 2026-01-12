@@ -19,7 +19,7 @@ import {
   forgotPasswordAction,
 } from "@/lib/actions/authActions";
 import { useDevMatchAppStore } from "@/store/store";
-import { useToast } from "@/components/toast/toast";
+import { useToast } from "@/hooks/toast";
 import Input from "@/components/auth/input";
 import FormErrorMessage from "@/components/errors/formErrorMessage";
 import SubmitButton from "@/components/ui/buttons/submitButton";

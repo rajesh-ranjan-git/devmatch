@@ -13,7 +13,7 @@ import {
 } from "@/config/constants";
 import { ConsoleBannerProps } from "@/types/propTypes";
 import { getRandomItem } from "@/lib/utils/utils";
-import { TOAST_VARIANTS, useToast } from "@/components/toast/toast";
+import { TOAST_VARIANTS, useToast } from "@/hooks/toast";
 
 const systemInfo = (nodeVersion: string) => {
   const info = `

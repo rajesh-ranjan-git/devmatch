@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useToast } from "@/components/toast/toast";
+import { useToast } from "@/hooks/toast";
 
 interface FlashMessage {
   type: "success" | "error" | "info";

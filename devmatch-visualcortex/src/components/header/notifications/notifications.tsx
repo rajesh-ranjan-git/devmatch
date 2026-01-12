@@ -5,7 +5,7 @@ import { NotificationActionType, NotificationItemType } from "@/types/types";
 import { getNotifications, markNotificationRead } from "@/lib/actions/actions";
 import { useDevMatchAppStore } from "@/store/store";
 import useSheet from "@/hooks/useSheet";
-import { useToast } from "@/components/toast/toast";
+import { useToast } from "@/hooks/toast";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 import NotificationsHeading from "@/components/header/notifications/notificationsHeading";
 import NotificationsItem from "@/components/header/notifications/notificationsItem";

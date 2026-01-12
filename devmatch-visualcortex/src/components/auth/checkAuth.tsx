@@ -8,7 +8,7 @@ import { authRoutes, defaultRoutes } from "@/lib/routes/routes";
 import { clearCookies } from "@/lib/api/cookiesHandler";
 import { getUrlString } from "@/lib/utils/utils";
 import { useDevMatchAppStore } from "@/store/store";
-import { useToast } from "@/components/toast/toast";
+import { useToast } from "@/hooks/toast";
 
 const CheckAuth = ({ children }: ReactNodeProps) => {
   const pathname = usePathname();

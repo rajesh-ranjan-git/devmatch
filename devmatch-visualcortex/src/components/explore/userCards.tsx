@@ -3,7 +3,7 @@ import { UserType } from "@/types/types";
 import { UserCardsProps } from "@/types/propTypes";
 import { updateConnectionStatus } from "@/lib/actions/actions";
 import { useDevMatchAppStore } from "@/store/store";
-import { useToast } from "@/components/toast/toast";
+import { useToast } from "@/hooks/toast";
 import SingleUserCard from "@/components/explore/singleUserCard";
 
 const UserCards = ({ allUsers }: UserCardsProps) => {
