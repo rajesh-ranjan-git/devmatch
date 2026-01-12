@@ -76,7 +76,5 @@ export const markNotificationRead = async ({
       : `${apiUrls?.markNotificationRead}/read`,
   });
 
-  console.log("debug from actions result : ", result);
-
   return result?.success ? result?.data?.notification : null;
 };

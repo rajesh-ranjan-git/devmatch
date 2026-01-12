@@ -51,6 +51,7 @@ const NotificationsItem = ({
 
           notificationAction({
             id: notification?.id,
+            type: notification?.type,
             removeNotificationFlag: true,
           });
         }}

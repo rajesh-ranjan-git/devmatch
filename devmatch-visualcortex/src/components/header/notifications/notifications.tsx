@@ -32,7 +32,7 @@ const Notifications = () => {
     id,
     removeNotificationFlag = false,
   }: NotificationActionType) => {
-    if (type) {
+    if (type && !id) {
       const markNotificationReadData = await markNotificationRead({ type });
 
       const newConnectionNotifications = markNotificationReadData?.filter(
@@ -50,8 +50,8 @@ const Notifications = () => {
       return;
     }
 
-    if (id && removeNotificationFlag) {
-      const markNotificationReadData = await markNotificationRead({ id });
+    if (type && id && removeNotificationFlag) {
+      const markNotificationReadData = await markNotificationRead({ id, type });
 
       const newNotification = {
         id: markNotificationReadData?.id,
@@ -77,14 +77,14 @@ const Notifications = () => {
       return;
     }
 
-    if (id) {
+    if (id && type) {
       if (document) {
         document?.getElementById?.("notifications-dropdown")?.hidePopover();
       }
 
       connectionsSheet.open();
 
-      const markNotificationReadData = await markNotificationRead({ id });
+      const markNotificationReadData = await markNotificationRead({ id, type });
 
       const newNotification = {
         id: markNotificationReadData?.id,
@@ -154,10 +154,6 @@ const Notifications = () => {
 
     getNotificationsData();
   }, []);
-
-  useEffect(() => {
-    console.log("debug connectionNotifications : ", connectionNotifications);
-  }, [connectionNotifications]);
 
   return (
     <div className="flex flex-col gap-1 min-w-84 max-h-[80vh]">
