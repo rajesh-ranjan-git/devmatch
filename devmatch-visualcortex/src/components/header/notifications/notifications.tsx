@@ -141,7 +141,7 @@ const Notifications = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-1 min-w-84 max-h-[80vh]">
+    <div className="flex flex-col gap-1 w-84 max-h-[80vh]">
       <div className="[&::-webkit-scrollbar-thumb]:hover:bg-glass-surface-lighter [&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary transition-all ease-in-out">
         {Object.values(NOTIFICATION_TYPES).map((type) => (
           <div key={type}>
