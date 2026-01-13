@@ -1,50 +1,101 @@
-import Link from "next/link";
-import { MdEdit, MdOutlineEdit } from "react-icons/md";
 import { USER_PROPERTIES, USER_PROPERTY_LABELS } from "@/config/constants";
 import { ProfileComponentProps } from "@/types/propTypes";
 import { formatDate, toSentenceCase, toTitleCase } from "@/lib/utils/utils";
-import { useDevMatchAppStore } from "@/store/store";
 
 const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
-  const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
-
   const renderValue = (key: string, value: string) => {
     if (value === null || value === undefined) {
       return null;
     }
 
     if (Array.isArray(value)) {
-      return toTitleCase(value.join(", "));
+      return (
+        <input
+          type="text"
+          placeholder={toTitleCase(value.join(", "))}
+          defaultValue={toTitleCase(value.join(", "))}
+          className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
+        />
+      );
     }
 
     if (typeof value !== "string") {
       if (typeof value === "object" && key === "address") {
-        return toTitleCase(Object.values(value).join(", "));
+        return (
+          <input
+            type="text"
+            placeholder={toTitleCase(Object.values(value).join(", "))}
+            defaultValue={toTitleCase(Object.values(value).join(", "))}
+            className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
+          />
+        );
       }
 
-      return String(value);
+      return (
+        <input
+          type="text"
+          placeholder={String(value)}
+          defaultValue={String(value)}
+          className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
+        />
+      );
     }
 
     if (value.startsWith("http")) {
-      return value;
+      return (
+        <input
+          type="text"
+          placeholder={value}
+          defaultValue={value}
+          className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
+        />
+      );
     }
 
     if (
       key === USER_PROPERTIES.createdAt ||
       key === USER_PROPERTIES.updatedAt
     ) {
-      return formatDate(value);
+      return (
+        <input
+          type="text"
+          placeholder={formatDate(value)}
+          defaultValue={formatDate(value)}
+          className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
+        />
+      );
     }
 
     if (key === USER_PROPERTIES.bio) {
-      return toSentenceCase(value);
+      return (
+        <input
+          type="text"
+          placeholder={toSentenceCase(value)}
+          defaultValue={toSentenceCase(value)}
+          className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
+        />
+      );
     }
 
     if (key === USER_PROPERTIES.email) {
-      return value;
+      return (
+        <input
+          type="email"
+          placeholder={value}
+          defaultValue={value}
+          className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
+        />
+      );
     }
 
-    return toTitleCase(value);
+    return (
+      <input
+        type="text"
+        placeholder={toTitleCase(value)}
+        defaultValue={toTitleCase(value)}
+        className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
+      />
+    );
   };
 
   return (
@@ -66,20 +117,13 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
               if (!value || (Array.isArray(value) && value?.length < 1))
                 return null;
 
-              const safeValue = renderValue(key, value) || "";
-
               return (
                 <tr key={idx} className="w-full table-fixed">
                   <td className="py-1 w-1/4 h-full font-semibold text-glass-text-primary text-ld text-left align-bottom">
                     {USER_PROPERTY_LABELS[key]}
                   </td>
                   <td className="py-1 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
-                    <input
-                      type="text"
-                      placeholder={safeValue}
-                      defaultValue={safeValue}
-                      className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
-                    />
+                    {renderValue(key, value)}
                   </td>
                 </tr>
               );

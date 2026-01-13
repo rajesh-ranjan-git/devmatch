@@ -101,13 +101,18 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
           <ButtonNormal
             icon={authFormFieldButtonItems?.updateProfile?.icon}
             text={authFormFieldButtonItems?.updateProfile?.label}
-            className="w-46 h-10"
+            className="w-48 h-10"
             onClick={updateProfileDetailsContext.toggle}
+          />
+          <ButtonNormal
+            icon={authFormFieldButtonItems?.updatePassword?.icon}
+            text={authFormFieldButtonItems?.updatePassword?.label}
+            className="w-48 h-10"
           />
           <ButtonDestructive
             icon={authFormFieldButtonItems?.deleteAccount?.icon}
             text={authFormFieldButtonItems?.deleteAccount?.label}
-            className="w-46 h-10"
+            className="w-48 h-10"
           />
         </div>
       )}

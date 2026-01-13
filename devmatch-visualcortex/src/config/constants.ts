@@ -94,6 +94,7 @@ export const AUTH_FORM_FIELDS = {
   confirmPassword: "confirmPassword",
   forgotPassword: "forgotPassword",
   updateProfile: "updateProfile",
+  updatePassword: "updatePassword",
   deleteAccount: "deleteAccount",
 } as const;
 

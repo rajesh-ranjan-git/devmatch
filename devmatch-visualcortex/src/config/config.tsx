@@ -8,7 +8,7 @@ import {
   LuUserPen,
   LuUserPlus,
 } from "react-icons/lu";
-import { TbLockPassword, TbWorld } from "react-icons/tb";
+import { TbLockPassword, TbPasswordUser, TbWorld } from "react-icons/tb";
 import {
   FaFacebookF,
   FaInstagram,
@@ -154,6 +154,12 @@ export const authFormFieldButtonItems: AuthFormFieldButtonItemsType = {
     label: "Update Profile",
     url: getUrlString(AUTH_FORM_FIELDS.updateProfile),
     icon: <LuUserPen />,
+  },
+  updatePassword: {
+    name: AUTH_FORM_FIELDS.updateProfile,
+    label: "Update Password",
+    url: getUrlString(AUTH_FORM_FIELDS.updatePassword),
+    icon: <TbPasswordUser />,
   },
   deleteAccount: {
     name: AUTH_FORM_FIELDS.deleteAccount,
