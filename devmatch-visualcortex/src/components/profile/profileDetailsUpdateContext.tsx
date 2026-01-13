@@ -1,6 +1,7 @@
 import { USER_PROPERTIES, USER_PROPERTY_LABELS } from "@/config/constants";
 import { ProfileComponentProps } from "@/types/propTypes";
 import { formatDate, toSentenceCase, toTitleCase } from "@/lib/utils/utils";
+import Input from "@/components/ui/inputs/input";
 
 const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
   const renderValue = (key: string, value: string) => {
@@ -10,11 +11,11 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
 
     if (Array.isArray(value)) {
       return (
-        <input
+        <Input
+          name="whateverName"
           type="text"
           placeholder={toTitleCase(value.join(", "))}
           defaultValue={toTitleCase(value.join(", "))}
-          className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
         />
       );
     }
@@ -22,32 +23,32 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
     if (typeof value !== "string") {
       if (typeof value === "object" && key === "address") {
         return (
-          <input
+          <Input
+            name="whateverName"
             type="text"
             placeholder={toTitleCase(Object.values(value).join(", "))}
             defaultValue={toTitleCase(Object.values(value).join(", "))}
-            className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
           />
         );
       }
 
       return (
-        <input
+        <Input
+          name="whateverName"
           type="text"
           placeholder={String(value)}
           defaultValue={String(value)}
-          className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
         />
       );
     }
 
     if (value.startsWith("http")) {
       return (
-        <input
+        <Input
+          name="whateverName"
           type="text"
           placeholder={value}
           defaultValue={value}
-          className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
         />
       );
     }
@@ -57,43 +58,43 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
       key === USER_PROPERTIES.updatedAt
     ) {
       return (
-        <input
+        <Input
+          name="whateverName"
           type="text"
           placeholder={formatDate(value)}
           defaultValue={formatDate(value)}
-          className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
         />
       );
     }
 
     if (key === USER_PROPERTIES.bio) {
       return (
-        <input
+        <Input
+          name="whateverName"
           type="text"
           placeholder={toSentenceCase(value)}
           defaultValue={toSentenceCase(value)}
-          className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
         />
       );
     }
 
     if (key === USER_PROPERTIES.email) {
       return (
-        <input
+        <Input
+          name="whateverName"
           type="email"
           placeholder={value}
           defaultValue={value}
-          className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
         />
       );
     }
 
     return (
-      <input
+      <Input
+        name="whateverName"
         type="text"
         placeholder={toTitleCase(value)}
         defaultValue={toTitleCase(value)}
-        className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider`}
       />
     );
   };

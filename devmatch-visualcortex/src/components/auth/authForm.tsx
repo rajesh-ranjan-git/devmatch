@@ -20,7 +20,7 @@ import {
 } from "@/lib/actions/authActions";
 import { useDevMatchAppStore } from "@/store/store";
 import { useToast } from "@/hooks/toast";
-import Input from "@/components/auth/input";
+import Input from "@/components/ui/inputs/input";
 import FormErrorMessage from "@/components/errors/formErrorMessage";
 import SubmitButton from "@/components/ui/buttons/submitButton";
 

@@ -1,4 +1,4 @@
-import { MouseEvent, ReactNode, RefObject } from "react";
+import { ReactNode, RefObject } from "react";
 import { IconType } from "react-icons";
 import {
   ContextMenuTypes,
@@ -10,7 +10,6 @@ import {
   StorageTypes,
   UserType,
 } from "@/types/types";
-import { NOTIFICATION_TYPES } from "@/config/constants";
 
 export interface ReactNodeProps {
   children: ReactNode;

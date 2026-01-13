@@ -35,6 +35,7 @@ import {
 } from "@/types/types";
 import { getUrlString, toTitleCase } from "@/lib/utils/utils";
 import { authRoutes } from "@/lib/routes/routes";
+import { MdPassword } from "react-icons/md";
 
 export const alkatra = Alkatra({
   variable: "--font-alkatra",
@@ -116,14 +117,14 @@ export const authFormFieldInputItems: AuthFormFieldInputItemsType = {
     type: INPUT_TYPES.password,
     label: toTitleCase(AUTH_FORM_FIELDS.password),
     placeholder: toTitleCase(AUTH_FORM_FIELDS.password),
-    icon: <TbLockPassword />,
+    icon: <MdPassword />,
   },
   confirmPassword: {
     name: AUTH_FORM_FIELDS.confirmPassword,
     type: INPUT_TYPES.password,
     label: toTitleCase(AUTH_FORM_FIELDS.confirmPassword),
     placeholder: toTitleCase(AUTH_FORM_FIELDS.confirmPassword),
-    icon: <TbLockPassword />,
+    icon: <MdPassword />,
   },
 };
 
@@ -147,7 +148,7 @@ export const authFormFieldButtonItems: AuthFormFieldButtonItemsType = {
     type: INPUT_TYPES.submit,
     label: "Forgot Password",
     url: getUrlString(authRoutes.forgotPassword),
-    icon: <TbLockPassword />,
+    icon: <MdPassword />,
   },
   updateProfile: {
     name: AUTH_FORM_FIELDS.updateProfile,
@@ -159,7 +160,7 @@ export const authFormFieldButtonItems: AuthFormFieldButtonItemsType = {
     name: AUTH_FORM_FIELDS.updateProfile,
     label: "Update Password",
     url: getUrlString(AUTH_FORM_FIELDS.updatePassword),
-    icon: <TbPasswordUser />,
+    icon: <MdPassword />,
   },
   deleteAccount: {
     name: AUTH_FORM_FIELDS.deleteAccount,
