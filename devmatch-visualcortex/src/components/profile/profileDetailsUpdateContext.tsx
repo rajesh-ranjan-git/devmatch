@@ -31,8 +31,7 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
 
     if (
       key === USER_PROPERTIES.createdAt ||
-      key === USER_PROPERTIES.updatedAt ||
-      key === USER_PROPERTIES.passwordLastUpdated
+      key === USER_PROPERTIES.updatedAt
     ) {
       return formatDate(value);
     }
@@ -57,6 +56,7 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
             {Object.values(USER_PROPERTIES).map((key, idx) => {
               if (
                 key === USER_PROPERTIES.id ||
+                key === USER_PROPERTIES.passwordLastUpdated ||
                 key === USER_PROPERTIES.updatedAt
               )
                 return null;
