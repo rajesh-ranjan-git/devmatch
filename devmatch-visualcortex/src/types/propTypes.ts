@@ -53,6 +53,7 @@ export interface SheetProps {
 
 export interface ContextMenuProps {
   open: boolean;
+  onClose: () => void;
   className?: string;
   children?: ReactNode;
 }

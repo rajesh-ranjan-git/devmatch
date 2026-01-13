@@ -78,16 +78,17 @@ const ProfileTabularData = ({ user }: ProfileComponentProps) => {
               {USER_PROPERTY_LABELS[key]}
             </td>
             <td className="py-1 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
-              <div className="flex justify-between items-start w-full overflow-hidden">
+              <div className="flex justify-between items-center w-full overflow-hidden">
                 <div className="pr-4 w-full">
                   <span>{renderValue(key, value)}</span>
                 </div>
-                {loggedInUser?.id === user?.id && (
-                  <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm w-7glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
-                    <MdOutlineEdit className="group-hover/icon:hidden" />
-                    <MdEdit className="hidden group-hover/icon:block" />
-                  </div>
-                )}
+                {loggedInUser?.id === user?.id &&
+                  key !== USER_PROPERTIES.updatedAt && (
+                    <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm w-7glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
+                      <MdOutlineEdit className="group-hover/icon:hidden" />
+                      <MdEdit className="hidden group-hover/icon:block" />
+                    </div>
+                  )}
               </div>
             </td>
           </tr>

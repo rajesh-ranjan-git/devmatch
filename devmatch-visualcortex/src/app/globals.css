@@ -342,10 +342,10 @@ button[popovertarget="update-profile-cover-dropdown"] {
 @keyframes slideInFromBottom {
   from {
     opacity: 0;
-    transform: translateY(0);
+    transform: translateY(100%);
   }
   to {
-    transform: translateY(-50%);
+    transform: translateY(0);
     opacity: 1;
   }
 }

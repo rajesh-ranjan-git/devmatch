@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import { ContextMenuProps } from "@/types/propTypes";
+import { IoClose } from "react-icons/io5";
 
-const ContextMenu = ({ open, className, children }: ContextMenuProps) => {
+const ContextMenu = ({
+  open,
+  onClose,
+  className,
+  children,
+}: ContextMenuProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -17,10 +23,16 @@ const ContextMenu = ({ open, className, children }: ContextMenuProps) => {
 
   return (
     <div
-      className={`top-14.5 right-0 z-100 absolute animate-[fadeIn_0.5s_ease-in-out,slideInFromTop_0.5s_ease-in-out] bg-glass-surface-light backdrop-blur-md border rounded-xl min-w-40 text-glass-text-primary transition-all duration-500 ease-in-out text-center before:content-[''] before:absolute before:bottom-full before:border-4 before:border-transparent before:border-b-glass-border-bright before:drop-shadow-[0_-1px_0_rgba(255,255,255,0.1)] shadow-md shadow-glass-shadow-heavy before:right-0 ${className} ${
-        open ? "translate-y-0 opacity-100" : "-translate-y-[50%] opacity-0"
-      }`}
+      className={`top-1/2 left-1/2 z-100 absolute bg-glass-surface-light shadow-glass-shadow-heavy shadow-md backdrop-blur-md p-2 border rounded-xl w-full min-h-40 max-w-full max-h-full overflow-hidden text-glass-text-primary text-center transition-all -translate-x-1/2 -translate-y-1/2 animate-[fadeIn_0.5s_ease-in-out,slideInFromBottom_0.5s_ease-in-out] duration-500 ease-in-out ${
+        open ? "opacity-100" : "opacity-0"
+      } ${className ? className : ""}`}
     >
+      <button
+        className="top-1 right-1 absolute p-0.5 border border-glass-border-subtle hover:border-glass-border-bright rounded-md text-sm cursor-pointer"
+        onClick={onClose}
+      >
+        <IoClose />
+      </button>
       {children || "Context Menu"}
     </div>
   );

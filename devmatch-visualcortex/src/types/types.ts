@@ -32,10 +32,9 @@ export type NotificationItemType = {
 };
 
 export type ContextMenuTypes =
-  | "notificationsContext"
-  | "accountOptionsContext"
   | "updateCoverPhotoContext"
   | "updateProfilePhotoContext"
+  | "updateProfileDetailsContext"
   | null;
 
 export type SheetTypes = "requests" | "connections" | null;

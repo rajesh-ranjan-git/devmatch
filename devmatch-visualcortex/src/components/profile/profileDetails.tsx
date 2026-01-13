@@ -9,17 +9,24 @@ import {
 import { getFullName, toTitleCase } from "@/lib/utils/utils";
 import { ProfileComponentProps } from "@/types/propTypes";
 import { useDevMatchAppStore } from "@/store/store";
+import useContextMenu from "@/hooks/useContextMenu";
 import ProfileTabularData from "@/components/profile/profileTabularData";
+import ProfileDetailsUpdateContext from "@/components/profile/profileDetailsUpdateContext";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
 import Dropdown from "@/components/ui/dropdown/dropdown";
 import ProfilePhotoEditButton from "@/components/ui/buttons/profilePhotoEditButton";
+import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 
 const ProfileDetails = ({ user }: ProfileComponentProps) => {
   if (!user) return;
 
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
+
+  const updateProfileDetailsContext = useContextMenu({
+    type: "updateProfileDetailsContext",
+  });
 
   const selectedUserProperties = Object.fromEntries(
     Object.entries(user ?? {}).filter(
@@ -79,7 +86,7 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
       </div>
 
       <div
-        className={`[&::-webkit-scrollbar-track]:bg-transparent  pr-4 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar]:w-1 overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out ${
+        className={`[&::-webkit-scrollbar-track]:bg-transparent pr-4 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar]:w-1 overflow-y-auto [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out ${
           loggedInUser?.id === user?.id ? "mt-4 mb-8" : "my-4"
         }`}
       >
@@ -95,6 +102,7 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
             icon={authFormFieldButtonItems?.updateProfile?.icon}
             text={authFormFieldButtonItems?.updateProfile?.label}
             className="w-46 h-10"
+            onClick={updateProfileDetailsContext.toggle}
           />
           <ButtonDestructive
             icon={authFormFieldButtonItems?.deleteAccount?.icon}
@@ -103,6 +111,13 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
           />
         </div>
       )}
+
+      <ContextMenu
+        open={updateProfileDetailsContext.isOpen}
+        onClose={updateProfileDetailsContext.close}
+      >
+        <ProfileDetailsUpdateContext user={selectedUserProperties} />
+      </ContextMenu>
     </div>
   );
 };
