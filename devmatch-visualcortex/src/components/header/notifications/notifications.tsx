@@ -45,7 +45,13 @@ const Notifications = () => {
 
     try {
       const markNotificationReadData = await markNotificationRead(
-        id && type ? { id, type } : type ? { type } : {}
+        id && type && removeNotificationFlag
+          ? { id, type, removeNotificationFlag }
+          : id && type
+          ? { id, type }
+          : type
+          ? { type }
+          : {}
       );
 
       if (!markNotificationReadData) {
@@ -103,7 +109,6 @@ const Notifications = () => {
     updateFn: (notifications: any[]) => any[]
   ) => {
     if (notificationType === NOTIFICATION_TYPES.connection) {
-      console.log("debug from notifications updateNotificationState in if");
       setConnectionNotifications((prev) => updateFn(prev));
     } else if (notificationType === NOTIFICATION_TYPES.chat) {
       setChatNotifications((prev) => updateFn(prev));

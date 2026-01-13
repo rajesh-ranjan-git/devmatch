@@ -1,5 +1,6 @@
 import { apiRequest } from "@/lib/api/api";
 import { apiUrls } from "@/lib/api/apiUtils";
+import { NotificationActionType } from "@/types/types";
 
 export const checkAuth = async () => {
   const result = await apiRequest({
@@ -63,17 +64,18 @@ export const getNotifications = async () => {
 export const markNotificationRead = async ({
   id,
   type,
-}: {
-  id?: string;
-  type?: string;
-}) => {
+  removeNotificationFlag = false,
+}: NotificationActionType) => {
   const result = await apiRequest({
     method: "POST",
-    url: id
-      ? `${apiUrls?.markNotificationRead}/read/${type}/${id}`
-      : type
-      ? `${apiUrls?.markNotificationRead}/read/${type}`
-      : `${apiUrls?.markNotificationRead}/read`,
+    url:
+      id && type && removeNotificationFlag
+        ? `${apiUrls?.markNotificationRead}/delete/${type}/${id}`
+        : id && type
+        ? `${apiUrls?.markNotificationRead}/read/${type}/${id}`
+        : type
+        ? `${apiUrls?.markNotificationRead}/read/${type}`
+        : `${apiUrls?.markNotificationRead}/read`,
   });
 
   return result?.success ? result?.data?.notification : null;

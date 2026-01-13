@@ -1,6 +1,7 @@
 import {
   errorMessages,
   notificationProperties,
+  notificationStatusProperties,
   publicProfilePropertiesForNotification,
   status,
   successMessages,
@@ -115,30 +116,25 @@ export const mark = async (req, res) => {
     const validatedNotificationStatus =
       validateNotificationStatus(notificationStatus);
 
-    let notification = notificationId
-      ? await Notification.findByIdAndUpdate(
-          notificationId,
-          { status: validatedNotificationStatus },
-          { new: true }
-        ).populate({
-          path: notificationProperties.FROM,
-          select: Object.values(publicProfilePropertiesForNotification),
-        })
-      : validatedNotificationType
-      ? await Notification.updateMany(
-          {
+    let notification =
+      notificationId &&
+      validatedNotificationStatus === notificationStatusProperties.DELETE
+        ? await Notification.findByIdAndDelete(notificationId)
+        : notificationId
+        ? await Notification.findByIdAndUpdate(
+            notificationId,
+            { status: validatedNotificationStatus },
+            { new: true }
+          ).populate({
+            path: notificationProperties.FROM,
+            select: Object.values(publicProfilePropertiesForNotification),
+          })
+        : validatedNotificationType
+        ? await Notification.deleteMany({
             to: loggedInUserId,
             type: validatedNotificationType,
-          },
-          { $set: { status: validatedNotificationStatus } }
-        ).populate({
-          path: notificationProperties.FROM,
-          select: Object.values(publicProfilePropertiesForNotification),
-        })
-      : await Notification.updateMany(
-          { to: loggedInUserId },
-          { $set: { status: validatedNotificationStatus } }
-        );
+          })
+        : await Notification.deleteMany({ to: loggedInUserId });
 
     if (!notification || (!notification?.id && !notification?.acknowledged)) {
       throw new NotificationError(

@@ -524,6 +524,7 @@ export const notificationTypes = {
 export const notificationStatusProperties = {
   READ: "read",
   UNREAD: "unread",
+  DELETE: "delete",
 };
 
 export const notificationTitles = {
