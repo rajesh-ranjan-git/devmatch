@@ -6,6 +6,7 @@ import {
   INPUT_TYPES,
   NAVBAR_MENU_ITEMS,
   NOTIFICATION_TYPES,
+  PROFILE_UPDATE_FORM_FIELDS,
   SOCIAL_MEDIA,
   STORAGE,
   THEMES,
@@ -106,6 +107,20 @@ export type AuthFormFieldInputItemsType = Partial<
 
 export type AuthFormFieldButtonItemsType = Partial<
   Record<AuthFormFieldTypes, AuthFormFieldButtonType>
+>;
+
+export type ProfileFormFieldTypes = keyof typeof PROFILE_UPDATE_FORM_FIELDS;
+
+export type ProfileFormFieldInputType = {
+  name: ProfileFormFieldTypes;
+  type: keyof typeof INPUT_TYPES;
+  label?: string;
+  placeholder: string;
+  icon: ReactNode;
+};
+
+export type ProfileFormFieldInputItemsType = Partial<
+  Record<ProfileFormFieldTypes, ProfileFormFieldInputType>
 >;
 
 export type StaticImageType = Record<

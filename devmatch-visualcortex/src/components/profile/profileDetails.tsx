@@ -121,7 +121,7 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
         open={updateProfileDetailsContext.isOpen}
         onClose={updateProfileDetailsContext.close}
       >
-        <ProfileDetailsUpdateContext user={selectedUserProperties} />
+        <ProfileDetailsUpdateContext user={user} />
       </ContextMenu>
     </div>
   );

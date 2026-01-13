@@ -98,6 +98,34 @@ export const AUTH_FORM_FIELDS = {
   deleteAccount: "deleteAccount",
 } as const;
 
+export const PROFILE_UPDATE_FORM_FIELDS = {
+  email: "email",
+  userName: "userName",
+  firstName: "firstName",
+  middleName: "middleName",
+  lastName: "lastName",
+  nickName: "nickName",
+  age: "age",
+  phone: "phone",
+  gender: "gender",
+  bio: "bio",
+  maritalStatus: "maritalStatus",
+  jobProfile: "jobProfile",
+  experience: "experience",
+  facebook: "facebook",
+  instagram: "instagram",
+  twitter: "twitter",
+  github: "github",
+  linkedin: "linkedin",
+  youtube: "youtube",
+  website: "website",
+  company: "company",
+  organization: "organization",
+  skills: "skills",
+  interests: "interests",
+  address: "address",
+} as const;
+
 export const SOCIAL_MEDIA = {
   facebook: "facebook",
   instagram: "instagram",
@@ -112,6 +140,7 @@ export const INPUT_TYPES = {
   text: "text",
   email: "text",
   password: "password",
+  number: "text",
   submit: "submit",
   radio: "radio",
   checkbox: "checkbox",
