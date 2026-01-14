@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { LuBell } from "react-icons/lu";
-import { FaChevronDown } from "react-icons/fa6";
+import { FaBell, FaChevronDown } from "react-icons/fa6";
 import { ACCOUNT_OPTIONS_DROPDOWN_ITEMS } from "@/config/constants";
 import {
   accountOptionsDropdownItems,
@@ -33,6 +33,12 @@ const NavbarRight = () => {
 
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
   const setLoggedInUser = useDevMatchAppStore((state) => state.setLoggedInUser);
+  const connectionNotifications = useDevMatchAppStore(
+    (state) => state.connectionNotifications
+  );
+  const chatNotifications = useDevMatchAppStore(
+    (state) => state.chatNotifications
+  );
 
   const loggedInUserFullName = getFullName(loggedInUser);
 
@@ -105,7 +111,14 @@ const NavbarRight = () => {
 
           <NavbarButton
             popoverTarget="notifications-dropdown"
-            icon={<LuBell />}
+            icon={
+              connectionNotifications?.length > 0 ||
+              chatNotifications?.length > 0 ? (
+                <FaBell />
+              ) : (
+                <LuBell />
+              )
+            }
           />
           <Dropdown id="notifications-dropdown">
             <Notifications />

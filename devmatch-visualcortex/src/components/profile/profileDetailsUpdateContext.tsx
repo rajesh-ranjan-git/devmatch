@@ -3,10 +3,9 @@ import { profileDetailsFormFieldInputItems } from "@/config/config";
 import { ProfileComponentProps } from "@/types/propTypes";
 import { toSentenceCase, toTitleCase } from "@/lib/utils/utils";
 import Input from "@/components/ui/inputs/input";
-import { MdEmail } from "react-icons/md";
 
 const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
-  const renderValue = (key: string, value: string) => {
+  const renderValue = (key: string, value: any) => {
     if (value === null || value === undefined) {
       return null;
     }
@@ -42,7 +41,8 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
             name={value ?? profileDetailsFormFieldInputItems.firstName?.name}
             type={value ?? profileDetailsFormFieldInputItems.firstName?.type}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.firstName?.placeholder
+              toTitleCase(value) ??
+              profileDetailsFormFieldInputItems.firstName?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.firstName?.icon}
           />
@@ -54,7 +54,8 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
             name={value ?? profileDetailsFormFieldInputItems.middleName?.name}
             type={value ?? profileDetailsFormFieldInputItems.middleName?.type}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.middleName?.placeholder
+              toTitleCase(value) ??
+              profileDetailsFormFieldInputItems.middleName?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.middleName?.icon}
           />
@@ -66,7 +67,8 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
             name={value ?? profileDetailsFormFieldInputItems.lastName?.name}
             type={value ?? profileDetailsFormFieldInputItems.lastName?.type}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.lastName?.placeholder
+              toTitleCase(value) ??
+              profileDetailsFormFieldInputItems.lastName?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.lastName?.icon}
           />
@@ -78,7 +80,8 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
             name={value ?? profileDetailsFormFieldInputItems.nickName?.name}
             type={value ?? profileDetailsFormFieldInputItems.nickName?.type}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.nickName?.placeholder
+              toTitleCase(value) ??
+              profileDetailsFormFieldInputItems.nickName?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.nickName?.icon}
           />
@@ -114,7 +117,8 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
             name={value ?? profileDetailsFormFieldInputItems.gender?.name}
             type={value ?? profileDetailsFormFieldInputItems.gender?.type}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.gender?.placeholder
+              toTitleCase(value) ??
+              profileDetailsFormFieldInputItems.gender?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.gender?.icon}
           />
@@ -126,7 +130,8 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
             name={value ?? profileDetailsFormFieldInputItems.bio?.name}
             type={value ?? profileDetailsFormFieldInputItems.bio?.type}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.bio?.placeholder
+              toSentenceCase(value) ??
+              profileDetailsFormFieldInputItems.bio?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.bio?.icon}
           />
@@ -142,7 +147,7 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
               value ?? profileDetailsFormFieldInputItems.maritalStatus?.type
             }
             placeholder={
-              value ??
+              toTitleCase(value) ??
               profileDetailsFormFieldInputItems.maritalStatus?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.maritalStatus?.icon}
@@ -155,7 +160,8 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
             name={value ?? profileDetailsFormFieldInputItems.jobProfile?.name}
             type={value ?? profileDetailsFormFieldInputItems.jobProfile?.type}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.jobProfile?.placeholder
+              toTitleCase(value) ??
+              profileDetailsFormFieldInputItems.jobProfile?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.jobProfile?.icon}
           />
@@ -263,7 +269,8 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
             name={value ?? profileDetailsFormFieldInputItems.company?.name}
             type={value ?? profileDetailsFormFieldInputItems.company?.type}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.company?.placeholder
+              toTitleCase(value) ??
+              profileDetailsFormFieldInputItems.company?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.company?.icon}
           />
@@ -275,7 +282,7 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
             name={value ?? profileDetailsFormFieldInputItems.organization?.name}
             type={value ?? profileDetailsFormFieldInputItems.organization?.type}
             placeholder={
-              value ??
+              toTitleCase(value) ??
               profileDetailsFormFieldInputItems.organization?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.organization?.icon}
@@ -288,7 +295,8 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
             name={value ?? profileDetailsFormFieldInputItems.skills?.name}
             type={value ?? profileDetailsFormFieldInputItems.skills?.type}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.skills?.placeholder
+              toTitleCase(value.join(", ")) ??
+              profileDetailsFormFieldInputItems.skills?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.skills?.icon}
           />
@@ -300,7 +308,8 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
             name={value ?? profileDetailsFormFieldInputItems.interests?.name}
             type={value ?? profileDetailsFormFieldInputItems.interests?.type}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.interests?.placeholder
+              toTitleCase(value.join(", ")) ??
+              profileDetailsFormFieldInputItems.interests?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.interests?.icon}
           />
@@ -312,7 +321,8 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
             name={value ?? profileDetailsFormFieldInputItems.address?.name}
             type={value ?? profileDetailsFormFieldInputItems.address?.type}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.address?.placeholder
+              toTitleCase(Object.values(value).join(", ")) ??
+              profileDetailsFormFieldInputItems.address?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.address?.icon}
           />

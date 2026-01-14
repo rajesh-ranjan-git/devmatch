@@ -141,7 +141,9 @@ const Connections = ({ type, icon }: ConnectionProps) => {
         open={connectionsSheet.isOpen}
         onClose={() => connectionsSheet.close()}
       >
-        <h1 className="p-1">{toTitleCase(type ?? "")}</h1>
+        <h1 className="flex items-center gap-2 p-1">
+          {icon} {toTitleCase(type ?? "")}
+        </h1>
 
         <div className="h-[92%]">
           <div className="flex flex-col gap-2 [&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 h-full overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">

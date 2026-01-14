@@ -1,15 +1,11 @@
 import { Alkatra, Arima, Inter, Tourney } from "next/font/google";
+import { TbPasswordUser, TbWorld } from "react-icons/tb";
 import {
-  LuHandshake,
-  LuLogIn,
-  LuLogOut,
-  LuUser,
-  LuUserMinus,
-  LuUserPen,
-  LuUserPlus,
-} from "react-icons/lu";
-import { TbLockPassword, TbPasswordUser, TbWorld } from "react-icons/tb";
-import {
+  FaUser,
+  FaHandshake,
+  FaUserMinus,
+  FaUserPen,
+  FaUserPlus,
   FaFacebookF,
   FaInstagram,
   FaXTwitter,
@@ -17,6 +13,9 @@ import {
   FaLinkedin,
   FaYoutube,
   FaUpload,
+  FaRing,
+  FaFacebook,
+  FaTwitter,
 } from "react-icons/fa6";
 import { BsCamera } from "react-icons/bs";
 import {
@@ -37,7 +36,24 @@ import {
 } from "@/types/types";
 import { getUrlString, toTitleCase } from "@/lib/utils/utils";
 import { authRoutes } from "@/lib/routes/routes";
-import { MdPassword } from "react-icons/md";
+import {
+  MdBadge,
+  MdBusiness,
+  MdEmail,
+  MdFavorite,
+  MdInfo,
+  MdLocationOn,
+  MdPassword,
+  MdPerson,
+  MdPhone,
+  MdPsychology,
+  MdPublic,
+  MdWc,
+  MdWork,
+} from "react-icons/md";
+import { IoLogIn, IoLogOut } from "react-icons/io5";
+import { RiUserSmileFill } from "react-icons/ri";
+import { FaBirthdayCake } from "react-icons/fa";
 
 export const alkatra = Alkatra({
   variable: "--font-alkatra",
@@ -58,11 +74,11 @@ export const tourney = Tourney({
 export const navbarMenuItems: NavbarMenuItemType[] = [
   {
     type: "connections",
-    icon: <LuHandshake />,
+    icon: <FaHandshake />,
   },
   {
     type: "requests",
-    icon: <LuUserPlus />,
+    icon: <FaUserPlus />,
   },
 ];
 
@@ -70,12 +86,12 @@ export const accountOptionsDropdownItems: AccountOptionsDropdownItemType[] = [
   {
     type: ACCOUNT_OPTIONS_DROPDOWN_ITEMS.profile,
     url: getUrlString(ACCOUNT_OPTIONS_DROPDOWN_ITEMS.profile),
-    icon: <LuUser />,
+    icon: <FaUser />,
   },
   {
     type: ACCOUNT_OPTIONS_DROPDOWN_ITEMS.logout,
     url: getUrlString(ACCOUNT_OPTIONS_DROPDOWN_ITEMS.logout),
-    icon: <LuLogOut />,
+    icon: <IoLogOut />,
   },
 ];
 
@@ -98,35 +114,35 @@ export const authFormFieldInputItems: AuthFormFieldInputItemsType = {
     type: INPUT_TYPES.text,
     label: toTitleCase(AUTH_FORM_FIELDS.userName),
     placeholder: toTitleCase(AUTH_FORM_FIELDS.userName),
-    icon: <LuUser />,
+    icon: <FaUser />,
   },
   firstName: {
     name: AUTH_FORM_FIELDS.firstName,
     type: INPUT_TYPES.text,
-    label: toTitleCase(AUTH_FORM_FIELDS.firstName),
-    placeholder: toTitleCase(AUTH_FORM_FIELDS.firstName),
-    icon: <LuUser />,
+    label: "First Name",
+    placeholder: "First Name",
+    icon: <FaUser />,
   },
   email: {
     name: AUTH_FORM_FIELDS.email,
     type: INPUT_TYPES.email,
     label: toTitleCase(AUTH_FORM_FIELDS.email),
     placeholder: toTitleCase(AUTH_FORM_FIELDS.email),
-    icon: <LuUser />,
+    icon: <FaUser />,
   },
   password: {
     name: AUTH_FORM_FIELDS.password,
     type: INPUT_TYPES.password,
     label: toTitleCase(AUTH_FORM_FIELDS.password),
     placeholder: toTitleCase(AUTH_FORM_FIELDS.password),
-    icon: <MdPassword />,
+    icon: <TbPasswordUser />,
   },
   confirmPassword: {
     name: AUTH_FORM_FIELDS.confirmPassword,
     type: INPUT_TYPES.password,
-    label: toTitleCase(AUTH_FORM_FIELDS.confirmPassword),
-    placeholder: toTitleCase(AUTH_FORM_FIELDS.confirmPassword),
-    icon: <MdPassword />,
+    label: "Confirm Password",
+    placeholder: "Confirm Password",
+    icon: <TbPasswordUser />,
   },
 };
 
@@ -136,39 +152,39 @@ export const authFormFieldButtonItems: AuthFormFieldButtonItemsType = {
     type: INPUT_TYPES.submit,
     label: toTitleCase(AUTH_FORM_FIELDS.login),
     url: getUrlString(authRoutes.login),
-    icon: <LuLogIn />,
+    icon: <IoLogIn />,
   },
   register: {
     name: AUTH_FORM_FIELDS.register,
     type: INPUT_TYPES.submit,
     label: toTitleCase(AUTH_FORM_FIELDS.register),
     url: getUrlString(authRoutes.register),
-    icon: <LuUserPlus />,
+    icon: <FaUserPlus />,
   },
   forgotPassword: {
     name: AUTH_FORM_FIELDS.forgotPassword,
     type: INPUT_TYPES.submit,
     label: "Forgot Password",
     url: getUrlString(authRoutes.forgotPassword),
-    icon: <MdPassword />,
+    icon: <TbPasswordUser />,
   },
   updateProfile: {
     name: AUTH_FORM_FIELDS.updateProfile,
     label: "Update Profile",
     url: getUrlString(AUTH_FORM_FIELDS.updateProfile),
-    icon: <LuUserPen />,
+    icon: <FaUserPen />,
   },
   updatePassword: {
     name: AUTH_FORM_FIELDS.updateProfile,
     label: "Update Password",
     url: getUrlString(AUTH_FORM_FIELDS.updatePassword),
-    icon: <MdPassword />,
+    icon: <TbPasswordUser />,
   },
   deleteAccount: {
     name: AUTH_FORM_FIELDS.deleteAccount,
     label: "Delete Account",
     url: getUrlString(AUTH_FORM_FIELDS.deleteAccount),
-    icon: <LuUserMinus />,
+    icon: <FaUserMinus />,
   },
 };
 
@@ -179,175 +195,175 @@ export const profileDetailsFormFieldInputItems: ProfileFormFieldInputItemsType =
       type: INPUT_TYPES.email,
       label: "Email",
       placeholder: "Enter your email...",
-      icon: <LuUser />,
+      icon: <MdEmail />,
     },
     userName: {
       name: PROFILE_UPDATE_FORM_FIELDS.userName,
       type: INPUT_TYPES.text,
       label: "User Name",
       placeholder: "Enter your user name...",
-      icon: <LuUser />,
+      icon: <MdPerson />,
     },
     firstName: {
       name: PROFILE_UPDATE_FORM_FIELDS.firstName,
       type: INPUT_TYPES.text,
       label: "First Name",
       placeholder: "Enter your first name...",
-      icon: <LuUser />,
+      icon: <MdBadge />,
     },
     middleName: {
       name: PROFILE_UPDATE_FORM_FIELDS.middleName,
       type: INPUT_TYPES.text,
       label: "Middle Name",
       placeholder: "Enter your middle name...",
-      icon: <LuUser />,
+      icon: <MdBadge />,
     },
     lastName: {
       name: PROFILE_UPDATE_FORM_FIELDS.lastName,
       type: INPUT_TYPES.text,
       label: "Last Name",
       placeholder: "Enter your last name...",
-      icon: <LuUser />,
+      icon: <MdBadge />,
     },
     nickName: {
       name: PROFILE_UPDATE_FORM_FIELDS.nickName,
       type: INPUT_TYPES.text,
       label: "Nick Name",
       placeholder: "Enter your nick name...",
-      icon: <LuUser />,
+      icon: <RiUserSmileFill />,
     },
     age: {
       name: PROFILE_UPDATE_FORM_FIELDS.age,
       type: INPUT_TYPES.number,
       label: "Age",
       placeholder: "Enter your age...",
-      icon: <LuUser />,
+      icon: <FaBirthdayCake />,
     },
     phone: {
       name: PROFILE_UPDATE_FORM_FIELDS.phone,
       type: INPUT_TYPES.number,
       label: "Phone Number",
       placeholder: "Enter your phone number...",
-      icon: <LuUser />,
+      icon: <MdPhone />,
     },
     gender: {
       name: PROFILE_UPDATE_FORM_FIELDS.gender,
       type: INPUT_TYPES.radio,
       label: "Gender",
       placeholder: "Choose your gender...",
-      icon: <LuUser />,
+      icon: <MdWc />,
     },
     bio: {
       name: PROFILE_UPDATE_FORM_FIELDS.bio,
       type: INPUT_TYPES.textarea,
       label: "Bio",
       placeholder: "Enter your bio...",
-      icon: <LuUser />,
+      icon: <MdInfo />,
     },
     maritalStatus: {
       name: PROFILE_UPDATE_FORM_FIELDS.maritalStatus,
       type: INPUT_TYPES.radio,
       label: "Marital Status",
       placeholder: "Choose marital status...",
-      icon: <LuUser />,
+      icon: <FaRing />,
     },
     jobProfile: {
       name: PROFILE_UPDATE_FORM_FIELDS.jobProfile,
       type: INPUT_TYPES.text,
       label: "Job Profile",
       placeholder: "Enter job profile...",
-      icon: <LuUser />,
+      icon: <MdWork />,
     },
     experience: {
       name: PROFILE_UPDATE_FORM_FIELDS.experience,
       type: INPUT_TYPES.text,
       label: "Experience",
       placeholder: "Enter your experience...",
-      icon: <LuUser />,
+      icon: <MdBusiness />,
     },
     facebook: {
       name: PROFILE_UPDATE_FORM_FIELDS.facebook,
       type: INPUT_TYPES.text,
       label: "Facebook",
       placeholder: "Enter your facebook url...",
-      icon: <LuUser />,
+      icon: <FaFacebook />,
     },
     instagram: {
       name: PROFILE_UPDATE_FORM_FIELDS.instagram,
       type: INPUT_TYPES.text,
       label: "Instagram",
       placeholder: "Enter your instagram url...",
-      icon: <LuUser />,
+      icon: <FaInstagram />,
     },
     twitter: {
       name: PROFILE_UPDATE_FORM_FIELDS.twitter,
       type: INPUT_TYPES.text,
       label: "Twitter",
       placeholder: "Enter your twitter url...",
-      icon: <LuUser />,
+      icon: <FaTwitter />,
     },
     github: {
       name: PROFILE_UPDATE_FORM_FIELDS.github,
       type: INPUT_TYPES.text,
       label: "Github",
       placeholder: "Enter your github url...",
-      icon: <LuUser />,
+      icon: <FaGithub />,
     },
     linkedin: {
       name: PROFILE_UPDATE_FORM_FIELDS.linkedin,
       type: INPUT_TYPES.text,
       label: "Linkedin",
       placeholder: "Enter your linkedin url...",
-      icon: <LuUser />,
+      icon: <FaLinkedin />,
     },
     youtube: {
       name: PROFILE_UPDATE_FORM_FIELDS.youtube,
       type: INPUT_TYPES.text,
       label: "Youtube",
       placeholder: "Enter your youtube url...",
-      icon: <LuUser />,
+      icon: <FaYoutube />,
     },
     website: {
       name: PROFILE_UPDATE_FORM_FIELDS.website,
       type: INPUT_TYPES.text,
       label: "Website",
       placeholder: "Enter your website url...",
-      icon: <LuUser />,
+      icon: <MdPublic />,
     },
     company: {
       name: PROFILE_UPDATE_FORM_FIELDS.company,
       type: INPUT_TYPES.text,
       label: "Company",
       placeholder: "Enter your company name...",
-      icon: <LuUser />,
+      icon: <MdBusiness />,
     },
     organization: {
       name: PROFILE_UPDATE_FORM_FIELDS.organization,
       type: INPUT_TYPES.text,
       label: "Organization",
       placeholder: "Enter your organization name...",
-      icon: <LuUser />,
+      icon: <MdBusiness />,
     },
     skills: {
       name: PROFILE_UPDATE_FORM_FIELDS.skills,
       type: INPUT_TYPES.text,
       label: "Skills",
       placeholder: "Enter your skills...",
-      icon: <LuUser />,
+      icon: <MdPsychology />,
     },
     interests: {
       name: PROFILE_UPDATE_FORM_FIELDS.interests,
       type: INPUT_TYPES.text,
       label: "Interests",
       placeholder: "Enter your interests...",
-      icon: <LuUser />,
+      icon: <MdFavorite />,
     },
     address: {
       name: PROFILE_UPDATE_FORM_FIELDS.address,
       type: INPUT_TYPES.text,
       label: "Address",
       placeholder: "Enter your address...",
-      icon: <LuUser />,
+      icon: <MdLocationOn />,
     },
   };
 
