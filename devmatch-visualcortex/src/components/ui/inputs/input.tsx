@@ -1,4 +1,5 @@
 import { InputProps } from "@/types/propTypes";
+import { LuUser } from "react-icons/lu";
 
 const Input = ({
   name,
@@ -6,15 +7,21 @@ const Input = ({
   placeholder,
   defaultValue,
   className,
+  icon,
 }: InputProps) => {
   return (
-    <input
-      name={name}
-      type={type}
-      placeholder={placeholder}
-      defaultValue={defaultValue as string}
-      className={`bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mt-3 px-5 py-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider ${className}`}
-    />
+    <div
+      className={`flex items-center gap-2 bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md pr-4 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full overflow-hidden text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider ${className}`}
+    >
+      <input
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        defaultValue={defaultValue as string}
+        className="px-5 py-2 rounded-l-4xl outline-none w-full"
+      />
+      {icon}
+    </div>
   );
 };
 

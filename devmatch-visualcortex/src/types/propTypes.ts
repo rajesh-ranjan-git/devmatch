@@ -86,6 +86,7 @@ export interface InputProps {
   placeholder: string;
   defaultValue?: string;
   className?: string;
+  icon?: ReactNode;
 }
 
 export interface SocialMediaProps {

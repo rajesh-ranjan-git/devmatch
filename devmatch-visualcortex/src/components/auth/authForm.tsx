@@ -68,7 +68,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
   return (
     <div className="relative flex flex-col justify-center items-center py-8 pr-2 w-full h-full transition-all ease-in-out">
       <div className="px-8 w-full transition-all ease-in-out">
-        <h2 className="before:-bottom-2.5 before:left-0 before:absolute relative mb-2 before:rounded-full w-full before:w-20 before:h-1 overflow-x-visible font-arima font-extrabold text-glass-text-primary before:bg-glass-text-primary text-2xl before:content-[''] tracking-wider">
+        <h2 className="before:-bottom-2.5 before:left-0 before:absolute relative mb-2 before:rounded-full w-full before:w-20 before:h-1 font-arima font-extrabold text-glass-text-primary before:bg-glass-text-primary text-2xl before:content-[''] tracking-wider">
           {type === authRoutes.login
             ? authFormFieldButtonItems?.login?.label
             : type === authRoutes.register
@@ -76,7 +76,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
             : authFormFieldButtonItems?.forgotPassword?.label}
         </h2>
       </div>
-      <div className="[&::-webkit-scrollbar-track]:bg-transparent mt-3 px-8 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 h-full overflow-x-visible overflow-y-scroll [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
+      <div className="[&::-webkit-scrollbar-track]:bg-transparent mt-3 px-8 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 h-full overflow-y-auto [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
         <Form
           className="w-[90%] text-md"
           action={formAction}
@@ -84,7 +84,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
         >
           {type === authRoutes.login ? (
             <>
-              <div className="w-full">
+              <div className="py-2 w-full">
                 <Input
                   name={
                     authFormFieldInputItems?.userName?.name ??
@@ -122,8 +122,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
               </div>
-              <div className="mt-2 ml-5 w-full">OR</div>
-              <div className="-mt-2 w-full">
+              <div className="ml-5 w-full">OR</div>
+              <div className="py-2 w-full">
                 <Input
                   name={
                     authFormFieldInputItems?.email?.name ??
@@ -160,7 +160,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
               </div>
-              <div className="w-full">
+              <div className="py-2 w-full">
                 <Input
                   name={
                     authFormFieldInputItems?.password?.name ??
@@ -201,7 +201,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
             </>
           ) : type === authRoutes?.register ? (
             <>
-              <div className="w-full">
+              <div className="py-2 w-full">
                 <Input
                   name={
                     authFormFieldInputItems?.userName?.name ??
@@ -238,7 +238,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
               </div>
-              <div className="w-full">
+              <div className="py-2 w-full">
                 <Input
                   name={
                     authFormFieldInputItems?.email?.name ??
@@ -275,7 +275,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
               </div>
-              <div className="w-full">
+              <div className="py-2 w-full">
                 <Input
                   name={
                     authFormFieldInputItems?.password?.name ??
@@ -313,7 +313,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
               </div>
-              <div className="w-full">
+              <div className="py-2 w-full">
                 <Input
                   name={
                     authFormFieldInputItems?.confirmPassword?.name ??
@@ -356,7 +356,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
             </>
           ) : (
             <>
-              <div className="w-full">
+              <div className="py-2 w-full">
                 <Input
                   name={
                     authFormFieldInputItems?.email?.name ??
@@ -393,10 +393,10 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
               </div>
-              <div className="mt-3 ml-5 w-full text-sm">
+              <div className="ml-5 w-full text-sm">
                 Enter First Name for security!
               </div>
-              <div className="w-full">
+              <div className="py-2 w-full">
                 <Input
                   name={
                     authFormFieldInputItems?.firstName?.name ??
@@ -434,7 +434,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
               </div>
-              <div className="w-full">
+              <div className="py-2 w-full">
                 <Input
                   name={
                     authFormFieldInputItems?.password?.name ??
@@ -472,7 +472,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   }
                 />
               </div>
-              <div className="w-full">
+              <div className="py-2 w-full">
                 <Input
                   name={
                     authFormFieldInputItems?.confirmPassword?.name ??
