@@ -34,7 +34,7 @@
 - [ ] Report functionality
 - [x] Profile visibility controls
 - [ ] Profile update controls
-- [ ] GitHub/LinkedIn integration
+- [ ] GitHub/Linkedin integration
 - [ ] Admin dashboard for moderation
 
 ### 🤖 Backend (devmatch-brainbox):
