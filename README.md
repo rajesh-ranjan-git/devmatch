@@ -46,7 +46,7 @@
 - [x] Block functionality
 - [ ] Report functionality
 - [x] Profile visibility controls
-- [x] Profile update controls
+- [ ] Profile update controls
 - [ ] Google Authentication integration
 - [ ] In-app messaging between matched users
 - [ ] GitHub/LinkedIn integration
@@ -64,6 +64,7 @@
 - [ ] Unnecessary multiple api calls in explore and connection actions probably because of proxy.
 - [ ] When connection request is already sent, either it should not show that user's card on explore or it should allow to send the interested request again and should not throw error.
 - [ ] Notifications gets removed abruptly, it should have a sliding effect to the left and get removed.
+- [ ] Requests and connections gets removed abruptly, it should have a sliding effect to the left and get removed.
 
 ---
 
