@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toTitleCase } from "@/lib/utils/utils";
 import { RadioProps } from "@/types/propTypes";
 
@@ -6,10 +6,6 @@ const Radio = ({ name, options, value, className, icon }: RadioProps) => {
   if (!options || options?.length <= 0) return null;
 
   const [updatedValue, setUpdatedValue] = useState(value);
-
-  useEffect(() => {
-    console.log("debug from Radio updatedValue : ", updatedValue);
-  }, [updatedValue]);
 
   return (
     <div
