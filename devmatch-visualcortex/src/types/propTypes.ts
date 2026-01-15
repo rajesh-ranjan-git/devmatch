@@ -89,6 +89,14 @@ export interface InputProps {
   icon?: ReactNode;
 }
 
+export interface RadioProps {
+  name: string;
+  options: string[];
+  defaultValue?: string;
+  className?: string;
+  icon?: ReactNode;
+}
+
 export interface SocialMediaProps {
   socialMedia: {
     facebook?: string;

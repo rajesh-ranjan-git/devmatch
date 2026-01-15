@@ -1,8 +1,9 @@
-import { PROFILE_UPDATE_FORM_FIELDS } from "@/config/constants";
+import { GENDER_PROPERTIES, PROFILE_UPDATE_FORM_FIELDS } from "@/config/constants";
 import { profileDetailsFormFieldInputItems } from "@/config/config";
 import { ProfileComponentProps } from "@/types/propTypes";
 import { toSentenceCase, toTitleCase } from "@/lib/utils/utils";
 import Input from "@/components/ui/inputs/input";
+import Radio from "@/components/ui/inputs/radio";
 
 const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
   const renderValue = (key: string, value: any) => {
@@ -113,11 +114,11 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
 
       case PROFILE_UPDATE_FORM_FIELDS.gender:
         return (
-          <Input
+          <Radio
             name={value ?? profileDetailsFormFieldInputItems.gender?.name}
-            type={value ?? profileDetailsFormFieldInputItems.gender?.type}
-            placeholder={
-              toTitleCase(value) ??
+            options={Object.values(GENDER_PROPERTIES)}
+            defaultValue={
+              value ??
               profileDetailsFormFieldInputItems.gender?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.gender?.icon}

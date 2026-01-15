@@ -1,5 +1,4 @@
 import { InputProps } from "@/types/propTypes";
-import { LuUser } from "react-icons/lu";
 
 const Input = ({
   name,

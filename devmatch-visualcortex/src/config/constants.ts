@@ -375,6 +375,12 @@ export const USER_PROPERTIES = {
   updatedAt: "updatedAt",
 } as const;
 
+export const GENDER_PROPERTIES = {
+  male: "male",
+  female: "female",
+  other: "other",
+} as const;
+
 export const ADDRESS_PROPERTIES = {
   street: "Street",
   city: "City",
