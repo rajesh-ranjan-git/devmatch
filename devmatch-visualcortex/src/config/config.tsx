@@ -128,21 +128,21 @@ export const authFormFieldInputItems: AuthFormFieldInputItemsType = {
     type: INPUT_TYPES.email,
     label: toTitleCase(AUTH_FORM_FIELDS.email),
     placeholder: toTitleCase(AUTH_FORM_FIELDS.email),
-    icon: <FaUser />,
+    icon: <MdEmail />,
   },
   password: {
     name: AUTH_FORM_FIELDS.password,
     type: INPUT_TYPES.password,
     label: toTitleCase(AUTH_FORM_FIELDS.password),
     placeholder: toTitleCase(AUTH_FORM_FIELDS.password),
-    icon: <TbPasswordUser />,
+    icon: <MdPassword />,
   },
   confirmPassword: {
     name: AUTH_FORM_FIELDS.confirmPassword,
     type: INPUT_TYPES.password,
     label: "Confirm Password",
     placeholder: "Confirm Password",
-    icon: <TbPasswordUser />,
+    icon: <MdPassword />,
   },
 };
 

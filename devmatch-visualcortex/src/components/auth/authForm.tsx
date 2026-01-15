@@ -104,6 +104,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? (state?.inputs?.userName as string)
                       : "rajesh"
                   }
+                  icon={authFormFieldInputItems.userName?.icon}
                   className={
                     state?.success === false &&
                     state?.errors &&
@@ -143,6 +144,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? (state?.inputs?.email as string)
                       : ""
                   }
+                  icon={authFormFieldInputItems.email?.icon}
                   className={
                     state?.success === false &&
                     state?.errors &&
@@ -181,6 +183,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? (state?.inputs?.password as string)
                       : "Rajesh@2"
                   }
+                  icon={authFormFieldInputItems.password?.icon}
                   className={
                     state?.success === false &&
                     state?.errors &&
@@ -221,6 +224,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? (state?.inputs?.userName as string)
                       : ""
                   }
+                  icon={authFormFieldInputItems.userName?.icon}
                   className={
                     state?.success === false &&
                     state?.errors &&
@@ -258,6 +262,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? (state?.inputs?.email as string)
                       : ""
                   }
+                  icon={authFormFieldInputItems.email?.icon}
                   className={
                     state?.success === false &&
                     state?.errors &&
@@ -289,6 +294,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                     authFormFieldInputItems?.password?.placeholder ??
                     toTitleCase(INPUT_TYPES.password)
                   }
+                  icon={authFormFieldInputItems.password?.icon}
                   defaultValue={
                     state?.success === false &&
                     state?.inputs &&
@@ -334,6 +340,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? (state?.inputs?.confirmPassword as string)
                       : ""
                   }
+                  icon={authFormFieldInputItems.confirmPassword?.icon}
                   className={
                     state?.success === false &&
                     state?.errors &&
@@ -376,6 +383,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? (state?.inputs?.email as string)
                       : ""
                   }
+                  icon={authFormFieldInputItems.email?.icon}
                   className={
                     state?.success === false &&
                     state?.errors &&
@@ -424,6 +432,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? "shadow-red-400"
                       : ""
                   }
+                  icon={authFormFieldInputItems.firstName?.icon}
                 />
 
                 <FormErrorMessage
@@ -455,6 +464,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? (state?.inputs?.password as string)
                       : ""
                   }
+                  icon={authFormFieldInputItems.password?.icon}
                   className={
                     state?.success === false &&
                     state?.errors &&
@@ -493,6 +503,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? (state?.inputs?.confirmPassword as string)
                       : ""
                   }
+                  icon={authFormFieldInputItems.password?.icon}
                   className={
                     state?.success === false &&
                     state?.errors &&
