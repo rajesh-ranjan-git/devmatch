@@ -1,4 +1,7 @@
-import { GENDER_PROPERTIES, PROFILE_UPDATE_FORM_FIELDS } from "@/config/constants";
+import {
+  GENDER_PROPERTIES,
+  PROFILE_UPDATE_FORM_FIELDS,
+} from "@/config/constants";
 import { profileDetailsFormFieldInputItems } from "@/config/config";
 import { ProfileComponentProps } from "@/types/propTypes";
 import { toSentenceCase, toTitleCase } from "@/lib/utils/utils";
@@ -117,9 +120,8 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
           <Radio
             name={value ?? profileDetailsFormFieldInputItems.gender?.name}
             options={Object.values(GENDER_PROPERTIES)}
-            defaultValue={
-              value ??
-              profileDetailsFormFieldInputItems.gender?.placeholder
+            value={
+              value ?? profileDetailsFormFieldInputItems.gender?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.gender?.icon}
           />

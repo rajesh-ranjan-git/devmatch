@@ -1,18 +1,19 @@
+import { useEffect, useState } from "react";
 import { toTitleCase } from "@/lib/utils/utils";
 import { RadioProps } from "@/types/propTypes";
 
-const Radio = ({
-  name,
-  options,
-  defaultValue,
-  className,
-  icon,
-}: RadioProps) => {
-  if (options?.length <= 0) return null;
+const Radio = ({ name, options, value, className, icon }: RadioProps) => {
+  if (!options || options?.length <= 0) return null;
+
+  const [updatedValue, setUpdatedValue] = useState(value);
+
+  useEffect(() => {
+    console.log("debug from Radio updatedValue : ", updatedValue);
+  }, [updatedValue]);
 
   return (
     <div
-      className={`flex items-center justify-between px-4 py-2 w-full overflow-hidden text-glass-text-primary text-md tracking-wider  ${className}`}
+      className={`flex justify-between items-center px-4 py-2 w-full overflow-hidden text-glass-text-primary text-md tracking-wider  ${className}`}
     >
       <div className="flex items-center gap-8">
         {options?.map((option, idx) => (
@@ -21,11 +22,12 @@ const Radio = ({
               name={name}
               id={option}
               type="radio"
-              checked={defaultValue === option}
-              value={option}
+              checked={updatedValue === option}
+              value={updatedValue}
+              onChange={() => setUpdatedValue(option)}
               className="px-5 py-2 rounded-l-4xl outline-none w-full"
             />
-            <label for={option}>{toTitleCase(option)}</label>
+            <label htmlFor={option}>{toTitleCase(option)}</label>
           </div>
         ))}
       </div>
