@@ -6,6 +6,7 @@ import {
 import { ProfileComponentProps } from "@/types/propTypes";
 import Input from "@/components/ui/inputs/input";
 import Radio from "@/components/ui/inputs/radio";
+import Chips from "@/components/ui/chips/chips";
 
 const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
   const renderValue = (key: string, value: any) => {
@@ -257,30 +258,10 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
         );
 
       case allowedUpdateProfileProperties.skills:
-        return (
-          <Input
-            name={value ?? profileDetailsFormFieldInputItems.skills?.name}
-            type={value ?? profileDetailsFormFieldInputItems.skills?.type}
-            placeholder={
-              value.join(", ") ??
-              profileDetailsFormFieldInputItems.skills?.placeholder
-            }
-            icon={profileDetailsFormFieldInputItems.skills?.icon}
-          />
-        );
+        return <Chips values={value} />;
 
       case allowedUpdateProfileProperties.interests:
-        return (
-          <Input
-            name={value ?? profileDetailsFormFieldInputItems.interests?.name}
-            type={value ?? profileDetailsFormFieldInputItems.interests?.type}
-            placeholder={
-              value.join(", ") ??
-              profileDetailsFormFieldInputItems.interests?.placeholder
-            }
-            icon={profileDetailsFormFieldInputItems.interests?.icon}
-          />
-        );
+        return <Chips values={value} />;
 
       case allowedUpdateProfileProperties.address:
         return (

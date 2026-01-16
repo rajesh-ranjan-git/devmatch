@@ -26,7 +26,7 @@ const Radio = ({ name, options, value, className, icon }: RadioProps) => {
             >
               <input
                 name={name}
-                id={option}
+                id={safeId}
                 type="radio"
                 checked={isActive}
                 value={updatedValue}

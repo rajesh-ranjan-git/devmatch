@@ -97,6 +97,12 @@ export interface RadioProps {
   icon?: ReactNode;
 }
 
+export interface ChipsProps {
+  values?: string[];
+  className?: string;
+  icon?: ReactNode;
+}
+
 export interface SocialMediaProps {
   socialMedia: {
     facebook?: string;
