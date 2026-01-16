@@ -1,33 +1,16 @@
+import { GENDER_PROPERTIES } from "@/config/constants";
 import {
-  GENDER_PROPERTIES,
-  PROFILE_UPDATE_FORM_FIELDS,
-} from "@/config/constants";
-import { profileDetailsFormFieldInputItems } from "@/config/config";
+  allowedUpdateProfileProperties,
+  profileDetailsFormFieldInputItems,
+} from "@/config/config";
 import { ProfileComponentProps } from "@/types/propTypes";
-import { toSentenceCase, toTitleCase } from "@/lib/utils/utils";
 import Input from "@/components/ui/inputs/input";
 import Radio from "@/components/ui/inputs/radio";
 
 const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
   const renderValue = (key: string, value: any) => {
-    if (value === null || value === undefined) {
-      return null;
-    }
-
     switch (key) {
-      case PROFILE_UPDATE_FORM_FIELDS.email:
-        return (
-          <Input
-            name={value ?? profileDetailsFormFieldInputItems.email?.name}
-            type={value ?? profileDetailsFormFieldInputItems.email?.type}
-            placeholder={
-              value ?? profileDetailsFormFieldInputItems.email?.placeholder
-            }
-            icon={profileDetailsFormFieldInputItems.email?.icon}
-          />
-        );
-
-      case PROFILE_UPDATE_FORM_FIELDS.userName:
+      case allowedUpdateProfileProperties.userName:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.userName?.name}
@@ -39,59 +22,55 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.firstName:
+      case allowedUpdateProfileProperties.firstName:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.firstName?.name}
             type={value ?? profileDetailsFormFieldInputItems.firstName?.type}
             placeholder={
-              toTitleCase(value) ??
-              profileDetailsFormFieldInputItems.firstName?.placeholder
+              value ?? profileDetailsFormFieldInputItems.firstName?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.firstName?.icon}
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.middleName:
+      case allowedUpdateProfileProperties.middleName:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.middleName?.name}
             type={value ?? profileDetailsFormFieldInputItems.middleName?.type}
             placeholder={
-              toTitleCase(value) ??
-              profileDetailsFormFieldInputItems.middleName?.placeholder
+              value ?? profileDetailsFormFieldInputItems.middleName?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.middleName?.icon}
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.lastName:
+      case allowedUpdateProfileProperties.lastName:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.lastName?.name}
             type={value ?? profileDetailsFormFieldInputItems.lastName?.type}
             placeholder={
-              toTitleCase(value) ??
-              profileDetailsFormFieldInputItems.lastName?.placeholder
+              value ?? profileDetailsFormFieldInputItems.lastName?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.lastName?.icon}
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.nickName:
+      case allowedUpdateProfileProperties.nickName:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.nickName?.name}
             type={value ?? profileDetailsFormFieldInputItems.nickName?.type}
             placeholder={
-              toTitleCase(value) ??
-              profileDetailsFormFieldInputItems.nickName?.placeholder
+              value ?? profileDetailsFormFieldInputItems.nickName?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.nickName?.icon}
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.age:
+      case allowedUpdateProfileProperties.age:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.age?.name}
@@ -103,7 +82,7 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.phone:
+      case allowedUpdateProfileProperties.phone:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.phone?.name}
@@ -115,7 +94,7 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.gender:
+      case allowedUpdateProfileProperties.gender:
         return (
           <Radio
             name={value ?? profileDetailsFormFieldInputItems.gender?.name}
@@ -127,20 +106,19 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.bio:
+      case allowedUpdateProfileProperties.bio:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.bio?.name}
             type={value ?? profileDetailsFormFieldInputItems.bio?.type}
             placeholder={
-              toSentenceCase(value) ??
-              profileDetailsFormFieldInputItems.bio?.placeholder
+              value ?? profileDetailsFormFieldInputItems.bio?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.bio?.icon}
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.maritalStatus:
+      case allowedUpdateProfileProperties.maritalStatus:
         return (
           <Input
             name={
@@ -150,27 +128,26 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
               value ?? profileDetailsFormFieldInputItems.maritalStatus?.type
             }
             placeholder={
-              toTitleCase(value) ??
+              value ??
               profileDetailsFormFieldInputItems.maritalStatus?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.maritalStatus?.icon}
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.jobProfile:
+      case allowedUpdateProfileProperties.jobProfile:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.jobProfile?.name}
             type={value ?? profileDetailsFormFieldInputItems.jobProfile?.type}
             placeholder={
-              toTitleCase(value) ??
-              profileDetailsFormFieldInputItems.jobProfile?.placeholder
+              value ?? profileDetailsFormFieldInputItems.jobProfile?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.jobProfile?.icon}
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.experience:
+      case allowedUpdateProfileProperties.experience:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.experience?.name}
@@ -182,7 +159,7 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.facebook:
+      case allowedUpdateProfileProperties.facebook:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.facebook?.name}
@@ -194,7 +171,7 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.instagram:
+      case allowedUpdateProfileProperties.instagram:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.instagram?.name}
@@ -206,7 +183,7 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.twitter:
+      case allowedUpdateProfileProperties.twitter:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.twitter?.name}
@@ -218,7 +195,7 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.github:
+      case allowedUpdateProfileProperties.github:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.github?.name}
@@ -230,7 +207,7 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.linkedin:
+      case allowedUpdateProfileProperties.linkedin:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.linkedin?.name}
@@ -242,7 +219,7 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.youtube:
+      case allowedUpdateProfileProperties.youtube:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.youtube?.name}
@@ -254,7 +231,7 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.website:
+      case allowedUpdateProfileProperties.website:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.website?.name}
@@ -266,65 +243,64 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.company:
+      case allowedUpdateProfileProperties.company:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.company?.name}
             type={value ?? profileDetailsFormFieldInputItems.company?.type}
             placeholder={
-              toTitleCase(value) ??
-              profileDetailsFormFieldInputItems.company?.placeholder
+              value ?? profileDetailsFormFieldInputItems.company?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.company?.icon}
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.organization:
+      case allowedUpdateProfileProperties.organization:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.organization?.name}
             type={value ?? profileDetailsFormFieldInputItems.organization?.type}
             placeholder={
-              toTitleCase(value) ??
+              value ??
               profileDetailsFormFieldInputItems.organization?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.organization?.icon}
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.skills:
+      case allowedUpdateProfileProperties.skills:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.skills?.name}
             type={value ?? profileDetailsFormFieldInputItems.skills?.type}
             placeholder={
-              toTitleCase(value.join(", ")) ??
+              value.join(", ") ??
               profileDetailsFormFieldInputItems.skills?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.skills?.icon}
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.interests:
+      case allowedUpdateProfileProperties.interests:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.interests?.name}
             type={value ?? profileDetailsFormFieldInputItems.interests?.type}
             placeholder={
-              toTitleCase(value.join(", ")) ??
+              value.join(", ") ??
               profileDetailsFormFieldInputItems.interests?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.interests?.icon}
           />
         );
 
-      case PROFILE_UPDATE_FORM_FIELDS.address:
+      case allowedUpdateProfileProperties.address:
         return (
           <Input
             name={value ?? profileDetailsFormFieldInputItems.address?.name}
             type={value ?? profileDetailsFormFieldInputItems.address?.type}
             placeholder={
-              toTitleCase(Object.values(value).join(", ")) ??
+              Object.values(value).join(", ") ??
               profileDetailsFormFieldInputItems.address?.placeholder
             }
             icon={profileDetailsFormFieldInputItems.address?.icon}
@@ -339,11 +315,8 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
       <div className="[&::-webkit-scrollbar-thumb]:hover:bg-glass-surface-lighter [&::-webkit-scrollbar-track]:bg-transparent p-2 pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 max-h-96 overflow-y-auto [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary transition-all ease-in-out">
         <table className="w-full text-glass-text-primary table-fixed">
           <tbody>
-            {Object.values(PROFILE_UPDATE_FORM_FIELDS).map((key, idx) => {
+            {Object.values(allowedUpdateProfileProperties).map((key, idx) => {
               const value = user?.[key as keyof typeof user];
-
-              if (!value || (Array.isArray(value) && value?.length < 1))
-                return null;
 
               return (
                 <tr key={idx} className="w-full table-fixed">

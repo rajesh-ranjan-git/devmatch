@@ -8,6 +8,9 @@ const Input = ({
   className,
   icon,
 }: InputProps) => {
+  console.log("debug placeholder : ", placeholder);
+  console.log("debug defaultValue : ", defaultValue);
+
   return (
     <div
       className={`flex items-center gap-2 bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md pr-4 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full overflow-hidden text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider ${className}`}

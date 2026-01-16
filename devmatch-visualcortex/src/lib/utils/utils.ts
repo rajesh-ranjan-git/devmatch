@@ -3,6 +3,36 @@ import { UserType } from "@/types/types";
 export const getRandomItem = <T>(arr: T[]): T =>
   arr[Math.floor(Math.random() * arr.length)];
 
+export const isPlainObject = (
+  data: unknown
+): data is Record<string, unknown> => {
+  return typeof data === "object" && data !== null && !Array.isArray(data);
+};
+
+export const omitObjectProperties = <
+  T extends Record<string, any>,
+  K extends readonly (keyof T)[]
+>(
+  obj: T,
+  keysToOmit: K
+): Omit<T, K[number]> => {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([key]) => !keysToOmit.includes(key as keyof T))
+  ) as Omit<T, K[number]>;
+};
+
+export const selectObjectProperties = <
+  T extends Record<string, any>,
+  K extends readonly (keyof T)[]
+>(
+  obj: T,
+  keysToSelect: K
+): Pick<T, K[number]> => {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([key]) => keysToSelect.includes(key as keyof T))
+  ) as Pick<T, K[number]>;
+};
+
 export const toSentenceCase = (text?: string) => {
   if (!text) {
     return "";

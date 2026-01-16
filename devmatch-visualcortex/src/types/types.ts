@@ -6,10 +6,10 @@ import {
   INPUT_TYPES,
   NAVBAR_MENU_ITEMS,
   NOTIFICATION_TYPES,
-  PROFILE_UPDATE_FORM_FIELDS,
   SOCIAL_MEDIA,
   STORAGE,
   THEMES,
+  USER_PROPERTIES,
 } from "@/config/constants";
 
 export type ThemeTypes = keyof typeof THEMES;
@@ -109,7 +109,7 @@ export type AuthFormFieldButtonItemsType = Partial<
   Record<AuthFormFieldTypes, AuthFormFieldButtonType>
 >;
 
-export type ProfileFormFieldTypes = keyof typeof PROFILE_UPDATE_FORM_FIELDS;
+export type ProfileFormFieldTypes = keyof typeof USER_PROPERTIES;
 
 export type ProfileFormFieldInputType = {
   name: ProfileFormFieldTypes;
