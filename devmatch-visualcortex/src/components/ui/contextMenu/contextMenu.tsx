@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ContextMenuProps } from "@/types/propTypes";
-import { IoClose } from "react-icons/io5";
+import { ImCross } from "react-icons/im";
 
 const ContextMenu = ({
   open,
@@ -31,7 +31,7 @@ const ContextMenu = ({
         className="top-1 right-1 absolute p-0.5 border border-glass-border-subtle hover:border-glass-border-bright rounded-md text-sm cursor-pointer"
         onClick={onClose}
       >
-        <IoClose />
+        <ImCross size={10} />
       </button>
       {children || "Context Menu"}
     </div>

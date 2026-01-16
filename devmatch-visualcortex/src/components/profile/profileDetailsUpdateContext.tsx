@@ -258,10 +258,20 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
         );
 
       case allowedUpdateProfileProperties.skills:
-        return <Chips values={value} />;
+        return (
+          <Chips
+            values={value}
+            icon={profileDetailsFormFieldInputItems.skills?.icon}
+          />
+        );
 
       case allowedUpdateProfileProperties.interests:
-        return <Chips values={value} />;
+        return (
+          <Chips
+            values={value}
+            icon={profileDetailsFormFieldInputItems.interests?.icon}
+          />
+        );
 
       case allowedUpdateProfileProperties.address:
         return (
@@ -289,7 +299,9 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
 
               return (
                 <tr key={idx} className="w-full table-fixed">
-                  <td className="py-2 w-1/4 h-full font-semibold text-glass-text-primary text-ld text-left">
+                  <td
+                    className={`py-2 w-1/4 h-full font-semibold text-glass-text-primary text-ld text-left ${Array.isArray(value) ? "align-top py-4" : ""}`}
+                  >
                     {profileDetailsFormFieldInputItems[key]?.label}
                   </td>
                   <td className="py-2 w-3/4 font-normal text-glass-text-secondary text-sm align-top">

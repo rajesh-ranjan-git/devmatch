@@ -55,9 +55,11 @@ const Radio = ({ name, options, value, className, icon }: RadioProps) => {
           );
         })}
       </div>
-      <span className="bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mr-2 p-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-full outline-none min-w-fit overflow-hidden text-glass-text-primary">
-        {icon}
-      </span>
+      {icon && (
+        <span className="bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mr-2 p-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-full outline-none min-w-fit overflow-hidden text-glass-text-primary">
+          {icon}
+        </span>
+      )}
     </div>
   );
 };

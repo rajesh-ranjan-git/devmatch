@@ -36,6 +36,7 @@ export type ContextMenuTypes =
   | "updateCoverPhotoContext"
   | "updateProfilePhotoContext"
   | "updateProfileDetailsContext"
+  | "addButtonContext"
   | null;
 
 export type SheetTypes = "requests" | "connections" | null;

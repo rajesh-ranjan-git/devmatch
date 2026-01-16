@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { IoClose } from "react-icons/io5";
+import { ImCross } from "react-icons/im";
 import { staticImages } from "@/config/config";
 import { NotificationsItemProps } from "@/types/propTypes";
 import { getFullName, toTitleCase } from "@/lib/utils/utils";
@@ -56,7 +56,7 @@ const NotificationsItem = ({
           });
         }}
       >
-        <IoClose />
+        <ImCross size={10} />
       </button>
     </div>
   );

@@ -11,7 +11,7 @@ import { motion } from "motion/react";
 import { FiCheckCircle, FiAlertCircle } from "react-icons/fi";
 import { TbAlertTriangle } from "react-icons/tb";
 import { FaInfoCircle } from "react-icons/fa";
-import { IoClose } from "react-icons/io5";
+import { ImCross } from "react-icons/im";
 
 export const TOAST_VARIANTS = {
   success: "success",
@@ -230,7 +230,7 @@ const ToastItem: React.FC<{
           }}
           className={`${config.text} opacity-70 border border-glass-border-subtle hover:border-glass-border-bright hover:opacity-100 transition-opacity shrink-0`}
         >
-          <IoClose size={18} />
+          <ImCross size={18} />
         </button>
       </div>
 
@@ -273,7 +273,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [position, setPosition] = useState<ToastPosition>(
-    TOAST_POSITIONS.bottomRight
+    TOAST_POSITIONS.bottomRight,
   );
 
   const showToast = useCallback((config: ToastConfig) => {

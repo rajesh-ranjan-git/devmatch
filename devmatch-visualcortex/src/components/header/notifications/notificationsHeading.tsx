@@ -1,4 +1,4 @@
-import { IoClose } from "react-icons/io5";
+import { ImCross } from "react-icons/im";
 import { toTitleCase } from "@/lib/utils/utils";
 import { NotificationsHeadingProps } from "@/types/propTypes";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
@@ -15,7 +15,7 @@ const NotificationsHeading = ({
           className="top-[25%] right-2 absolute p-0.5 border border-glass-border-subtle hover:border-glass-border-bright rounded-md text-sm cursor-pointer"
           onClick={() => notificationAction({ type })}
         >
-          <IoClose />
+          <ImCross size={10} />
         </button>
       </div>
       <HorizontalSeparator />

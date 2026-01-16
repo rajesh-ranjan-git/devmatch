@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { IoClose } from "react-icons/io5";
+import { ImCross } from "react-icons/im";
 import { SheetProps } from "@/types/propTypes";
 
 const Sheet = ({ open, onClose, children }: SheetProps) => {
@@ -34,7 +34,7 @@ const Sheet = ({ open, onClose, children }: SheetProps) => {
           className="top-2 right-2 absolute p-0.5 border border-glass-border-subtle hover:border-glass-border-bright rounded-md text-sm cursor-pointer"
           onClick={onClose}
         >
-          <IoClose />
+          <ImCross size={10} />
         </div>
         {children || "Sheet"}
       </div>
