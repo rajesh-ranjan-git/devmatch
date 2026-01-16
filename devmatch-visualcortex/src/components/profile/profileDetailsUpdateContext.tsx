@@ -10,18 +10,6 @@ import Radio from "@/components/ui/inputs/radio";
 const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
   const renderValue = (key: string, value: any) => {
     switch (key) {
-      case allowedUpdateProfileProperties.userName:
-        return (
-          <Input
-            name={value ?? profileDetailsFormFieldInputItems.userName?.name}
-            type={value ?? profileDetailsFormFieldInputItems.userName?.type}
-            placeholder={
-              value ?? profileDetailsFormFieldInputItems.userName?.placeholder
-            }
-            icon={profileDetailsFormFieldInputItems.userName?.icon}
-          />
-        );
-
       case allowedUpdateProfileProperties.firstName:
         return (
           <Input

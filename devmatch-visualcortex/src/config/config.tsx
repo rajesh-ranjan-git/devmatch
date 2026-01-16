@@ -197,6 +197,7 @@ export const allowedUpdateProfileProperties = omitObjectProperties(
   [
     USER_PROPERTIES.id,
     USER_PROPERTIES.email,
+    USER_PROPERTIES.userName,
     USER_PROPERTIES.password,
     USER_PROPERTIES.previousPassword,
     USER_PROPERTIES.passwordLastUpdated,
