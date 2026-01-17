@@ -14,7 +14,7 @@ const Logo = () => {
           alt={staticImages.navLogo.alt}
           width={200}
           height={200}
-          className="shadow-glass-shadow-heavy shadow-lg rounded-full"
+          className="shadow-glass-shadow-heavy shadow-md rounded-full"
         />
       </div>
       <span className="font-tourney text-glass-text-primary tracking-wider">
