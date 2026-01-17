@@ -98,6 +98,8 @@ export interface RadioProps {
 }
 
 export interface ChipsProps {
+  name: string;
+  type: string;
   values?: string[];
   className?: string;
   icon?: ReactNode;
@@ -162,7 +164,7 @@ export interface SingleUserCardProps {
   onRemove: (
     userId: string,
     status: string,
-    type?: "right" | "left" | null
+    type?: "right" | "left" | null,
   ) => void;
 }
 

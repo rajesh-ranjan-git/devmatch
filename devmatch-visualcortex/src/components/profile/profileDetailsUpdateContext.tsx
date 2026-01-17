@@ -262,6 +262,8 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
       case allowedUpdateProfileProperties.skills:
         return (
           <Chips
+            name={value ?? profileDetailsFormFieldInputItems.skills?.name}
+            type={value ?? profileDetailsFormFieldInputItems.skills?.type}
             values={value}
             icon={profileDetailsFormFieldInputItems.skills?.icon}
           />
@@ -270,6 +272,8 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
       case allowedUpdateProfileProperties.interests:
         return (
           <Chips
+            name={value ?? profileDetailsFormFieldInputItems.interests?.name}
+            type={value ?? profileDetailsFormFieldInputItems.interests?.type}
             values={value}
             icon={profileDetailsFormFieldInputItems.interests?.icon}
           />
