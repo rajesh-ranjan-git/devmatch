@@ -1,14 +1,15 @@
-import { ADDRESS_PROPERTIES, GENDER_PROPERTIES } from "@/config/constants";
+import { GENDER_PROPERTIES } from "@/config/constants";
 import {
   addressFormFieldInputItems,
   allowedUpdateProfileProperties,
   profileDetailsFormFieldInputItems,
 } from "@/config/config";
 import { ProfileComponentProps } from "@/types/propTypes";
+import { isPlainObject, typedKeys } from "@/lib/utils/utils";
 import Input from "@/components/ui/inputs/input";
 import Radio from "@/components/ui/inputs/radio";
 import Chips from "@/components/ui/chips/chips";
-import { isPlainObject, typedKeys } from "@/lib/utils/utils";
+import ProfileDetailsUpdateDropdown from "@/components/profile/profileDetailsUpdateDropdown";
 
 const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
   const renderValue = (key: string, value: any) => {
@@ -63,13 +64,10 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
 
       case allowedUpdateProfileProperties.age:
         return (
-          <Input
-            name={value ?? profileDetailsFormFieldInputItems.age?.name}
-            type={value ?? profileDetailsFormFieldInputItems.age?.type}
-            placeholder={
-              value ?? profileDetailsFormFieldInputItems.age?.placeholder
-            }
-            icon={profileDetailsFormFieldInputItems.age?.icon}
+          <ProfileDetailsUpdateDropdown
+            name={allowedUpdateProfileProperties.age}
+            value={value}
+            placeholder="Select your age..."
           />
         );
 
@@ -140,13 +138,10 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
 
       case allowedUpdateProfileProperties.experience:
         return (
-          <Input
-            name={value ?? profileDetailsFormFieldInputItems.experience?.name}
-            type={value ?? profileDetailsFormFieldInputItems.experience?.type}
-            placeholder={
-              value ?? profileDetailsFormFieldInputItems.experience?.placeholder
-            }
-            icon={profileDetailsFormFieldInputItems.experience?.icon}
+          <ProfileDetailsUpdateDropdown
+            name={allowedUpdateProfileProperties.age}
+            value={value}
+            placeholder="Select your experience..."
           />
         );
 
@@ -281,12 +276,11 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
 
       case allowedUpdateProfileProperties.address:
         return typedKeys(addressFormFieldInputItems).map((item, idx) => (
-          <div className="flex items-center w-full">
+          <div className="flex items-center w-full" key={idx}>
             <label className="mb-4 w-2/5 font-semibold text-glass-text-primary text-left">
               {addressFormFieldInputItems[item]?.label}
             </label>
             <Input
-              key={idx}
               name={value ?? addressFormFieldInputItems[item]?.name}
               type={value ?? addressFormFieldInputItems[item]?.type}
               placeholder={

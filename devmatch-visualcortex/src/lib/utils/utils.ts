@@ -7,6 +7,12 @@ export const typedKeys = <T extends object>(obj: T): (keyof T)[] => {
 export const getRandomItem = <T>(arr: T[]): T =>
   arr[Math.floor(Math.random() * arr.length)];
 
+export const numRange = (start: number, stop: number, step = 1) =>
+  Array.from(
+    { length: (stop - start) / step + 1 },
+    (_, index) => start + index * step,
+  );
+
 export const isPlainObject = (
   data: unknown,
 ): data is Record<string, unknown> => {

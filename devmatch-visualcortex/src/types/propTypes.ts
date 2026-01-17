@@ -190,3 +190,9 @@ export interface NotificationsItemProps {
   notification: NotificationItemType;
   notificationAction: (notification: NotificationActionType) => void;
 }
+
+export interface ProfileDetailsUpdateDropdownProps {
+  name: string;
+  value: number;
+  placeholder: string;
+}

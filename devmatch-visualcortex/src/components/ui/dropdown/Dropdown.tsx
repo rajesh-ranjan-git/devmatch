@@ -19,7 +19,7 @@ const Dropdown = ({ id, className, children }: DropdownProps) => {
   return (
     <div
       id={id}
-      className={`absolute flex flex-col bg-glass-surface-light shadow-glass-shadow-heavy shadow-md backdrop-blur-md my-2 p-1 border rounded-xl w-max min-w-40 text-glass-text-primary text-center dropdown-menu ${className}`}
+      className={`absolute flex flex-col bg-glass-surface-light shadow-glass-shadow-heavy shadow-md backdrop-blur-md my-2 p-1 border rounded-xl w-max text-glass-text-primary text-center dropdown-menu ${className}`}
       popover="auto"
       onClick={handleClosePopover}
     >

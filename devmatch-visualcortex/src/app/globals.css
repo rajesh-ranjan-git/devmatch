@@ -207,9 +207,13 @@ button[popovertarget="update-profile-cover-dropdown"] {
   opacity: 0;
   transform: scaleY(0);
   transform-origin: top;
-  transition: opacity 300ms, transform 300ms, overlay 300ms allow-discrete,
+  transition:
+    opacity 300ms,
+    transform 300ms,
+    overlay 300ms allow-discrete,
     display 300ms allow-discrete;
-  position-try-fallbacks: --bottom-left, --bottom-right, --top-right, --top-left;
+  position-try-fallbacks:
+    --bottom-left, --bottom-right, --top-right, --top-left;
 }
 
 #notifications-dropdown {
@@ -226,6 +230,10 @@ button[popovertarget="update-profile-cover-dropdown"] {
 
 #update-profile-cover-dropdown {
   position-anchor: --update-profile-cover-dropdown;
+}
+
+#update-experience-dropdown {
+  position-anchor: --update-experience-dropdown;
 }
 
 .dropdown-menu:popover-open {
