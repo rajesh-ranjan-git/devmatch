@@ -139,6 +139,19 @@ export type AddressFormFieldInputItemsType = Partial<
   Record<AddressFormFieldTypes, AddressFormFieldInputType>
 >;
 
+export type ProfileDetailsFormFieldButtonItemsType = {
+  update: {
+    name: string;
+    label: string;
+    icon: ReactNode;
+  };
+  discard: {
+    name: string;
+    label: string;
+    icon: ReactNode;
+  };
+};
+
 export type StaticImageType = Record<
   string,
   {

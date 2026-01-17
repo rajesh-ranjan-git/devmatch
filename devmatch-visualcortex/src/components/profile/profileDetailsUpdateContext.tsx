@@ -2,6 +2,7 @@ import { GENDER_PROPERTIES } from "@/config/constants";
 import {
   addressFormFieldInputItems,
   allowedUpdateProfileProperties,
+  profileDetailsFormFieldButtonItems,
   profileDetailsFormFieldInputItems,
 } from "@/config/config";
 import { ProfileComponentProps } from "@/types/propTypes";
@@ -10,8 +11,13 @@ import Input from "@/components/ui/inputs/input";
 import Radio from "@/components/ui/inputs/radio";
 import Chips from "@/components/ui/chips/chips";
 import ProfileDetailsUpdateDropdown from "@/components/profile/profileDetailsUpdateDropdown";
+import ButtonSuccess from "@/components/ui/buttons/buttonSuccess";
+import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 
-const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
+const ProfileDetailsUpdateContext = ({
+  user,
+  onClose,
+}: ProfileComponentProps) => {
   const renderValue = (key: string, value: any) => {
     switch (key) {
       case allowedUpdateProfileProperties.firstName:
@@ -139,7 +145,7 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
       case allowedUpdateProfileProperties.experience:
         return (
           <ProfileDetailsUpdateDropdown
-            name={allowedUpdateProfileProperties.age}
+            name={allowedUpdateProfileProperties.experience}
             value={value}
             placeholder="Select your experience..."
           />
@@ -318,6 +324,19 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
             })}
           </tbody>
         </table>
+        <div className="flex justify-center items-center gap-4">
+          <ButtonSuccess
+            icon={profileDetailsFormFieldButtonItems?.update?.icon}
+            text={profileDetailsFormFieldButtonItems?.update?.label}
+            className="w-32 h-10"
+          />
+          <ButtonDestructive
+            icon={profileDetailsFormFieldButtonItems?.discard?.icon}
+            text={profileDetailsFormFieldButtonItems?.discard?.label}
+            className="w-32 h-10"
+            onClick={onClose}
+          />
+        </div>
       </div>
     </div>
   );

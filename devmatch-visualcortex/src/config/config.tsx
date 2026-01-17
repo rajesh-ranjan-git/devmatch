@@ -38,6 +38,7 @@ import {
   AuthFormFieldInputItemsType,
   CameraDropdownItemType,
   NavbarMenuItemType,
+  ProfileDetailsFormFieldButtonItemsType,
   ProfileFormFieldInputItemsType,
   SocialMediaIconType,
   StaticImageType,
@@ -66,6 +67,7 @@ import {
 import { IoLogIn, IoLogOut } from "react-icons/io5";
 import { RiUserSmileFill } from "react-icons/ri";
 import { FaBirthdayCake, FaMapMarkedAlt } from "react-icons/fa";
+import { ImCross } from "react-icons/im";
 
 export const alkatra = Alkatra({
   variable: "--font-alkatra",
@@ -442,6 +444,20 @@ export const addressFormFieldInputItems: AddressFormFieldInputItemsType = {
     icon: <FaMapPin />,
   },
 };
+
+export const profileDetailsFormFieldButtonItems: ProfileDetailsFormFieldButtonItemsType =
+  {
+    update: {
+      name: "update",
+      label: "Update",
+      icon: <FaUserPen />,
+    },
+    discard: {
+      name: "discard",
+      label: "Discard",
+      icon: <ImCross />,
+    },
+  };
 
 export const staticImages: StaticImageType = {
   navLogo: {

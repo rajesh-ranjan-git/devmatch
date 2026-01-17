@@ -151,6 +151,7 @@ export interface StoredData<T> {
 
 export interface ProfileComponentProps {
   user: UserType;
+  onClose?: () => void;
 }
 
 export interface UserCardsProps {

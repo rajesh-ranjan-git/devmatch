@@ -38,8 +38,8 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
           "lastName",
           "avatarUrl",
           "coverPhotoUrl",
-        ].includes(key)
-    )
+        ].includes(key),
+    ),
   );
 
   return (
@@ -121,7 +121,10 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
         open={updateProfileDetailsContext.isOpen}
         onClose={updateProfileDetailsContext.close}
       >
-        <ProfileDetailsUpdateContext user={user} />
+        <ProfileDetailsUpdateContext
+          user={user}
+          onClose={updateProfileDetailsContext.close}
+        />
       </ContextMenu>
     </div>
   );
