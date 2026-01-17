@@ -326,7 +326,7 @@ const ProfileDetailsUpdateContext = ({
             })}
           </tbody>
         </table>
-        <div className="flex justify-center items-center gap-4">
+        <div className="flex justify-center items-center gap-4 mb-2">
           <ButtonSuccess
             icon={profileDetailsFormFieldButtonItems?.update?.icon}
             text={profileDetailsFormFieldButtonItems?.update?.label}
