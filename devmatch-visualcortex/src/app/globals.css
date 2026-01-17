@@ -232,6 +232,10 @@ button[popovertarget="update-profile-cover-dropdown"] {
   position-anchor: --update-profile-cover-dropdown;
 }
 
+#update-age-dropdown {
+  position-anchor: --update-age-dropdown;
+}
+
 #update-experience-dropdown {
   position-anchor: --update-experience-dropdown;
 }

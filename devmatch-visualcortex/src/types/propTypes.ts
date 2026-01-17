@@ -194,6 +194,7 @@ export interface NotificationsItemProps {
 
 export interface ProfileDetailsUpdateDropdownProps {
   name: string;
+  id: string;
   value: number;
   placeholder: string;
 }

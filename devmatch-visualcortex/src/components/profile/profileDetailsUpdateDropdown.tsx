@@ -4,9 +4,11 @@ import { ProfileDetailsUpdateDropdownProps } from "@/types/propTypes";
 import { numRange, toTitleCase } from "@/lib/utils/utils";
 import Dropdown from "@/components/ui/dropdown/dropdown";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
+import { allowedUpdateProfileProperties } from "@/config/config";
 
 const ProfileDetailsUpdateDropdown = ({
   name,
+  id,
   value,
   placeholder,
 }: ProfileDetailsUpdateDropdownProps) => {
@@ -25,22 +27,31 @@ const ProfileDetailsUpdateDropdown = ({
   };
 
   return (
-    <div>
+    <div className="relative">
       <button
         className="flex items-center gap-2 hover:bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md backdrop-blur-3xl p-2 border border-glass-border-subtle hover:border-glass-border-bright rounded-xl text-glass-text-primary transition-all ease-in-out cursor-pointer"
-        popoverTarget="update-experience-dropdown"
+        popoverTarget={id}
       >
         <span>{selectedValue ?? placeholder}</span>
         <span>
           <FaChevronDown />
         </span>
       </button>
-      <Dropdown id="update-experience-dropdown" className="right-1/3">
+      <Dropdown
+        id={id}
+        className={
+          name === allowedUpdateProfileProperties.age
+            ? "right-118"
+            : name === allowedUpdateProfileProperties.experience
+              ? "right-104"
+              : ""
+        }
+      >
         <div>
           <p className="p-2 font-bold text-md">{toTitleCase(name)}</p>
           <HorizontalSeparator />
           <ul
-            className="flex flex-col gap-1 [&::-webkit-scrollbar-thumb]:hover:bg-glass-surface-lighter [&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar]:w-1 max-h-96 overflow-y-auto [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary"
+            className="flex flex-col gap-1 [&::-webkit-scrollbar-thumb]:hover:bg-glass-surface-lighter [&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar]:w-1 max-h-106 overflow-y-auto [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary"
             onClick={handleDropdownItemClick}
           >
             {numRange(0, 70).map((num, idx) => (
