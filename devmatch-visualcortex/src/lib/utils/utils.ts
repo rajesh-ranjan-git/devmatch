@@ -1,35 +1,41 @@
 import { UserType } from "@/types/types";
 
+export const typedKeys = <T extends object>(obj: T): (keyof T)[] => {
+  return Object.keys(obj) as (keyof T)[];
+};
+
 export const getRandomItem = <T>(arr: T[]): T =>
   arr[Math.floor(Math.random() * arr.length)];
 
 export const isPlainObject = (
-  data: unknown
+  data: unknown,
 ): data is Record<string, unknown> => {
   return typeof data === "object" && data !== null && !Array.isArray(data);
 };
 
 export const omitObjectProperties = <
   T extends Record<string, any>,
-  K extends readonly (keyof T)[]
+  K extends readonly (keyof T)[],
 >(
   obj: T,
-  keysToOmit: K
+  keysToOmit: K,
 ): Omit<T, K[number]> => {
   return Object.fromEntries(
-    Object.entries(obj).filter(([key]) => !keysToOmit.includes(key as keyof T))
+    Object.entries(obj).filter(([key]) => !keysToOmit.includes(key as keyof T)),
   ) as Omit<T, K[number]>;
 };
 
 export const selectObjectProperties = <
   T extends Record<string, any>,
-  K extends readonly (keyof T)[]
+  K extends readonly (keyof T)[],
 >(
   obj: T,
-  keysToSelect: K
+  keysToSelect: K,
 ): Pick<T, K[number]> => {
   return Object.fromEntries(
-    Object.entries(obj).filter(([key]) => keysToSelect.includes(key as keyof T))
+    Object.entries(obj).filter(([key]) =>
+      keysToSelect.includes(key as keyof T),
+    ),
   ) as Pick<T, K[number]>;
 };
 
@@ -90,8 +96,8 @@ export const getFullName = (user?: UserType) => {
   return user?.firstName && user?.middleName && user?.lastName
     ? `${user?.firstName} ${user?.middleName} ${user?.lastName}`
     : user?.firstName && user?.lastName
-    ? `${user?.firstName} ${user?.lastName}`
-    : user?.firstName
-    ? `${user?.firstName}`
-    : "";
+      ? `${user?.firstName} ${user?.lastName}`
+      : user?.firstName
+        ? `${user?.firstName}`
+        : "";
 };

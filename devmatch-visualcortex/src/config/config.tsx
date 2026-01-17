@@ -16,16 +16,24 @@ import {
   FaRing,
   FaFacebook,
   FaTwitter,
+  FaRoad,
+  FaLandmark,
+  FaCity,
+  FaFlag,
+  FaGlobe,
+  FaMapPin,
 } from "react-icons/fa6";
 import { BsCamera } from "react-icons/bs";
 import {
   ACCOUNT_OPTIONS_DROPDOWN_ITEMS,
+  ADDRESS_PROPERTIES,
   AUTH_FORM_FIELDS,
   INPUT_TYPES,
   USER_PROPERTIES,
 } from "@/config/constants";
 import {
   AccountOptionsDropdownItemType,
+  AddressFormFieldInputItemsType,
   AuthFormFieldButtonItemsType,
   AuthFormFieldInputItemsType,
   CameraDropdownItemType,
@@ -57,7 +65,7 @@ import {
 } from "react-icons/md";
 import { IoLogIn, IoLogOut } from "react-icons/io5";
 import { RiUserSmileFill } from "react-icons/ri";
-import { FaBirthdayCake } from "react-icons/fa";
+import { FaBirthdayCake, FaMapMarkedAlt } from "react-icons/fa";
 
 export const alkatra = Alkatra({
   variable: "--font-alkatra",
@@ -205,7 +213,7 @@ export const allowedUpdateProfileProperties = omitObjectProperties(
     USER_PROPERTIES.coverPhotoUrl,
     USER_PROPERTIES.createdAt,
     USER_PROPERTIES.updatedAt,
-  ]
+  ],
 );
 
 export const profileDetailsFormFieldInputItems: ProfileFormFieldInputItemsType =
@@ -366,16 +374,12 @@ export const profileDetailsFormFieldInputItems: ProfileFormFieldInputItemsType =
     },
     skills: {
       name: USER_PROPERTIES.skills,
-      type: INPUT_TYPES.text,
       label: "Skills",
-      placeholder: "Enter your skills...",
       icon: <MdPsychology />,
     },
     interests: {
       name: USER_PROPERTIES.interests,
-      type: INPUT_TYPES.text,
       label: "Interests",
-      placeholder: "Enter your interests...",
       icon: <MdFavorite />,
     },
     address: {
@@ -386,6 +390,58 @@ export const profileDetailsFormFieldInputItems: ProfileFormFieldInputItemsType =
       icon: <MdLocationOn />,
     },
   };
+
+export const addressFormFieldInputItems: AddressFormFieldInputItemsType = {
+  street: {
+    name: ADDRESS_PROPERTIES.street,
+    type: INPUT_TYPES.text,
+    label: "Street",
+    placeholder: "Enter your street...",
+    icon: <FaRoad />,
+  },
+  landmark: {
+    name: ADDRESS_PROPERTIES.landmark,
+    type: INPUT_TYPES.text,
+    label: "Landmark",
+    placeholder: "Enter your landmark...",
+    icon: <FaLandmark />,
+  },
+  city: {
+    name: ADDRESS_PROPERTIES.city,
+    type: INPUT_TYPES.text,
+    label: "City",
+    placeholder: "Enter your city...",
+    icon: <FaCity />,
+  },
+  state: {
+    name: ADDRESS_PROPERTIES.state,
+    type: INPUT_TYPES.text,
+    label: "State",
+    placeholder: "Enter your state...",
+    icon: <FaMapMarkedAlt />,
+  },
+  countryCode: {
+    name: ADDRESS_PROPERTIES.countryCode,
+    type: INPUT_TYPES.text,
+    label: "Country Code",
+    placeholder: "Enter your countryCode...",
+    icon: <FaFlag />,
+  },
+  country: {
+    name: ADDRESS_PROPERTIES.country,
+    type: INPUT_TYPES.text,
+    label: "Country",
+    placeholder: "Enter your country...",
+    icon: <FaGlobe />,
+  },
+  pinCode: {
+    name: ADDRESS_PROPERTIES.pinCode,
+    type: INPUT_TYPES.text,
+    label: "Pin Code",
+    placeholder: "Enter your pinCode...",
+    icon: <FaMapPin />,
+  },
+};
 
 export const staticImages: StaticImageType = {
   navLogo: {

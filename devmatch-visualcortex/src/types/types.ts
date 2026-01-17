@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { IconType } from "react-icons";
 import {
   ACCOUNT_OPTIONS_DROPDOWN_ITEMS,
+  ADDRESS_PROPERTIES,
   AUTH_FORM_FIELDS,
   INPUT_TYPES,
   NAVBAR_MENU_ITEMS,
@@ -114,14 +115,28 @@ export type ProfileFormFieldTypes = keyof typeof USER_PROPERTIES;
 
 export type ProfileFormFieldInputType = {
   name: ProfileFormFieldTypes;
-  type: keyof typeof INPUT_TYPES;
+  type?: keyof typeof INPUT_TYPES;
   label?: string;
-  placeholder: string;
-  icon: ReactNode;
+  placeholder?: string;
+  icon?: ReactNode;
 };
 
 export type ProfileFormFieldInputItemsType = Partial<
   Record<ProfileFormFieldTypes, ProfileFormFieldInputType>
+>;
+
+export type AddressFormFieldTypes = keyof typeof ADDRESS_PROPERTIES;
+
+export type AddressFormFieldInputType = {
+  name: AddressFormFieldTypes;
+  type: keyof typeof INPUT_TYPES;
+  label: string;
+  placeholder: string;
+  icon?: ReactNode;
+};
+
+export type AddressFormFieldInputItemsType = Partial<
+  Record<AddressFormFieldTypes, AddressFormFieldInputType>
 >;
 
 export type StaticImageType = Record<

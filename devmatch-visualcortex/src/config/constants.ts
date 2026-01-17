@@ -354,12 +354,13 @@ export const GENDER_PROPERTIES = {
 } as const;
 
 export const ADDRESS_PROPERTIES = {
-  street: "Street",
-  city: "City",
-  state: "State",
-  countryCode: "Country Code",
-  country: "Country",
-  pinCode: "Pin Code",
+  street: "street",
+  landmark: "landmark",
+  city: "city",
+  state: "state",
+  countryCode: "countryCode",
+  country: "country",
+  pinCode: "pinCode",
 } as const;
 
 export const USER_PROPERTY_LABELS = {

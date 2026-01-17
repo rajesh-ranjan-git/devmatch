@@ -1,5 +1,6 @@
-import { GENDER_PROPERTIES } from "@/config/constants";
+import { ADDRESS_PROPERTIES, GENDER_PROPERTIES } from "@/config/constants";
 import {
+  addressFormFieldInputItems,
   allowedUpdateProfileProperties,
   profileDetailsFormFieldInputItems,
 } from "@/config/config";
@@ -7,6 +8,7 @@ import { ProfileComponentProps } from "@/types/propTypes";
 import Input from "@/components/ui/inputs/input";
 import Radio from "@/components/ui/inputs/radio";
 import Chips from "@/components/ui/chips/chips";
+import { isPlainObject, typedKeys } from "@/lib/utils/utils";
 
 const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
   const renderValue = (key: string, value: any) => {
@@ -274,17 +276,23 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
         );
 
       case allowedUpdateProfileProperties.address:
-        return (
-          <Input
-            name={value ?? profileDetailsFormFieldInputItems.address?.name}
-            type={value ?? profileDetailsFormFieldInputItems.address?.type}
-            placeholder={
-              Object.values(value).join(", ") ??
-              profileDetailsFormFieldInputItems.address?.placeholder
-            }
-            icon={profileDetailsFormFieldInputItems.address?.icon}
-          />
-        );
+        return typedKeys(addressFormFieldInputItems).map((item, idx) => (
+          <div className="flex items-center w-full">
+            <label className="mb-4 w-2/5 font-semibold text-glass-text-primary text-left">
+              {addressFormFieldInputItems[item]?.label}
+            </label>
+            <Input
+              key={idx}
+              name={value ?? addressFormFieldInputItems[item]?.name}
+              type={value ?? addressFormFieldInputItems[item]?.type}
+              placeholder={
+                value[item] ?? addressFormFieldInputItems[item]?.placeholder
+              }
+              icon={addressFormFieldInputItems[item]?.icon}
+              className="mb-4 w-3/5"
+            />
+          </div>
+        ));
     }
   };
 
@@ -300,7 +308,7 @@ const ProfileDetailsUpdateContext = ({ user }: ProfileComponentProps) => {
               return (
                 <tr key={idx} className="w-full table-fixed">
                   <td
-                    className={`py-2 w-1/4 h-full font-semibold text-glass-text-primary text-ld text-left ${Array.isArray(value) ? "align-top py-4" : ""}`}
+                    className={`py-2 w-1/4 h-full font-semibold text-glass-text-primary text-ld text-left ${Array.isArray(value) || isPlainObject(value) ? "align-top py-4" : ""}`}
                   >
                     {profileDetailsFormFieldInputItems[key]?.label}
                   </td>
