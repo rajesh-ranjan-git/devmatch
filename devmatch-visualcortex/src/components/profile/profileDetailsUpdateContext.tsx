@@ -1,3 +1,4 @@
+import { useActionState } from "react";
 import { GENDER_PROPERTIES } from "@/config/constants";
 import {
   addressFormFieldInputItems,
@@ -5,8 +6,10 @@ import {
   profileDetailsFormFieldButtonItems,
   profileDetailsFormFieldInputItems,
 } from "@/config/config";
+import { ProfileUpdateFormStateType } from "@/types/types";
 import { ProfileComponentProps } from "@/types/propTypes";
 import { isPlainObject, typedKeys } from "@/lib/utils/utils";
+import { updateProfileDetailsAction } from "@/lib/actions/profileActions";
 import Input from "@/components/ui/inputs/input";
 import Radio from "@/components/ui/inputs/radio";
 import Chips from "@/components/ui/chips/chips";
@@ -18,6 +21,13 @@ const ProfileDetailsUpdateContext = ({
   user,
   onClose,
 }: ProfileComponentProps) => {
+  const initialState: ProfileUpdateFormStateType = { message: "" };
+
+  const [state, formAction, isPending] = useActionState(
+    updateProfileDetailsAction,
+    initialState,
+  );
+
   const renderValue = (key: string, value: any) => {
     switch (key) {
       case allowedUpdateProfileProperties.firstName:

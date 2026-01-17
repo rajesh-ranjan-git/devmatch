@@ -1,7 +1,7 @@
 "use server";
 
 import { AuthFormStateType } from "@/types/types";
-import { ERROR_MESSAGES } from "@/config/constants";
+import { AUTH_FORM_FIELDS, ERROR_MESSAGES } from "@/config/constants";
 import {
   emailValidator,
   firstNameValidator,
@@ -13,17 +13,17 @@ import { apiRequest } from "@/lib/api/api";
 
 export const registerAction = async (
   prevState: AuthFormStateType,
-  formData: FormData
+  formData: FormData,
 ) => {
-  const userName = formData.get("userName");
-  const email = formData.get("email");
-  const password = formData.get("password");
-  const confirmPassword = formData.get("confirmPassword");
+  const userName = formData.get(AUTH_FORM_FIELDS.userName);
+  const email = formData.get(AUTH_FORM_FIELDS.email);
+  const password = formData.get(AUTH_FORM_FIELDS.password);
+  const confirmPassword = formData.get(AUTH_FORM_FIELDS.confirmPassword);
 
   const errors: AuthFormStateType["errors"] = {};
 
   const { validatedUserName, userNameErrors } = userNameValidator(
-    userName as string
+    userName as string,
   );
   errors.userName = [...(userNameErrors ?? [])];
 
@@ -31,7 +31,7 @@ export const registerAction = async (
   errors.email = [...(emailErrors ?? [])];
 
   const { validatedPassword, passwordErrors } = passwordValidator(
-    password as string
+    password as string,
   );
   errors.password = [...(passwordErrors ?? [])];
 
@@ -79,16 +79,16 @@ export const registerAction = async (
 
 export const loginAction = async (
   prevState: AuthFormStateType,
-  formData: FormData
+  formData: FormData,
 ) => {
-  const userName = formData.get("userName");
-  const email = formData.get("email");
-  const password = formData.get("password");
+  const userName = formData.get(AUTH_FORM_FIELDS.userName);
+  const email = formData.get(AUTH_FORM_FIELDS.email);
+  const password = formData.get(AUTH_FORM_FIELDS.password);
 
   const errors: AuthFormStateType["errors"] = {};
 
   const { validatedUserName, userNameErrors } = userNameValidator(
-    userName as string
+    userName as string,
   );
   errors.userName = [...(userNameErrors ?? [])];
 
@@ -102,7 +102,7 @@ export const loginAction = async (
   }
 
   const { validatedPassword, passwordErrors } = passwordValidator(
-    password as string
+    password as string,
   );
   errors.password = [...(passwordErrors ?? [])];
 
@@ -143,12 +143,12 @@ export const loginAction = async (
 
 export const forgotPasswordAction = async (
   prevState: AuthFormStateType,
-  formData: FormData
+  formData: FormData,
 ) => {
-  const email = formData.get("email");
-  const firstName = formData.get("firstName");
-  const password = formData.get("password");
-  const confirmPassword = formData.get("confirmPassword");
+  const email = formData.get(AUTH_FORM_FIELDS.email);
+  const firstName = formData.get(AUTH_FORM_FIELDS.firstName);
+  const password = formData.get(AUTH_FORM_FIELDS.password);
+  const confirmPassword = formData.get(AUTH_FORM_FIELDS.confirmPassword);
 
   const errors: AuthFormStateType["errors"] = {};
 
@@ -156,12 +156,12 @@ export const forgotPasswordAction = async (
   errors.email = [...(emailErrors ?? [])];
 
   const { validatedFirstName, firstNameErrors } = firstNameValidator(
-    firstName as string
+    firstName as string,
   );
   errors.firstName = [...(firstNameErrors ?? [])];
 
   const { validatedPassword, passwordErrors } = passwordValidator(
-    password as string
+    password as string,
   );
   errors.password = [...(passwordErrors ?? [])];
 

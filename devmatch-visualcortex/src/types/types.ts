@@ -85,6 +85,34 @@ export type AuthFormStateType = {
   result?: any;
 };
 
+export type ProfileUpdateFormStateType = {
+  message: string;
+  success?: boolean;
+  inputs?: Record<string, FormDataEntryValue>;
+  errors?: {
+    firstName?: string[];
+    middleName?: string[];
+    lastName?: string[];
+    nickName?: string[];
+    age?: string[];
+    phone?: string[];
+    gender?: string[];
+    bio?: string[];
+    maritalStatus?: string[];
+    jobProfile?: string[];
+    experience?: string[];
+    facebook?: string[];
+    instagram?: string[];
+    twitter?: string[];
+    github?: string[];
+    youtube?: string[];
+    website?: string[];
+    company?: string[];
+    organization?: string[];
+  };
+  result?: any;
+};
+
 export type AuthFormFieldTypes = keyof typeof AUTH_FORM_FIELDS;
 
 export type AuthFormFieldInputType = {

@@ -9,6 +9,10 @@ import {
   UPPER_CASE_REGEX,
   USER_NAME_REGEX,
   USER_PROPERTIES,
+  ADDRESS_PROPERTIES,
+  COUNTRY_CODE_REGEX,
+  PIN_CODE_REGEX,
+  GENDER_PROPERTIES,
 } from "@/config/constants";
 
 export const userNameValidator = (user_name: string) => {
@@ -106,7 +110,7 @@ export const firstNameValidator = (firstName: string) => {
 
   const { validatedName, nameErrors } = nameValidator(
     value,
-    USER_PROPERTIES.firstName
+    USER_PROPERTIES.firstName,
   );
 
   if (nameErrors && nameErrors?.length > 0) {
@@ -117,9 +121,12 @@ export const firstNameValidator = (firstName: string) => {
 };
 
 export const nameValidator = (name: string, type: string) => {
-  const nameErrors: string[] = [];
+  if (!name) return { validatedName: name };
 
-  if (name.length < USER_PROPERTY_CONSTRAINTS.minNameLength) {
+  const nameErrors: string[] = [];
+  const nameValue = name.trim().toLowerCase();
+
+  if (nameValue.length < USER_PROPERTY_CONSTRAINTS.minNameLength) {
     if (type === USER_PROPERTIES.firstName) {
       nameErrors.push(ERROR_MESSAGES.firstNameMinLengthError);
     } else if (type === USER_PROPERTIES.middleName) {
@@ -131,7 +138,7 @@ export const nameValidator = (name: string, type: string) => {
     }
   }
 
-  if (name.length > USER_PROPERTY_CONSTRAINTS.maxNameLength) {
+  if (nameValue.length > USER_PROPERTY_CONSTRAINTS.maxNameLength) {
     if (type === USER_PROPERTIES.firstName) {
       nameErrors.push(ERROR_MESSAGES.firstNameMaxLengthError);
     } else if (type === USER_PROPERTIES.middleName) {
@@ -143,7 +150,7 @@ export const nameValidator = (name: string, type: string) => {
     }
   }
 
-  if (!NAME_REGEX.test(name)) {
+  if (!NAME_REGEX.test(nameValue)) {
     if (type === USER_PROPERTIES.firstName) {
       nameErrors.push(ERROR_MESSAGES.invalidFirstNameError);
     } else if (type === USER_PROPERTIES.middleName) {
@@ -159,5 +166,314 @@ export const nameValidator = (name: string, type: string) => {
     return { nameErrors };
   }
 
-  return { validatedName: name };
+  return { validatedName: nameValue };
+};
+
+export const genderValidator = (gender: string) => {
+  const genderErrors: string[] = [];
+  const genderValue = gender.trim().toLowerCase();
+  let validatedGender;
+
+  Object.values(GENDER_PROPERTIES).forEach((value) => {
+    if (value === genderValue) {
+      validatedGender = genderValue;
+    }
+  });
+
+  if (!validatedGender) {
+    genderErrors.push(ERROR_MESSAGES.invalidGenderError);
+  }
+
+  if (genderErrors && genderErrors?.length > 0) {
+    return { genderErrors };
+  }
+
+  return { validatedGender };
+};
+
+export const numberPropertiesValidator = (
+  property: string | number,
+  minValue: number,
+  maxValue: number,
+  errors: {
+    invalidError: string;
+    decimalError: string;
+    minLengthError: string;
+    maxLengthError: string;
+  },
+) => {
+  const propertyErrors: string[] = [];
+  const value =
+    typeof property === "string" ? property?.trim().toLowerCase() : property;
+
+  const isPropertyValid =
+    (typeof value === "number" || typeof value === "string") &&
+    !isNaN(Number(value)) &&
+    value !== "";
+
+  if (!isPropertyValid) {
+    propertyErrors.push(errors.invalidError);
+  }
+
+  if (!Number.isInteger(Number(value))) {
+    propertyErrors.push(errors.decimalError);
+  }
+
+  if (Number(value) < minValue) {
+    propertyErrors.push(errors.minLengthError);
+  }
+
+  if (Number(value) > maxValue) {
+    propertyErrors.push(errors.maxLengthError);
+  }
+
+  if (propertyErrors && propertyErrors?.length > 0) {
+    return { propertyErrors };
+  }
+
+  return {
+    validatedProperty: Number(value),
+  };
+};
+
+export const stringPropertiesValidator = (
+  property: string,
+  minLength: number,
+  maxLength: number,
+  errors: {
+    invalidError: string;
+    minLengthError: string;
+    maxLengthError: string;
+  },
+) => {
+  const propertyErrors: string[] = [];
+
+  if (typeof property !== "string") {
+    propertyErrors.push(errors.invalidError);
+  }
+
+  if (property?.trim().length < minLength) {
+    propertyErrors.push(errors.minLengthError);
+  }
+
+  if (property?.trim().length > maxLength) {
+    propertyErrors.push(errors.maxLengthError);
+  }
+
+  if (propertyErrors && propertyErrors?.length > 0) {
+    return { propertyErrors };
+  }
+
+  return {
+    validatedProperty: property?.trim(),
+  };
+};
+
+export const listPropertiesValidator = (
+  property: string | string[],
+  error: string,
+) => {
+  const propertyErrors: string[] = [];
+
+  if (typeof property !== "string" && !Array.isArray(property)) {
+    propertyErrors.push(error);
+  }
+
+  if (propertyErrors && propertyErrors?.length > 0) {
+    return { propertyErrors };
+  }
+
+  return {
+    validatedProperty: Array.isArray(property)
+      ? property.map((s) => s.trim().toLowerCase())
+      : typeof property === "string"
+        ? [property?.trim().toLowerCase()]
+        : [],
+  };
+};
+
+export const addressValidator = (address: Record<string, any>) => {
+  const addressErrors: string[] = [];
+
+  if (
+    typeof address !== "object" ||
+    address === null ||
+    Array.isArray(address)
+  ) {
+    addressErrors.push(ERROR_MESSAGES.invalidAddressError);
+    return { addressErrors };
+  }
+
+  const validatedAddress: Record<string, any> = {};
+
+  for (let addressField in address) {
+    switch (addressField) {
+      case ADDRESS_PROPERTIES.street:
+        const {
+          propertyErrors: streetErrors,
+          validatedProperty: validatedStreet,
+        } = stringPropertiesValidator(
+          address[addressField],
+          USER_PROPERTY_CONSTRAINTS.minStringLength,
+          USER_PROPERTY_CONSTRAINTS.maxStringLength,
+          {
+            invalidError: ERROR_MESSAGES.invalidStreetError,
+            minLengthError: ERROR_MESSAGES.streetMinLengthError,
+            maxLengthError: ERROR_MESSAGES.streetMaxLengthError,
+          },
+        );
+
+        if (streetErrors && streetErrors?.length > 0) {
+          addressErrors.push(...streetErrors);
+        } else {
+          validatedAddress[addressField] = validatedStreet;
+        }
+        break;
+
+      case ADDRESS_PROPERTIES.landmark:
+        const {
+          propertyErrors: landmarkErrors,
+          validatedProperty: validatedLandmark,
+        } = stringPropertiesValidator(
+          address[addressField],
+          USER_PROPERTY_CONSTRAINTS.minStringLength,
+          USER_PROPERTY_CONSTRAINTS.maxStringLength,
+          {
+            invalidError: ERROR_MESSAGES.invalidLandmarkError,
+            minLengthError: ERROR_MESSAGES.landmarkMinLengthError,
+            maxLengthError: ERROR_MESSAGES.landmarkMaxLengthError,
+          },
+        );
+
+        if (landmarkErrors && landmarkErrors?.length > 0) {
+          addressErrors.push(...landmarkErrors);
+        } else {
+          validatedAddress[addressField] = validatedLandmark;
+        }
+        break;
+
+      case ADDRESS_PROPERTIES.city:
+        const { propertyErrors: cityErrors, validatedProperty: validatedCity } =
+          stringPropertiesValidator(
+            address[addressField],
+            USER_PROPERTY_CONSTRAINTS.minStringLength,
+            USER_PROPERTY_CONSTRAINTS.maxStringLength,
+            {
+              invalidError: ERROR_MESSAGES.invalidCityError,
+              minLengthError: ERROR_MESSAGES.cityMinLengthError,
+              maxLengthError: ERROR_MESSAGES.cityMaxLengthError,
+            },
+          );
+
+        if (cityErrors && cityErrors?.length > 0) {
+          addressErrors.push(...cityErrors);
+        } else {
+          validatedAddress[addressField] = validatedCity;
+        }
+        break;
+
+      case ADDRESS_PROPERTIES.state:
+        const {
+          propertyErrors: stateErrors,
+          validatedProperty: validatedState,
+        } = stringPropertiesValidator(
+          address[addressField],
+          USER_PROPERTY_CONSTRAINTS.minStringLength,
+          USER_PROPERTY_CONSTRAINTS.maxStringLength,
+          {
+            invalidError: ERROR_MESSAGES.invalidStateError,
+            minLengthError: ERROR_MESSAGES.stateMinLengthError,
+            maxLengthError: ERROR_MESSAGES.stateMaxLengthError,
+          },
+        );
+
+        if (stateErrors && stateErrors?.length > 0) {
+          addressErrors.push(...stateErrors);
+        } else {
+          validatedAddress[addressField] = validatedState;
+        }
+        break;
+
+      case ADDRESS_PROPERTIES.countryCode:
+        const {
+          propertyErrors: countryCodeErrors,
+          validatedProperty: validatedCountryCode,
+        } = regexPropertiesValidator(
+          address[addressField],
+          COUNTRY_CODE_REGEX,
+          ERROR_MESSAGES.invalidCountryCodeError,
+        );
+
+        if (countryCodeErrors && countryCodeErrors?.length > 0) {
+          addressErrors.push(...countryCodeErrors);
+        } else {
+          validatedAddress[addressField] = validatedCountryCode;
+        }
+        break;
+
+      case ADDRESS_PROPERTIES.country:
+        const {
+          propertyErrors: countryErrors,
+          validatedProperty: validatedCountry,
+        } = stringPropertiesValidator(
+          address[addressField],
+          USER_PROPERTY_CONSTRAINTS.minStringLength,
+          USER_PROPERTY_CONSTRAINTS.maxStringLength,
+          {
+            invalidError: ERROR_MESSAGES.invalidCountryError,
+            minLengthError: ERROR_MESSAGES.countryMinLengthError,
+            maxLengthError: ERROR_MESSAGES.countryMaxLengthError,
+          },
+        );
+
+        if (countryErrors && countryErrors?.length > 0) {
+          addressErrors.push(...countryErrors);
+        } else {
+          validatedAddress[addressField] = validatedCountry;
+        }
+        break;
+
+      case ADDRESS_PROPERTIES.pinCode:
+        const {
+          propertyErrors: pinCodeErrors,
+          validatedProperty: validatedPinCode,
+        } = regexPropertiesValidator(
+          address[addressField],
+          PIN_CODE_REGEX,
+          ERROR_MESSAGES.invalidPinCodeError,
+        );
+
+        if (pinCodeErrors && pinCodeErrors?.length > 0) {
+          addressErrors.push(...pinCodeErrors);
+        } else {
+          validatedAddress[addressField] = validatedPinCode;
+        }
+        break;
+    }
+  }
+
+  if (addressErrors && addressErrors?.length > 0) {
+    return { addressErrors };
+  }
+
+  return { validatedAddress };
+};
+
+export const regexPropertiesValidator = (
+  property: string | number,
+  regex: RegExp,
+  error: string,
+) => {
+  const value =
+    typeof property === "string" ? property?.trim().toLowerCase() : property;
+
+  if (!regex.test(String(value))) {
+    return {
+      propertyErrors: [error],
+    };
+  }
+
+  return {
+    validatedProperty: value,
+  };
 };
