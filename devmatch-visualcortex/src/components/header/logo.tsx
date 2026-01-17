@@ -8,7 +8,7 @@ const Logo = () => {
       href="/explore"
       className="flex justify-center items-center gap-2 text-3xl cursor-pointer"
     >
-      <div className="bg-white m-2 rounded-full w-12 h-12 object-cover">
+      <div className="bg-white m-2 mr-0 rounded-full w-12 h-12 object-cover">
         <Image
           src={staticImages.navLogo.src}
           alt={staticImages.navLogo.alt}
