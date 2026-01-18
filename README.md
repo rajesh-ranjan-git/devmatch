@@ -29,7 +29,7 @@
 - [x] Developer profile creation
 - [x] Swipe-based match interface
 - [ ] In-app messaging between matched users
-- [ ] Real-time notifications
+- [x] Real-time notifications
 - [x] Block functionality
 - [ ] Report functionality
 - [x] Profile visibility controls
