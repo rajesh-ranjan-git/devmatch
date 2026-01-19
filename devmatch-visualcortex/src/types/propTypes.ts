@@ -87,6 +87,7 @@ export interface InputProps {
   defaultValue?: string;
   className?: string;
   icon?: ReactNode;
+  onClick?: () => void;
 }
 
 export interface RadioProps {

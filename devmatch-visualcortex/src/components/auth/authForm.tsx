@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import Form from "next/form";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -23,8 +23,13 @@ import { useToast } from "@/hooks/toast";
 import Input from "@/components/ui/inputs/input";
 import FormErrorMessage from "@/components/errors/formErrorMessage";
 import SubmitButton from "@/components/ui/buttons/submitButton";
+import { LuEyeClosed } from "react-icons/lu";
+import { FaRegEye } from "react-icons/fa6";
 
 const AuthForm = ({ type }: AuthFormWrapperProps) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const pathname = usePathname();
   const router = useRouter();
 
@@ -38,9 +43,9 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
     type === authRoutes.login
       ? loginAction
       : type === authRoutes.register
-      ? registerAction
-      : forgotPasswordAction,
-    initialState
+        ? registerAction
+        : forgotPasswordAction,
+    initialState,
   );
 
   useEffect(() => {
@@ -72,8 +77,8 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
           {type === authRoutes.login
             ? authFormFieldButtonItems?.login?.label
             : type === authRoutes.register
-            ? authFormFieldButtonItems?.register?.label
-            : authFormFieldButtonItems?.forgotPassword?.label}
+              ? authFormFieldButtonItems?.register?.label
+              : authFormFieldButtonItems?.forgotPassword?.label}
         </h2>
       </div>
       <div className="[&::-webkit-scrollbar-track]:bg-transparent mt-3 px-8 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 h-full overflow-y-auto [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
@@ -168,10 +173,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                     authFormFieldInputItems?.password?.name ??
                     AUTH_FORM_FIELDS.password
                   }
-                  type={
-                    authFormFieldInputItems?.password?.type ??
-                    INPUT_TYPES.password
-                  }
+                  type={showPassword ? INPUT_TYPES.text : INPUT_TYPES.password}
                   placeholder={
                     authFormFieldInputItems?.password?.placeholder ??
                     toTitleCase(INPUT_TYPES.password)
@@ -183,7 +185,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? (state?.inputs?.password as string)
                       : "Rajesh@2"
                   }
-                  icon={authFormFieldInputItems.password?.icon}
+                  icon={showPassword ? <LuEyeClosed /> : <FaRegEye />}
                   className={
                     state?.success === false &&
                     state?.errors &&
@@ -192,6 +194,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? "shadow-red-400"
                       : ""
                   }
+                  onClick={() => setShowPassword((prev) => !prev)}
                 />
                 <FormErrorMessage
                   errors={
@@ -286,15 +289,12 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                     authFormFieldInputItems?.password?.name ??
                     AUTH_FORM_FIELDS.password
                   }
-                  type={
-                    authFormFieldInputItems?.password?.type ??
-                    INPUT_TYPES.password
-                  }
+                  type={showPassword ? INPUT_TYPES.text : INPUT_TYPES.password}
                   placeholder={
                     authFormFieldInputItems?.password?.placeholder ??
                     toTitleCase(INPUT_TYPES.password)
                   }
-                  icon={authFormFieldInputItems.password?.icon}
+                  icon={showPassword ? <LuEyeClosed /> : <FaRegEye />}
                   defaultValue={
                     state?.success === false &&
                     state?.inputs &&
@@ -310,6 +310,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? "shadow-red-400"
                       : ""
                   }
+                  onClick={() => setShowPassword((prev) => !prev)}
                 />
                 <FormErrorMessage
                   errors={
@@ -326,8 +327,9 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                     AUTH_FORM_FIELDS.confirmPassword
                   }
                   type={
-                    authFormFieldInputItems?.confirmPassword?.type ??
-                    INPUT_TYPES.password
+                    showConfirmPassword
+                      ? INPUT_TYPES.text
+                      : INPUT_TYPES.password
                   }
                   placeholder={
                     authFormFieldInputItems?.confirmPassword?.placeholder ??
@@ -340,7 +342,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? (state?.inputs?.confirmPassword as string)
                       : ""
                   }
-                  icon={authFormFieldInputItems.confirmPassword?.icon}
+                  icon={showConfirmPassword ? <LuEyeClosed /> : <FaRegEye />}
                   className={
                     state?.success === false &&
                     state?.errors &&
@@ -349,6 +351,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? "shadow-red-400"
                       : ""
                   }
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
                 />
                 <FormErrorMessage
                   errors={
@@ -449,10 +452,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                     authFormFieldInputItems?.password?.name ??
                     AUTH_FORM_FIELDS.password
                   }
-                  type={
-                    authFormFieldInputItems?.password?.type ??
-                    INPUT_TYPES.password
-                  }
+                  type={showPassword ? INPUT_TYPES.text : INPUT_TYPES.password}
                   placeholder={
                     authFormFieldInputItems?.password?.placeholder ??
                     toTitleCase(INPUT_TYPES.password)
@@ -464,7 +464,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? (state?.inputs?.password as string)
                       : ""
                   }
-                  icon={authFormFieldInputItems.password?.icon}
+                  icon={showPassword ? <LuEyeClosed /> : <FaRegEye />}
                   className={
                     state?.success === false &&
                     state?.errors &&
@@ -473,6 +473,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? "shadow-red-400"
                       : ""
                   }
+                  onClick={() => setShowPassword((prev) => !prev)}
                 />
                 <FormErrorMessage
                   errors={
@@ -489,8 +490,9 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                     AUTH_FORM_FIELDS.confirmPassword
                   }
                   type={
-                    authFormFieldInputItems?.confirmPassword?.type ??
-                    INPUT_TYPES.password
+                    showConfirmPassword
+                      ? INPUT_TYPES.text
+                      : INPUT_TYPES.password
                   }
                   placeholder={
                     authFormFieldInputItems?.confirmPassword?.placeholder ??
@@ -503,7 +505,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? (state?.inputs?.confirmPassword as string)
                       : ""
                   }
-                  icon={authFormFieldInputItems.password?.icon}
+                  icon={showConfirmPassword ? <LuEyeClosed /> : <FaRegEye />}
                   className={
                     state?.success === false &&
                     state?.errors &&
@@ -512,6 +514,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                       ? "shadow-red-400"
                       : ""
                   }
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
                 />
                 <FormErrorMessage
                   errors={

@@ -7,6 +7,7 @@ const Input = ({
   defaultValue,
   className,
   icon,
+  onClick,
 }: InputProps) => {
   return (
     <div
@@ -19,7 +20,9 @@ const Input = ({
         defaultValue={defaultValue as string}
         className="px-5 py-2 rounded-l-4xl outline-none w-full"
       />
-      {icon}
+      <span onClick={onClick} className={onclick ? "cursor-pointer" : ""}>
+        {icon}
+      </span>
     </div>
   );
 };
