@@ -1,16 +1,25 @@
 "use server";
 
-import { ERROR_MESSAGES, USER_PROPERTY_CONSTRAINTS } from "@/config/constants";
+import {
+  ERROR_MESSAGES,
+  FACEBOOK_REGEX,
+  GENDER_PROPERTIES,
+  GITHUB_REGEX,
+  INSTAGRAM_REGEX,
+  MARITAL_STATUS_PROPERTIES,
+  TWITTER_REGEX,
+  USER_PROPERTY_CONSTRAINTS,
+  WEBSITE_REGEX,
+  YOUTUBE_REGEX,
+} from "@/config/constants";
 import { allowedUpdateProfileProperties } from "@/config/config";
 import { ProfileUpdateFormStateType } from "@/types/types";
 import {
-  emailValidator,
-  firstNameValidator,
-  genderValidator,
+  allowedStringValidator,
   nameValidator,
   numberPropertiesValidator,
-  passwordValidator,
-  userNameValidator,
+  regexPropertiesValidator,
+  stringPropertiesValidator,
 } from "@/lib/validations/validations";
 import { apiUrls } from "@/lib/api/apiUtils";
 import { apiRequest } from "@/lib/api/api";
@@ -125,9 +134,167 @@ export const updateProfileDetailsAction = async (
 
   errors.phone = [...(phoneErrors ?? [])];
 
-  const { validatedGender, genderErrors } = genderValidator(gender);
+  const { validatedProperty: validatedGender, propertyErrors: genderErrors } =
+    allowedStringValidator(gender, Object.values(GENDER_PROPERTIES), {
+      invalidError: ERROR_MESSAGES.invalidGenderError,
+    });
 
   errors.gender = [...(genderErrors ?? [])];
+
+  const {
+    validatedProperty: validatedJobProfile,
+    propertyErrors: jobProfileErrors,
+  } = stringPropertiesValidator(
+    jobProfile,
+    USER_PROPERTY_CONSTRAINTS.minStringLength,
+    USER_PROPERTY_CONSTRAINTS.maxStringLength,
+    {
+      invalidError: ERROR_MESSAGES.invalidJobProfileError,
+      minLengthError: ERROR_MESSAGES.jobProfileMinLengthError,
+      maxLengthError: ERROR_MESSAGES.jobProfileMaxLengthError,
+    },
+  );
+
+  errors.jobProfile = [...(jobProfileErrors ?? [])];
+
+  const {
+    validatedProperty: validatedMaritalStatus,
+    propertyErrors: maritalStatusErrors,
+  } = allowedStringValidator(
+    maritalStatus,
+    Object.values(MARITAL_STATUS_PROPERTIES),
+    {
+      invalidError: ERROR_MESSAGES.invalidMaritalStatusError,
+    },
+  );
+
+  errors.maritalStatus = [...(maritalStatusErrors ?? [])];
+
+  const { validatedProperty: validatedBio, propertyErrors: bioErrors } =
+    stringPropertiesValidator(
+      bio,
+      USER_PROPERTY_CONSTRAINTS.minStringLength,
+      USER_PROPERTY_CONSTRAINTS.maxStringLength,
+      {
+        invalidError: ERROR_MESSAGES.invalidBioError,
+        minLengthError: ERROR_MESSAGES.bioMinLengthError,
+        maxLengthError: ERROR_MESSAGES.bioMaxLengthError,
+      },
+    );
+
+  errors.bio = [...(bioErrors ?? [])];
+
+  const {
+    validatedProperty: validatedExperience,
+    propertyErrors: experienceErrors,
+  } = numberPropertiesValidator(
+    experience,
+    USER_PROPERTY_CONSTRAINTS.minExperience,
+    USER_PROPERTY_CONSTRAINTS.maxExperience,
+    {
+      invalidError: ERROR_MESSAGES.invalidExperienceError,
+      decimalError: ERROR_MESSAGES.decimalExperienceError,
+      minLengthError: ERROR_MESSAGES.minExperienceError,
+      maxLengthError: ERROR_MESSAGES.maxExperienceError,
+    },
+  );
+
+  errors.experience = [...(experienceErrors ?? [])];
+
+  const {
+    validatedProperty: validatedFacebookUrl,
+    propertyErrors: facebookUrlErrors,
+  } = regexPropertiesValidator(
+    facebook,
+    FACEBOOK_REGEX,
+    ERROR_MESSAGES.invalidFacebookUrlError,
+  );
+
+  errors.facebook = [...(facebookUrlErrors ?? [])];
+
+  const {
+    validatedProperty: validatedInstagramUrl,
+    propertyErrors: instagramUrlErrors,
+  } = regexPropertiesValidator(
+    instagram,
+    INSTAGRAM_REGEX,
+    ERROR_MESSAGES.invalidInstagramUrlError,
+  );
+
+  errors.instagram = [...(instagramUrlErrors ?? [])];
+  const {
+    validatedProperty: validatedTwitterUrl,
+    propertyErrors: twitterUrlErrors,
+  } = regexPropertiesValidator(
+    twitter,
+    TWITTER_REGEX,
+    ERROR_MESSAGES.invalidTwitterUrlError,
+  );
+
+  errors.twitter = [...(twitterUrlErrors ?? [])];
+
+  const {
+    validatedProperty: validatedGithubUrl,
+    propertyErrors: githubUrlErrors,
+  } = regexPropertiesValidator(
+    github,
+    GITHUB_REGEX,
+    ERROR_MESSAGES.invalidGithubUrlError,
+  );
+
+  errors.github = [...(githubUrlErrors ?? [])];
+
+  const {
+    validatedProperty: validatedYoutubeUrl,
+    propertyErrors: youtubeUrlErrors,
+  } = regexPropertiesValidator(
+    youtube,
+    YOUTUBE_REGEX,
+    ERROR_MESSAGES.invalidYoutubeUrlError,
+  );
+
+  errors.youtube = [...(youtubeUrlErrors ?? [])];
+
+  const {
+    validatedProperty: validatedWebsiteUrl,
+    propertyErrors: websiteUrlErrors,
+  } = regexPropertiesValidator(
+    website,
+    WEBSITE_REGEX,
+    ERROR_MESSAGES.invalidWebsiteUrlError,
+  );
+
+  errors.website = [...(websiteUrlErrors ?? [])];
+
+  const { validatedProperty: validatedCompany, propertyErrors: companyErrors } =
+    stringPropertiesValidator(
+      company,
+      USER_PROPERTY_CONSTRAINTS.minStringLength,
+      USER_PROPERTY_CONSTRAINTS.maxStringLength,
+      {
+        invalidError: ERROR_MESSAGES.invalidCompanyError,
+        minLengthError: ERROR_MESSAGES.companyMinLengthError,
+        maxLengthError: ERROR_MESSAGES.companyMaxLengthError,
+      },
+    );
+
+  errors.company = [...(companyErrors ?? [])];
+
+  const {
+    validatedProperty: validatedOrganization,
+    propertyErrors: organizationErrors,
+  } = stringPropertiesValidator(
+    organization,
+    USER_PROPERTY_CONSTRAINTS.minStringLength,
+    USER_PROPERTY_CONSTRAINTS.maxStringLength,
+    {
+      invalidError: ERROR_MESSAGES.invalidOrganizationError,
+      minLengthError: ERROR_MESSAGES.organizationMinLengthError,
+      maxLengthError: ERROR_MESSAGES.organizationMaxLengthError,
+    },
+  );
+
+  errors.organization = [...(organizationErrors ?? [])];
 
   if (Object.values(errors).filter((item) => item.length > 0).length > 0) {
     return {
@@ -153,12 +320,12 @@ export const updateProfileDetailsAction = async (
       maritalStatus: validatedMaritalStatus,
       jobProfile: validatedJobProfile,
       experience: validatedExperience,
-      facebook: validatedFacebook,
-      instagram: validatedInstagram,
-      twitter: validatedTwitter,
-      github: validatedGithub,
-      youtube: validatedYoutube,
-      website: validatedWebsite,
+      facebook: validatedFacebookUrl,
+      instagram: validatedInstagramUrl,
+      twitter: validatedTwitterUrl,
+      github: validatedGithubUrl,
+      youtube: validatedYoutubeUrl,
+      website: validatedWebsiteUrl,
       company: validatedCompany,
       organization: validatedOrganization,
     },

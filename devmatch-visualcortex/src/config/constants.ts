@@ -353,6 +353,12 @@ export const GENDER_PROPERTIES = {
   other: "other",
 } as const;
 
+export const MARITAL_STATUS_PROPERTIES = {
+  single: "single",
+  married: "married",
+  separated: "separated",
+} as const;
+
 export const ADDRESS_PROPERTIES = {
   street: "street",
   landmark: "landmark",

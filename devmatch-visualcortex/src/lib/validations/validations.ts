@@ -169,26 +169,32 @@ export const nameValidator = (name: string, type: string) => {
   return { validatedName: nameValue };
 };
 
-export const genderValidator = (gender: string) => {
-  const genderErrors: string[] = [];
-  const genderValue = gender.trim().toLowerCase();
-  let validatedGender;
+export const allowedStringValidator = (
+  property: string,
+  ALLOWED_PROPERTIES: string[],
+  errors: {
+    invalidError: string;
+  },
+) => {
+  const propertyErrors: string[] = [];
+  const propertyValue = property.trim().toLowerCase();
+  let validatedProperty;
 
-  Object.values(GENDER_PROPERTIES).forEach((value) => {
-    if (value === genderValue) {
-      validatedGender = genderValue;
+  Object.values(ALLOWED_PROPERTIES).forEach((value) => {
+    if (value === propertyValue) {
+      validatedProperty = propertyValue;
     }
   });
 
-  if (!validatedGender) {
-    genderErrors.push(ERROR_MESSAGES.invalidGenderError);
+  if (!validatedProperty) {
+    propertyErrors.push(ERROR_MESSAGES.invalidError);
   }
 
-  if (genderErrors && genderErrors?.length > 0) {
-    return { genderErrors };
+  if (propertyErrors && propertyErrors?.length > 0) {
+    return { propertyErrors };
   }
 
-  return { validatedGender };
+  return { validatedProperty };
 };
 
 export const numberPropertiesValidator = (

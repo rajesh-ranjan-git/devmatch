@@ -436,7 +436,7 @@ export const publicProfilePropertiesForExplore = selectObjectProperties(
     "LINKEDIN",
     "YOUTUBE",
     "WEBSITE",
-  ]
+  ],
 );
 
 export const publicProfilePropertiesForNotification = selectObjectProperties(
@@ -451,7 +451,7 @@ export const publicProfilePropertiesForNotification = selectObjectProperties(
     "AVATAR_URL",
     "COVER_PHOTO_URL",
     "JOB_PROFILE",
-  ]
+  ],
 );
 
 export const privateProfileProperties = omitObjectProperties(userProperties, [
@@ -468,7 +468,7 @@ export const allowedUpdateProfileProperties = omitObjectProperties(
     "PASSWORD_LAST_UPDATED",
     "CREATED_AT",
     "UPDATED_AT",
-  ]
+  ],
 );
 
 export const connectionProperties = {
