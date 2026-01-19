@@ -20,7 +20,7 @@ const Input = ({
         defaultValue={defaultValue as string}
         className="px-5 py-2 rounded-l-4xl outline-none w-full"
       />
-      <span onClick={onClick} className={onclick ? "cursor-pointer" : ""}>
+      <span onClick={onClick} className={onClick ? "cursor-pointer" : ""}>
         {icon}
       </span>
     </div>
