@@ -1,5 +1,8 @@
 import { useActionState } from "react";
-import { GENDER_PROPERTIES } from "@/config/constants";
+import {
+  GENDER_PROPERTIES,
+  MARITAL_STATUS_PROPERTIES,
+} from "@/config/constants";
 import {
   addressFormFieldInputItems,
   allowedUpdateProfileProperties,
@@ -126,14 +129,12 @@ const ProfileDetailsUpdateContext = ({
 
       case allowedUpdateProfileProperties.maritalStatus:
         return (
-          <Input
+          <Radio
             name={
               value ?? profileDetailsFormFieldInputItems.maritalStatus?.name
             }
-            type={
-              value ?? profileDetailsFormFieldInputItems.maritalStatus?.type
-            }
-            placeholder={
+            options={Object.values(MARITAL_STATUS_PROPERTIES)}
+            value={
               value ??
               profileDetailsFormFieldInputItems.maritalStatus?.placeholder
             }
