@@ -12,7 +12,6 @@ import {
   ADDRESS_PROPERTIES,
   COUNTRY_CODE_REGEX,
   PIN_CODE_REGEX,
-  GENDER_PROPERTIES,
 } from "@/config/constants";
 
 export const userNameValidator = (user_name: string) => {
@@ -177,7 +176,7 @@ export const allowedStringValidator = (
   },
 ) => {
   const propertyErrors: string[] = [];
-  const propertyValue = property.trim().toLowerCase();
+  const propertyValue = property?.trim()?.toLowerCase();
   let validatedProperty;
 
   Object.values(ALLOWED_PROPERTIES).forEach((value) => {
@@ -187,7 +186,7 @@ export const allowedStringValidator = (
   });
 
   if (!validatedProperty) {
-    propertyErrors.push(ERROR_MESSAGES.invalidError);
+    propertyErrors.push(errors.invalidError);
   }
 
   if (propertyErrors && propertyErrors?.length > 0) {

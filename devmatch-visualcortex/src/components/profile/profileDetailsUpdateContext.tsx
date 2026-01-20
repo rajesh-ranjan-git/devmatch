@@ -14,10 +14,10 @@ import { ProfileUpdateFormStateType } from "@/types/types";
 import { ProfileComponentProps } from "@/types/propTypes";
 import { isPlainObject, typedKeys } from "@/lib/utils/utils";
 import { updateProfileDetailsAction } from "@/lib/actions/profileActions";
+import ProfileDetailsUpdateDropdown from "@/components/profile/profileDetailsUpdateDropdown";
 import Input from "@/components/ui/inputs/input";
 import Radio from "@/components/ui/inputs/radio";
 import Chips from "@/components/ui/chips/chips";
-import ProfileDetailsUpdateDropdown from "@/components/profile/profileDetailsUpdateDropdown";
 import SubmitButton from "@/components/ui/buttons/submitButton";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 
@@ -32,6 +32,8 @@ const ProfileDetailsUpdateContext = ({
     initialState,
   );
 
+  console.log("debug from ProfileDetailsUpdateContext state : ", state);
+
   const renderValue = (key: string, value: any) => {
     switch (key) {
       case allowedUpdateProfileProperties.firstName:
@@ -41,6 +43,13 @@ const ProfileDetailsUpdateContext = ({
             type={value ?? profileDetailsFormFieldInputItems.firstName?.type}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.firstName?.placeholder
+            }
+            defaultValue={
+              state?.success === false &&
+              state?.inputs &&
+              state?.inputs?.firstName
+                ? (state?.inputs?.firstName as string)
+                : ""
             }
             icon={profileDetailsFormFieldInputItems.firstName?.icon}
           />
@@ -54,6 +63,13 @@ const ProfileDetailsUpdateContext = ({
             placeholder={
               value ?? profileDetailsFormFieldInputItems.middleName?.placeholder
             }
+            defaultValue={
+              state?.success === false &&
+              state?.inputs &&
+              state?.inputs?.middleName
+                ? (state?.inputs?.middleName as string)
+                : ""
+            }
             icon={profileDetailsFormFieldInputItems.middleName?.icon}
           />
         );
@@ -66,6 +82,13 @@ const ProfileDetailsUpdateContext = ({
             placeholder={
               value ?? profileDetailsFormFieldInputItems.lastName?.placeholder
             }
+            defaultValue={
+              state?.success === false &&
+              state?.inputs &&
+              state?.inputs?.lastName
+                ? (state?.inputs?.lastName as string)
+                : ""
+            }
             icon={profileDetailsFormFieldInputItems.lastName?.icon}
           />
         );
@@ -77,6 +100,13 @@ const ProfileDetailsUpdateContext = ({
             type={value ?? profileDetailsFormFieldInputItems.nickName?.type}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.nickName?.placeholder
+            }
+            defaultValue={
+              state?.success === false &&
+              state?.inputs &&
+              state?.inputs?.nickName
+                ? (state?.inputs?.nickName as string)
+                : ""
             }
             icon={profileDetailsFormFieldInputItems.nickName?.icon}
           />
@@ -99,6 +129,11 @@ const ProfileDetailsUpdateContext = ({
             type={value ?? profileDetailsFormFieldInputItems.phone?.type}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.phone?.placeholder
+            }
+            defaultValue={
+              state?.success === false && state?.inputs && state?.inputs?.phone
+                ? (state?.inputs?.phone as string)
+                : ""
             }
             icon={profileDetailsFormFieldInputItems.phone?.icon}
           />
@@ -123,6 +158,11 @@ const ProfileDetailsUpdateContext = ({
             type={value ?? profileDetailsFormFieldInputItems.bio?.type}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.bio?.placeholder
+            }
+            defaultValue={
+              state?.success === false && state?.inputs && state?.inputs?.bio
+                ? (state?.inputs?.bio as string)
+                : ""
             }
             icon={profileDetailsFormFieldInputItems.bio?.icon}
           />
@@ -151,6 +191,13 @@ const ProfileDetailsUpdateContext = ({
             placeholder={
               value ?? profileDetailsFormFieldInputItems.jobProfile?.placeholder
             }
+            defaultValue={
+              state?.success === false &&
+              state?.inputs &&
+              state?.inputs?.jobProfile
+                ? (state?.inputs?.jobProfile as string)
+                : ""
+            }
             icon={profileDetailsFormFieldInputItems.jobProfile?.icon}
           />
         );
@@ -173,6 +220,13 @@ const ProfileDetailsUpdateContext = ({
             placeholder={
               value ?? profileDetailsFormFieldInputItems.facebook?.placeholder
             }
+            defaultValue={
+              state?.success === false &&
+              state?.inputs &&
+              state?.inputs?.facebook
+                ? (state?.inputs?.facebook as string)
+                : ""
+            }
             icon={profileDetailsFormFieldInputItems.facebook?.icon}
           />
         );
@@ -184,6 +238,13 @@ const ProfileDetailsUpdateContext = ({
             type={value ?? profileDetailsFormFieldInputItems.instagram?.type}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.instagram?.placeholder
+            }
+            defaultValue={
+              state?.success === false &&
+              state?.inputs &&
+              state?.inputs?.instagram
+                ? (state?.inputs?.instagram as string)
+                : ""
             }
             icon={profileDetailsFormFieldInputItems.instagram?.icon}
           />
@@ -197,6 +258,13 @@ const ProfileDetailsUpdateContext = ({
             placeholder={
               value ?? profileDetailsFormFieldInputItems.twitter?.placeholder
             }
+            defaultValue={
+              state?.success === false &&
+              state?.inputs &&
+              state?.inputs?.twitter
+                ? (state?.inputs?.twitter as string)
+                : ""
+            }
             icon={profileDetailsFormFieldInputItems.twitter?.icon}
           />
         );
@@ -208,6 +276,11 @@ const ProfileDetailsUpdateContext = ({
             type={value ?? profileDetailsFormFieldInputItems.github?.type}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.github?.placeholder
+            }
+            defaultValue={
+              state?.success === false && state?.inputs && state?.inputs?.github
+                ? (state?.inputs?.github as string)
+                : ""
             }
             icon={profileDetailsFormFieldInputItems.github?.icon}
           />
@@ -221,6 +294,13 @@ const ProfileDetailsUpdateContext = ({
             placeholder={
               value ?? profileDetailsFormFieldInputItems.linkedin?.placeholder
             }
+            defaultValue={
+              state?.success === false &&
+              state?.inputs &&
+              state?.inputs?.linkedin
+                ? (state?.inputs?.linkedin as string)
+                : ""
+            }
             icon={profileDetailsFormFieldInputItems.linkedin?.icon}
           />
         );
@@ -232,6 +312,13 @@ const ProfileDetailsUpdateContext = ({
             type={value ?? profileDetailsFormFieldInputItems.youtube?.type}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.youtube?.placeholder
+            }
+            defaultValue={
+              state?.success === false &&
+              state?.inputs &&
+              state?.inputs?.youtube
+                ? (state?.inputs?.youtube as string)
+                : ""
             }
             icon={profileDetailsFormFieldInputItems.youtube?.icon}
           />
@@ -245,6 +332,13 @@ const ProfileDetailsUpdateContext = ({
             placeholder={
               value ?? profileDetailsFormFieldInputItems.website?.placeholder
             }
+            defaultValue={
+              state?.success === false &&
+              state?.inputs &&
+              state?.inputs?.website
+                ? (state?.inputs?.website as string)
+                : ""
+            }
             icon={profileDetailsFormFieldInputItems.website?.icon}
           />
         );
@@ -256,6 +350,13 @@ const ProfileDetailsUpdateContext = ({
             type={value ?? profileDetailsFormFieldInputItems.company?.type}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.company?.placeholder
+            }
+            defaultValue={
+              state?.success === false &&
+              state?.inputs &&
+              state?.inputs?.company
+                ? (state?.inputs?.company as string)
+                : ""
             }
             icon={profileDetailsFormFieldInputItems.company?.icon}
           />
@@ -269,6 +370,13 @@ const ProfileDetailsUpdateContext = ({
             placeholder={
               value ??
               profileDetailsFormFieldInputItems.organization?.placeholder
+            }
+            defaultValue={
+              state?.success === false &&
+              state?.inputs &&
+              state?.inputs?.organization
+                ? (state?.inputs?.organization as string)
+                : ""
             }
             icon={profileDetailsFormFieldInputItems.organization?.icon}
           />
@@ -305,6 +413,13 @@ const ProfileDetailsUpdateContext = ({
               type={value ?? addressFormFieldInputItems[item]?.type}
               placeholder={
                 value[item] ?? addressFormFieldInputItems[item]?.placeholder
+              }
+              defaultValue={
+                state?.success === false &&
+                state?.inputs &&
+                state?.inputs?.address
+                  ? (state?.inputs?.address as string)
+                  : ""
               }
               icon={addressFormFieldInputItems[item]?.icon}
               className="mb-4 w-3/5"

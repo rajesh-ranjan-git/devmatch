@@ -65,6 +65,7 @@
 - [ ] When connection request is already sent, either it should not show that user's card on explore or it should allow to send the interested request again and should not throw error.
 - [ ] Notifications gets removed abruptly, it should have a sliding effect to the left and get removed.
 - [ ] Requests and connections gets removed abruptly, it should have a sliding effect to the left and get removed.
+- [ ] Upon submitting form if the token gets expired, it throws error but it should just redirect to login.
 
 ---
 
