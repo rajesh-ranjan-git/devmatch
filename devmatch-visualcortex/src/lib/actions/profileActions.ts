@@ -371,7 +371,7 @@ export const updateProfileDetailsAction = async (
       interests: validatedInterests,
       address: validatedAddress,
     },
-    requiresAuth: false,
+    requiresAuth: true,
   });
 
   if (!result?.success) {

@@ -1,4 +1,5 @@
 import { useActionState } from "react";
+import Form from "next/form";
 import {
   GENDER_PROPERTIES,
   MARITAL_STATUS_PROPERTIES,
@@ -17,7 +18,7 @@ import Input from "@/components/ui/inputs/input";
 import Radio from "@/components/ui/inputs/radio";
 import Chips from "@/components/ui/chips/chips";
 import ProfileDetailsUpdateDropdown from "@/components/profile/profileDetailsUpdateDropdown";
-import ButtonSuccess from "@/components/ui/buttons/buttonSuccess";
+import SubmitButton from "@/components/ui/buttons/submitButton";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 
 const ProfileDetailsUpdateContext = ({
@@ -316,7 +317,11 @@ const ProfileDetailsUpdateContext = ({
   return (
     <div className="flex flex-col gap-2 w-full h-full">
       <h2 className="font-semibold text-xl">Update Profile</h2>
-      <div className="[&::-webkit-scrollbar-thumb]:hover:bg-glass-surface-lighter [&::-webkit-scrollbar-track]:bg-transparent p-2 pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 max-h-96 overflow-y-auto [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary transition-all ease-in-out">
+      <Form
+        action={formAction}
+        autoComplete="false"
+        className="[&::-webkit-scrollbar-thumb]:hover:bg-glass-surface-lighter [&::-webkit-scrollbar-track]:bg-transparent p-2 pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 max-h-96 overflow-y-auto [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary transition-all ease-in-out"
+      >
         <table className="w-full text-glass-text-primary table-fixed">
           <tbody>
             {Object.values(allowedUpdateProfileProperties).map((key, idx) => {
@@ -338,9 +343,39 @@ const ProfileDetailsUpdateContext = ({
           </tbody>
         </table>
         <div className="flex justify-center items-center gap-4 mb-2">
-          <ButtonSuccess
-            icon={profileDetailsFormFieldButtonItems?.update?.icon}
-            text={profileDetailsFormFieldButtonItems?.update?.label}
+          <SubmitButton
+            icon={
+              isPending ? (
+                <svg
+                  className="mr-3 -ml-1 w-5 h-5 text-white animate-spin"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+              ) : (
+                profileDetailsFormFieldButtonItems?.update?.icon
+              )
+            }
+            text={
+              isPending
+                ? "Updating..."
+                : profileDetailsFormFieldButtonItems?.update?.label
+            }
+            disabled={isPending}
             className="w-32 h-10"
           />
           <ButtonDestructive
@@ -350,7 +385,7 @@ const ProfileDetailsUpdateContext = ({
             onClick={onClose}
           />
         </div>
-      </div>
+      </Form>
     </div>
   );
 };
