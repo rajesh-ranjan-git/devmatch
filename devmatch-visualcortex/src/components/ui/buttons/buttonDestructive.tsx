@@ -9,7 +9,7 @@ const ButtonDestructive = ({
   onClick,
 }: ButtonProps) => {
   return (
-    <button
+    <div
       className={`before:top-1/2 before:left-1/2 before:absolute relative before:bg-[rgba(255,31,42,0.5)] before:rounded-xl hover:before:rounded-4xl w-20 before:w-8 hover:before:w-full h-6 before:h-8 hover:before:h-full before:content-[''] before:rotate-45 hover:before:rotate-0 before:transition-all before:-translate-x-1/2 before:-translate-y-1/2 hover:before:-translate-x-1/2 hover:before:-translate-y-1/2 before:duration-500 before:pointer-events-none select-none before:[box-shadow:0_0_0.3rem_rgba(255,31,42,0.5),0_0_1rem_rgba(255,31,42,0.5),0_0_2rem_rgba(255,31,42,0.5),0_0_3.5rem_rgba(255,31,42,0.5)] cursor-pointer ${className}`}
       onClick={onClick}
     >
@@ -18,7 +18,7 @@ const ButtonDestructive = ({
         {children}
         {text && <span>{toTitleCase(text)}</span>}
       </div>
-    </button>
+    </div>
   );
 };
 

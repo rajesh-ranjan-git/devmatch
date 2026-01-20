@@ -493,12 +493,12 @@ const ProfileDetailsUpdateContext = ({
                 : profileDetailsFormFieldButtonItems?.update?.label
             }
             disabled={isPending}
-            className="w-32 h-10"
+            className={`h-10 ${isPending ? "w-48" : "w-40"}`}
           />
           <ButtonDestructive
             icon={profileDetailsFormFieldButtonItems?.discard?.icon}
             text={profileDetailsFormFieldButtonItems?.discard?.label}
-            className="w-32 h-10"
+            className="w-40 h-10"
             onClick={onClose}
           />
         </div>
