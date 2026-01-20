@@ -276,7 +276,7 @@ export const stringPropertiesValidator = (
 };
 
 export const listPropertiesValidator = (
-  property: string | string[],
+  property: string | string[] | null,
   error: string,
 ) => {
   const propertyErrors: string[] = [];
@@ -298,7 +298,7 @@ export const listPropertiesValidator = (
   };
 };
 
-export const addressValidator = (address: Record<string, any>) => {
+export const addressValidator = (address: Record<string, any> | null) => {
   const addressErrors: string[] = [];
 
   if (

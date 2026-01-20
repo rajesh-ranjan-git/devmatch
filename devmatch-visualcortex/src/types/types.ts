@@ -109,6 +109,9 @@ export type ProfileUpdateFormStateType = {
     website?: string[];
     company?: string[];
     organization?: string[];
+    skills?: string[];
+    interests?: string[];
+    address?: string[];
   };
   result?: any;
 };

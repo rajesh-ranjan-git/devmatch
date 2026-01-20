@@ -15,7 +15,9 @@ import {
 import { allowedUpdateProfileProperties } from "@/config/config";
 import { ProfileUpdateFormStateType } from "@/types/types";
 import {
+  addressValidator,
   allowedStringValidator,
+  listPropertiesValidator,
   nameValidator,
   numberPropertiesValidator,
   regexPropertiesValidator,
@@ -296,6 +298,43 @@ export const updateProfileDetailsAction = async (
 
   errors.organization = [...(organizationErrors ?? [])];
 
+  const skillsFormData =
+    typeof skills === "string" || Array.isArray(skills) ? skills : null;
+
+  const { validatedProperty: validatedSkills, propertyErrors: skillsErrors } =
+    listPropertiesValidator(skillsFormData, ERROR_MESSAGES.invalidSkillsError);
+
+  errors.skills = [...(skillsErrors ?? [])];
+
+  const interestsFormData =
+    typeof interests === "string" || Array.isArray(interests)
+      ? interests
+      : null;
+
+  const {
+    validatedProperty: validatedInterests,
+    propertyErrors: interestsErrors,
+  } = listPropertiesValidator(
+    interestsFormData,
+    ERROR_MESSAGES.invalidInterestsError,
+  );
+
+  errors.interests = [...(interestsErrors ?? [])];
+
+  let parsedAddress: Record<string, any> | null = null;
+
+  if (typeof address === "string") {
+    try {
+      parsedAddress = JSON.parse(address);
+    } catch {
+      parsedAddress = null;
+    }
+  }
+
+  const { validatedAddress, addressErrors } = addressValidator(parsedAddress);
+
+  errors.address = [...(addressErrors ?? [])];
+
   if (Object.values(errors).filter((item) => item.length > 0).length > 0) {
     return {
       message: "Validation Error",
@@ -307,7 +346,7 @@ export const updateProfileDetailsAction = async (
 
   const result = await apiRequest({
     method: "post",
-    url: apiUrls.register,
+    url: apiUrls.updateProfile,
     data: {
       firstName: validatedFirstName,
       middleName: validatedMiddleName,
@@ -328,20 +367,23 @@ export const updateProfileDetailsAction = async (
       website: validatedWebsiteUrl,
       company: validatedCompany,
       organization: validatedOrganization,
+      skills: validatedSkills,
+      interests: validatedInterests,
+      address: validatedAddress,
     },
     requiresAuth: false,
   });
 
   if (!result?.success) {
     return {
-      message: "Registration Failed!",
+      message: "Update update failed!",
       result,
       success: result?.success ?? false,
     };
   }
 
   return {
-    message: "Welcome!",
+    message: "Profile update successful!",
     result,
     success: result?.success ?? true,
   };
