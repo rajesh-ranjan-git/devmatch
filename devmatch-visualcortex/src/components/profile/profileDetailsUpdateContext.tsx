@@ -39,8 +39,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.firstName:
         return (
           <Input
-            name={value ?? profileDetailsFormFieldInputItems.firstName?.name}
-            type={value ?? profileDetailsFormFieldInputItems.firstName?.type}
+            name={key ?? profileDetailsFormFieldInputItems.firstName?.name}
+            type={profileDetailsFormFieldInputItems.firstName?.type as string}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.firstName?.placeholder
             }
@@ -58,8 +58,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.middleName:
         return (
           <Input
-            name={value ?? profileDetailsFormFieldInputItems.middleName?.name}
-            type={value ?? profileDetailsFormFieldInputItems.middleName?.type}
+            name={key ?? profileDetailsFormFieldInputItems.middleName?.name}
+            type={profileDetailsFormFieldInputItems.middleName?.type as string}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.middleName?.placeholder
             }
@@ -77,8 +77,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.lastName:
         return (
           <Input
-            name={value ?? profileDetailsFormFieldInputItems.lastName?.name}
-            type={value ?? profileDetailsFormFieldInputItems.lastName?.type}
+            name={key ?? profileDetailsFormFieldInputItems.lastName?.name}
+            type={profileDetailsFormFieldInputItems.lastName?.type as string}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.lastName?.placeholder
             }
@@ -96,8 +96,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.nickName:
         return (
           <Input
-            name={value ?? profileDetailsFormFieldInputItems.nickName?.name}
-            type={value ?? profileDetailsFormFieldInputItems.nickName?.type}
+            name={key ?? profileDetailsFormFieldInputItems.nickName?.name}
+            type={profileDetailsFormFieldInputItems.nickName?.type as string}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.nickName?.placeholder
             }
@@ -125,8 +125,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.phone:
         return (
           <Input
-            name={value ?? profileDetailsFormFieldInputItems.phone?.name}
-            type={value ?? profileDetailsFormFieldInputItems.phone?.type}
+            name={key ?? profileDetailsFormFieldInputItems.phone?.name}
+            type={profileDetailsFormFieldInputItems.phone?.type as string}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.phone?.placeholder
             }
@@ -142,7 +142,7 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.gender:
         return (
           <Radio
-            name={value ?? profileDetailsFormFieldInputItems.gender?.name}
+            name={key ?? profileDetailsFormFieldInputItems.gender?.name}
             options={Object.values(GENDER_PROPERTIES)}
             value={
               value ?? profileDetailsFormFieldInputItems.gender?.placeholder
@@ -154,8 +154,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.bio:
         return (
           <Input
-            name={value ?? profileDetailsFormFieldInputItems.bio?.name}
-            type={value ?? profileDetailsFormFieldInputItems.bio?.type}
+            name={key ?? profileDetailsFormFieldInputItems.bio?.name}
+            type={profileDetailsFormFieldInputItems.bio?.type as string}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.bio?.placeholder
             }
@@ -186,8 +186,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.jobProfile:
         return (
           <Input
-            name={value ?? profileDetailsFormFieldInputItems.jobProfile?.name}
-            type={value ?? profileDetailsFormFieldInputItems.jobProfile?.type}
+            name={key ?? profileDetailsFormFieldInputItems.jobProfile?.name}
+            type={profileDetailsFormFieldInputItems.jobProfile?.type as string}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.jobProfile?.placeholder
             }
@@ -215,8 +215,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.facebook:
         return (
           <Input
-            name={value ?? profileDetailsFormFieldInputItems.facebook?.name}
-            type={value ?? profileDetailsFormFieldInputItems.facebook?.type}
+            name={key ?? profileDetailsFormFieldInputItems.facebook?.name}
+            type={profileDetailsFormFieldInputItems.facebook?.type as string}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.facebook?.placeholder
             }
@@ -234,8 +234,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.instagram:
         return (
           <Input
-            name={value ?? profileDetailsFormFieldInputItems.instagram?.name}
-            type={value ?? profileDetailsFormFieldInputItems.instagram?.type}
+            name={key ?? profileDetailsFormFieldInputItems.instagram?.name}
+            type={profileDetailsFormFieldInputItems.instagram?.type as string}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.instagram?.placeholder
             }
@@ -253,8 +253,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.twitter:
         return (
           <Input
-            name={value ?? profileDetailsFormFieldInputItems.twitter?.name}
-            type={value ?? profileDetailsFormFieldInputItems.twitter?.type}
+            name={key ?? profileDetailsFormFieldInputItems.twitter?.name}
+            type={profileDetailsFormFieldInputItems.twitter?.type as string}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.twitter?.placeholder
             }
@@ -272,8 +272,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.github:
         return (
           <Input
-            name={value ?? profileDetailsFormFieldInputItems.github?.name}
-            type={value ?? profileDetailsFormFieldInputItems.github?.type}
+            name={key ?? profileDetailsFormFieldInputItems.github?.name}
+            type={profileDetailsFormFieldInputItems.github?.type as string}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.github?.placeholder
             }
@@ -289,8 +289,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.linkedin:
         return (
           <Input
-            name={value ?? profileDetailsFormFieldInputItems.linkedin?.name}
-            type={value ?? profileDetailsFormFieldInputItems.linkedin?.type}
+            name={key ?? profileDetailsFormFieldInputItems.linkedin?.name}
+            type={profileDetailsFormFieldInputItems.linkedin?.type as string}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.linkedin?.placeholder
             }
@@ -308,8 +308,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.youtube:
         return (
           <Input
-            name={value ?? profileDetailsFormFieldInputItems.youtube?.name}
-            type={value ?? profileDetailsFormFieldInputItems.youtube?.type}
+            name={key ?? profileDetailsFormFieldInputItems.youtube?.name}
+            type={profileDetailsFormFieldInputItems.youtube?.type as string}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.youtube?.placeholder
             }
@@ -327,8 +327,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.website:
         return (
           <Input
-            name={value ?? profileDetailsFormFieldInputItems.website?.name}
-            type={value ?? profileDetailsFormFieldInputItems.website?.type}
+            name={key ?? profileDetailsFormFieldInputItems.website?.name}
+            type={profileDetailsFormFieldInputItems.website?.type as string}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.website?.placeholder
             }
@@ -346,8 +346,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.company:
         return (
           <Input
-            name={value ?? profileDetailsFormFieldInputItems.company?.name}
-            type={value ?? profileDetailsFormFieldInputItems.company?.type}
+            name={key ?? profileDetailsFormFieldInputItems.company?.name}
+            type={profileDetailsFormFieldInputItems.company?.type as string}
             placeholder={
               value ?? profileDetailsFormFieldInputItems.company?.placeholder
             }
@@ -365,8 +365,10 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.organization:
         return (
           <Input
-            name={value ?? profileDetailsFormFieldInputItems.organization?.name}
-            type={value ?? profileDetailsFormFieldInputItems.organization?.type}
+            name={key ?? profileDetailsFormFieldInputItems.organization?.name}
+            type={
+              profileDetailsFormFieldInputItems.organization?.type as string
+            }
             placeholder={
               value ??
               profileDetailsFormFieldInputItems.organization?.placeholder
@@ -385,8 +387,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.skills:
         return (
           <Chips
-            name={value ?? profileDetailsFormFieldInputItems.skills?.name}
-            type={value ?? profileDetailsFormFieldInputItems.skills?.type}
+            name={key ?? profileDetailsFormFieldInputItems.skills?.name}
+            type={profileDetailsFormFieldInputItems.skills?.type as string}
             values={value}
             icon={profileDetailsFormFieldInputItems.skills?.icon}
           />
@@ -395,8 +397,8 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.interests:
         return (
           <Chips
-            name={value ?? profileDetailsFormFieldInputItems.interests?.name}
-            type={value ?? profileDetailsFormFieldInputItems.interests?.type}
+            name={key ?? profileDetailsFormFieldInputItems.interests?.name}
+            type={profileDetailsFormFieldInputItems.interests?.type as string}
             values={value}
             icon={profileDetailsFormFieldInputItems.interests?.icon}
           />
@@ -409,8 +411,8 @@ const ProfileDetailsUpdateContext = ({
               {addressFormFieldInputItems[item]?.label}
             </label>
             <Input
-              name={value ?? addressFormFieldInputItems[item]?.name}
-              type={value ?? addressFormFieldInputItems[item]?.type}
+              name={key ?? addressFormFieldInputItems[item]?.name}
+              type={addressFormFieldInputItems[item]?.type as string}
               placeholder={
                 value[item] ?? addressFormFieldInputItems[item]?.placeholder
               }

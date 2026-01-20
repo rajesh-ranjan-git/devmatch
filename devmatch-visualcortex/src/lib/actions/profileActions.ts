@@ -84,36 +84,6 @@ export const updateProfileDetailsAction = async (
   const interests = formData.get(allowedUpdateProfileProperties.interests);
   const address = formData.get(allowedUpdateProfileProperties.address);
 
-  const completeIncomingFormData = {
-    firstName: firstName,
-    middleName: middleName,
-    lastName: lastName,
-    nickName: nickName,
-    age: age,
-    phone: phone,
-    gender: gender,
-    bio: bio,
-    maritalStatus: maritalStatus,
-    jobProfile: jobProfile,
-    experience: experience,
-    facebook: facebook,
-    instagram: instagram,
-    twitter: twitter,
-    github: github,
-    youtube: youtube,
-    website: website,
-    company: company,
-    organization: organization,
-    skills: skills,
-    interests: interests,
-    address: address,
-  };
-
-  console.log(
-    "debug from profileActions completeIncomingFormData : ",
-    completeIncomingFormData,
-  );
-
   const errors: ProfileUpdateFormStateType["errors"] = {};
 
   const { validatedName: validatedFirstName, nameErrors: firstNameErrors } =
@@ -374,39 +344,9 @@ export const updateProfileDetailsAction = async (
     };
   }
 
-  const completeFormData = {
-    firstName: validatedFirstName,
-    middleName: validatedMiddleName,
-    lastName: validatedLastName,
-    nickName: validatedNickName,
-    age: validatedAge,
-    phone: validatedPhone,
-    gender: validatedGender,
-    bio: validatedBio,
-    maritalStatus: validatedMaritalStatus,
-    jobProfile: validatedJobProfile,
-    experience: validatedExperience,
-    facebook: validatedFacebookUrl,
-    instagram: validatedInstagramUrl,
-    twitter: validatedTwitterUrl,
-    github: validatedGithubUrl,
-    youtube: validatedYoutubeUrl,
-    website: validatedWebsiteUrl,
-    company: validatedCompany,
-    organization: validatedOrganization,
-    skills: validatedSkills,
-    interests: validatedInterests,
-    address: validatedAddress,
-  };
-
-  console.log(
-    "debug from profileActions completeFormData : ",
-    completeFormData,
-  );
-
   return {
     message: "Profile update successful!",
-    result: completeFormData,
+    result: Object.fromEntries(formData),
     success: true,
   };
 
