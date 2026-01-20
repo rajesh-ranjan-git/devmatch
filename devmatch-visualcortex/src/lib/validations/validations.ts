@@ -175,8 +175,11 @@ export const allowedStringValidator = (
     invalidError: string;
   },
 ) => {
+  if(!property) return {validatedProperty: property}
+
   const propertyErrors: string[] = [];
   const propertyValue = property?.trim()?.toLowerCase();
+
   let validatedProperty;
 
   Object.values(ALLOWED_PROPERTIES).forEach((value) => {
@@ -207,6 +210,8 @@ export const numberPropertiesValidator = (
     maxLengthError: string;
   },
 ) => {
+  if(!property) return {validatedProperty: property}
+
   const propertyErrors: string[] = [];
   const value =
     typeof property === "string" ? property?.trim().toLowerCase() : property;
@@ -251,6 +256,8 @@ export const stringPropertiesValidator = (
     maxLengthError: string;
   },
 ) => {
+  if(!property) return {validatedProperty: property}
+
   const propertyErrors: string[] = [];
 
   if (typeof property !== "string") {
@@ -278,6 +285,8 @@ export const listPropertiesValidator = (
   property: string | string[] | null,
   error: string,
 ) => {
+  if(!property) return {validatedProperty: property}
+
   const propertyErrors: string[] = [];
 
   if (typeof property !== "string" && !Array.isArray(property)) {
@@ -298,6 +307,8 @@ export const listPropertiesValidator = (
 };
 
 export const addressValidator = (address: Record<string, any> | null) => {
+  if(!address) return {validatedAddress: address}
+
   const addressErrors: string[] = [];
 
   if (
@@ -469,6 +480,8 @@ export const regexPropertiesValidator = (
   regex: RegExp,
   error: string,
 ) => {
+  if(!property) return {validatedProperty: property}
+  
   const value =
     typeof property === "string" ? property?.trim().toLowerCase() : property;
 
