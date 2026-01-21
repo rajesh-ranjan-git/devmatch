@@ -27,6 +27,7 @@ export interface ConnectionProps {
 export interface ButtonProps {
   popoverTarget?: string | undefined;
   text?: string | null;
+  type?: "button" | "submit";
   icon?: ReactNode;
   disabled?: boolean;
   children?: ReactNode;
