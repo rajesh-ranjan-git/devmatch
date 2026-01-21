@@ -59,7 +59,9 @@ const ProfileDetailsUpdateContext = ({
             name={key ?? profileDetailsFormFieldInputItems.middleName?.name}
             type={profileDetailsFormFieldInputItems.middleName?.type as string}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.middleName?.placeholder
+              value ??
+              (profileDetailsFormFieldInputItems.middleName
+                ?.placeholder as string)
             }
             defaultValue={
               state?.success === false &&
@@ -78,7 +80,9 @@ const ProfileDetailsUpdateContext = ({
             name={key ?? profileDetailsFormFieldInputItems.lastName?.name}
             type={profileDetailsFormFieldInputItems.lastName?.type as string}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.lastName?.placeholder
+              value ??
+              (profileDetailsFormFieldInputItems.lastName
+                ?.placeholder as string)
             }
             defaultValue={
               state?.success === false &&
@@ -97,7 +101,9 @@ const ProfileDetailsUpdateContext = ({
             name={key ?? profileDetailsFormFieldInputItems.nickName?.name}
             type={profileDetailsFormFieldInputItems.nickName?.type as string}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.nickName?.placeholder
+              value ??
+              (profileDetailsFormFieldInputItems.nickName
+                ?.placeholder as string)
             }
             defaultValue={
               state?.success === false &&
@@ -126,7 +132,8 @@ const ProfileDetailsUpdateContext = ({
             name={key ?? profileDetailsFormFieldInputItems.phone?.name}
             type={profileDetailsFormFieldInputItems.phone?.type as string}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.phone?.placeholder
+              value ??
+              (profileDetailsFormFieldInputItems.phone?.placeholder as string)
             }
             defaultValue={
               state?.success === false && state?.inputs && state?.inputs?.phone
@@ -143,7 +150,8 @@ const ProfileDetailsUpdateContext = ({
             name={key ?? profileDetailsFormFieldInputItems.gender?.name}
             options={Object.values(GENDER_PROPERTIES)}
             value={
-              value ?? profileDetailsFormFieldInputItems.gender?.placeholder
+              value ??
+              (profileDetailsFormFieldInputItems.gender?.placeholder as string)
             }
             icon={profileDetailsFormFieldInputItems.gender?.icon}
           />
@@ -155,7 +163,8 @@ const ProfileDetailsUpdateContext = ({
             name={key ?? profileDetailsFormFieldInputItems.bio?.name}
             type={profileDetailsFormFieldInputItems.bio?.type as string}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.bio?.placeholder
+              value ??
+              (profileDetailsFormFieldInputItems.bio?.placeholder as string)
             }
             defaultValue={
               state?.success === false && state?.inputs && state?.inputs?.bio
@@ -175,7 +184,8 @@ const ProfileDetailsUpdateContext = ({
             options={Object.values(MARITAL_STATUS_PROPERTIES)}
             value={
               value ??
-              profileDetailsFormFieldInputItems.maritalStatus?.placeholder
+              (profileDetailsFormFieldInputItems.maritalStatus
+                ?.placeholder as string)
             }
             icon={profileDetailsFormFieldInputItems.maritalStatus?.icon}
           />
@@ -187,7 +197,9 @@ const ProfileDetailsUpdateContext = ({
             name={key ?? profileDetailsFormFieldInputItems.jobProfile?.name}
             type={profileDetailsFormFieldInputItems.jobProfile?.type as string}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.jobProfile?.placeholder
+              value ??
+              (profileDetailsFormFieldInputItems.jobProfile
+                ?.placeholder as string)
             }
             defaultValue={
               state?.success === false &&
@@ -216,7 +228,9 @@ const ProfileDetailsUpdateContext = ({
             name={key ?? profileDetailsFormFieldInputItems.facebook?.name}
             type={profileDetailsFormFieldInputItems.facebook?.type as string}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.facebook?.placeholder
+              value ??
+              (profileDetailsFormFieldInputItems.facebook
+                ?.placeholder as string)
             }
             defaultValue={
               state?.success === false &&
@@ -235,7 +249,9 @@ const ProfileDetailsUpdateContext = ({
             name={key ?? profileDetailsFormFieldInputItems.instagram?.name}
             type={profileDetailsFormFieldInputItems.instagram?.type as string}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.instagram?.placeholder
+              value ??
+              (profileDetailsFormFieldInputItems.instagram
+                ?.placeholder as string)
             }
             defaultValue={
               state?.success === false &&
@@ -254,7 +270,8 @@ const ProfileDetailsUpdateContext = ({
             name={key ?? profileDetailsFormFieldInputItems.twitter?.name}
             type={profileDetailsFormFieldInputItems.twitter?.type as string}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.twitter?.placeholder
+              value ??
+              (profileDetailsFormFieldInputItems.twitter?.placeholder as string)
             }
             defaultValue={
               state?.success === false &&
@@ -273,7 +290,8 @@ const ProfileDetailsUpdateContext = ({
             name={key ?? profileDetailsFormFieldInputItems.github?.name}
             type={profileDetailsFormFieldInputItems.github?.type as string}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.github?.placeholder
+              value ??
+              (profileDetailsFormFieldInputItems.github?.placeholder as string)
             }
             defaultValue={
               state?.success === false && state?.inputs && state?.inputs?.github
@@ -290,7 +308,9 @@ const ProfileDetailsUpdateContext = ({
             name={key ?? profileDetailsFormFieldInputItems.linkedin?.name}
             type={profileDetailsFormFieldInputItems.linkedin?.type as string}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.linkedin?.placeholder
+              value ??
+              (profileDetailsFormFieldInputItems.linkedin
+                ?.placeholder as string)
             }
             defaultValue={
               state?.success === false &&
@@ -309,7 +329,8 @@ const ProfileDetailsUpdateContext = ({
             name={key ?? profileDetailsFormFieldInputItems.youtube?.name}
             type={profileDetailsFormFieldInputItems.youtube?.type as string}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.youtube?.placeholder
+              value ??
+              (profileDetailsFormFieldInputItems.youtube?.placeholder as string)
             }
             defaultValue={
               state?.success === false &&
@@ -328,7 +349,8 @@ const ProfileDetailsUpdateContext = ({
             name={key ?? profileDetailsFormFieldInputItems.website?.name}
             type={profileDetailsFormFieldInputItems.website?.type as string}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.website?.placeholder
+              value ??
+              (profileDetailsFormFieldInputItems.website?.placeholder as string)
             }
             defaultValue={
               state?.success === false &&
@@ -347,7 +369,8 @@ const ProfileDetailsUpdateContext = ({
             name={key ?? profileDetailsFormFieldInputItems.company?.name}
             type={profileDetailsFormFieldInputItems.company?.type as string}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.company?.placeholder
+              value ??
+              (profileDetailsFormFieldInputItems.company?.placeholder as string)
             }
             defaultValue={
               state?.success === false &&
@@ -369,7 +392,8 @@ const ProfileDetailsUpdateContext = ({
             }
             placeholder={
               value ??
-              profileDetailsFormFieldInputItems.organization?.placeholder
+              (profileDetailsFormFieldInputItems.organization
+                ?.placeholder as string)
             }
             defaultValue={
               state?.success === false &&
@@ -412,7 +436,8 @@ const ProfileDetailsUpdateContext = ({
               name={key ?? addressFormFieldInputItems[item]?.name}
               type={addressFormFieldInputItems[item]?.type as string}
               placeholder={
-                value[item] ?? addressFormFieldInputItems[item]?.placeholder
+                value[item] ??
+                (addressFormFieldInputItems[item]?.placeholder as string)
               }
               defaultValue={
                 state?.success === false &&
