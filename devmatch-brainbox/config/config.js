@@ -107,17 +107,17 @@ export const PHONE_REGEX = /^\d{10}$/;
 export const PHOTO_URL_REGEX =
   /^(https?:\/\/)([a-zA-Z0-9\-._~%]+@)?([a-zA-Z0-9\-._~%]+\.)+[a-zA-Z]{2,}(\/[^\s?#]*)*(\.(jpg|jpeg|png|gif|webp|svg))?(\?[^\s]*)?$/i;
 export const FACEBOOK_REGEX =
-  /^https?:\/\/(www\.)?(facebook\.com|fb\.com)\/[A-Za-z0-9-]{1,39}\/?$/;
+  /(?:https?:\/\/)?(?:www\.)?(?:facebook|fb|m\.facebook)\.(?:com|me)\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-\.]*\/)*([\w\-\.]+)(?:\/)?/im;
 export const INSTAGRAM_REGEX =
-  /^https?:\/\/(www\.)?instagram\.com\/[A-Za-z0-9-]{1,39}\/?$/;
+  /(?:https?:\/\/)?(?:www\.)?instagram\.com\/([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)/i;
 export const TWITTER_REGEX =
-  /^https?:\/\/(www\.)?(twitter\.com|x\.com)\/[A-Za-z0-9-]{1,39}\/?$/;
+  /https?:\/\/(?:www\.|m\.)?(?:twitter|x)\.com\/@?([a-zA-Z0-9_]{1,15})(?:\/?|\?[^\s\/]*|\/[^\s\/]*)$/i;
 export const GITHUB_REGEX =
-  /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9-]{1,39}\/?$/;
+  /^(https?:\/\/)?(www\.)?github\.com\/([a-zA-Z0-9_-]+)\/?$/;
 export const LINKEDIN_REGEX =
-  /^https?:\/\/(www\.)?linkedin\.com\/[A-Za-z0-9-]{1,39}\/?$/;
+  /^(https?:\/\/)?([\w]+\.)?linkedin\.com\/(mwlite\/|m\/)?in\/([a-zA-Z0-9À-ž_.-]+)\/?$/;
 export const YOUTUBE_REGEX =
-  /^https?:\/\/(www\.)?youtube\.com\/[A-Za-z0-9-]{1,39}\/?$/;
+  /(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:channel\/|user\/|c\/|@)?([\w-]+)/;
 export const WEBSITE_REGEX =
   /^https?:\/\/(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+(:\d+)?(\/[^\s]*)?$/;
 export const COUNTRY_CODE_REGEX = /^\d{1,3}$/;

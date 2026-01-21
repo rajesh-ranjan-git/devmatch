@@ -7,6 +7,7 @@ import {
   GITHUB_REGEX,
   INSTAGRAM_REGEX,
   MARITAL_STATUS_PROPERTIES,
+  PHONE_REGEX,
   TWITTER_REGEX,
   USER_PROPERTY_CONSTRAINTS,
   WEBSITE_REGEX,
@@ -122,16 +123,10 @@ export const updateProfileDetailsAction = async (
   errors.age = [...(ageErrors ?? [])];
 
   const { validatedProperty: validatedPhone, propertyErrors: phoneErrors } =
-    numberPropertiesValidator(
+    regexPropertiesValidator(
       phone,
-      USER_PROPERTY_CONSTRAINTS.phoneLength,
-      USER_PROPERTY_CONSTRAINTS.phoneLength,
-      {
-        invalidError: ERROR_MESSAGES.invalidPhoneError,
-        decimalError: ERROR_MESSAGES.invalidPhoneError,
-        minLengthError: ERROR_MESSAGES.invalidPhoneError,
-        maxLengthError: ERROR_MESSAGES.invalidPhoneError,
-      },
+      PHONE_REGEX,
+      ERROR_MESSAGES.invalidPhoneError,
     );
 
   errors.phone = [...(phoneErrors ?? [])];
