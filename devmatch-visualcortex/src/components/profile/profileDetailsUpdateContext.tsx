@@ -464,7 +464,7 @@ const ProfileDetailsUpdateContext = ({
             icon={
               isPending ? (
                 <svg
-                  className="mr-3 -ml-1 w-5 h-5 text-white animate-spin"
+                  className="w-4 h-4 text-white animate-spin"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"

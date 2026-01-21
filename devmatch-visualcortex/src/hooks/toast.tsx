@@ -11,7 +11,7 @@ import { motion } from "motion/react";
 import { FiCheckCircle, FiAlertCircle } from "react-icons/fi";
 import { TbAlertTriangle } from "react-icons/tb";
 import { FaInfoCircle } from "react-icons/fa";
-import { ImCross } from "react-icons/im";
+import { IoClose } from "react-icons/io5";
 
 export const TOAST_VARIANTS = {
   success: "success",
@@ -228,9 +228,9 @@ const ToastItem: React.FC<{
             setShouldExit(true);
             setTimeout(() => onRemove(toast.id), 300);
           }}
-          className={`${config.text} opacity-70 border border-glass-border-subtle hover:border-glass-border-bright hover:opacity-100 transition-opacity shrink-0`}
+          className={`${config.text} opacity-70 border border-glass-border-subtle hover:border-glass-border-bright hover:opacity-100 transition-opacity shrink-0 cursor-pointer rounded-md`}
         >
-          <ImCross size={18} />
+          <IoClose size={18} />
         </button>
       </div>
 

@@ -28,7 +28,7 @@ const ContextMenu = ({
       } ${className ? className : ""}`}
     >
       <button
-        className="top-1 right-1 absolute p-0.5 border border-glass-border-subtle hover:border-glass-border-bright rounded-md text-sm cursor-pointer"
+        className="top-1 right-1 absolute p-1 border border-glass-border-subtle hover:border-glass-border-bright rounded-md text-sm cursor-pointer"
         onClick={onClose}
       >
         <ImCross size={10} />

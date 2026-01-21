@@ -31,7 +31,7 @@ const Sheet = ({ open, onClose, children }: SheetProps) => {
         }`}
       >
         <div
-          className="top-2 right-2 absolute p-0.5 border border-glass-border-subtle hover:border-glass-border-bright rounded-md text-sm cursor-pointer"
+          className="top-2 right-2 absolute p-1 border border-glass-border-subtle hover:border-glass-border-bright rounded-md text-sm cursor-pointer"
           onClick={onClose}
         >
           <ImCross size={10} />
