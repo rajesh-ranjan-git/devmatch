@@ -534,7 +534,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
               icon={
                 isPending ? (
                   <svg
-                    className="mr-3 -ml-1 w-5 h-5 text-white animate-spin"
+                    className="w-4 h-4 text-white animate-spin"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -563,14 +563,14 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   : authFormFieldButtonItems?.login?.label
               }
               disabled={isPending}
-              className={isPending ? "w-64" : ""}
+              className={`h-10 my-4 ${isPending ? "w-64" : "w-48"}`}
             />
           ) : type === authRoutes.register ? (
             <SubmitButton
               icon={
                 isPending ? (
                   <svg
-                    className="mr-3 -ml-1 w-5 h-5 text-white animate-spin"
+                    className="w-4 h-4 text-white animate-spin"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -599,14 +599,14 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   : authFormFieldButtonItems?.register?.label
               }
               disabled={isPending}
-              className={isPending ? "w-64" : ""}
+              className={`h-10 my-4 ${isPending ? "w-64" : "w-56"}`}
             />
           ) : (
             <SubmitButton
               icon={
                 isPending ? (
                   <svg
-                    className="mr-3 -ml-1 w-5 h-5 text-white animate-spin"
+                    className="w-4 h-4 text-white animate-spin"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -635,7 +635,7 @@ const AuthForm = ({ type }: AuthFormWrapperProps) => {
                   : authFormFieldButtonItems?.forgotPassword?.label
               }
               disabled={isPending}
-              className={isPending ? "w-84" : "w-64"}
+              className={`h-10 my-4 ${isPending ? "w-76" : "w-64"}`}
             />
           )}
 
