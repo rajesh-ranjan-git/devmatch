@@ -42,14 +42,12 @@ const ProfileDetailsUpdateContext = ({
             name={key ?? profileDetailsFormFieldInputItems.firstName?.name}
             type={profileDetailsFormFieldInputItems.firstName?.type as string}
             placeholder={
-              value ?? profileDetailsFormFieldInputItems.firstName?.placeholder
+              profileDetailsFormFieldInputItems.firstName?.placeholder as string
             }
             defaultValue={
-              state?.success === false &&
-              state?.inputs &&
-              state?.inputs?.firstName
-                ? (state?.inputs?.firstName as string)
-                : ""
+              state?.success === false && state?.inputs?.firstName
+                ? state.inputs.firstName
+                : (value ?? "")
             }
             icon={profileDetailsFormFieldInputItems.firstName?.icon}
           />
@@ -68,7 +66,7 @@ const ProfileDetailsUpdateContext = ({
               state?.inputs &&
               state?.inputs?.middleName
                 ? (state?.inputs?.middleName as string)
-                : ""
+                : (value ?? "")
             }
             icon={profileDetailsFormFieldInputItems.middleName?.icon}
           />
@@ -87,7 +85,7 @@ const ProfileDetailsUpdateContext = ({
               state?.inputs &&
               state?.inputs?.lastName
                 ? (state?.inputs?.lastName as string)
-                : ""
+                : (value ?? "")
             }
             icon={profileDetailsFormFieldInputItems.lastName?.icon}
           />
@@ -106,7 +104,7 @@ const ProfileDetailsUpdateContext = ({
               state?.inputs &&
               state?.inputs?.nickName
                 ? (state?.inputs?.nickName as string)
-                : ""
+                : (value ?? "")
             }
             icon={profileDetailsFormFieldInputItems.nickName?.icon}
           />
@@ -133,7 +131,7 @@ const ProfileDetailsUpdateContext = ({
             defaultValue={
               state?.success === false && state?.inputs && state?.inputs?.phone
                 ? (state?.inputs?.phone as string)
-                : ""
+                : (value ?? "")
             }
             icon={profileDetailsFormFieldInputItems.phone?.icon}
           />
@@ -162,7 +160,7 @@ const ProfileDetailsUpdateContext = ({
             defaultValue={
               state?.success === false && state?.inputs && state?.inputs?.bio
                 ? (state?.inputs?.bio as string)
-                : ""
+                : (value ?? "")
             }
             icon={profileDetailsFormFieldInputItems.bio?.icon}
           />
@@ -196,7 +194,7 @@ const ProfileDetailsUpdateContext = ({
               state?.inputs &&
               state?.inputs?.jobProfile
                 ? (state?.inputs?.jobProfile as string)
-                : ""
+                : (value ?? "")
             }
             icon={profileDetailsFormFieldInputItems.jobProfile?.icon}
           />
@@ -225,7 +223,7 @@ const ProfileDetailsUpdateContext = ({
               state?.inputs &&
               state?.inputs?.facebook
                 ? (state?.inputs?.facebook as string)
-                : ""
+                : (value ?? "")
             }
             icon={profileDetailsFormFieldInputItems.facebook?.icon}
           />
@@ -244,7 +242,7 @@ const ProfileDetailsUpdateContext = ({
               state?.inputs &&
               state?.inputs?.instagram
                 ? (state?.inputs?.instagram as string)
-                : ""
+                : (value ?? "")
             }
             icon={profileDetailsFormFieldInputItems.instagram?.icon}
           />
@@ -263,7 +261,7 @@ const ProfileDetailsUpdateContext = ({
               state?.inputs &&
               state?.inputs?.twitter
                 ? (state?.inputs?.twitter as string)
-                : ""
+                : (value ?? "")
             }
             icon={profileDetailsFormFieldInputItems.twitter?.icon}
           />
@@ -280,7 +278,7 @@ const ProfileDetailsUpdateContext = ({
             defaultValue={
               state?.success === false && state?.inputs && state?.inputs?.github
                 ? (state?.inputs?.github as string)
-                : ""
+                : (value ?? "")
             }
             icon={profileDetailsFormFieldInputItems.github?.icon}
           />
@@ -299,7 +297,7 @@ const ProfileDetailsUpdateContext = ({
               state?.inputs &&
               state?.inputs?.linkedin
                 ? (state?.inputs?.linkedin as string)
-                : ""
+                : (value ?? "")
             }
             icon={profileDetailsFormFieldInputItems.linkedin?.icon}
           />
@@ -318,7 +316,7 @@ const ProfileDetailsUpdateContext = ({
               state?.inputs &&
               state?.inputs?.youtube
                 ? (state?.inputs?.youtube as string)
-                : ""
+                : (value ?? "")
             }
             icon={profileDetailsFormFieldInputItems.youtube?.icon}
           />
@@ -337,7 +335,7 @@ const ProfileDetailsUpdateContext = ({
               state?.inputs &&
               state?.inputs?.website
                 ? (state?.inputs?.website as string)
-                : ""
+                : (value ?? "")
             }
             icon={profileDetailsFormFieldInputItems.website?.icon}
           />
@@ -356,7 +354,7 @@ const ProfileDetailsUpdateContext = ({
               state?.inputs &&
               state?.inputs?.company
                 ? (state?.inputs?.company as string)
-                : ""
+                : (value ?? "")
             }
             icon={profileDetailsFormFieldInputItems.company?.icon}
           />
@@ -378,7 +376,7 @@ const ProfileDetailsUpdateContext = ({
               state?.inputs &&
               state?.inputs?.organization
                 ? (state?.inputs?.organization as string)
-                : ""
+                : (value ?? "")
             }
             icon={profileDetailsFormFieldInputItems.organization?.icon}
           />
@@ -421,7 +419,7 @@ const ProfileDetailsUpdateContext = ({
                 state?.inputs &&
                 state?.inputs?.address
                   ? (state?.inputs?.address as string)
-                  : ""
+                  : (value ?? "")
               }
               icon={addressFormFieldInputItems[item]?.icon}
               className="mb-4 w-3/5"
@@ -437,7 +435,7 @@ const ProfileDetailsUpdateContext = ({
       <Form
         action={formAction}
         autoComplete="false"
-        className="[&::-webkit-scrollbar-thumb]:hover:bg-glass-surface-lighter [&::-webkit-scrollbar-track]:bg-transparent p-2 pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 max-h-96 overflow-y-auto [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary transition-all ease-in-out"
+        className="[&::-webkit-scrollbar-thumb]:bg-glass-surface-heavy [&::-webkit-scrollbar-track]:bg-transparent p-2 pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 max-h-96 overflow-y-auto [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out"
       >
         <table className="w-full text-glass-text-primary table-fixed">
           <tbody>
@@ -494,7 +492,7 @@ const ProfileDetailsUpdateContext = ({
             }
             disabled={isPending}
             className={`h-10 ${isPending ? "w-48" : "w-40"}`}
-            onClick={onClose}
+            // onClick={onClose}
           />
           <ButtonDestructive
             icon={profileDetailsFormFieldButtonItems?.discard?.icon}
