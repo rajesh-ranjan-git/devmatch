@@ -137,7 +137,7 @@ export interface UseSheetProps {
 }
 
 export interface UseOutsideClickProps {
-  ref: RefObject<HTMLElement | null>;
+  ref: RefObject<HTMLElement | null> | RefObject<HTMLElement | null>[];
   when: boolean;
   callback: () => void;
 }
@@ -199,7 +199,6 @@ export interface NotificationsItemProps {
 
 export interface ProfileDetailsUpdateDropdownProps {
   name: string;
-  id: string;
   value: number;
   placeholder: string;
 }

@@ -121,9 +121,8 @@ const ProfileDetailsUpdateContext = ({
         return (
           <ProfileDetailsUpdateDropdown
             name={allowedUpdateProfileProperties.age}
-            id="update-age-dropdown"
             value={value}
-            placeholder="Select your age..."
+            placeholder="Age"
           />
         );
 
@@ -217,9 +216,8 @@ const ProfileDetailsUpdateContext = ({
         return (
           <ProfileDetailsUpdateDropdown
             name={allowedUpdateProfileProperties.experience}
-            id="update-experience-dropdown"
             value={value}
-            placeholder="Select your experience..."
+            placeholder="Experience"
           />
         );
 

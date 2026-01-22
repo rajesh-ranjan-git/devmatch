@@ -381,3 +381,14 @@ button[popovertarget="update-profile-cover-dropdown"] {
     transform: translateY(2.5rem);
   }
 }
+
+@keyframes dropdownOpen {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
