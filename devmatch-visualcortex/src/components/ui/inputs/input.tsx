@@ -4,9 +4,12 @@ const Input = ({
   name,
   type,
   placeholder,
+  value,
   defaultValue,
   className,
   icon,
+  onChange,
+  onKeyDown,
   onClick,
 }: InputProps) => {
   return (
@@ -17,7 +20,10 @@ const Input = ({
         name={name}
         type={type}
         placeholder={placeholder}
+        value={value}
         defaultValue={defaultValue as string}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
         className="px-5 py-2 rounded-l-4xl outline-none w-full"
       />
       <span onClick={onClick} className={onClick ? "cursor-pointer" : ""}>

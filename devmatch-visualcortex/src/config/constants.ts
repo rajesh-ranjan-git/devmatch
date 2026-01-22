@@ -114,6 +114,7 @@ export const INPUT_TYPES = {
   password: "password",
   number: "text",
   submit: "submit",
+  hidden: "hidden",
   radio: "radio",
   checkbox: "checkbox",
   textarea: "textarea",

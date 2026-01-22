@@ -459,7 +459,12 @@ const ProfileDetailsUpdateContext = ({
       <h2 className="font-semibold text-xl">Update Profile</h2>
       <Form
         action={formAction}
-        autoComplete="false"
+        autoComplete="off"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+          }
+        }}
         className="[&::-webkit-scrollbar-thumb]:bg-glass-surface-heavy [&::-webkit-scrollbar-track]:bg-transparent p-2 pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 max-h-96 overflow-y-auto [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out"
       >
         <table className="w-full text-glass-text-primary table-fixed">

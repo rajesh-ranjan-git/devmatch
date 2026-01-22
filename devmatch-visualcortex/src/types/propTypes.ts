@@ -85,9 +85,12 @@ export interface InputProps {
   name: string;
   type: string;
   placeholder: string;
+  value?: string;
   defaultValue?: string;
   className?: string;
   icon?: ReactNode;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onClick?: () => void;
 }
 
