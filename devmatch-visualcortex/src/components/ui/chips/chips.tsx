@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { INPUT_TYPES } from "@/config/constants";
+import { useState } from "react";
 import { ImCross } from "react-icons/im";
 import { FaPlus } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
@@ -8,7 +9,6 @@ import Input from "@/components/ui/inputs/input";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import ButtonSuccess from "@/components/ui/buttons/buttonSuccess";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
-import { INPUT_TYPES } from "@/config/constants";
 
 const Chips = ({ name, type, values, className, icon }: ChipsProps) => {
   if (!values || values?.length <= 0) return null;
