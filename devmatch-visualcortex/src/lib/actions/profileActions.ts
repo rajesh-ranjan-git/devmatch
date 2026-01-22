@@ -353,12 +353,6 @@ export const updateProfileDetailsAction = async (
     };
   }
 
-  // return {
-  //   message: "Profile update successful!",
-  //   result: Object.fromEntries(formData),
-  //   success: true,
-  // };
-
   const result = await apiRequest({
     method: "post",
     url: apiUrls.updateProfile,

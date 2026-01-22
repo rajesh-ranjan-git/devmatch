@@ -600,3 +600,6 @@ export const sanitizeMongoData = (data) => {
 
   return sanitizeSingleDocument(data);
 };
+
+export const sanitizeList = (arr) =>
+  arr.map((v) => v.trim()).filter((v) => v.length > 0);

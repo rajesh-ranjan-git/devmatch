@@ -18,7 +18,7 @@ import {
 } from "../config/config.js";
 import { errorMessages } from "../config/config.js";
 import { ValidationError } from "../errors/CustomError.js";
-import { isPlainObject } from "../utils/utils.js";
+import { isPlainObject, sanitizeList } from "../utils/utils.js";
 
 export const requestValidator = (req, res) => {
   if (!req) {
@@ -116,14 +116,14 @@ export const firstNameValidator = (firstName) => {
 };
 
 export const nameValidator = (name, type) => {
-  const trimmedName = name?.trim().toLowerCase();
-
-  if (trimmedName === "") {
+  if (!name) {
     return {
       isNameValid: true,
-      validatedName: trimmedName,
+      validatedName: null,
     };
   }
+
+  const trimmedName = name?.trim().toLowerCase();
 
   if (trimmedName.length < propertyConstraints.MIN_NAME_LENGTH) {
     return {
@@ -247,14 +247,14 @@ export const passwordValidator = (
 };
 
 export const regexPropertiesValidator = (property, regex, error) => {
-  property = typeof property === "string" ? property?.trim() : property;
-
-  if (typeof property === "string" && property?.trim().toLowerCase() === "") {
+  if (!property) {
     return {
       isPropertyValid: true,
-      validatedProperty: property,
+      validatedProperty: null,
     };
   }
+
+  property = typeof property === "string" ? property?.trim() : property;
 
   if (!regex.test(property)) {
     return {
@@ -275,6 +275,13 @@ export const numberPropertiesValidator = (
   maxValue,
   errors,
 ) => {
+  if (!property && property !== 0 && property !== "0") {
+    return {
+      isPropertyValid: true,
+      validatedProperty: null,
+    };
+  }
+
   property =
     typeof property === "string" ? property?.trim().toLowerCase() : property;
 
@@ -286,13 +293,6 @@ export const numberPropertiesValidator = (
     return {
       isPropertyValid: false,
       message: errors.INVALID_ERROR,
-    };
-  }
-
-  if (typeof property === "string" && property?.trim().toLowerCase() === "") {
-    return {
-      isPropertyValid: true,
-      validatedProperty: property,
     };
   }
 
@@ -329,15 +329,16 @@ export const stringPropertiesValidator = (
   maxLength,
   errors,
 ) => {
+  if (!property) {
+    return {
+      isPropertyValid: true,
+      validatedProperty: null,
+    };
+  }
+
   const trimmedProperty =
     typeof property === "string" ? property?.trim().toLowerCase() : property;
 
-  if (typeof property === "string" && trimmedProperty === "") {
-    return {
-      isPropertyValid: true,
-      validatedProperty: trimmedProperty,
-    };
-  }
   if (typeof property !== "string") {
     return {
       isPropertyValid: false,
@@ -375,11 +376,12 @@ export const listPropertiesValidator = (property, error) => {
 
   return {
     isPropertyValid: true,
-    validatedProperty: Array.isArray(property)
-      ? property.map((s) => s.trim().toLowerCase())
-      : typeof property === "string"
-        ? [property?.trim().toLowerCase()]
-        : [],
+    validatedProperty:
+      Array.isArray(property) && sanitizeList(property).length > 0
+        ? property.map((s) => s.trim().toLowerCase())
+        : typeof property === "string"
+          ? [property?.trim().toLowerCase()]
+          : [],
   };
 };
 

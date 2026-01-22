@@ -13,6 +13,7 @@ import {
   COUNTRY_CODE_REGEX,
   PIN_CODE_REGEX,
 } from "@/config/constants";
+import { sanitizeList } from "../utils/utils";
 
 export const userNameValidator = (user_name: string) => {
   const userNameErrors: string[] = [];
@@ -120,7 +121,7 @@ export const firstNameValidator = (firstName: string) => {
 };
 
 export const nameValidator = (name: string, type: string) => {
-  if (!name) return { validatedName: name };
+  if (!name) return { validatedName: name === "" ? null : name };
 
   const nameErrors: string[] = [];
   const nameValue = name.trim().toLowerCase();
@@ -296,13 +297,13 @@ export const listPropertiesValidator = (
   if (propertyErrors && propertyErrors?.length > 0) {
     return { propertyErrors };
   }
-
   return {
-    validatedProperty: Array.isArray(property)
-      ? property.map((s) => s.trim().toLowerCase())
-      : typeof property === "string"
-        ? [property?.trim().toLowerCase()]
-        : [],
+    validatedProperty:
+      Array.isArray(property) && sanitizeList(property).length > 0
+        ? property.map((s) => s.trim().toLowerCase())
+        : typeof property === "string" && property !== ""
+          ? [property?.trim().toLowerCase()]
+          : [],
   };
 };
 

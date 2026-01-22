@@ -25,7 +25,11 @@ const ProfileTabularData = ({ user }: ProfileComponentProps) => {
 
     if (typeof value !== "string") {
       if (typeof value === "object" && key === "address") {
-        return toTitleCase(Object.values(value).join(", "));
+        return toTitleCase(
+          Object.values(value)
+            .filter((item) => item)
+            .join(", "),
+        );
       }
 
       return String(value);

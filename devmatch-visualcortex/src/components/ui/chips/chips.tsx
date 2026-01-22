@@ -1,9 +1,9 @@
 import { INPUT_TYPES } from "@/config/constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ImCross } from "react-icons/im";
 import { FaPlus } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
-import { toTitleCase } from "@/lib/utils/utils";
+import { sanitizeList, toTitleCase } from "@/lib/utils/utils";
 import { ChipsProps } from "@/types/propTypes";
 import Input from "@/components/ui/inputs/input";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
@@ -11,14 +11,17 @@ import ButtonSuccess from "@/components/ui/buttons/buttonSuccess";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 
 const Chips = ({ name, type, values, className, icon }: ChipsProps) => {
-  if (!values || values?.length <= 0) return null;
-
   const [inputValue, setInputValue] = useState("");
-  const [updatedValue, setUpdatedValue] = useState(values);
+  const [updatedValue, setUpdatedValue] = useState<string[]>(
+    sanitizeList(values ?? []),
+  );
   const [showInputField, setShowInputField] = useState(false);
 
   const handleRemoveChip = (indexToRemove: number) => {
-    const newValues = updatedValue.filter((_, idx) => idx !== indexToRemove);
+    const newValues = sanitizeList(
+      updatedValue.filter((_, idx) => idx !== indexToRemove),
+    );
+
     setUpdatedValue(newValues);
   };
 
@@ -30,7 +33,8 @@ const Chips = ({ name, type, values, className, icon }: ChipsProps) => {
       .map((value) => value.trim())
       .filter((value) => value.length > 0);
 
-    const combinedValues = [...updatedValue, ...newValues];
+    const combinedValues = sanitizeList([...updatedValue, ...newValues]);
+
     setUpdatedValue(combinedValues);
 
     setInputValue("");
@@ -66,21 +70,23 @@ const Chips = ({ name, type, values, className, icon }: ChipsProps) => {
           })}
           {!showInputField && (
             <ButtonNormal
-              text="Add Skills"
+              text={`Add ${toTitleCase(name)}`}
               icon={<FaPlus />}
-              className="p-4 min-w-32"
+              className="p-4 min-w-36"
               onClick={() => setShowInputField(true)}
             />
           )}
         </div>
-        {icon && (
+        {updatedValue?.length < 1 && showInputField ? null : icon ? (
           <span className="bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md mr-2 p-2 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-full outline-none min-w-fit overflow-hidden text-glass-text-primary">
             {icon}
           </span>
-        )}
+        ) : null}
       </div>
       {showInputField && (
-        <div className="flex items-center gap-2">
+        <div
+          className={`flex items-center gap-2 ${updatedValue?.length > 0 ? "mt-4" : ""}`}
+        >
           <Input
             name={`${name}-input`}
             type={type}
@@ -88,23 +94,23 @@ const Chips = ({ name, type, values, className, icon }: ChipsProps) => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setInputValue(e.target.value)
             }
-            placeholder="Enter comma separated values..."
-            className="mt-4 mb-2"
+            placeholder={`Enter comma separated ${name}...`}
             onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
               if (e.key === "Enter") {
                 e.preventDefault();
                 handleAddValues();
               }
             }}
+            icon={icon}
           />
           <ButtonSuccess
             icon={<FaPlus size={20} />}
-            className="mt-2 p-4"
+            className="p-4"
             onClick={() => handleAddValues()}
           />
           <ButtonDestructive
             icon={<IoClose size={24} />}
-            className="mt-2 p-4"
+            className="p-4"
             onClick={() => handleCancel()}
           />
         </div>
@@ -113,7 +119,7 @@ const Chips = ({ name, type, values, className, icon }: ChipsProps) => {
       <Input
         name={name}
         type={INPUT_TYPES.hidden}
-        value={updatedValue.join(",")}
+        value={updatedValue.length ? updatedValue.join(",") : ""}
         placeholder="Enter comma separated values..."
         className="absolute mt-4 mb-2"
       />

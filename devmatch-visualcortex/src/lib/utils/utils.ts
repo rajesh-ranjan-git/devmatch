@@ -107,3 +107,6 @@ export const getFullName = (user?: UserType) => {
         ? `${user?.firstName}`
         : "";
 };
+
+export const sanitizeList = (arr: string[]) =>
+  arr.map((v) => v.trim()).filter((v) => v.length > 0);
