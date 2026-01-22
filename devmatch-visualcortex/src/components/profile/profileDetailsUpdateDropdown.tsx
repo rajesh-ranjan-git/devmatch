@@ -90,7 +90,7 @@ const ProfileDetailsUpdateDropdown = ({
       <Input
         name={name}
         type={INPUT_TYPES.hidden}
-        value={String(selectedValue)}
+        value={selectedValue ? String(selectedValue) : ""}
         placeholder="Enter comma separated values..."
         className="absolute mt-4 mb-2"
       />
