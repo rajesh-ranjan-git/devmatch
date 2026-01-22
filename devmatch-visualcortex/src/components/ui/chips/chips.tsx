@@ -43,12 +43,6 @@ const Chips = ({ name, type, values, className, icon }: ChipsProps) => {
     setShowInputField(false);
   };
 
-  const getCurrentValues = () => updatedValue;
-
-  useEffect(() => {
-    console.log("debug from chips : updatedValue : ", updatedValue);
-  }, [updatedValue]);
-
   return (
     <div>
       <div

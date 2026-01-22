@@ -1,6 +1,7 @@
 import { useActionState } from "react";
 import Form from "next/form";
 import {
+  ADDRESS_PROPERTIES,
   GENDER_PROPERTIES,
   MARITAL_STATUS_PROPERTIES,
 } from "@/config/constants";
@@ -427,30 +428,31 @@ const ProfileDetailsUpdateContext = ({
         );
 
       case allowedUpdateProfileProperties.address:
-        return typedKeys(addressFormFieldInputItems).map((item, idx) => (
-          <div className="flex items-center w-full" key={idx}>
-            <label className="mb-4 w-2/5 font-semibold text-glass-text-primary text-left">
-              {addressFormFieldInputItems[item]?.label}
-            </label>
-            <Input
-              name={key ?? addressFormFieldInputItems[item]?.name}
-              type={addressFormFieldInputItems[item]?.type as string}
-              placeholder={
-                value[item] ??
-                (addressFormFieldInputItems[item]?.placeholder as string)
-              }
-              defaultValue={
-                state?.success === false &&
-                state?.inputs &&
-                state?.inputs?.address
-                  ? (state?.inputs?.address as string)
-                  : (value ?? "")
-              }
-              icon={addressFormFieldInputItems[item]?.icon}
-              className="mb-4 w-3/5"
-            />
-          </div>
-        ));
+        return typedKeys(addressFormFieldInputItems).map((item, idx) => {
+          return (
+            <div className="flex items-center w-full" key={idx}>
+              <label className="mb-4 w-2/5 font-semibold text-glass-text-primary text-left">
+                {addressFormFieldInputItems[item]?.label}
+              </label>
+              <Input
+                name={Object.keys(ADDRESS_PROPERTIES)[idx]}
+                type={addressFormFieldInputItems[item]?.type as string}
+                placeholder={
+                  addressFormFieldInputItems[item]?.placeholder as string
+                }
+                defaultValue={
+                  state?.success === false &&
+                  state?.inputs &&
+                  state?.inputs?.address
+                    ? (state?.inputs?.address as string)
+                    : (value[item] ?? "")
+                }
+                icon={addressFormFieldInputItems[item]?.icon}
+                className="mb-4 w-3/5"
+              />
+            </div>
+          );
+        });
     }
   };
 

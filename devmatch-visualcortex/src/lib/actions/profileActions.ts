@@ -1,6 +1,7 @@
 "use server";
 
 import {
+  ADDRESS_PROPERTIES,
   ERROR_MESSAGES,
   FACEBOOK_REGEX,
   GENDER_PROPERTIES,
@@ -83,7 +84,12 @@ export const updateProfileDetailsAction = async (
   ) as string;
   const skills = formData.get(allowedUpdateProfileProperties.skills);
   const interests = formData.get(allowedUpdateProfileProperties.interests);
-  const address = formData.get(allowedUpdateProfileProperties.address);
+  const address = Object.fromEntries(
+    Object.entries(ADDRESS_PROPERTIES).map(([key, value]) => [
+      key,
+      formData.get(value),
+    ]),
+  ) as Record<keyof typeof ADDRESS_PROPERTIES, FormDataEntryValue | null>;
 
   const errors: ProfileUpdateFormStateType["errors"] = {};
 
@@ -294,7 +300,11 @@ export const updateProfileDetailsAction = async (
   errors.organization = [...(organizationErrors ?? [])];
 
   const skillsFormData =
-    typeof skills === "string" || Array.isArray(skills) ? skills : null;
+    typeof skills === "string"
+      ? skills.split(",")
+      : Array.isArray(skills)
+        ? skills
+        : null;
 
   const { validatedProperty: validatedSkills, propertyErrors: skillsErrors } =
     listPropertiesValidator(skillsFormData, ERROR_MESSAGES.invalidSkillsError);
@@ -302,9 +312,11 @@ export const updateProfileDetailsAction = async (
   errors.skills = [...(skillsErrors ?? [])];
 
   const interestsFormData =
-    typeof interests === "string" || Array.isArray(interests)
-      ? interests
-      : null;
+    typeof interests === "string"
+      ? interests.split(",")
+      : Array.isArray(interests)
+        ? interests
+        : null;
 
   const {
     validatedProperty: validatedInterests,
@@ -324,6 +336,8 @@ export const updateProfileDetailsAction = async (
     } catch {
       parsedAddress = null;
     }
+  } else {
+    parsedAddress = address;
   }
 
   const { validatedAddress, addressErrors } = addressValidator(parsedAddress);
