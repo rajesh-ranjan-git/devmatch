@@ -28,7 +28,7 @@ export const view = async (req, res) => {
         status.forbidden,
         errorMessages.INVALID_USER_ID_FORMAT_ERROR,
         { id: params?.id },
-        req?.url
+        req?.url,
       );
     }
 
@@ -37,8 +37,8 @@ export const view = async (req, res) => {
       !params?.id
         ? Object.values(privateProfileProperties)
         : params?.id === id
-        ? Object.values(privateProfileProperties)
-        : Object.values(publicProfileProperties)
+          ? Object.values(privateProfileProperties)
+          : Object.values(publicProfileProperties),
     );
 
     if (!user) {
@@ -46,7 +46,7 @@ export const view = async (req, res) => {
         status.notFound,
         errorMessages.USER_NOT_EXIST_ERROR,
         { user },
-        req?.url
+        req?.url,
       );
     }
 
@@ -61,7 +61,7 @@ export const view = async (req, res) => {
   } catch (error) {
     return res
       .status(
-        error?.status?.statusCode || status.internalServerError.statusCode
+        error?.status?.statusCode || status.internalServerError.statusCode,
       )
       .json({
         status: error?.status?.message || status.internalServerError.message,
@@ -93,7 +93,7 @@ export const update = async (req, res) => {
         status.internalServerError,
         errorMessages.USER_UPDATE_FAILED_ERROR,
         { user },
-        req?.url
+        req?.url,
       );
     }
 
@@ -108,7 +108,7 @@ export const update = async (req, res) => {
   } catch (error) {
     return res
       .status(
-        error?.status?.statusCode || status.internalServerError.statusCode
+        error?.status?.statusCode || status.internalServerError.statusCode,
       )
       .json({
         status: error?.status?.message || status.internalServerError.message,
@@ -140,13 +140,13 @@ export const updatePassword = async (req, res) => {
         status.notFound,
         errorMessages.USER_NOT_EXIST_ERROR,
         { user },
-        req?.url
+        req?.url,
       );
     }
 
     const isOldPasswordCorrect = await comparePassword(
       oldPassword,
-      user?.password
+      user?.password,
     );
 
     if (!isOldPasswordCorrect) {
@@ -154,13 +154,13 @@ export const updatePassword = async (req, res) => {
         status.forbidden,
         errorMessages.INCORRECT_OLD_PASSWORD_ERROR,
         { password: oldPassword },
-        req?.url
+        req?.url,
       );
     }
 
     const isPasswordAlreadyUsed = await comparePassword(
       newPassword,
-      user?.password
+      user?.password,
     );
 
     if (isPasswordAlreadyUsed) {
@@ -168,7 +168,7 @@ export const updatePassword = async (req, res) => {
         status.forbidden,
         errorMessages.PASSWORD_ALREADY_USED_ERROR,
         { password: newPassword },
-        req?.url
+        req?.url,
       );
     }
 
@@ -187,7 +187,7 @@ export const updatePassword = async (req, res) => {
         status.internalServerError,
         errorMessages.PASSWORD_UPDATE_FAILED_ERROR,
         { user: sanitizedUser },
-        req?.url
+        req?.url,
       );
     }
 
@@ -199,7 +199,7 @@ export const updatePassword = async (req, res) => {
   } catch (error) {
     return res
       .status(
-        error?.status?.statusCode || status.internalServerError.statusCode
+        error?.status?.statusCode || status.internalServerError.statusCode,
       )
       .json({
         status: error?.status?.message || status.internalServerError.message,
