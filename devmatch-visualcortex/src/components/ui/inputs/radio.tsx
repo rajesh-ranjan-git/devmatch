@@ -48,7 +48,7 @@ const Radio = ({ name, options, value, className, icon }: RadioProps) => {
                   `}
                 />
               </div>
-              <label htmlFor={option} className="cursor-pointer">
+              <label htmlFor={name} className="cursor-pointer">
                 {toTitleCase(option)}
               </label>
             </div>

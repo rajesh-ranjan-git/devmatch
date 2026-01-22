@@ -178,9 +178,7 @@ const ProfileDetailsUpdateContext = ({
       case allowedUpdateProfileProperties.maritalStatus:
         return (
           <Radio
-            name={
-              value ?? profileDetailsFormFieldInputItems.maritalStatus?.name
-            }
+            name={key ?? profileDetailsFormFieldInputItems.maritalStatus?.name}
             options={Object.values(MARITAL_STATUS_PROPERTIES)}
             value={
               value ??
@@ -522,7 +520,7 @@ const ProfileDetailsUpdateContext = ({
             }
             disabled={isPending}
             className={`h-10 ${isPending ? "w-48" : "w-40"}`}
-            onClick={onClose}
+            // onClick={onClose}
           />
           <ButtonDestructive
             icon={profileDetailsFormFieldButtonItems?.discard?.icon}

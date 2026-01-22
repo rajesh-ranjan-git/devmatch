@@ -353,53 +353,54 @@ export const updateProfileDetailsAction = async (
     };
   }
 
-  return {
-    message: "Profile update successful!",
-    result: Object.fromEntries(formData),
-    success: true,
-  };
-
-  // const result = await apiRequest({
-  //   method: "post",
-  //   url: apiUrls.updateProfile,
-  //   data: {
-  //     firstName: validatedFirstName,
-  //     middleName: validatedMiddleName,
-  //     lastName: validatedLastName,
-  //     nickName: validatedNickName,
-  //     age: validatedAge,
-  //     phone: validatedPhone,
-  //     gender: validatedGender,
-  //     bio: validatedBio,
-  //     maritalStatus: validatedMaritalStatus,
-  //     jobProfile: validatedJobProfile,
-  //     experience: validatedExperience,
-  //     facebook: validatedFacebookUrl,
-  //     instagram: validatedInstagramUrl,
-  //     twitter: validatedTwitterUrl,
-  //     github: validatedGithubUrl,
-  //     youtube: validatedYoutubeUrl,
-  //     website: validatedWebsiteUrl,
-  //     company: validatedCompany,
-  //     organization: validatedOrganization,
-  //     skills: validatedSkills,
-  //     interests: validatedInterests,
-  //     address: validatedAddress,
-  //   },
-  //   requiresAuth: true,
-  // });
-
-  // if (!result?.success) {
-  //   return {
-  //     message: "Update update failed!",
-  //     result,
-  //     success: result?.success ?? false,
-  //   };
-  // }
-
   // return {
   //   message: "Profile update successful!",
-  //   result,
-  //   success: result?.success ?? true,
+  //   result: Object.fromEntries(formData),
+  //   success: true,
   // };
+
+  const result = await apiRequest({
+    method: "post",
+    url: apiUrls.updateProfile,
+    data: {
+      firstName: validatedFirstName,
+      middleName: validatedMiddleName,
+      lastName: validatedLastName,
+      nickName: validatedNickName,
+      age: validatedAge,
+      phone: validatedPhone,
+      gender: validatedGender,
+      bio: validatedBio,
+      maritalStatus: validatedMaritalStatus,
+      jobProfile: validatedJobProfile,
+      experience: validatedExperience,
+      facebook: validatedFacebookUrl,
+      instagram: validatedInstagramUrl,
+      twitter: validatedTwitterUrl,
+      github: validatedGithubUrl,
+      youtube: validatedYoutubeUrl,
+      website: validatedWebsiteUrl,
+      company: validatedCompany,
+      organization: validatedOrganization,
+      skills: validatedSkills,
+      interests: validatedInterests,
+      address: validatedAddress,
+    },
+    requiresAuth: true,
+  });
+
+  if (!result?.success) {
+    return {
+      message: "Update update failed!",
+      result,
+      inputs: Object.fromEntries(formData),
+      success: result?.success ?? false,
+    };
+  }
+
+  return {
+    message: "Profile update successful!",
+    result,
+    success: result?.success ?? true,
+  };
 };

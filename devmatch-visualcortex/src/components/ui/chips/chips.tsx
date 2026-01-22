@@ -23,7 +23,6 @@ const Chips = ({ name, type, values, className, icon }: ChipsProps) => {
   };
 
   const handleAddValues = () => {
-    console.log("debug handleAddValues called");
     if (!inputValue.trim()) return;
 
     const newValues = inputValue

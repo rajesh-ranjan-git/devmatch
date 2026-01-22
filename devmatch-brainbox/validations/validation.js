@@ -27,7 +27,7 @@ export const requestValidator = (req, res) => {
       errorMessages.INVALID_REQUEST_ERROR,
       {
         req: req,
-      }
+      },
     );
   }
 
@@ -51,7 +51,7 @@ export const requestBodyValidator = (req, res) => {
       {
         requestBody: req?.body,
       },
-      req?.url
+      req?.url,
     );
   }
 
@@ -116,51 +116,60 @@ export const firstNameValidator = (firstName) => {
 };
 
 export const nameValidator = (name, type) => {
-  if (name?.trim().toLowerCase().length < propertyConstraints.MIN_NAME_LENGTH) {
+  const trimmedName = name?.trim().toLowerCase();
+
+  if (trimmedName === "") {
+    return {
+      isNameValid: true,
+      validatedName: trimmedName,
+    };
+  }
+
+  if (trimmedName.length < propertyConstraints.MIN_NAME_LENGTH) {
     return {
       isNameValid: false,
       message:
         type === userProperties.FIRST_NAME
           ? errorMessages.FIRST_NAME_MIN_LENGTH_ERROR
           : type === userProperties.MIDDLE_NAME
-          ? errorMessages.MIDDLE_NAME_MIN_LENGTH_ERROR
-          : type === userProperties.LAST_NAME
-          ? errorMessages.LAST_NAME_MIN_LENGTH_ERROR
-          : errorMessages.NICK_NAME_MIN_LENGTH_ERROR,
+            ? errorMessages.MIDDLE_NAME_MIN_LENGTH_ERROR
+            : type === userProperties.LAST_NAME
+              ? errorMessages.LAST_NAME_MIN_LENGTH_ERROR
+              : errorMessages.NICK_NAME_MIN_LENGTH_ERROR,
     };
   }
 
-  if (name?.trim().toLowerCase().length > propertyConstraints.MAX_NAME_LENGTH) {
+  if (trimmedName.length > propertyConstraints.MAX_NAME_LENGTH) {
     return {
       isNameValid: false,
       message:
         type === userProperties.FIRST_NAME
           ? errorMessages.FIRST_NAME_MAX_LENGTH_ERROR
           : type === userProperties.MIDDLE_NAME
-          ? errorMessages.MIDDLE_NAME_MAX_LENGTH_ERROR
-          : type === userProperties.LAST_NAME
-          ? errorMessages.LAST_NAME_MAX_LENGTH_ERROR
-          : errorMessages.NICK_NAME_MAX_LENGTH_ERROR,
+            ? errorMessages.MIDDLE_NAME_MAX_LENGTH_ERROR
+            : type === userProperties.LAST_NAME
+              ? errorMessages.LAST_NAME_MAX_LENGTH_ERROR
+              : errorMessages.NICK_NAME_MAX_LENGTH_ERROR,
     };
   }
 
-  if (!NAME_REGEX.test(name?.trim().toLowerCase())) {
+  if (!NAME_REGEX.test(trimmedName)) {
     return {
       isNameValid: false,
       message:
         type === userProperties.FIRST_NAME
           ? errorMessages.INVALID_FIRST_NAME_ERROR
           : type === userProperties.MIDDLE_NAME
-          ? errorMessages.INVALID_MIDDLE_NAME_ERROR
-          : type === userProperties.LAST_NAME
-          ? errorMessages.INVALID_LAST_NAME_ERROR
-          : errorMessages.INVALID_NICK_NAME_ERROR,
+            ? errorMessages.INVALID_MIDDLE_NAME_ERROR
+            : type === userProperties.LAST_NAME
+              ? errorMessages.INVALID_LAST_NAME_ERROR
+              : errorMessages.INVALID_NICK_NAME_ERROR,
     };
   }
 
   return {
     isNameValid: true,
-    validatedName: name?.trim().toLowerCase(),
+    validatedName: trimmedName,
   };
 };
 
@@ -188,7 +197,7 @@ export const emailValidator = (email) => {
 export const passwordValidator = (
   password,
   requiredErrorMessage = errorMessages.PASSWORD_REQUIRED_ERROR,
-  combinationErrorMessage = errorMessages.PASSWORD_COMBINATION_ERROR
+  combinationErrorMessage = errorMessages.PASSWORD_COMBINATION_ERROR,
 ) => {
   if (!password?.trim()) {
     return {
@@ -240,6 +249,13 @@ export const passwordValidator = (
 export const regexPropertiesValidator = (property, regex, error) => {
   property = typeof property === "string" ? property?.trim() : property;
 
+  if (typeof property === "string" && property?.trim().toLowerCase() === "") {
+    return {
+      isPropertyValid: true,
+      validatedProperty: property,
+    };
+  }
+
   if (!regex.test(property)) {
     return {
       isPropertyValid: false,
@@ -257,19 +273,26 @@ export const numberPropertiesValidator = (
   property,
   minValue,
   maxValue,
-  errors
+  errors,
 ) => {
-  property = typeof property === "string" ? property?.trim() : property;
+  property =
+    typeof property === "string" ? property?.trim().toLowerCase() : property;
 
   const isPropertyValid =
     (typeof property === "number" || typeof property === "string") &&
-    !isNaN(property) &&
-    property !== "";
+    !isNaN(property);
 
   if (!isPropertyValid) {
     return {
       isPropertyValid: false,
       message: errors.INVALID_ERROR,
+    };
+  }
+
+  if (typeof property === "string" && property?.trim().toLowerCase() === "") {
+    return {
+      isPropertyValid: true,
+      validatedProperty: property,
     };
   }
 
@@ -304,8 +327,17 @@ export const stringPropertiesValidator = (
   property,
   minLength,
   maxLength,
-  errors
+  errors,
 ) => {
+  const trimmedProperty =
+    typeof property === "string" ? property?.trim().toLowerCase() : property;
+
+  if (typeof property === "string" && trimmedProperty === "") {
+    return {
+      isPropertyValid: true,
+      validatedProperty: trimmedProperty,
+    };
+  }
   if (typeof property !== "string") {
     return {
       isPropertyValid: false,
@@ -313,14 +345,14 @@ export const stringPropertiesValidator = (
     };
   }
 
-  if (property?.trim().length < minLength) {
+  if (trimmedProperty.length < minLength) {
     return {
       isPropertyValid: false,
       message: errors.MIN_LENGTH_ERROR,
     };
   }
 
-  if (property?.trim().length > maxLength) {
+  if (trimmedProperty.length > maxLength) {
     return {
       isPropertyValid: false,
       message: errors.MAX_LENGTH_ERROR,
@@ -329,7 +361,7 @@ export const stringPropertiesValidator = (
 
   return {
     isPropertyValid: true,
-    validatedProperty: property?.trim(),
+    validatedProperty: trimmedProperty,
   };
 };
 
@@ -346,8 +378,8 @@ export const listPropertiesValidator = (property, error) => {
     validatedProperty: Array.isArray(property)
       ? property.map((s) => s.trim().toLowerCase())
       : typeof property === "string"
-      ? [property?.trim().toLowerCase()]
-      : [],
+        ? [property?.trim().toLowerCase()]
+        : [],
   };
 };
 
@@ -376,7 +408,7 @@ export const addressValidator = (address) => {
             INVALID_ERROR: errorMessages.INVALID_STREET_ERROR,
             MIN_LENGTH_ERROR: errorMessages.STREET_MIN_LENGTH_ERROR,
             MAX_LENGTH_ERROR: errorMessages.STREET_MAX_LENGTH_ERROR,
-          }
+          },
         );
 
         if (!isStreetValid) {
@@ -401,7 +433,7 @@ export const addressValidator = (address) => {
             INVALID_ERROR: errorMessages.INVALID_LANDMARK_ERROR,
             MIN_LENGTH_ERROR: errorMessages.LANDMARK_MIN_LENGTH_ERROR,
             MAX_LENGTH_ERROR: errorMessages.LANDMARK_MAX_LENGTH_ERROR,
-          }
+          },
         );
 
         if (!isLandmarkValid) {
@@ -426,7 +458,7 @@ export const addressValidator = (address) => {
             INVALID_ERROR: errorMessages.INVALID_CITY_ERROR,
             MIN_LENGTH_ERROR: errorMessages.CITY_MIN_LENGTH_ERROR,
             MAX_LENGTH_ERROR: errorMessages.CITY_MAX_LENGTH_ERROR,
-          }
+          },
         );
 
         if (!isCityValid) {
@@ -451,7 +483,7 @@ export const addressValidator = (address) => {
             INVALID_ERROR: errorMessages.INVALID_STATE_ERROR,
             MIN_LENGTH_ERROR: errorMessages.STATE_MIN_LENGTH_ERROR,
             MAX_LENGTH_ERROR: errorMessages.STATE_MAX_LENGTH_ERROR,
-          }
+          },
         );
 
         if (!isStateValid) {
@@ -471,7 +503,7 @@ export const addressValidator = (address) => {
         } = regexPropertiesValidator(
           address[addressField],
           COUNTRY_CODE_REGEX,
-          errorMessages.INVALID_COUNTRY_CODE_ERROR
+          errorMessages.INVALID_COUNTRY_CODE_ERROR,
         );
 
         if (!isCountryCodeValid) {
@@ -480,7 +512,7 @@ export const addressValidator = (address) => {
             countryCodeErrorMessage,
             {
               property: address[addressField],
-            }
+            },
           );
         }
 
@@ -500,7 +532,7 @@ export const addressValidator = (address) => {
             INVALID_ERROR: errorMessages.INVALID_COUNTRY_ERROR,
             MIN_LENGTH_ERROR: errorMessages.COUNTRY_MIN_LENGTH_ERROR,
             MAX_LENGTH_ERROR: errorMessages.COUNTRY_MAX_LENGTH_ERROR,
-          }
+          },
         );
 
         if (!isSCountryValid) {
@@ -520,7 +552,7 @@ export const addressValidator = (address) => {
         } = regexPropertiesValidator(
           address[addressField],
           PIN_CODE_REGEX,
-          errorMessages.INVALID_PIN_CODE_ERROR
+          errorMessages.INVALID_PIN_CODE_ERROR,
         );
 
         if (!isPinCodeValid) {
@@ -541,13 +573,13 @@ export const validateConnectionStatus = (connectionStatus) => {
   if (
     typeof connectionStatus !== "string" ||
     !Object.values(connectionStatusProperties).includes(
-      connectionStatus?.trim().toLowerCase()
+      connectionStatus?.trim().toLowerCase(),
     )
   ) {
     throw new ValidationError(
       status.badRequest,
       errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
-      { connectionStatus }
+      { connectionStatus },
     );
   }
 
@@ -560,13 +592,13 @@ export const validateNotificationType = (notificationType) => {
   if (
     typeof notificationType !== "string" ||
     !Object.values(notificationTypes).includes(
-      notificationType?.trim().toLowerCase()
+      notificationType?.trim().toLowerCase(),
     )
   ) {
     throw new ValidationError(
       status.badRequest,
       errorMessages.INVALID_NOTIFICATION_TYPE_ERROR,
-      { notificationType }
+      { notificationType },
     );
   }
 
@@ -577,13 +609,13 @@ export const validateNotificationStatus = (notificationStatus) => {
   if (
     typeof notificationStatus !== "string" ||
     !Object.values(notificationStatusProperties).includes(
-      notificationStatus?.trim().toLowerCase()
+      notificationStatus?.trim().toLowerCase(),
     )
   ) {
     throw new ValidationError(
       status.badRequest,
       errorMessages.INVALID_NOTIFICATION_STATUS_ERROR,
-      { notificationStatus }
+      { notificationStatus },
     );
   }
 
@@ -595,7 +627,7 @@ export const pageValidator = (page) => {
     throw new ValidationError(
       status.badRequest,
       errorMessages.INVALID_PAGE_ERROR,
-      { page }
+      { page },
     );
   }
 
@@ -607,7 +639,7 @@ export const limitValidator = (limit) => {
     throw new ValidationError(
       status.badRequest,
       errorMessages.INVALID_LIMIT_ERROR,
-      { limit }
+      { limit },
     );
   }
 

@@ -35,13 +35,13 @@ export const isPlainObject = (data) => {
 
 export const omitObjectProperties = (obj, keysToOmit) => {
   return Object.fromEntries(
-    Object.entries(obj).filter(([key]) => !keysToOmit.includes(key))
+    Object.entries(obj).filter(([key]) => !keysToOmit.includes(key)),
   );
 };
 
 export const selectObjectProperties = (obj, keysToSelect) => {
   return Object.fromEntries(
-    Object.entries(obj).filter(([key]) => keysToSelect.includes(key))
+    Object.entries(obj).filter(([key]) => keysToSelect.includes(key)),
   );
 };
 
@@ -61,7 +61,7 @@ export const toTitleCase = (str) => {
 const addToValidatedProperties = (
   properties,
   validatedProperties = {},
-  property
+  property,
 ) => {
   if (
     property === allowedUpdateProfileProperties.FIRST_NAME ||
@@ -101,7 +101,7 @@ const addToValidatedProperties = (
           DECIMAL_ERROR: errorMessages.DECIMAL_AGE_ERROR,
           MIN_LENGTH_ERROR: errorMessages.MIN_AGE_ERROR,
           MAX_LENGTH_ERROR: errorMessages.MAX_AGE_ERROR,
-        }
+        },
       );
 
       if (!isAgeValid) {
@@ -114,13 +114,13 @@ const addToValidatedProperties = (
       return validatedProperties;
     case allowedUpdateProfileProperties.PHONE:
       const {
-        isPhoneValid,
+        isPropertyValid: isPhoneValid,
         message: phoneErrorMessage,
-        validatedPhone,
+        validatedProperty: validatedPhone,
       } = regexPropertiesValidator(
         properties[property],
         PHONE_REGEX,
-        errorMessages.INVALID_PHONE_ERROR
+        errorMessages.INVALID_PHONE_ERROR,
       );
 
       if (!isPhoneValid) {
@@ -140,7 +140,7 @@ const addToValidatedProperties = (
 
       if (
         !Object.keys(validatedProperties).includes(
-          allowedUpdateProfileProperties.GENDER
+          allowedUpdateProfileProperties.GENDER,
         )
       ) {
         throw new ValidationError(
@@ -148,7 +148,7 @@ const addToValidatedProperties = (
           errorMessages.INVALID_GENDER_ERROR,
           {
             property: properties[property],
-          }
+          },
         );
       }
 
@@ -161,7 +161,7 @@ const addToValidatedProperties = (
       } = regexPropertiesValidator(
         properties[property],
         PHOTO_URL_REGEX,
-        errorMessages.INVALID_PHOTO_URL_ERROR
+        errorMessages.INVALID_PHOTO_URL_ERROR,
       );
 
       if (!isAvatarUrlValid) {
@@ -181,7 +181,7 @@ const addToValidatedProperties = (
       } = regexPropertiesValidator(
         properties[property],
         PHOTO_URL_REGEX,
-        errorMessages.INVALID_PHOTO_URL_ERROR
+        errorMessages.INVALID_PHOTO_URL_ERROR,
       );
 
       if (!isCoverPhotoUrlValid) {
@@ -190,7 +190,7 @@ const addToValidatedProperties = (
           coverPhotoUrlErrorMessage,
           {
             property: properties[property],
-          }
+          },
         );
       }
 
@@ -210,7 +210,7 @@ const addToValidatedProperties = (
           INVALID_ERROR: errorMessages.INVALID_BIO_ERROR,
           MIN_LENGTH_ERROR: errorMessages.BIO_MIN_LENGTH_ERROR,
           MAX_LENGTH_ERROR: errorMessages.BIO_MAX_LENGTH_ERROR,
-        }
+        },
       );
 
       if (!isBioValid) {
@@ -231,7 +231,7 @@ const addToValidatedProperties = (
 
       if (
         !Object.keys(validatedProperties).includes(
-          allowedUpdateProfileProperties.MARITAL_STATUS
+          allowedUpdateProfileProperties.MARITAL_STATUS,
         )
       ) {
         throw new ValidationError(
@@ -239,7 +239,7 @@ const addToValidatedProperties = (
           errorMessages.INVALID_MARITAL_STATUS_ERROR,
           {
             property: properties[property],
-          }
+          },
         );
       }
 
@@ -257,7 +257,7 @@ const addToValidatedProperties = (
           INVALID_ERROR: errorMessages.INVALID_JOB_PROFILE_ERROR,
           MIN_LENGTH_ERROR: errorMessages.JOB_PROFILE_MIN_LENGTH_ERROR,
           MAX_LENGTH_ERROR: errorMessages.JOB_PROFILE_MAX_LENGTH_ERROR,
-        }
+        },
       );
 
       if (!isJobProfileValid) {
@@ -283,7 +283,7 @@ const addToValidatedProperties = (
           DECIMAL_ERROR: errorMessages.DECIMAL_EXPERIENCE_ERROR,
           MIN_LENGTH_ERROR: errorMessages.MIN_EXPERIENCE_ERROR,
           MAX_LENGTH_ERROR: errorMessages.MAX_EXPERIENCE_ERROR,
-        }
+        },
       );
 
       if (!isExperienceValid) {
@@ -302,7 +302,7 @@ const addToValidatedProperties = (
       } = regexPropertiesValidator(
         properties[property],
         FACEBOOK_REGEX,
-        errorMessages.INVALID_FACEBOOK_URL_ERROR
+        errorMessages.INVALID_FACEBOOK_URL_ERROR,
       );
 
       if (!isFacebookValid) {
@@ -321,7 +321,7 @@ const addToValidatedProperties = (
       } = regexPropertiesValidator(
         properties[property],
         INSTAGRAM_REGEX,
-        errorMessages.INVALID_INSTAGRAM_URL_ERROR
+        errorMessages.INVALID_INSTAGRAM_URL_ERROR,
       );
 
       if (!isInstagramValid) {
@@ -340,7 +340,7 @@ const addToValidatedProperties = (
       } = regexPropertiesValidator(
         properties[property],
         TWITTER_REGEX,
-        errorMessages.INVALID_TWITTER_URL_ERROR
+        errorMessages.INVALID_TWITTER_URL_ERROR,
       );
 
       if (!isTwitterValid) {
@@ -359,7 +359,7 @@ const addToValidatedProperties = (
       } = regexPropertiesValidator(
         properties[property],
         GITHUB_REGEX,
-        errorMessages.INVALID_GITHUB_URL_ERROR
+        errorMessages.INVALID_GITHUB_URL_ERROR,
       );
 
       if (!isGithubValid) {
@@ -378,7 +378,7 @@ const addToValidatedProperties = (
       } = regexPropertiesValidator(
         properties[property],
         LINKEDIN_REGEX,
-        errorMessages.INVALID_LINKEDIN_URL_ERROR
+        errorMessages.INVALID_LINKEDIN_URL_ERROR,
       );
 
       if (!isLinkedinValid) {
@@ -397,7 +397,7 @@ const addToValidatedProperties = (
       } = regexPropertiesValidator(
         properties[property],
         YOUTUBE_REGEX,
-        errorMessages.INVALID_YOUTUBE_URL_ERROR
+        errorMessages.INVALID_YOUTUBE_URL_ERROR,
       );
 
       if (!isYoutubeValid) {
@@ -416,7 +416,7 @@ const addToValidatedProperties = (
       } = regexPropertiesValidator(
         properties[property],
         WEBSITE_REGEX,
-        errorMessages.INVALID_WEBSITE_URL_ERROR
+        errorMessages.INVALID_WEBSITE_URL_ERROR,
       );
 
       if (!isWebsiteValid) {
@@ -440,7 +440,7 @@ const addToValidatedProperties = (
           INVALID_ERROR: errorMessages.INVALID_ORGANIZATION_ERROR,
           MIN_LENGTH_ERROR: errorMessages.ORGANIZATION_MIN_LENGTH_ERROR,
           MAX_LENGTH_ERROR: errorMessages.ORGANIZATION_MAX_LENGTH_ERROR,
-        }
+        },
       );
 
       if (!isOrganizationValid) {
@@ -465,7 +465,7 @@ const addToValidatedProperties = (
           INVALID_ERROR: errorMessages.INVALID_COMPANY_ERROR,
           MIN_LENGTH_ERROR: errorMessages.COMPANY_MIN_LENGTH_ERROR,
           MAX_LENGTH_ERROR: errorMessages.COMPANY_MAX_LENGTH_ERROR,
-        }
+        },
       );
 
       if (!isCompanyValid) {
@@ -484,7 +484,7 @@ const addToValidatedProperties = (
         validatedProperty: validatedSkills,
       } = listPropertiesValidator(
         properties[property],
-        errorMessages.INVALID_SKILLS_ERROR
+        errorMessages.INVALID_SKILLS_ERROR,
       );
 
       if (!isSkillsValid) {
@@ -503,7 +503,7 @@ const addToValidatedProperties = (
         validatedProperty: validatedInterests,
       } = listPropertiesValidator(
         properties[property],
-        errorMessages.INVALID_INTERESTS_ERROR
+        errorMessages.INVALID_INTERESTS_ERROR,
       );
 
       if (!isInterestsValid) {
@@ -529,7 +529,7 @@ export const validatePropertiesToUpdate = (properties) => {
     const propertiesToAdd = addToValidatedProperties(
       properties,
       validatedProperties,
-      property
+      property,
     );
     validatedProperties = { ...validatedProperties, ...propertiesToAdd };
   }
