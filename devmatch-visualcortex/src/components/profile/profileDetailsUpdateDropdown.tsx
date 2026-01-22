@@ -6,7 +6,7 @@ import { ProfileDetailsUpdateDropdownProps } from "@/types/propTypes";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import { numRange, toTitleCase } from "@/lib/utils/utils";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
-import Input from "../ui/inputs/input";
+import Input from "@/components/ui/inputs/input";
 
 const ProfileDetailsUpdateDropdown = ({
   name,
