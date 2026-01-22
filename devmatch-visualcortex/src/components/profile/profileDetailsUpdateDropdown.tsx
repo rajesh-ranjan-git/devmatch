@@ -16,7 +16,7 @@ const ProfileDetailsUpdateDropdown = ({
   const [selectedValue, setSelectedValue] = useState(value);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const buttonRef = useRef<HTMLDivElement>(null);
 
   const dropdownRange =
     name === allowedUpdateProfileProperties.age
@@ -48,7 +48,7 @@ const ProfileDetailsUpdateDropdown = ({
 
   return (
     <div className="relative">
-      <button
+      <div
         ref={buttonRef}
         className="flex justify-between items-center gap-2 hover:bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md backdrop-blur-3xl p-2 border border-glass-border-subtle hover:border-glass-border-bright rounded-xl w-max min-w-20 text-glass-text-primary transition-all ease-in-out cursor-pointer"
         onClick={handleToggleDropdown}
@@ -57,11 +57,11 @@ const ProfileDetailsUpdateDropdown = ({
         <span>
           <FaChevronDown />
         </span>
-      </button>
+      </div>
       {isOpen && (
         <div
           ref={dropdownRef}
-          className="absolute bg-glass-shadow-heavy shadow-glass-shadow-heavy shadow-md backdrop-blur-md my-1 border rounded-xl w-max min-w-20 text-glass-text-primary text-center dropdown-menu"
+          className="z-10 absolute bg-glass-shadow-heavy shadow-glass-shadow-heavy shadow-md backdrop-blur-md my-1 border rounded-xl w-max min-w-20 text-glass-text-primary text-center dropdown-menu"
           style={{
             opacity: 1,
             transform: "scaleY(1)",
@@ -71,7 +71,7 @@ const ProfileDetailsUpdateDropdown = ({
           <div className="bg-glass-shadow-heavy backdrop-blur-md p-1 rounded-xl">
             <p className="p-2 font-bold text-md">{toTitleCase(name)}</p>
             <HorizontalSeparator />
-            <ul className="flex flex-col gap-1 [&::-webkit-scrollbar-thumb]:hover:bg-glass-surface-lighter [&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar]:w-1 max-h-106 overflow-y-auto [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary">
+            <ul className="flex flex-col gap-1 [&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar]:w-1 max-h-106 overflow-y-auto [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-primary">
               {dropdownRange.length > 0 &&
                 dropdownRange.map((num, idx) => (
                   <li
