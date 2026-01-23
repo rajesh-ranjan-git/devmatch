@@ -316,6 +316,7 @@ export const errorMessages = {
   INVALID_NOTIFICATION_TYPE_ERROR: "Invalid notification type!",
   INVALID_NOTIFICATION_STATUS_ERROR: "Invalid notification status!",
   NOTIFICATION_READ_FAILED_ERROR: "Unable to mark notification as read!",
+  INVALID_PROFILE_UPDATE_ERROR: "Profile was already updated with same data!",
 };
 
 export const successMessages = {
@@ -462,8 +463,9 @@ export const privateProfileProperties = omitObjectProperties(userProperties, [
 export const allowedUpdateProfileProperties = omitObjectProperties(
   userProperties,
   [
+    "ID",
     "EMAIL",
-    "USERNAME",
+    "USER_NAME",
     "PASSWORD",
     "PREVIOUS_PASSWORD",
     "PASSWORD_LAST_UPDATED",

@@ -282,6 +282,48 @@ export const stringPropertiesValidator = (
   };
 };
 
+export const regexPropertiesValidator = (
+  property: string | number,
+  regex: RegExp,
+  error: string,
+) => {
+  if (!property) return { validatedProperty: property };
+
+  const value =
+    typeof property === "string" ? property?.trim().toLowerCase() : property;
+
+  if (!regex.test(String(value))) {
+    return {
+      propertyErrors: [error],
+    };
+  }
+
+  return {
+    validatedProperty: value,
+  };
+};
+
+export const numberRegexPropertiesValidator = (
+  property: string | number,
+  regex: RegExp,
+  error: string,
+) => {
+  if (!property) return { validatedProperty: property };
+
+  const value =
+    typeof property === "string" ? property?.trim().toLowerCase() : property;
+
+  if (!regex.test(String(value)) || isNaN(Number(value))) {
+    return {
+      propertyErrors: [error],
+    };
+  }
+
+  return {
+    validatedProperty: Number(value),
+  };
+};
+
 export const listPropertiesValidator = (
   property: string | string[] | null,
   error: string,
@@ -415,7 +457,7 @@ export const addressValidator = (address: Record<string, any> | null) => {
         const {
           propertyErrors: countryCodeErrors,
           validatedProperty: validatedCountryCode,
-        } = regexPropertiesValidator(
+        } = numberRegexPropertiesValidator(
           address[addressField],
           COUNTRY_CODE_REGEX,
           ERROR_MESSAGES.invalidCountryCodeError,
@@ -454,7 +496,7 @@ export const addressValidator = (address: Record<string, any> | null) => {
         const {
           propertyErrors: pinCodeErrors,
           validatedProperty: validatedPinCode,
-        } = regexPropertiesValidator(
+        } = numberRegexPropertiesValidator(
           address[addressField],
           PIN_CODE_REGEX,
           ERROR_MESSAGES.invalidPinCodeError,
@@ -474,25 +516,4 @@ export const addressValidator = (address: Record<string, any> | null) => {
   }
 
   return { validatedAddress };
-};
-
-export const regexPropertiesValidator = (
-  property: string | number,
-  regex: RegExp,
-  error: string,
-) => {
-  if (!property) return { validatedProperty: property };
-
-  const value =
-    typeof property === "string" ? property?.trim().toLowerCase() : property;
-
-  if (!regex.test(String(value))) {
-    return {
-      propertyErrors: [error],
-    };
-  }
-
-  return {
-    validatedProperty: value,
-  };
 };

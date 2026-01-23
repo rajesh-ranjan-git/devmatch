@@ -105,6 +105,7 @@ export type ProfileUpdateFormStateType = {
     instagram?: string[];
     twitter?: string[];
     github?: string[];
+    linkedin?: string[];
     youtube?: string[];
     website?: string[];
     company?: string[];

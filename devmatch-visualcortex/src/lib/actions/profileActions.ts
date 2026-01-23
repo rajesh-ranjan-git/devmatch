@@ -7,6 +7,7 @@ import {
   GENDER_PROPERTIES,
   GITHUB_REGEX,
   INSTAGRAM_REGEX,
+  LINKEDIN_REGEX,
   MARITAL_STATUS_PROPERTIES,
   PHONE_REGEX,
   TWITTER_REGEX,
@@ -22,6 +23,7 @@ import {
   listPropertiesValidator,
   nameValidator,
   numberPropertiesValidator,
+  numberRegexPropertiesValidator,
   regexPropertiesValidator,
   stringPropertiesValidator,
 } from "@/lib/validations/validations";
@@ -129,7 +131,7 @@ export const updateProfileDetailsAction = async (
   errors.age = [...(ageErrors ?? [])];
 
   const { validatedProperty: validatedPhone, propertyErrors: phoneErrors } =
-    regexPropertiesValidator(
+    numberRegexPropertiesValidator(
       phone,
       PHONE_REGEX,
       ERROR_MESSAGES.invalidPhoneError,
@@ -246,6 +248,17 @@ export const updateProfileDetailsAction = async (
   );
 
   errors.github = [...(githubUrlErrors ?? [])];
+
+  const {
+    validatedProperty: validatedLinkedinUrl,
+    propertyErrors: linkedinUrlErrors,
+  } = regexPropertiesValidator(
+    linkedin,
+    LINKEDIN_REGEX,
+    ERROR_MESSAGES.invalidLinkedinUrlError,
+  );
+
+  errors.linkedin = [...(linkedinUrlErrors ?? [])];
 
   const {
     validatedProperty: validatedYoutubeUrl,
@@ -372,6 +385,7 @@ export const updateProfileDetailsAction = async (
       instagram: validatedInstagramUrl,
       twitter: validatedTwitterUrl,
       github: validatedGithubUrl,
+      linkedin: validatedLinkedinUrl,
       youtube: validatedYoutubeUrl,
       website: validatedWebsiteUrl,
       company: validatedCompany,
@@ -385,7 +399,7 @@ export const updateProfileDetailsAction = async (
 
   if (!result?.success) {
     return {
-      message: "Update update failed!",
+      message: "Profile update failed!",
       result,
       inputs: Object.fromEntries(formData),
       success: result?.success ?? false,

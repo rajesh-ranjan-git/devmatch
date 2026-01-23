@@ -25,6 +25,7 @@ import {
   regexPropertiesValidator,
   listPropertiesValidator,
   addressValidator,
+  numberRegexPropertiesValidator,
 } from "../validations/validation.js";
 
 export const randomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
@@ -117,7 +118,7 @@ const addToValidatedProperties = (
         isPropertyValid: isPhoneValid,
         message: phoneErrorMessage,
         validatedProperty: validatedPhone,
-      } = regexPropertiesValidator(
+      } = numberRegexPropertiesValidator(
         properties[property],
         PHONE_REGEX,
         errorMessages.INVALID_PHONE_ERROR,
@@ -603,3 +604,43 @@ export const sanitizeMongoData = (data) => {
 
 export const sanitizeList = (arr) =>
   arr.map((v) => v.trim()).filter((v) => v.length > 0);
+
+export const deepEquals = (a, b) => {
+  if (Object.is(a, b)) return true;
+
+  if (a == null || b == null) return a === b;
+
+  if (typeof a !== typeof b) return false;
+
+  if (typeof a !== "object") return a === b;
+
+  if (a instanceof Date && b instanceof Date) {
+    return a.getTime() === b.getTime();
+  }
+
+  if (a instanceof RegExp && b instanceof RegExp) {
+    return a.toString() === b.toString();
+  }
+
+  if (Array.isArray(a) && Array.isArray(b)) {
+    if (a.length !== b.length) return false;
+    for (let i = 0; i < a.length; i++) {
+      if (!deepEquals(a[i], b[i])) return false;
+    }
+    return true;
+  }
+
+  if (Array.isArray(a) !== Array.isArray(b)) return false;
+
+  const keysA = Object.keys(a);
+  const keysB = Object.keys(b);
+
+  if (keysA.length !== keysB.length) return false;
+
+  for (const key of keysA) {
+    if (!keysB.includes(key)) return false;
+    if (!deepEquals(a[key], b[key])) return false;
+  }
+
+  return true;
+};

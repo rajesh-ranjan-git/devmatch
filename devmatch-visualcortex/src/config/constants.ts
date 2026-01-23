@@ -277,6 +277,7 @@ export const ERROR_MESSAGES = {
   invalidConnectionRequestError: "Invalid connection request!",
   viewConnectionRequestError: "Unable to get connections requests!",
   invalidPageError: "Invalid page!",
+  invalidProfileUpdateError: "Profile was already updated with same data!",
 } as const;
 
 export const FALLBACK_MESSAGES = {

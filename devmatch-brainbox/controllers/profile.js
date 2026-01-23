@@ -14,6 +14,7 @@ import {
   isValidMongoDbObjectId,
 } from "../utils/authUtils.js";
 import {
+  deepEquals,
   sanitizeMongoData,
   validatePropertiesToUpdate,
 } from "../utils/utils.js";
@@ -101,25 +102,36 @@ export const update = async (req, res) => {
       allowedUpdateProfileProperties,
     ).filter(
       (value) =>
-        validatedProperties[value] !== user[value] &&
-        value !== userProperties.ID &&
-        value !== userProperties.USER_NAME &&
+        !deepEquals(validatedProperties[value], user[value]) &&
         value !== userProperties.COVER_PHOTO_URL &&
         value !== userProperties.AVATAR_URL,
     );
 
-    console.log(
-      `debug from profile validatedPropertiesToUpdate : ${validatedProperties[validatedPropertiesToUpdate]} will replace ${user[validatedPropertiesToUpdate]}`,
-    );
-    // console.log(
-    //   "debug from profile validatedPropertiesToUpdate : ",
-    //   validatedPropertiesToUpdate,
-    // );
+    if (validatedPropertiesToUpdate.length <= 0) {
+      return res.status(status.conflict.statusCode).json({
+        status: status.conflict.message,
+        statusCode: status.conflict.statusCode,
+        user: sanitizeMongoData(user),
+        message: errorMessages.INVALID_PROFILE_UPDATE_ERROR,
+      });
+    }
 
-    const updatedUser = await User.findByIdAndUpdate(id, validatedProperties, {
-      new: true,
-      select: Object.values(privateProfileProperties).join(" "),
-    });
+    const finalPropertiesToUpdate = validatedPropertiesToUpdate.reduce(
+      (acc, curr) => {
+        acc[curr] = validatedProperties[curr];
+        return acc;
+      },
+      {},
+    );
+
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      finalPropertiesToUpdate,
+      {
+        new: true,
+        select: Object.values(privateProfileProperties).join(" "),
+      },
+    );
 
     if (!updatedUser) {
       throw new DatabaseError(

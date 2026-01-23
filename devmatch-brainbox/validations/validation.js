@@ -269,6 +269,29 @@ export const regexPropertiesValidator = (property, regex, error) => {
   };
 };
 
+export const numberRegexPropertiesValidator = (property, regex, error) => {
+  if (!property) {
+    return {
+      isPropertyValid: true,
+      validatedProperty: null,
+    };
+  }
+
+  property = typeof property === "string" ? property?.trim() : property;
+
+  if (!regex.test(property) || isNaN(Number(property))) {
+    return {
+      isPropertyValid: false,
+      message: error,
+    };
+  }
+
+  return {
+    isPropertyValid: true,
+    validatedProperty: property,
+  };
+};
+
 export const numberPropertiesValidator = (
   property,
   minValue,
@@ -502,7 +525,7 @@ export const addressValidator = (address) => {
           isPropertyValid: isCountryCodeValid,
           message: countryCodeErrorMessage,
           validatedProperty: validatedCountryCode,
-        } = regexPropertiesValidator(
+        } = numberRegexPropertiesValidator(
           address[addressField],
           COUNTRY_CODE_REGEX,
           errorMessages.INVALID_COUNTRY_CODE_ERROR,
@@ -551,7 +574,7 @@ export const addressValidator = (address) => {
           isPropertyValid: isPinCodeValid,
           message: pinCodeErrorMessage,
           validatedProperty: validatedPinCode,
-        } = regexPropertiesValidator(
+        } = numberRegexPropertiesValidator(
           address[addressField],
           PIN_CODE_REGEX,
           errorMessages.INVALID_PIN_CODE_ERROR,

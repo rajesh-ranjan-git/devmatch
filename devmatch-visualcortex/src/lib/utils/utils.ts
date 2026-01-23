@@ -110,3 +110,46 @@ export const getFullName = (user?: UserType) => {
 
 export const sanitizeList = (arr: string[]) =>
   arr.map((v) => v.trim()).filter((v) => v.length > 0);
+
+export const deepEquals = (a: unknown, b: unknown) => {
+  if (Object.is(a, b)) return true;
+
+  if (a == null || b == null) return a === b;
+
+  if (typeof a !== typeof b) return false;
+
+  if (typeof a !== "object") return a === b;
+
+  if (a instanceof Date && b instanceof Date) {
+    return a.getTime() === b.getTime();
+  }
+
+  if (a instanceof RegExp && b instanceof RegExp) {
+    return a.toString() === b.toString();
+  }
+
+  if (Array.isArray(a) && Array.isArray(b)) {
+    if (a.length !== b.length) return false;
+    for (let i = 0; i < a.length; i++) {
+      if (!deepEquals(a[i], b[i])) return false;
+    }
+    return true;
+  }
+
+  if (Array.isArray(a) !== Array.isArray(b)) return false;
+
+  const objA = a as Record<string, unknown>;
+  const objB = b as Record<string, unknown>;
+
+  const keysA = Object.keys(objA);
+  const keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) return false;
+
+  for (const key of keysA) {
+    if (!keysB.includes(key)) return false;
+    if (!deepEquals(objA[key], objB[key])) return false;
+  }
+
+  return true;
+};
