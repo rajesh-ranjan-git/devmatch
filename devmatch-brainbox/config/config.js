@@ -341,7 +341,7 @@ export const jwtKnownErrors = {
 };
 
 export const userProperties = {
-  ID: "_id",
+  ID: "id",
   EMAIL: "email",
   USER_NAME: "userName",
   PASSWORD: "password",
@@ -463,6 +463,7 @@ export const allowedUpdateProfileProperties = omitObjectProperties(
   userProperties,
   [
     "EMAIL",
+    "USERNAME",
     "PASSWORD",
     "PREVIOUS_PASSWORD",
     "PASSWORD_LAST_UPDATED",

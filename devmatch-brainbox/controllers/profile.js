@@ -5,6 +5,7 @@ import {
   status,
   successMessages,
   userProperties,
+  allowedUpdateProfileProperties,
 } from "../config/config.js";
 import { AuthenticationError, DatabaseError } from "../errors/CustomError.js";
 import {
@@ -83,10 +84,9 @@ export const update = async (req, res) => {
 
     const validatedProperties = validatePropertiesToUpdate(properties);
 
-    const user = await User.findByIdAndUpdate(id, validatedProperties, {
-      new: true,
-      select: Object.values(privateProfileProperties).join(" "),
-    });
+    const user = await User.findById(id).select(
+      Object.values(privateProfileProperties).join(" "),
+    );
 
     if (!user) {
       throw new DatabaseError(
@@ -97,7 +97,40 @@ export const update = async (req, res) => {
       );
     }
 
-    const sanitizedUser = sanitizeMongoData(user);
+    const validatedPropertiesToUpdate = Object.values(
+      allowedUpdateProfileProperties,
+    ).filter(
+      (value) =>
+        validatedProperties[value] !== user[value] &&
+        value !== userProperties.ID &&
+        value !== userProperties.USER_NAME &&
+        value !== userProperties.COVER_PHOTO_URL &&
+        value !== userProperties.AVATAR_URL,
+    );
+
+    console.log(
+      `debug from profile validatedPropertiesToUpdate : ${validatedProperties[validatedPropertiesToUpdate]} will replace ${user[validatedPropertiesToUpdate]}`,
+    );
+    // console.log(
+    //   "debug from profile validatedPropertiesToUpdate : ",
+    //   validatedPropertiesToUpdate,
+    // );
+
+    const updatedUser = await User.findByIdAndUpdate(id, validatedProperties, {
+      new: true,
+      select: Object.values(privateProfileProperties).join(" "),
+    });
+
+    if (!updatedUser) {
+      throw new DatabaseError(
+        status.internalServerError,
+        errorMessages.USER_UPDATE_FAILED_ERROR,
+        { user: updatedUser },
+        req?.url,
+      );
+    }
+
+    const sanitizedUser = sanitizeMongoData(updatedUser);
 
     return res.status(status.success.statusCode).json({
       status: status.success.message,
