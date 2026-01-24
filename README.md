@@ -344,7 +344,7 @@ devmatch
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/devmatch.git
+git clone https://github.com/rajesh-ranjan-git/devmatch.git
 cd devmatch
 ```
 
