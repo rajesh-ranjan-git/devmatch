@@ -34,10 +34,10 @@ const NavbarRight = () => {
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
   const setLoggedInUser = useDevMatchAppStore((state) => state.setLoggedInUser);
   const connectionNotifications = useDevMatchAppStore(
-    (state) => state.connectionNotifications
+    (state) => state.connectionNotifications,
   );
   const chatNotifications = useDevMatchAppStore(
-    (state) => state.chatNotifications
+    (state) => state.chatNotifications,
   );
 
   const loggedInUserFullName = getFullName(loggedInUser);
@@ -140,6 +140,7 @@ const NavbarRight = () => {
                   width={100}
                   height={100}
                   className="rounded-full w-full h-full object-cover select-none"
+                  unoptimized
                 />
               </div>
               <FaChevronDown />

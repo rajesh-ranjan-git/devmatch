@@ -25,10 +25,10 @@ const ProfileCover = ({ user }: ProfileComponentProps) => {
   const userCards = useDevMatchAppStore((state) => state.userCards);
   const setUserCards = useDevMatchAppStore((state) => state.setUserCards);
   const userCardsNextIndex = useDevMatchAppStore(
-    (state) => state.userCardsNextIndex
+    (state) => state.userCardsNextIndex,
   );
   const setUserCardsNextIndex = useDevMatchAppStore(
-    (state) => state.setUserCardsNextIndex
+    (state) => state.setUserCardsNextIndex,
   );
   const requests = useDevMatchAppStore((state) => state.requests);
   const setRequests = useDevMatchAppStore((state) => state.setRequests);
@@ -50,7 +50,7 @@ const ProfileCover = ({ user }: ProfileComponentProps) => {
   };
 
   const connectedUser = connections.find(
-    (c) => c?.otherUser?.id === user?.id
+    (c) => c?.otherUser?.id === user?.id,
   )?.otherUser;
   const connectedUserData = {
     successButtonIcon: <IoIosChatboxes />,
@@ -59,12 +59,12 @@ const ProfileCover = ({ user }: ProfileComponentProps) => {
     onReject: () =>
       onRemove(
         connectedUser?.id as string,
-        CONNECTION_STATUS_PROPERTIES.rejected
+        CONNECTION_STATUS_PROPERTIES.rejected,
       ),
     onBlock: () =>
       onRemove(
         connectedUser?.id as string,
-        CONNECTION_STATUS_PROPERTIES.blocked
+        CONNECTION_STATUS_PROPERTIES.blocked,
       ),
   };
 
@@ -141,6 +141,7 @@ const ProfileCover = ({ user }: ProfileComponentProps) => {
         width={600}
         height={400}
         className="w-full h-full object-cover select-none"
+        unoptimized
       />
 
       <div className="top-0 right-0 absolute">
@@ -177,23 +178,23 @@ const ProfileCover = ({ user }: ProfileComponentProps) => {
               sender
                 ? senderData?.successButtonIcon
                 : connectedUser
-                ? connectedUserData?.successButtonIcon
-                : null
+                  ? connectedUserData?.successButtonIcon
+                  : null
             }
             text={
               sender
                 ? senderData?.successButtonText
                 : connectedUser
-                ? connectedUserData?.successButtonText
-                : null
+                  ? connectedUserData?.successButtonText
+                  : null
             }
             className="w-24 text-sm"
             onClick={
               sender
                 ? senderData.onAccept
                 : connectedUser
-                ? connectedUserData.onAccept
-                : () => null
+                  ? connectedUserData.onAccept
+                  : () => null
             }
           />
           <ButtonWarning
@@ -204,8 +205,8 @@ const ProfileCover = ({ user }: ProfileComponentProps) => {
               sender
                 ? senderData.onReject
                 : connectedUser
-                ? connectedUserData.onReject
-                : () => null
+                  ? connectedUserData.onReject
+                  : () => null
             }
           />
           <ButtonDestructive
@@ -216,8 +217,8 @@ const ProfileCover = ({ user }: ProfileComponentProps) => {
               sender
                 ? senderData.onBlock
                 : connectedUser
-                ? connectedUserData.onBlock
-                : () => null
+                  ? connectedUserData.onBlock
+                  : () => null
             }
           />
         </div>
