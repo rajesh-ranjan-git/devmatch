@@ -141,7 +141,6 @@ const ProfileCover = ({ user }: ProfileComponentProps) => {
         width={600}
         height={400}
         className="w-full h-full object-cover select-none"
-        unoptimized
       />
 
       <div className="top-0 right-0 absolute">

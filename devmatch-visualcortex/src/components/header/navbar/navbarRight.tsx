@@ -140,7 +140,6 @@ const NavbarRight = () => {
                   width={100}
                   height={100}
                   className="rounded-full w-full h-full object-cover select-none"
-                  unoptimized
                 />
               </div>
               <FaChevronDown />
