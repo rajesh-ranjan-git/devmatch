@@ -29,6 +29,8 @@ import {
 } from "@/lib/validations/validations";
 import { apiUrls } from "@/lib/api/apiUtils";
 import { apiRequest } from "@/lib/api/api";
+import { revalidatePath } from "next/cache";
+import { profileRoutes } from "../routes/routes";
 
 export const updateProfileDetailsAction = async (
   prevState: ProfileUpdateFormStateType,
@@ -405,6 +407,8 @@ export const updateProfileDetailsAction = async (
       success: result?.success ?? false,
     };
   }
+
+  revalidatePath(profileRoutes.profile);
 
   return {
     message: "Profile update successful!",

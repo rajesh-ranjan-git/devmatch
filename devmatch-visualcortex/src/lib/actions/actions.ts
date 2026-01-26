@@ -28,7 +28,7 @@ export const getAllUsers = async () => {
 
 export const updateConnectionStatus = async (
   status: string,
-  userId: string
+  userId: string,
 ) => {
   const result = await apiRequest({
     method: "POST",
@@ -72,10 +72,10 @@ export const markNotificationRead = async ({
       id && type && removeNotificationFlag
         ? `${apiUrls?.markNotificationRead}/delete/${type}/${id}`
         : id && type
-        ? `${apiUrls?.markNotificationRead}/read/${type}/${id}`
-        : type
-        ? `${apiUrls?.markNotificationRead}/read/${type}`
-        : `${apiUrls?.markNotificationRead}/read`,
+          ? `${apiUrls?.markNotificationRead}/read/${type}/${id}`
+          : type
+            ? `${apiUrls?.markNotificationRead}/read/${type}`
+            : `${apiUrls?.markNotificationRead}/read`,
   });
 
   return result?.success ? result?.data?.notification : null;
