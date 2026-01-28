@@ -4,6 +4,7 @@ import { USER_PROPERTIES, USER_PROPERTY_LABELS } from "@/config/constants";
 import { ProfileComponentProps } from "@/types/propTypes";
 import { formatDate, toSentenceCase, toTitleCase } from "@/lib/utils/utils";
 import { useDevMatchAppStore } from "@/store/store";
+import { allowedUpdateProfileProperties } from "@/config/config";
 
 const ProfileTabularData = ({ user }: ProfileComponentProps) => {
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
@@ -87,7 +88,7 @@ const ProfileTabularData = ({ user }: ProfileComponentProps) => {
                   <span>{renderValue(key, value)}</span>
                 </div>
                 {loggedInUser?.id === user?.id &&
-                  key !== USER_PROPERTIES.updatedAt && (
+                  Object.keys(allowedUpdateProfileProperties).includes(key) && (
                     <div className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm w-7glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer">
                       <MdOutlineEdit className="group-hover/icon:hidden" />
                       <MdEdit className="hidden group-hover/icon:block" />
