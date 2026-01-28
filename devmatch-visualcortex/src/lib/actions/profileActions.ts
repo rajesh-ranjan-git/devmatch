@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import {
   ADDRESS_PROPERTIES,
   ERROR_MESSAGES,
@@ -17,6 +18,7 @@ import {
 } from "@/config/constants";
 import { allowedUpdateProfileProperties } from "@/config/config";
 import { ProfileUpdateFormStateType } from "@/types/types";
+import { profileRoutes } from "@/lib/routes/routes";
 import {
   addressValidator,
   allowedStringValidator,
@@ -29,8 +31,6 @@ import {
 } from "@/lib/validations/validations";
 import { apiUrls } from "@/lib/api/apiUtils";
 import { apiRequest } from "@/lib/api/api";
-import { revalidatePath } from "next/cache";
-import { profileRoutes } from "../routes/routes";
 
 export const updateProfileDetailsAction = async (
   prevState: ProfileUpdateFormStateType,
