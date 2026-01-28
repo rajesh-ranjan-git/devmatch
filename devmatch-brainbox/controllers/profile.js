@@ -205,7 +205,7 @@ export const updatePassword = async (req, res) => {
 
     const isPasswordAlreadyUsed = await comparePassword(
       newPassword,
-      user?.password,
+      user?.previousPassword,
     );
 
     if (isPasswordAlreadyUsed) {

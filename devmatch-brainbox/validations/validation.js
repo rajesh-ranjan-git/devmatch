@@ -33,6 +33,7 @@ export const requestValidator = (req, res) => {
 
   if (
     req?.method === "GET" ||
+    req?.method === "DELETE" ||
     (req?.params && Object.keys(req.params).length > 0)
   ) {
     return;

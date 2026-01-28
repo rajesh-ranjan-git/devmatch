@@ -16,6 +16,8 @@ import useContextMenu from "@/hooks/useContextMenu";
 import ProfileTabularData from "@/components/profile/profileTabularData";
 import ProfileDetailsUpdateContext from "@/components/profile/profileDetailsUpdateContext";
 import SingleProfileDetailsUpdateContext from "@/components/profile/singleProfileDetailsUpdateContext";
+import DeleteAccountContext from "@/components/profile/deleteAccountContext";
+import UpdatePasswordContext from "@/components/profile/updatePasswordContext";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
@@ -39,6 +41,14 @@ const ProfileDetails = ({ user }: ProfileDetailsProps) => {
 
   const updateSpecificProfileDetailsContext = useContextMenu({
     type: "updateSpecificProfileDetailsContext",
+  });
+
+  const updatePasswordContext = useContextMenu({
+    type: "updatePasswordContext",
+  });
+
+  const deleteAccountContext = useContextMenu({
+    type: "deleteAccountContext",
   });
 
   const selectedUserProperties = Object.fromEntries(
@@ -153,11 +163,13 @@ const ProfileDetails = ({ user }: ProfileDetailsProps) => {
             icon={authFormFieldButtonItems?.updatePassword?.icon}
             text={authFormFieldButtonItems?.updatePassword?.label}
             className="w-52 h-10"
+            onClick={updatePasswordContext.toggle}
           />
           <ButtonDestructive
             icon={authFormFieldButtonItems?.deleteAccount?.icon}
             text={authFormFieldButtonItems?.deleteAccount?.label}
             className="w-52 h-10"
+            onClick={deleteAccountContext.toggle}
           />
         </div>
       )}
@@ -180,6 +192,26 @@ const ProfileDetails = ({ user }: ProfileDetailsProps) => {
           user={user}
           propertyToUpdate={propertyToUpdate}
           setPropertyToUpdate={setPropertyToUpdate}
+        />
+      </ContextMenu>
+
+      <ContextMenu
+        open={updatePasswordContext.isOpen}
+        onClose={updatePasswordContext.close}
+      >
+        <UpdatePasswordContext
+          user={user}
+          onClose={updatePasswordContext.close}
+        />
+      </ContextMenu>
+
+      <ContextMenu
+        open={deleteAccountContext.isOpen}
+        onClose={deleteAccountContext.close}
+      >
+        <DeleteAccountContext
+          user={user}
+          onClose={deleteAccountContext.close}
         />
       </ContextMenu>
     </div>

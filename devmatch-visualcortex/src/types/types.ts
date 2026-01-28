@@ -10,6 +10,7 @@ import {
   SOCIAL_MEDIA,
   STORAGE,
   THEMES,
+  UPDATE_PASSWORD_FORM_FIELDS,
   USER_PROPERTIES,
 } from "@/config/constants";
 import { allowedUpdateProfileProperties } from "@/config/config";
@@ -40,6 +41,8 @@ export type ContextMenuTypes =
   | "updateProfilePhotoContext"
   | "updateProfileDetailsContext"
   | "updateSpecificProfileDetailsContext"
+  | "updatePasswordContext"
+  | "deleteAccountContext"
   | null;
 
 export type SheetTypes = "requests" | "connections" | null;
@@ -94,6 +97,18 @@ export type ProfileUpdateFormStateType = {
   errors: Partial<
     Record<keyof typeof allowedUpdateProfileProperties, string[]>
   >;
+  result?: any;
+};
+
+export type UpdatePasswordFormStateType = {
+  message: string;
+  success?: boolean;
+  inputs?: Record<string, FormDataEntryValue>;
+  errors?: {
+    newPassword?: string[];
+    confirmPassword?: string[];
+    oldPassword?: string[];
+  };
   result?: any;
 };
 
@@ -163,6 +178,21 @@ export type ProfileDetailsFormFieldButtonItemsType = {
     icon: ReactNode;
   };
 };
+
+export type UpdatePasswordFormFieldTypes =
+  keyof typeof UPDATE_PASSWORD_FORM_FIELDS;
+
+export type UpdatePasswordFormFieldInputType = {
+  name: UpdatePasswordFormFieldTypes;
+  type: keyof typeof INPUT_TYPES;
+  label?: string;
+  placeholder: string;
+  icon: ReactNode;
+};
+
+export type UpdatePasswordFormFieldInputItemsType = Partial<
+  Record<UpdatePasswordFormFieldTypes, UpdatePasswordFormFieldInputType>
+>;
 
 export type StaticImageType = Record<
   string,

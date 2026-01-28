@@ -25,7 +25,7 @@ export const checkAuth = async (req, res) => {
         status.forbidden,
         errorMessages.UNAUTHORIZED_USER_ERROR,
         { user: user },
-        req?.url
+        req?.url,
       );
     }
 
@@ -59,7 +59,7 @@ export const register = async (req, res) => {
 
     const existingUser = await User.findOne(
       { userName, email },
-      userProperties.ID
+      userProperties.ID,
     );
 
     if (existingUser) {
@@ -67,7 +67,7 @@ export const register = async (req, res) => {
         status.conflict,
         errorMessages.USER_EXISTS_ERROR,
         { existingUserId: existingUser?.id },
-        req?.url
+        req?.url,
       );
     }
 
@@ -84,13 +84,13 @@ export const register = async (req, res) => {
         status.internalServerError,
         errorMessages.REGISTRATION_FAILED_ERROR,
         { user: newUser },
-        req?.url
+        req?.url,
       );
     }
 
     const user = selectObjectProperties(
       newUser.toObject(),
-      Object.values(defaultUserProperties)
+      Object.values(defaultUserProperties),
     );
 
     const token = getJwtToken(user?.id);
@@ -111,7 +111,7 @@ export const register = async (req, res) => {
   } catch (error) {
     return res
       .status(
-        error?.status?.statusCode || status.internalServerError.statusCode
+        error?.status?.statusCode || status.internalServerError.statusCode,
       )
       .json({
         status: error?.status?.message || status.internalServerError.message,
@@ -139,7 +139,7 @@ export const login = async (req, res) => {
         ...Object.values(defaultUserProperties),
         userProperties.PASSWORD,
         userProperties.PASSWORD_LAST_UPDATED,
-      ]
+      ],
     );
 
     if (!user) {
@@ -147,7 +147,7 @@ export const login = async (req, res) => {
         status.notFound,
         errorMessages.USER_NOT_EXIST_ERROR,
         { email },
-        req?.url
+        req?.url,
       );
     }
 
@@ -158,7 +158,7 @@ export const login = async (req, res) => {
         status.forbidden,
         errorMessages.INCORRECT_EMAIL_PASSWORD_ERROR,
         { email, password },
-        req?.url
+        req?.url,
       );
     }
 
@@ -167,7 +167,7 @@ export const login = async (req, res) => {
         status.forbidden,
         errorMessages.PASSWORD_EXPIRED_ERROR,
         { email, password },
-        req?.url
+        req?.url,
       );
     }
 
@@ -175,7 +175,7 @@ export const login = async (req, res) => {
 
     const loggedInUser = selectObjectProperties(
       user.toObject(),
-      Object.values(defaultUserProperties)
+      Object.values(defaultUserProperties),
     );
 
     const sanitizedUser = sanitizeMongoData(loggedInUser);
@@ -194,7 +194,7 @@ export const login = async (req, res) => {
   } catch (error) {
     return res
       .status(
-        error?.status?.statusCode || status.internalServerError.statusCode
+        error?.status?.statusCode || status.internalServerError.statusCode,
       )
       .json({
         status: error?.status?.message || status.internalServerError.message,
@@ -222,7 +222,7 @@ export const logout = async (req, res) => {
   } catch (error) {
     return res
       .status(
-        error?.status?.statusCode || status.internalServerError.statusCode
+        error?.status?.statusCode || status.internalServerError.statusCode,
       )
       .json({
         status: error?.status?.statusCode || status.internalServerError.message,
@@ -255,7 +255,7 @@ export const forgotPassword = async (req, res) => {
         status.notFound,
         errorMessages.USER_NOT_EXIST_ERROR,
         { email },
-        req?.url
+        req?.url,
       );
     }
 
@@ -264,13 +264,13 @@ export const forgotPassword = async (req, res) => {
         status.forbidden,
         errorMessages.INCORRECT_SECURITY_QUESTION_ANSWER_ERROR,
         { email, firstName },
-        req?.url
+        req?.url,
       );
     }
 
     const isPasswordAlreadyUsed = await comparePassword(
       password,
-      user?.password
+      user?.password,
     );
 
     if (isPasswordAlreadyUsed) {
@@ -278,7 +278,7 @@ export const forgotPassword = async (req, res) => {
         status.forbidden,
         errorMessages.PASSWORD_ALREADY_USED_ERROR,
         { email, password },
-        req?.url
+        req?.url,
       );
     }
 
@@ -295,7 +295,7 @@ export const forgotPassword = async (req, res) => {
         status.internalServerError,
         errorMessages.PASSWORD_UPDATE_FAILED_ERROR,
         { email },
-        req?.url
+        req?.url,
       );
     }
 
@@ -307,7 +307,59 @@ export const forgotPassword = async (req, res) => {
   } catch (error) {
     return res
       .status(
-        error?.status?.statusCode || status.internalServerError.statusCode
+        error?.status?.statusCode || status.internalServerError.statusCode,
+      )
+      .json({
+        status: error?.status?.message || status.internalServerError.message,
+        statusCode:
+          error?.status?.statusCode || status.internalServerError.statusCode,
+        apiUrl: error?.apiUrl || req?.url,
+        error: {
+          type: error?.type,
+          message: error?.message,
+          data: error?.data,
+        },
+      });
+  }
+};
+
+export const deleteAccount = async (req, res) => {
+  try {
+    const { id } = req?.data;
+
+    const user = await User.findById(id, Object.values(defaultUserProperties));
+
+    if (!user) {
+      throw new DatabaseError(
+        status.notFound,
+        errorMessages.USER_NOT_EXIST_ERROR,
+        { user },
+        req?.url,
+      );
+    }
+
+    const deletedUser = await User.findByIdAndDelete(id);
+
+    if (!deletedUser) {
+      throw new DatabaseError(
+        status.internalServerError,
+        errorMessages.ACCOUNT_DELETION_FAILED_ERROR,
+        { user: deletedUser },
+        req?.url,
+      );
+    }
+
+    res.clearCookie("authToken");
+
+    return res.status(status.deleted.statusCode).json({
+      status: status.deleted.message,
+      statusCode: status.deleted.statusCode,
+      message: successMessages.ACCOUNT_DELETION_SUCCESSFUL,
+    });
+  } catch (error) {
+    return res
+      .status(
+        error?.status?.statusCode || status.internalServerError.statusCode,
       )
       .json({
         status: error?.status?.message || status.internalServerError.message,

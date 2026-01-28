@@ -784,12 +784,13 @@ const SingleProfileDetailsUpdateContext = ({
         variant: "error",
       });
     } else if (state?.result?.success && state?.result?.data) {
+      setPropertyToUpdate(null);
+
       showToast({
         title: toTitleCase(state?.message),
         message: state?.result?.data?.message,
         variant: "success",
       });
-      setPropertyToUpdate(null);
     }
   }, [state]);
 

@@ -16,8 +16,16 @@ import {
   WEBSITE_REGEX,
   YOUTUBE_REGEX,
 } from "@/config/constants";
-import { allowedUpdateProfileProperties } from "@/config/config";
-import { ProfileUpdateFormStateType } from "@/types/types";
+import {
+  allowedUpdateProfileProperties,
+  authFormFieldInputItems,
+  updatePasswordFormFieldInputItems,
+} from "@/config/config";
+import {
+  AuthFormStateType,
+  ProfileUpdateFormStateType,
+  UpdatePasswordFormStateType,
+} from "@/types/types";
 import { profileRoutes } from "@/lib/routes/routes";
 import {
   addressValidator,
@@ -26,6 +34,7 @@ import {
   nameFieldValidator,
   numberPropertiesValidator,
   numberRegexPropertiesValidator,
+  passwordValidator,
   regexFieldValidator,
   stringFieldValidator,
 } from "@/lib/validations/validations";
@@ -672,7 +681,7 @@ export const updateSingleProfilePropertyAction = async (
 
   if (!result?.success) {
     return {
-      message: "Profile property update failed!",
+      message: "Profile update failed!",
       result,
       errors,
       inputs: Object.fromEntries(formData),
@@ -683,7 +692,93 @@ export const updateSingleProfilePropertyAction = async (
   revalidatePath(profileRoutes.profile);
 
   return {
-    message: "Profile property updated successfully!",
+    message: "Profile updated successfully!",
+    result,
+    errors,
+    success: result?.success ?? true,
+  };
+};
+
+export const updatePasswordAction = async (
+  prevState: UpdatePasswordFormStateType,
+  formData: FormData,
+) => {
+  const oldPassword = formData.get(
+    updatePasswordFormFieldInputItems.oldPassword?.name as string,
+  );
+  const newPassword = formData.get(
+    updatePasswordFormFieldInputItems.newPassword?.name as string,
+  );
+  const confirmPassword = formData.get(
+    updatePasswordFormFieldInputItems.confirmPassword?.name as string,
+  );
+
+  const errors: UpdatePasswordFormStateType["errors"] = {};
+
+  const {
+    validatedPassword: validatedOldPassword,
+    passwordErrors: oldPasswordErrors,
+  } = passwordValidator(oldPassword as string);
+  errors.oldPassword = [...(oldPasswordErrors ?? [])];
+
+  const {
+    validatedPassword: validatedNewPassword,
+    passwordErrors: newPasswordErrors,
+  } = passwordValidator(newPassword as string);
+  errors.newPassword = [...(newPasswordErrors ?? [])];
+
+  const {
+    validatedPassword: validatedConfirmPassword,
+    passwordErrors: confirmPasswordErrors,
+  } = passwordValidator(confirmPassword as string);
+  errors.confirmPassword = [...(confirmPasswordErrors ?? [])];
+
+  if (validatedNewPassword === validatedOldPassword) {
+    errors.newPassword.push(ERROR_MESSAGES.passwordOldPasswordMatchError);
+  }
+
+  if (validatedNewPassword !== validatedConfirmPassword) {
+    errors.newPassword.push(
+      ERROR_MESSAGES.passwordConfirmPasswordMismatchError,
+    );
+  }
+
+  const hasErrors = Object.values(errors).some((item) => item.length > 0);
+
+  if (hasErrors) {
+    return {
+      message: "Validation Error",
+      errors,
+      success: false,
+      inputs: Object.fromEntries(formData),
+    };
+  }
+
+  const result = await apiRequest({
+    method: "patch",
+    url: apiUrls.updatePassword,
+    data: {
+      oldPassword: oldPassword,
+      newPassword: validatedNewPassword,
+      confirmPassword: confirmPassword,
+    },
+    requiresAuth: true,
+  });
+
+  if (!result?.success) {
+    return {
+      message: "Password update failed!",
+      result,
+      errors,
+      inputs: Object.fromEntries(formData),
+      success: result?.success ?? false,
+    };
+  }
+
+  revalidatePath(profileRoutes.profile);
+
+  return {
+    message: "Password update successful!",
     result,
     errors,
     success: result?.success ?? true,

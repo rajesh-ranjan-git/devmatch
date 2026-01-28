@@ -29,6 +29,7 @@ import {
   ADDRESS_PROPERTIES,
   AUTH_FORM_FIELDS,
   INPUT_TYPES,
+  UPDATE_PASSWORD_FORM_FIELDS,
   USER_PROPERTIES,
 } from "@/config/constants";
 import {
@@ -42,6 +43,7 @@ import {
   ProfileFormFieldInputItemsType,
   SocialMediaIconType,
   StaticImageType,
+  UpdatePasswordFormFieldInputItemsType,
 } from "@/types/types";
 import {
   getUrlString,
@@ -456,6 +458,31 @@ export const profileDetailsFormFieldButtonItems: ProfileDetailsFormFieldButtonIt
       name: "discard",
       label: "Discard",
       icon: <ImCross />,
+    },
+  };
+
+export const updatePasswordFormFieldInputItems: UpdatePasswordFormFieldInputItemsType =
+  {
+    oldPassword: {
+      name: UPDATE_PASSWORD_FORM_FIELDS.oldPassword,
+      type: INPUT_TYPES.password,
+      label: "Old Password",
+      placeholder: "Old Password",
+      icon: <MdPassword />,
+    },
+    newPassword: {
+      name: UPDATE_PASSWORD_FORM_FIELDS.newPassword,
+      type: INPUT_TYPES.password,
+      label: "New Password",
+      placeholder: "New Password",
+      icon: <MdPassword />,
+    },
+    confirmPassword: {
+      name: UPDATE_PASSWORD_FORM_FIELDS.confirmPassword,
+      type: INPUT_TYPES.password,
+      label: "Confirm Password",
+      placeholder: "Confirm Password",
+      icon: <MdPassword />,
     },
   };
 

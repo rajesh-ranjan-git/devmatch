@@ -703,7 +703,7 @@ const ProfileDetailsUpdateContext = ({
                     state?.inputs &&
                     state?.inputs?.address
                       ? (state?.inputs?.address as string)
-                      : (value[item] ?? "")
+                      : (value?.[item] ?? "")
                   }
                   icon={addressFormFieldInputItems[item]?.icon}
                   className="mb-4 w-3/5"

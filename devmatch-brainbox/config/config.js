@@ -317,6 +317,7 @@ export const errorMessages = {
   INVALID_NOTIFICATION_STATUS_ERROR: "Invalid notification status!",
   NOTIFICATION_READ_FAILED_ERROR: "Unable to mark notification as read!",
   INVALID_PROFILE_UPDATE_ERROR: "Profile was already updated with same data!",
+  ACCOUNT_DELETION_FAILED_ERROR: "Unable to delete account!",
 };
 
 export const successMessages = {
@@ -333,6 +334,7 @@ export const successMessages = {
   EXPLORE_DATA_FETCH_SUCCESS: "Explore data fetch successful!",
   NOTIFICATION_FETCH_SUCCESS: "Notifications fetch successful!",
   NOTIFICATION_READ_SUCCESS: "Notifications read successful!",
+  ACCOUNT_DELETION_SUCCESSFUL: "Account deleted successfully!",
 };
 
 export const jwtKnownErrors = {

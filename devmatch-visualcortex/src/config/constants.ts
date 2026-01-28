@@ -98,6 +98,12 @@ export const AUTH_FORM_FIELDS = {
   deleteAccount: "deleteAccount",
 } as const;
 
+export const UPDATE_PASSWORD_FORM_FIELDS = {
+  oldPassword: "oldPassword",
+  newPassword: "newPassword",
+  confirmPassword: "confirmPassword",
+} as const;
+
 export const SOCIAL_MEDIA = {
   facebook: "facebook",
   instagram: "instagram",
@@ -179,6 +185,7 @@ export const ERROR_MESSAGES = {
   oldPasswordCombinationError: "Invalid old password combination!",
   newPasswordCombinationError: "Invalid new password combination!",
   confirmPasswordCombinationError: "Invalid confirm password combination!",
+  passwordOldPasswordMatchError: "Password and old password must be different!",
   passwordConfirmPasswordMismatchError:
     "Password and confirm password must be same!",
   newPasswordConfirmPasswordMismatchError:
@@ -278,6 +285,7 @@ export const ERROR_MESSAGES = {
   viewConnectionRequestError: "Unable to get connections requests!",
   invalidPageError: "Invalid page!",
   invalidProfileUpdateError: "Profile was already updated with same data!",
+  accountDeletionFailedError: "Unable to delete account!",
 } as const;
 
 export const FALLBACK_MESSAGES = {

@@ -6,6 +6,7 @@ import {
   login,
   logout,
   forgotPassword,
+  deleteAccount,
 } from "../controllers/user.js";
 import auth from "../middlewares/auth.js";
 import {
@@ -28,7 +29,9 @@ userRouter.get("/logout", requestMiddleware, logout);
 userRouter.patch(
   "/forgot-password",
   forgotPasswordRequestMiddleware,
-  forgotPassword
+  forgotPassword,
 );
+
+userRouter.delete("/delete-account", auth, deleteAccount);
 
 export default userRouter;
