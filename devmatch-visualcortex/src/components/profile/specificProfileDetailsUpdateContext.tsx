@@ -32,7 +32,7 @@ const SpecificProfileDetailsUpdateContext = ({
 
   const [property] = useState<keyof UserType | null>(propertyToUpdate);
 
-  const initialState: ProfileUpdateFormStateType = { message: "" };
+  const initialState: ProfileUpdateFormStateType = { message: "", errors: {} };
 
   const [state, formAction, isPending] = useActionState(
     updateProfileDetailsAction,

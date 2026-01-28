@@ -27,7 +27,7 @@ const ProfileDetailsUpdateContext = ({
   user,
   onClose,
 }: ProfileDetailsProps) => {
-  const initialState: ProfileUpdateFormStateType = { message: "" };
+  const initialState: ProfileUpdateFormStateType = { message: "", errors: {} };
 
   const [state, formAction, isPending] = useActionState(
     updateProfileDetailsAction,

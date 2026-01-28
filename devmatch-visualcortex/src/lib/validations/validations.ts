@@ -14,6 +14,8 @@ import {
   PIN_CODE_REGEX,
 } from "@/config/constants";
 import { sanitizeList } from "../utils/utils";
+import { allowedUpdateProfileProperties } from "@/config/config";
+import { ProfileUpdateFormStateType } from "@/types/types";
 
 export const userNameValidator = (user_name: string) => {
   const userNameErrors: string[] = [];
@@ -169,6 +171,19 @@ export const nameValidator = (name: string, type: string) => {
   return { validatedName: nameValue };
 };
 
+export const nameFieldValidator = (
+  value: string,
+  fieldKey: keyof typeof allowedUpdateProfileProperties,
+  errors: ProfileUpdateFormStateType["errors"],
+) => {
+  const { validatedName, nameErrors } = nameValidator(
+    value,
+    allowedUpdateProfileProperties[fieldKey],
+  );
+  errors[fieldKey] = [...(nameErrors ?? [])];
+  return validatedName;
+};
+
 export const allowedStringValidator = (
   property: string,
   ALLOWED_PROPERTIES: string[],
@@ -282,6 +297,26 @@ export const stringPropertiesValidator = (
   };
 };
 
+export const stringFieldValidator = (
+  value: string,
+  fieldKey: keyof ProfileUpdateFormStateType["errors"],
+  errorMessages: {
+    invalidError: string;
+    minLengthError: string;
+    maxLengthError: string;
+  },
+  errors: ProfileUpdateFormStateType["errors"],
+) => {
+  const { validatedProperty, propertyErrors } = stringPropertiesValidator(
+    value,
+    USER_PROPERTY_CONSTRAINTS.minStringLength,
+    USER_PROPERTY_CONSTRAINTS.maxStringLength,
+    errorMessages,
+  );
+  errors[fieldKey] = propertyErrors ?? [];
+  return validatedProperty;
+};
+
 export const regexPropertiesValidator = (
   property: string | number,
   regex: RegExp,
@@ -322,6 +357,22 @@ export const numberRegexPropertiesValidator = (
   return {
     validatedProperty: Number(value),
   };
+};
+
+export const regexFieldValidator = (
+  value: string,
+  regex: RegExp,
+  errorMessage: string,
+  fieldKey: keyof ProfileUpdateFormStateType["errors"],
+  errors: ProfileUpdateFormStateType["errors"],
+) => {
+  const { validatedProperty, propertyErrors } = regexPropertiesValidator(
+    value,
+    regex,
+    errorMessage,
+  );
+  errors[fieldKey] = propertyErrors ?? [];
+  return validatedProperty;
 };
 
 export const listPropertiesValidator = (

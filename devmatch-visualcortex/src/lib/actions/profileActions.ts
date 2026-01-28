@@ -23,11 +23,11 @@ import {
   addressValidator,
   allowedStringValidator,
   listPropertiesValidator,
-  nameValidator,
+  nameFieldValidator,
   numberPropertiesValidator,
   numberRegexPropertiesValidator,
-  regexPropertiesValidator,
-  stringPropertiesValidator,
+  regexFieldValidator,
+  stringFieldValidator,
 } from "@/lib/validations/validations";
 import { apiUrls } from "@/lib/api/apiUtils";
 import { apiRequest } from "@/lib/api/api";
@@ -36,58 +36,34 @@ export const updateProfileDetailsAction = async (
   prevState: ProfileUpdateFormStateType,
   formData: FormData,
 ) => {
-  const firstName = formData.get(
-    allowedUpdateProfileProperties.firstName,
-  ) as string;
-  const middleName = formData.get(
-    allowedUpdateProfileProperties.middleName,
-  ) as string;
-  const lastName = formData.get(
-    allowedUpdateProfileProperties.lastName,
-  ) as string;
-  const nickName = formData.get(
-    allowedUpdateProfileProperties.nickName,
-  ) as string;
-  const age = formData.get(allowedUpdateProfileProperties.age) as string;
-  const phone = formData.get(allowedUpdateProfileProperties.phone) as string;
-  const gender = formData.get(allowedUpdateProfileProperties.gender) as string;
-  const bio = formData.get(allowedUpdateProfileProperties.bio) as string;
-  const maritalStatus = formData.get(
-    allowedUpdateProfileProperties.maritalStatus,
-  ) as string;
-  const jobProfile = formData.get(
-    allowedUpdateProfileProperties.jobProfile,
-  ) as string;
-  const experience = formData.get(
-    allowedUpdateProfileProperties.experience,
-  ) as string;
-  const facebook = formData.get(
-    allowedUpdateProfileProperties.facebook,
-  ) as string;
-  const instagram = formData.get(
-    allowedUpdateProfileProperties.instagram,
-  ) as string;
-  const twitter = formData.get(
-    allowedUpdateProfileProperties.twitter,
-  ) as string;
-  const github = formData.get(allowedUpdateProfileProperties.github) as string;
-  const linkedin = formData.get(
-    allowedUpdateProfileProperties.linkedin,
-  ) as string;
-  const youtube = formData.get(
-    allowedUpdateProfileProperties.youtube,
-  ) as string;
-  const website = formData.get(
-    allowedUpdateProfileProperties.website,
-  ) as string;
-  const company = formData.get(
-    allowedUpdateProfileProperties.company,
-  ) as string;
-  const organization = formData.get(
-    allowedUpdateProfileProperties.organization,
-  ) as string;
-  const skills = formData.get(allowedUpdateProfileProperties.skills);
-  const interests = formData.get(allowedUpdateProfileProperties.interests);
+  const getFormValue = (key: keyof typeof allowedUpdateProfileProperties) =>
+    formData.get(allowedUpdateProfileProperties[key]) as string;
+
+  const fields = {
+    firstName: getFormValue(allowedUpdateProfileProperties.firstName),
+    middleName: getFormValue(allowedUpdateProfileProperties.middleName),
+    lastName: getFormValue(allowedUpdateProfileProperties.lastName),
+    nickName: getFormValue(allowedUpdateProfileProperties.nickName),
+    age: getFormValue(allowedUpdateProfileProperties.age),
+    phone: getFormValue(allowedUpdateProfileProperties.phone),
+    gender: getFormValue(allowedUpdateProfileProperties.gender),
+    bio: getFormValue(allowedUpdateProfileProperties.bio),
+    maritalStatus: getFormValue(allowedUpdateProfileProperties.maritalStatus),
+    jobProfile: getFormValue(allowedUpdateProfileProperties.jobProfile),
+    experience: getFormValue(allowedUpdateProfileProperties.experience),
+    facebook: getFormValue(allowedUpdateProfileProperties.facebook),
+    instagram: getFormValue(allowedUpdateProfileProperties.instagram),
+    twitter: getFormValue(allowedUpdateProfileProperties.twitter),
+    github: getFormValue(allowedUpdateProfileProperties.github),
+    linkedin: getFormValue(allowedUpdateProfileProperties.linkedin),
+    youtube: getFormValue(allowedUpdateProfileProperties.youtube),
+    website: getFormValue(allowedUpdateProfileProperties.website),
+    company: getFormValue(allowedUpdateProfileProperties.company),
+    organization: getFormValue(allowedUpdateProfileProperties.organization),
+    skills: formData.get(allowedUpdateProfileProperties.skills),
+    interests: formData.get(allowedUpdateProfileProperties.interests),
+  };
+
   const address = Object.fromEntries(
     Object.entries(ADDRESS_PROPERTIES).map(([key, value]) => [
       key,
@@ -96,30 +72,32 @@ export const updateProfileDetailsAction = async (
   ) as Record<keyof typeof ADDRESS_PROPERTIES, FormDataEntryValue | null>;
 
   const errors: ProfileUpdateFormStateType["errors"] = {};
+  const validatedData: Record<string, any> = {};
 
-  const { validatedName: validatedFirstName, nameErrors: firstNameErrors } =
-    nameValidator(firstName, allowedUpdateProfileProperties.firstName);
-
-  errors.firstName = [...(firstNameErrors ?? [])];
-
-  const { validatedName: validatedMiddleName, nameErrors: middleNameErrors } =
-    nameValidator(middleName, allowedUpdateProfileProperties.middleName);
-
-  errors.middleName = [...(middleNameErrors ?? [])];
-
-  const { validatedName: validatedLastName, nameErrors: lastNameErrors } =
-    nameValidator(lastName, allowedUpdateProfileProperties.lastName);
-
-  errors.lastName = [...(lastNameErrors ?? [])];
-
-  const { validatedName: validatedNickName, nameErrors: nickNameErrors } =
-    nameValidator(nickName, allowedUpdateProfileProperties.nickName);
-
-  errors.nickName = [...(nickNameErrors ?? [])];
+  validatedData.firstName = nameFieldValidator(
+    fields.firstName,
+    allowedUpdateProfileProperties.firstName,
+    errors,
+  );
+  validatedData.middleName = nameFieldValidator(
+    fields.middleName,
+    allowedUpdateProfileProperties.middleName,
+    errors,
+  );
+  validatedData.lastName = nameFieldValidator(
+    fields.lastName,
+    allowedUpdateProfileProperties.lastName,
+    errors,
+  );
+  validatedData.nickName = nameFieldValidator(
+    fields.nickName,
+    allowedUpdateProfileProperties.nickName,
+    errors,
+  );
 
   const { validatedProperty: validatedAge, propertyErrors: ageErrors } =
     numberPropertiesValidator(
-      age,
+      fields.age,
       USER_PROPERTY_CONSTRAINTS.minAge,
       USER_PROPERTY_CONSTRAINTS.maxAge,
       {
@@ -129,73 +107,87 @@ export const updateProfileDetailsAction = async (
         maxLengthError: ERROR_MESSAGES.maxAgeError,
       },
     );
-
   errors.age = [...(ageErrors ?? [])];
+  validatedData.age = validatedAge;
 
   const { validatedProperty: validatedPhone, propertyErrors: phoneErrors } =
     numberRegexPropertiesValidator(
-      phone,
+      fields.phone,
       PHONE_REGEX,
       ERROR_MESSAGES.invalidPhoneError,
     );
-
   errors.phone = [...(phoneErrors ?? [])];
+  validatedData.phone = validatedPhone;
 
   const { validatedProperty: validatedGender, propertyErrors: genderErrors } =
-    allowedStringValidator(gender, Object.values(GENDER_PROPERTIES), {
+    allowedStringValidator(fields.gender, Object.values(GENDER_PROPERTIES), {
       invalidError: ERROR_MESSAGES.invalidGenderError,
     });
-
   errors.gender = [...(genderErrors ?? [])];
-
-  const {
-    validatedProperty: validatedJobProfile,
-    propertyErrors: jobProfileErrors,
-  } = stringPropertiesValidator(
-    jobProfile,
-    USER_PROPERTY_CONSTRAINTS.minStringLength,
-    USER_PROPERTY_CONSTRAINTS.maxStringLength,
-    {
-      invalidError: ERROR_MESSAGES.invalidJobProfileError,
-      minLengthError: ERROR_MESSAGES.jobProfileMinLengthError,
-      maxLengthError: ERROR_MESSAGES.jobProfileMaxLengthError,
-    },
-  );
-
-  errors.jobProfile = [...(jobProfileErrors ?? [])];
+  validatedData.gender = validatedGender;
 
   const {
     validatedProperty: validatedMaritalStatus,
     propertyErrors: maritalStatusErrors,
   } = allowedStringValidator(
-    maritalStatus,
+    fields.maritalStatus,
     Object.values(MARITAL_STATUS_PROPERTIES),
     {
       invalidError: ERROR_MESSAGES.invalidMaritalStatusError,
     },
   );
-
   errors.maritalStatus = [...(maritalStatusErrors ?? [])];
+  validatedData.maritalStatus = validatedMaritalStatus;
 
-  const { validatedProperty: validatedBio, propertyErrors: bioErrors } =
-    stringPropertiesValidator(
-      bio,
-      USER_PROPERTY_CONSTRAINTS.minStringLength,
-      USER_PROPERTY_CONSTRAINTS.maxStringLength,
-      {
-        invalidError: ERROR_MESSAGES.invalidBioError,
-        minLengthError: ERROR_MESSAGES.bioMinLengthError,
-        maxLengthError: ERROR_MESSAGES.bioMaxLengthError,
-      },
-    );
+  validatedData.jobProfile = stringFieldValidator(
+    fields.jobProfile,
+    allowedUpdateProfileProperties.jobProfile,
+    {
+      invalidError: ERROR_MESSAGES.invalidJobProfileError,
+      minLengthError: ERROR_MESSAGES.jobProfileMinLengthError,
+      maxLengthError: ERROR_MESSAGES.jobProfileMaxLengthError,
+    },
+    errors,
+  );
 
-  errors.bio = [...(bioErrors ?? [])];
+  validatedData.bio = stringFieldValidator(
+    fields.bio,
+    allowedUpdateProfileProperties.bio,
+    {
+      invalidError: ERROR_MESSAGES.invalidBioError,
+      minLengthError: ERROR_MESSAGES.bioMinLengthError,
+      maxLengthError: ERROR_MESSAGES.bioMaxLengthError,
+    },
+    errors,
+  );
+
+  validatedData.company = stringFieldValidator(
+    fields.company,
+    allowedUpdateProfileProperties.company,
+    {
+      invalidError: ERROR_MESSAGES.invalidCompanyError,
+      minLengthError: ERROR_MESSAGES.companyMinLengthError,
+      maxLengthError: ERROR_MESSAGES.companyMaxLengthError,
+    },
+    errors,
+  );
+
+  validatedData.organization = stringFieldValidator(
+    fields.organization,
+    allowedUpdateProfileProperties.organization,
+    {
+      invalidError: ERROR_MESSAGES.invalidOrganizationError,
+      minLengthError: ERROR_MESSAGES.organizationMinLengthError,
+      maxLengthError: ERROR_MESSAGES.organizationMaxLengthError,
+    },
+    errors,
+  );
 
   const {
     validatedProperty: validatedExperience,
     propertyErrors: experienceErrors,
   } = numberPropertiesValidator(
-    experience,
+    fields.experience,
     USER_PROPERTY_CONSTRAINTS.minExperience,
     USER_PROPERTY_CONSTRAINTS.maxExperience,
     {
@@ -205,132 +197,82 @@ export const updateProfileDetailsAction = async (
       maxLengthError: ERROR_MESSAGES.maxExperienceError,
     },
   );
-
   errors.experience = [...(experienceErrors ?? [])];
+  validatedData.experience = validatedExperience;
 
-  const {
-    validatedProperty: validatedFacebookUrl,
-    propertyErrors: facebookUrlErrors,
-  } = regexPropertiesValidator(
-    facebook,
+  validatedData.facebook = regexFieldValidator(
+    fields.facebook,
     FACEBOOK_REGEX,
     ERROR_MESSAGES.invalidFacebookUrlError,
+    allowedUpdateProfileProperties.facebook,
+    errors,
   );
 
-  errors.facebook = [...(facebookUrlErrors ?? [])];
-
-  const {
-    validatedProperty: validatedInstagramUrl,
-    propertyErrors: instagramUrlErrors,
-  } = regexPropertiesValidator(
-    instagram,
+  validatedData.instagram = regexFieldValidator(
+    fields.instagram,
     INSTAGRAM_REGEX,
     ERROR_MESSAGES.invalidInstagramUrlError,
+    allowedUpdateProfileProperties.instagram,
+    errors,
   );
 
-  errors.instagram = [...(instagramUrlErrors ?? [])];
-  const {
-    validatedProperty: validatedTwitterUrl,
-    propertyErrors: twitterUrlErrors,
-  } = regexPropertiesValidator(
-    twitter,
+  validatedData.twitter = regexFieldValidator(
+    fields.twitter,
     TWITTER_REGEX,
     ERROR_MESSAGES.invalidTwitterUrlError,
+    allowedUpdateProfileProperties.twitter,
+    errors,
   );
 
-  errors.twitter = [...(twitterUrlErrors ?? [])];
-
-  const {
-    validatedProperty: validatedGithubUrl,
-    propertyErrors: githubUrlErrors,
-  } = regexPropertiesValidator(
-    github,
+  validatedData.github = regexFieldValidator(
+    fields.github,
     GITHUB_REGEX,
     ERROR_MESSAGES.invalidGithubUrlError,
+    allowedUpdateProfileProperties.github,
+    errors,
   );
 
-  errors.github = [...(githubUrlErrors ?? [])];
-
-  const {
-    validatedProperty: validatedLinkedinUrl,
-    propertyErrors: linkedinUrlErrors,
-  } = regexPropertiesValidator(
-    linkedin,
+  validatedData.linkedin = regexFieldValidator(
+    fields.linkedin,
     LINKEDIN_REGEX,
     ERROR_MESSAGES.invalidLinkedinUrlError,
+    allowedUpdateProfileProperties.linkedin,
+    errors,
   );
 
-  errors.linkedin = [...(linkedinUrlErrors ?? [])];
-
-  const {
-    validatedProperty: validatedYoutubeUrl,
-    propertyErrors: youtubeUrlErrors,
-  } = regexPropertiesValidator(
-    youtube,
+  validatedData.youtube = regexFieldValidator(
+    fields.youtube,
     YOUTUBE_REGEX,
     ERROR_MESSAGES.invalidYoutubeUrlError,
+    allowedUpdateProfileProperties.youtube,
+    errors,
   );
 
-  errors.youtube = [...(youtubeUrlErrors ?? [])];
-
-  const {
-    validatedProperty: validatedWebsiteUrl,
-    propertyErrors: websiteUrlErrors,
-  } = regexPropertiesValidator(
-    website,
+  validatedData.website = regexFieldValidator(
+    fields.website,
     WEBSITE_REGEX,
     ERROR_MESSAGES.invalidWebsiteUrlError,
+    allowedUpdateProfileProperties.website,
+    errors,
   );
-
-  errors.website = [...(websiteUrlErrors ?? [])];
-
-  const { validatedProperty: validatedCompany, propertyErrors: companyErrors } =
-    stringPropertiesValidator(
-      company,
-      USER_PROPERTY_CONSTRAINTS.minStringLength,
-      USER_PROPERTY_CONSTRAINTS.maxStringLength,
-      {
-        invalidError: ERROR_MESSAGES.invalidCompanyError,
-        minLengthError: ERROR_MESSAGES.companyMinLengthError,
-        maxLengthError: ERROR_MESSAGES.companyMaxLengthError,
-      },
-    );
-
-  errors.company = [...(companyErrors ?? [])];
-
-  const {
-    validatedProperty: validatedOrganization,
-    propertyErrors: organizationErrors,
-  } = stringPropertiesValidator(
-    organization,
-    USER_PROPERTY_CONSTRAINTS.minStringLength,
-    USER_PROPERTY_CONSTRAINTS.maxStringLength,
-    {
-      invalidError: ERROR_MESSAGES.invalidOrganizationError,
-      minLengthError: ERROR_MESSAGES.organizationMinLengthError,
-      maxLengthError: ERROR_MESSAGES.organizationMaxLengthError,
-    },
-  );
-
-  errors.organization = [...(organizationErrors ?? [])];
 
   const skillsFormData =
-    typeof skills === "string"
-      ? skills.split(",")
-      : Array.isArray(skills)
-        ? skills
+    typeof fields.skills === "string"
+      ? fields.skills.split(",")
+      : Array.isArray(fields.skills)
+        ? fields.skills
         : null;
 
   const { validatedProperty: validatedSkills, propertyErrors: skillsErrors } =
     listPropertiesValidator(skillsFormData, ERROR_MESSAGES.invalidSkillsError);
-
   errors.skills = [...(skillsErrors ?? [])];
+  validatedData.skills = validatedSkills;
 
   const interestsFormData =
-    typeof interests === "string"
-      ? interests.split(",")
-      : Array.isArray(interests)
-        ? interests
+    typeof fields.interests === "string"
+      ? fields.interests.split(",")
+      : Array.isArray(fields.interests)
+        ? fields.interests
         : null;
 
   const {
@@ -340,8 +282,8 @@ export const updateProfileDetailsAction = async (
     interestsFormData,
     ERROR_MESSAGES.invalidInterestsError,
   );
-
   errors.interests = [...(interestsErrors ?? [])];
+  validatedData.interests = validatedInterests;
 
   let parsedAddress: Record<string, any> | null = null;
 
@@ -356,10 +298,12 @@ export const updateProfileDetailsAction = async (
   }
 
   const { validatedAddress, addressErrors } = addressValidator(parsedAddress);
-
   errors.address = [...(addressErrors ?? [])];
+  validatedData.address = validatedAddress;
 
-  if (Object.values(errors).filter((item) => item.length > 0).length > 0) {
+  const hasErrors = Object.values(errors).some((item) => item.length > 0);
+
+  if (hasErrors) {
     return {
       message: "Validation Error",
       errors,
@@ -371,31 +315,7 @@ export const updateProfileDetailsAction = async (
   const result = await apiRequest({
     method: "post",
     url: apiUrls.updateProfile,
-    data: {
-      firstName: validatedFirstName,
-      middleName: validatedMiddleName,
-      lastName: validatedLastName,
-      nickName: validatedNickName,
-      age: validatedAge,
-      phone: validatedPhone,
-      gender: validatedGender,
-      bio: validatedBio,
-      maritalStatus: validatedMaritalStatus,
-      jobProfile: validatedJobProfile,
-      experience: validatedExperience,
-      facebook: validatedFacebookUrl,
-      instagram: validatedInstagramUrl,
-      twitter: validatedTwitterUrl,
-      github: validatedGithubUrl,
-      linkedin: validatedLinkedinUrl,
-      youtube: validatedYoutubeUrl,
-      website: validatedWebsiteUrl,
-      company: validatedCompany,
-      organization: validatedOrganization,
-      skills: validatedSkills,
-      interests: validatedInterests,
-      address: validatedAddress,
-    },
+    data: validatedData,
     requiresAuth: true,
   });
 
@@ -403,6 +323,7 @@ export const updateProfileDetailsAction = async (
     return {
       message: "Profile update failed!",
       result,
+      errors,
       inputs: Object.fromEntries(formData),
       success: result?.success ?? false,
     };
@@ -413,6 +334,7 @@ export const updateProfileDetailsAction = async (
   return {
     message: "Profile update successful!",
     result,
+    errors,
     success: result?.success ?? true,
   };
 };

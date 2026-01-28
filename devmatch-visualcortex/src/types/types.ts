@@ -12,6 +12,7 @@ import {
   THEMES,
   USER_PROPERTIES,
 } from "@/config/constants";
+import { allowedUpdateProfileProperties } from "@/config/config";
 
 export type ThemeTypes = keyof typeof THEMES;
 
@@ -90,31 +91,9 @@ export type ProfileUpdateFormStateType = {
   message: string;
   success?: boolean;
   inputs?: Record<string, FormDataEntryValue>;
-  errors?: {
-    firstName?: string[];
-    middleName?: string[];
-    lastName?: string[];
-    nickName?: string[];
-    age?: string[];
-    phone?: string[];
-    gender?: string[];
-    bio?: string[];
-    maritalStatus?: string[];
-    jobProfile?: string[];
-    experience?: string[];
-    facebook?: string[];
-    instagram?: string[];
-    twitter?: string[];
-    github?: string[];
-    linkedin?: string[];
-    youtube?: string[];
-    website?: string[];
-    company?: string[];
-    organization?: string[];
-    skills?: string[];
-    interests?: string[];
-    address?: string[];
-  };
+  errors: Partial<
+    Record<keyof typeof allowedUpdateProfileProperties, string[]>
+  >;
   result?: any;
 };
 
