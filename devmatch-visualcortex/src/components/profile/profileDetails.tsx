@@ -58,7 +58,8 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
       loggedInUser?.userName !== user?.userName ||
       loggedInUser?.firstName !== user?.firstName ||
       loggedInUser?.middleName !== user?.middleName ||
-      loggedInUser?.lastName !== user?.lastName
+      loggedInUser?.lastName !== user?.lastName ||
+      loggedInUser?.avatarUrl !== user?.avatarUrl
     ) {
       refreshLoggedInUser();
     }
