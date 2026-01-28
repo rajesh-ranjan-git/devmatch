@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MdEdit, MdOutlineEdit } from "react-icons/md";
 import { USER_PROPERTIES, USER_PROPERTY_LABELS } from "@/config/constants";
+import { UserType } from "@/types/types";
 import { ProfileTabularDataProps } from "@/types/propTypes";
 import { formatDate, toSentenceCase, toTitleCase } from "@/lib/utils/utils";
 import { useDevMatchAppStore } from "@/store/store";
@@ -8,6 +9,7 @@ import { allowedUpdateProfileProperties } from "@/config/config";
 
 const ProfileTabularData = ({
   user,
+  propertyToUpdate,
   setPropertyToUpdate,
 }: ProfileTabularDataProps) => {
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
@@ -94,7 +96,13 @@ const ProfileTabularData = ({
                   Object.keys(allowedUpdateProfileProperties).includes(key) && (
                     <div
                       className="group/icon flex justify-center items-center hover:bg-glass-surface-heavy backdrop-blur-3xl border-transparent hover:border-glass-border-bright rounded-sm w-7glass-text-secondary text-2xl transition-all ease-in-out cursor-pointer"
-                      onClick={() => setPropertyToUpdate(key)}
+                      onClick={() => {
+                        if (!propertyToUpdate) {
+                          setPropertyToUpdate(key as keyof UserType);
+                        } else {
+                          setPropertyToUpdate(null);
+                        }
+                      }}
                     >
                       <MdOutlineEdit className="group-hover/icon:hidden" />
                       <MdEdit className="hidden group-hover/icon:block" />

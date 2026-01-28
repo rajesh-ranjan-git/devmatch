@@ -12,6 +12,7 @@ const ProfileDetailsUpdateDropdown = ({
   name,
   value,
   placeholder,
+  propertyToUpdate,
 }: ProfileDetailsUpdateDropdownProps) => {
   const [selectedValue, setSelectedValue] = useState(value);
   const [isOpen, setIsOpen] = useState(false);
@@ -61,17 +62,17 @@ const ProfileDetailsUpdateDropdown = ({
       {isOpen && (
         <div
           ref={dropdownRef}
-          className="z-10 absolute bg-glass-shadow-heavy shadow-glass-shadow-heavy shadow-md backdrop-blur-md my-1 border rounded-xl w-max min-w-20 text-glass-text-primary text-center dropdown-menu"
+          className={`z-10 absolute bg-glass-shadow-heavy shadow-glass-shadow-heavy shadow-md backdrop-blur-md my-1 border rounded-xl w-max min-w-20 h-52 text-glass-text-primary text-center dropdown-menu ${propertyToUpdate && name === allowedUpdateProfileProperties.experience ? "-right-[16%]" : ""}`}
           style={{
             opacity: 1,
             transform: "scaleY(1)",
             animation: "dropdownOpen 300ms ease-in-out",
           }}
         >
-          <div className="bg-glass-shadow-heavy backdrop-blur-md p-1 rounded-xl">
+          <div className="bg-glass-shadow-heavy backdrop-blur-md p-1 pb-2 rounded-xl h-full">
             <p className="p-2 font-bold text-md">{toTitleCase(name)}</p>
             <HorizontalSeparator />
-            <ul className="flex flex-col gap-1 [&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar]:w-1 max-h-106 overflow-y-auto [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-primary">
+            <ul className="flex flex-col gap-1 [&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar]:w-1 h-[80%] max-h-106 overflow-y-auto [&::-webkit-scrollbar-thumb]:bg-glass-text-tertiary [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-primary">
               {dropdownRange.length > 0 &&
                 dropdownRange.map((num, idx) => (
                   <li

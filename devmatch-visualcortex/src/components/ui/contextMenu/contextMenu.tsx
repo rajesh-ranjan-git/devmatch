@@ -23,7 +23,7 @@ const ContextMenu = ({
 
   return (
     <div
-      className={`top-1/2 left-1/2 z-10 absolute bg-glass-surface-light shadow-glass-shadow-heavy shadow-md backdrop-blur-md p-2 border rounded-xl w-full min-h-40 max-w-full max-h-full overflow-hidden text-glass-text-primary text-center transition-all -translate-x-1/2 -translate-y-1/2 animate-[fadeIn_0.5s_ease-in-out,slideInFromBottom_0.5s_ease-in-out] duration-500 ease-in-out ${
+      className={`top-1/2 left-1/2 z-10 absolute bg-glass-surface-light shadow-glass-shadow-heavy shadow-md backdrop-blur-md p-2 border rounded-xl min-w-80 min-h-40 overflow-hidden text-glass-text-primary text-center transition-all -translate-x-1/2 -translate-y-1/2 animate-[fadeIn_0.5s_ease-in-out,slideInFromBottom_0.5s_ease-in-out] duration-500 ease-in-out ${
         open ? "opacity-100" : "opacity-0"
       } ${className ? className : ""}`}
     >

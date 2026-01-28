@@ -1,9 +1,10 @@
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import Form from "next/form";
 import {
   ADDRESS_PROPERTIES,
   GENDER_PROPERTIES,
   MARITAL_STATUS_PROPERTIES,
+  USER_PROPERTY_LABELS,
 } from "@/config/constants";
 import {
   addressFormFieldInputItems,
@@ -11,9 +12,9 @@ import {
   profileDetailsFormFieldButtonItems,
   profileDetailsFormFieldInputItems,
 } from "@/config/config";
-import { ProfileUpdateFormStateType } from "@/types/types";
+import { ProfileUpdateFormStateType, UserType } from "@/types/types";
 import { SpecificProfileDetailsUpdateContextProps } from "@/types/propTypes";
-import { isPlainObject, toTitleCase, typedKeys } from "@/lib/utils/utils";
+import { toTitleCase, typedKeys } from "@/lib/utils/utils";
 import { updateProfileDetailsAction } from "@/lib/actions/profileActions";
 import { useToast } from "@/hooks/toast";
 import ProfileDetailsUpdateDropdown from "@/components/profile/profileDetailsUpdateDropdown";
@@ -21,13 +22,16 @@ import Input from "@/components/ui/inputs/input";
 import Radio from "@/components/ui/inputs/radio";
 import Chips from "@/components/ui/chips/chips";
 import SubmitButton from "@/components/ui/buttons/submitButton";
-import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 
 const SpecificProfileDetailsUpdateContext = ({
   user,
-  property,
+  propertyToUpdate,
   setPropertyToUpdate,
 }: SpecificProfileDetailsUpdateContextProps) => {
+  if (!user) return null;
+
+  const [property] = useState<keyof UserType | null>(propertyToUpdate);
+
   const initialState: ProfileUpdateFormStateType = { message: "" };
 
   const [state, formAction, isPending] = useActionState(
@@ -37,7 +41,7 @@ const SpecificProfileDetailsUpdateContext = ({
 
   const { showToast } = useToast();
 
-  const renderValue = (key: string, value: any) => {
+  const renderValue = (key: string | null, value: any) => {
     switch (key) {
       case allowedUpdateProfileProperties.nickName:
         return (
@@ -62,11 +66,13 @@ const SpecificProfileDetailsUpdateContext = ({
 
       case allowedUpdateProfileProperties.age:
         return (
-          <ProfileDetailsUpdateDropdown
-            name={allowedUpdateProfileProperties.age}
-            value={value}
-            placeholder="Age"
-          />
+          <div className="flex justify-center w-full min-h-64">
+            <ProfileDetailsUpdateDropdown
+              name={allowedUpdateProfileProperties.age}
+              value={value}
+              placeholder="Age"
+            />
+          </div>
         );
 
       case allowedUpdateProfileProperties.phone:
@@ -155,11 +161,14 @@ const SpecificProfileDetailsUpdateContext = ({
 
       case allowedUpdateProfileProperties.experience:
         return (
-          <ProfileDetailsUpdateDropdown
-            name={allowedUpdateProfileProperties.experience}
-            value={value}
-            placeholder="Experience"
-          />
+          <div className="flex justify-center w-full min-h-64">
+            <ProfileDetailsUpdateDropdown
+              name={allowedUpdateProfileProperties.experience}
+              value={value}
+              placeholder="Experience"
+              propertyToUpdate={property}
+            />
+          </div>
         );
 
       case allowedUpdateProfileProperties.facebook:
@@ -412,8 +421,13 @@ const SpecificProfileDetailsUpdateContext = ({
   }, [state?.result]);
 
   return (
-    <div className="flex flex-col gap-2 w-full h-full">
-      <h2 className="font-semibold text-xl">Update {toTitleCase(property!)}</h2>
+    <div className="flex flex-col gap-2 w-[36vw] h-full">
+      <h2 className="font-semibold text-xl">
+        Update{" "}
+        {property && USER_PROPERTY_LABELS[property]
+          ? toTitleCase(USER_PROPERTY_LABELS[property])
+          : ""}
+      </h2>
       <Form
         action={formAction}
         autoComplete="off"
@@ -427,13 +441,8 @@ const SpecificProfileDetailsUpdateContext = ({
         <table className="w-full text-glass-text-primary table-fixed">
           <tbody>
             <tr className="w-full table-fixed">
-              <td
-                className={`py-2 w-1/4 h-full font-semibold text-glass-text-primary text-ld text-left ${Array.isArray(user?.[property]) || isPlainObject(user?.[property]) ? "align-top py-4" : ""}`}
-              >
-                {toTitleCase(property)}
-              </td>
-              <td className="py-2 w-3/4 font-normal text-glass-text-secondary text-sm align-top">
-                {renderValue(property, user?.[property])}
+              <td className="py-2 w-full font-normal text-glass-text-secondary text-sm align-top">
+                {property && renderValue(property, user[property])}
               </td>
             </tr>
           </tbody>
@@ -473,12 +482,6 @@ const SpecificProfileDetailsUpdateContext = ({
             }
             disabled={isPending}
             className={`h-10 ${isPending ? "w-48" : "w-40"}`}
-            onClick={() => setPropertyToUpdate(null)}
-          />
-          <ButtonDestructive
-            icon={profileDetailsFormFieldButtonItems?.discard?.icon}
-            text={profileDetailsFormFieldButtonItems?.discard?.label}
-            className="w-40 h-10"
             onClick={() => setPropertyToUpdate(null)}
           />
         </div>

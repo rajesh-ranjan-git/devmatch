@@ -470,7 +470,7 @@ const ProfileDetailsUpdateContext = ({
   }, [state?.result]);
 
   return (
-    <div className="flex flex-col gap-2 w-full h-full">
+    <div className="flex flex-col gap-2 w-[50vw] h-full">
       <h2 className="font-semibold text-xl">Update Profile</h2>
       <Form
         action={formAction}

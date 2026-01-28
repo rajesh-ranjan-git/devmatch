@@ -156,13 +156,18 @@ export interface StoredData<T> {
 
 export interface ProfileTabularDataProps {
   user: UserType;
-  setPropertyToUpdate: React.Dispatch<React.SetStateAction<string | null>>;
+  propertyToUpdate: keyof UserType | null;
+  setPropertyToUpdate: React.Dispatch<
+    React.SetStateAction<keyof UserType | null>
+  >;
 }
 
 export interface SpecificProfileDetailsUpdateContextProps {
   user: UserType;
-  property?: string | null;
-  setPropertyToUpdate: React.Dispatch<React.SetStateAction<string | null>>;
+  propertyToUpdate: keyof UserType | null;
+  setPropertyToUpdate: React.Dispatch<
+    React.SetStateAction<keyof UserType | null>
+  >;
 }
 
 export interface ProfileComponentProps {
@@ -212,4 +217,5 @@ export interface ProfileDetailsUpdateDropdownProps {
   name: string;
   value: number;
   placeholder: string;
+  propertyToUpdate?: string | null;
 }

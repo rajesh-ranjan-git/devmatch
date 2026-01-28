@@ -9,6 +9,7 @@ import {
 } from "@/config/config";
 import { getFullName, toTitleCase } from "@/lib/utils/utils";
 import { checkAuth } from "@/lib/actions/actions";
+import { UserType } from "@/types/types";
 import { ProfileComponentProps } from "@/types/propTypes";
 import { useDevMatchAppStore } from "@/store/store";
 import useContextMenu from "@/hooks/useContextMenu";
@@ -25,7 +26,9 @@ import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 const ProfileDetails = ({ user }: ProfileComponentProps) => {
   if (!user) return;
 
-  const [propertyToUpdate, setPropertyToUpdate] = useState<string | null>(null);
+  const [propertyToUpdate, setPropertyToUpdate] = useState<
+    keyof UserType | null
+  >(null);
 
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
   const setLoggedInUser = useDevMatchAppStore((state) => state.setLoggedInUser);
@@ -132,6 +135,7 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
           <tbody>
             <ProfileTabularData
               user={selectedUserProperties}
+              propertyToUpdate={propertyToUpdate}
               setPropertyToUpdate={setPropertyToUpdate}
             />
           </tbody>
@@ -170,11 +174,11 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
 
       <ContextMenu
         open={updateSpecificProfileDetailsContext.isOpen}
-        onClose={updateSpecificProfileDetailsContext.close}
+        onClose={() => setPropertyToUpdate(null)}
       >
         <SpecificProfileDetailsUpdateContext
           user={user}
-          property={propertyToUpdate}
+          propertyToUpdate={propertyToUpdate}
           setPropertyToUpdate={setPropertyToUpdate}
         />
       </ContextMenu>
