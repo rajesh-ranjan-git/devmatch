@@ -3,7 +3,12 @@ import { MdEdit, MdOutlineEdit } from "react-icons/md";
 import { USER_PROPERTIES, USER_PROPERTY_LABELS } from "@/config/constants";
 import { UserType } from "@/types/types";
 import { ProfileDetailsComponentProps } from "@/types/propTypes";
-import { formatDate, toSentenceCase, toTitleCase } from "@/lib/utils/utils";
+import {
+  formatDate,
+  isPlainObject,
+  toSentenceCase,
+  toTitleCase,
+} from "@/lib/utils/utils";
 import { useDevMatchAppStore } from "@/store/store";
 import { allowedUpdateProfileProperties } from "@/config/config";
 
@@ -80,7 +85,15 @@ const ProfileTabularData = ({
 
         const value = user?.[key as keyof typeof user];
 
-        if (!value || (Array.isArray(value) && value?.length < 1)) return null;
+        if (
+          !value ||
+          (Array.isArray(value) && value?.length < 1) ||
+          (isPlainObject(value) &&
+            Object.values(value)
+              .filter((item) => item)
+              .join(", ").length <= 0)
+        )
+          return null;
 
         return (
           <tr key={idx} className="w-full table-fixed">

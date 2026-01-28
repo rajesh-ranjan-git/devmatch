@@ -390,6 +390,13 @@ export const stringPropertiesValidator = (
 };
 
 export const listPropertiesValidator = (property, error) => {
+  if (!property) {
+    return {
+      isPropertyValid: true,
+      validatedProperty: null,
+    };
+  }
+
   if (typeof property !== "string" && !Array.isArray(property)) {
     return {
       isPropertyValid: false,

@@ -313,7 +313,7 @@ export const updateProfileDetailsAction = async (
   }
 
   const result = await apiRequest({
-    method: "post",
+    method: "patch",
     url: apiUrls.updateProfile,
     data: validatedData,
     requiresAuth: true,
@@ -333,6 +333,357 @@ export const updateProfileDetailsAction = async (
 
   return {
     message: "Profile update successful!",
+    result,
+    errors,
+    success: result?.success ?? true,
+  };
+};
+
+export const updateSingleProfilePropertyAction = async (
+  prevState: ProfileUpdateFormStateType,
+  formData: FormData,
+) => {
+  const propertyKey = formData.get("propertyKey") as string;
+
+  let propertyValue: any;
+
+  if (propertyKey === "address") {
+    propertyValue = Object.fromEntries(
+      Object.entries(ADDRESS_PROPERTIES).map(([key, value]) => [
+        key,
+        formData.get(value),
+      ]),
+    );
+  } else {
+    propertyValue = formData.get("propertyValue") || formData.get(propertyKey);
+  }
+
+  if (
+    !propertyKey ||
+    !allowedUpdateProfileProperties[
+      propertyKey as keyof typeof allowedUpdateProfileProperties
+    ]
+  ) {
+    return {
+      message: "Invalid property",
+      errors: { [propertyKey]: ["Property not allowed for update"] },
+      success: false,
+      inputs: Object.fromEntries(formData),
+    };
+  }
+
+  const errors: ProfileUpdateFormStateType["errors"] = {};
+  const validatedData: Record<string, any> = {};
+
+  switch (propertyKey) {
+    case allowedUpdateProfileProperties.firstName:
+    case allowedUpdateProfileProperties.middleName:
+    case allowedUpdateProfileProperties.lastName:
+    case allowedUpdateProfileProperties.nickName:
+      validatedData[propertyKey] = nameFieldValidator(
+        propertyValue as string,
+        propertyKey,
+        errors,
+      );
+      break;
+
+    case allowedUpdateProfileProperties.age:
+      const { validatedProperty: validatedAge, propertyErrors: ageErrors } =
+        numberPropertiesValidator(
+          propertyValue as string,
+          USER_PROPERTY_CONSTRAINTS.minAge,
+          USER_PROPERTY_CONSTRAINTS.maxAge,
+          {
+            invalidError: ERROR_MESSAGES.invalidAgeError,
+            decimalError: ERROR_MESSAGES.decimalAgeError,
+            minLengthError: ERROR_MESSAGES.minAgeError,
+            maxLengthError: ERROR_MESSAGES.maxAgeError,
+          },
+        );
+      errors.age = [...(ageErrors ?? [])];
+      validatedData.age = validatedAge;
+      break;
+
+    case allowedUpdateProfileProperties.phone:
+      const { validatedProperty: validatedPhone, propertyErrors: phoneErrors } =
+        numberRegexPropertiesValidator(
+          propertyValue as string,
+          PHONE_REGEX,
+          ERROR_MESSAGES.invalidPhoneError,
+        );
+      errors.phone = [...(phoneErrors ?? [])];
+      validatedData.phone = validatedPhone;
+      break;
+
+    case allowedUpdateProfileProperties.gender:
+      const {
+        validatedProperty: validatedGender,
+        propertyErrors: genderErrors,
+      } = allowedStringValidator(
+        propertyValue as string,
+        Object.values(GENDER_PROPERTIES),
+        {
+          invalidError: ERROR_MESSAGES.invalidGenderError,
+        },
+      );
+      errors.gender = [...(genderErrors ?? [])];
+      validatedData.gender = validatedGender;
+      break;
+
+    case allowedUpdateProfileProperties.maritalStatus:
+      const {
+        validatedProperty: validatedMaritalStatus,
+        propertyErrors: maritalStatusErrors,
+      } = allowedStringValidator(
+        propertyValue as string,
+        Object.values(MARITAL_STATUS_PROPERTIES),
+        {
+          invalidError: ERROR_MESSAGES.invalidMaritalStatusError,
+        },
+      );
+      errors.maritalStatus = [...(maritalStatusErrors ?? [])];
+      validatedData.maritalStatus = validatedMaritalStatus;
+      break;
+
+    case allowedUpdateProfileProperties.jobProfile:
+      validatedData.jobProfile = stringFieldValidator(
+        propertyValue as string,
+        allowedUpdateProfileProperties.jobProfile,
+        {
+          invalidError: ERROR_MESSAGES.invalidJobProfileError,
+          minLengthError: ERROR_MESSAGES.jobProfileMinLengthError,
+          maxLengthError: ERROR_MESSAGES.jobProfileMaxLengthError,
+        },
+        errors,
+      );
+      break;
+
+    case allowedUpdateProfileProperties.bio:
+      validatedData.bio = stringFieldValidator(
+        propertyValue as string,
+        allowedUpdateProfileProperties.bio,
+        {
+          invalidError: ERROR_MESSAGES.invalidBioError,
+          minLengthError: ERROR_MESSAGES.bioMinLengthError,
+          maxLengthError: ERROR_MESSAGES.bioMaxLengthError,
+        },
+        errors,
+      );
+      break;
+
+    case allowedUpdateProfileProperties.company:
+      validatedData.company = stringFieldValidator(
+        propertyValue as string,
+        allowedUpdateProfileProperties.company,
+        {
+          invalidError: ERROR_MESSAGES.invalidCompanyError,
+          minLengthError: ERROR_MESSAGES.companyMinLengthError,
+          maxLengthError: ERROR_MESSAGES.companyMaxLengthError,
+        },
+        errors,
+      );
+      break;
+
+    case allowedUpdateProfileProperties.organization:
+      validatedData.organization = stringFieldValidator(
+        propertyValue as string,
+        allowedUpdateProfileProperties.organization,
+        {
+          invalidError: ERROR_MESSAGES.invalidOrganizationError,
+          minLengthError: ERROR_MESSAGES.organizationMinLengthError,
+          maxLengthError: ERROR_MESSAGES.organizationMaxLengthError,
+        },
+        errors,
+      );
+      break;
+
+    case allowedUpdateProfileProperties.experience:
+      const {
+        validatedProperty: validatedExperience,
+        propertyErrors: experienceErrors,
+      } = numberPropertiesValidator(
+        propertyValue as string,
+        USER_PROPERTY_CONSTRAINTS.minExperience,
+        USER_PROPERTY_CONSTRAINTS.maxExperience,
+        {
+          invalidError: ERROR_MESSAGES.invalidExperienceError,
+          decimalError: ERROR_MESSAGES.decimalExperienceError,
+          minLengthError: ERROR_MESSAGES.minExperienceError,
+          maxLengthError: ERROR_MESSAGES.maxExperienceError,
+        },
+      );
+      errors.experience = [...(experienceErrors ?? [])];
+      validatedData.experience = validatedExperience;
+      break;
+
+    case allowedUpdateProfileProperties.facebook:
+      validatedData.facebook = regexFieldValidator(
+        propertyValue as string,
+        FACEBOOK_REGEX,
+        ERROR_MESSAGES.invalidFacebookUrlError,
+        allowedUpdateProfileProperties.facebook,
+        errors,
+      );
+      break;
+
+    case allowedUpdateProfileProperties.instagram:
+      validatedData.instagram = regexFieldValidator(
+        propertyValue as string,
+        INSTAGRAM_REGEX,
+        ERROR_MESSAGES.invalidInstagramUrlError,
+        allowedUpdateProfileProperties.instagram,
+        errors,
+      );
+      break;
+
+    case allowedUpdateProfileProperties.twitter:
+      validatedData.twitter = regexFieldValidator(
+        propertyValue as string,
+        TWITTER_REGEX,
+        ERROR_MESSAGES.invalidTwitterUrlError,
+        allowedUpdateProfileProperties.twitter,
+        errors,
+      );
+      break;
+
+    case allowedUpdateProfileProperties.github:
+      validatedData.github = regexFieldValidator(
+        propertyValue as string,
+        GITHUB_REGEX,
+        ERROR_MESSAGES.invalidGithubUrlError,
+        allowedUpdateProfileProperties.github,
+        errors,
+      );
+      break;
+
+    case allowedUpdateProfileProperties.linkedin:
+      validatedData.linkedin = regexFieldValidator(
+        propertyValue as string,
+        LINKEDIN_REGEX,
+        ERROR_MESSAGES.invalidLinkedinUrlError,
+        allowedUpdateProfileProperties.linkedin,
+        errors,
+      );
+      break;
+
+    case allowedUpdateProfileProperties.youtube:
+      validatedData.youtube = regexFieldValidator(
+        propertyValue as string,
+        YOUTUBE_REGEX,
+        ERROR_MESSAGES.invalidYoutubeUrlError,
+        allowedUpdateProfileProperties.youtube,
+        errors,
+      );
+      break;
+
+    case allowedUpdateProfileProperties.website:
+      validatedData.website = regexFieldValidator(
+        propertyValue as string,
+        WEBSITE_REGEX,
+        ERROR_MESSAGES.invalidWebsiteUrlError,
+        allowedUpdateProfileProperties.website,
+        errors,
+      );
+      break;
+
+    case allowedUpdateProfileProperties.skills:
+      const skillsFormData =
+        typeof propertyValue === "string"
+          ? propertyValue.split(",")
+          : Array.isArray(propertyValue)
+            ? propertyValue
+            : null;
+
+      const {
+        validatedProperty: validatedSkills,
+        propertyErrors: skillsErrors,
+      } = listPropertiesValidator(
+        skillsFormData,
+        ERROR_MESSAGES.invalidSkillsError,
+      );
+      errors.skills = [...(skillsErrors ?? [])];
+      validatedData.skills = validatedSkills;
+      break;
+
+    case allowedUpdateProfileProperties.interests:
+      const interestsFormData =
+        typeof propertyValue === "string"
+          ? propertyValue.split(",")
+          : Array.isArray(propertyValue)
+            ? propertyValue
+            : null;
+
+      const {
+        validatedProperty: validatedInterests,
+        propertyErrors: interestsErrors,
+      } = listPropertiesValidator(
+        interestsFormData,
+        ERROR_MESSAGES.invalidInterestsError,
+      );
+      errors.interests = [...(interestsErrors ?? [])];
+      validatedData.interests = validatedInterests;
+      break;
+
+    case allowedUpdateProfileProperties.address:
+      let parsedAddress: Record<string, any> | null = null;
+
+      if (typeof propertyValue === "string") {
+        try {
+          parsedAddress = JSON.parse(propertyValue);
+        } catch {
+          parsedAddress = null;
+        }
+      } else {
+        parsedAddress = propertyValue as Record<string, any>;
+      }
+
+      const { validatedAddress, addressErrors } =
+        addressValidator(parsedAddress);
+      errors.address = [...(addressErrors ?? [])];
+      validatedData.address = validatedAddress;
+      break;
+
+    default:
+      return {
+        message: "Unknown property",
+        errors: { [propertyKey]: ["Property validation not implemented"] },
+        success: false,
+        inputs: Object.fromEntries(formData),
+      };
+  }
+
+  const hasErrors = Object.values(errors).some((item) => item.length > 0);
+
+  if (hasErrors) {
+    return {
+      message: "Validation Error",
+      errors,
+      success: false,
+      inputs: Object.fromEntries(formData),
+    };
+  }
+
+  const result = await apiRequest({
+    method: "patch",
+    url: apiUrls.updateProfile,
+    data: validatedData,
+    requiresAuth: true,
+  });
+
+  if (!result?.success) {
+    return {
+      message: "Profile property update failed!",
+      result,
+      errors,
+      inputs: Object.fromEntries(formData),
+      success: result?.success ?? false,
+    };
+  }
+
+  revalidatePath(profileRoutes.profile);
+
+  return {
+    message: "Profile property updated successfully!",
     result,
     errors,
     success: result?.success ?? true,

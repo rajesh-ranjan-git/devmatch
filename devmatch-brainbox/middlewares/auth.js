@@ -24,7 +24,7 @@ const auth = async (req, res, next) => {
         status.forbidden,
         errorMessages.UNAUTHORIZED_USER_ERROR,
         { token: authToken },
-        req?.url
+        req?.url,
       );
     }
 
@@ -35,13 +35,13 @@ const auth = async (req, res, next) => {
         status.internalServerError,
         errorMessages.INVALID_USER_ID_FORMAT_ERROR,
         { id: decodedUserId },
-        req?.url
+        req?.url,
       );
     }
 
     const loggedInUser = await User.findById(
       decodedUserId,
-      Object.values(defaultUserProperties)
+      Object.values(defaultUserProperties),
     );
 
     if (!loggedInUser) {
@@ -49,7 +49,7 @@ const auth = async (req, res, next) => {
         status.notFound,
         errorMessages.USER_NOT_EXIST_ERROR,
         { user: loggedInUser?.id },
-        req?.url
+        req?.url,
       );
     }
 
@@ -58,7 +58,7 @@ const auth = async (req, res, next) => {
         status.forbidden,
         errorMessages.PASSWORD_EXPIRED_ERROR,
         { user: loggedInUser?.id },
-        req?.url
+        req?.url,
       );
     }
 
@@ -75,7 +75,7 @@ const auth = async (req, res, next) => {
   } catch (error) {
     return res
       .status(
-        error?.status?.statusCode || status.internalServerError.statusCode
+        error?.status?.statusCode || status.internalServerError.statusCode,
       )
       .json({
         status: error?.status?.message || status.internalServerError.message,

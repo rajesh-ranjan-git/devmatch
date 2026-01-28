@@ -22,7 +22,7 @@ export const registerRequestMiddleware = (req, res, next) => {
   try {
     const { userName, email, password, confirmPassword } = requestValidator(
       req,
-      res
+      res,
     );
 
     const {
@@ -36,7 +36,7 @@ export const registerRequestMiddleware = (req, res, next) => {
         status.badRequest,
         userNameErrorMessage,
         { userName },
-        req?.url
+        req?.url,
       );
     }
 
@@ -51,7 +51,7 @@ export const registerRequestMiddleware = (req, res, next) => {
         status.badRequest,
         emailErrorMessage,
         { email },
-        req?.url
+        req?.url,
       );
     }
 
@@ -70,7 +70,7 @@ export const registerRequestMiddleware = (req, res, next) => {
           errors: passwordErrors,
           password,
         },
-        req?.url
+        req?.url,
       );
     }
 
@@ -82,7 +82,7 @@ export const registerRequestMiddleware = (req, res, next) => {
     } = passwordValidator(
       confirmPassword,
       errorMessages.CONFIRM_PASSWORD_REQUIRED_ERROR,
-      errorMessages.CONFIRM_PASSWORD_COMBINATION_ERROR
+      errorMessages.CONFIRM_PASSWORD_COMBINATION_ERROR,
     );
 
     if (!isConfirmPasswordValid) {
@@ -93,7 +93,7 @@ export const registerRequestMiddleware = (req, res, next) => {
           errors: confirmPasswordErrors,
           password,
         },
-        req?.url
+        req?.url,
       );
     }
 
@@ -105,7 +105,7 @@ export const registerRequestMiddleware = (req, res, next) => {
           password,
           confirmPassword,
         },
-        req?.url
+        req?.url,
       );
     }
 
@@ -119,7 +119,7 @@ export const registerRequestMiddleware = (req, res, next) => {
   } catch (error) {
     return res
       .status(
-        error?.status?.statusCode || status.internalServerError.statusCode
+        error?.status?.statusCode || status.internalServerError.statusCode,
       )
       .json({
         status: error?.status?.message || status.internalServerError.message,
@@ -161,7 +161,7 @@ export const loginRequestMiddleware = (req, res, next) => {
             email,
             password,
           },
-          req?.url
+          req?.url,
         );
       } else if (userName) {
         throw new ValidationError(
@@ -172,7 +172,7 @@ export const loginRequestMiddleware = (req, res, next) => {
             email,
             password,
           },
-          req?.url
+          req?.url,
         );
       } else if (email) {
         throw new ValidationError(
@@ -183,7 +183,7 @@ export const loginRequestMiddleware = (req, res, next) => {
             email,
             password,
           },
-          req?.url
+          req?.url,
         );
       }
     }
@@ -203,7 +203,7 @@ export const loginRequestMiddleware = (req, res, next) => {
           errors: passwordErrors,
           password,
         },
-        req?.url
+        req?.url,
       );
     }
 
@@ -217,7 +217,7 @@ export const loginRequestMiddleware = (req, res, next) => {
   } catch (error) {
     return res
       .status(
-        error?.status?.statusCode || status.internalServerError.statusCode
+        error?.status?.statusCode || status.internalServerError.statusCode,
       )
       .json({
         status: error?.status?.message || status.internalServerError.message,
@@ -237,7 +237,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
   try {
     const { firstName, email, password, confirmPassword } = requestValidator(
       req,
-      res
+      res,
     );
 
     const {
@@ -251,7 +251,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
         status.badRequest,
         firstNameErrorMessage,
         { firstName },
-        req?.url
+        req?.url,
       );
     }
 
@@ -266,7 +266,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
         status.badRequest,
         emailErrorMessage,
         { email },
-        req?.url
+        req?.url,
       );
     }
 
@@ -285,7 +285,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
           errors: passwordErrors,
           password,
         },
-        req?.url
+        req?.url,
       );
     }
 
@@ -297,7 +297,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
     } = passwordValidator(
       confirmPassword,
       errorMessages.CONFIRM_PASSWORD_REQUIRED_ERROR,
-      errorMessages.CONFIRM_PASSWORD_COMBINATION_ERROR
+      errorMessages.CONFIRM_PASSWORD_COMBINATION_ERROR,
     );
 
     if (!isConfirmPasswordValid) {
@@ -308,7 +308,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
           errors: confirmPasswordErrors,
           password,
         },
-        req?.url
+        req?.url,
       );
     }
 
@@ -320,7 +320,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
           password,
           confirmPassword,
         },
-        req?.url
+        req?.url,
       );
     }
 
@@ -334,7 +334,7 @@ export const forgotPasswordRequestMiddleware = (req, res, next) => {
   } catch (error) {
     return res
       .status(
-        error?.status?.statusCode || status.internalServerError.statusCode
+        error?.status?.statusCode || status.internalServerError.statusCode,
       )
       .json({
         status: error?.status?.message || status.internalServerError.message,
@@ -362,7 +362,7 @@ export const updatePasswordRequestMiddleware = (req, res, next) => {
     } = passwordValidator(
       oldPassword,
       errorMessages.OLD_PASSWORD_REQUIRED_ERROR,
-      errorMessages.OLD_PASSWORD_COMBINATION_ERROR
+      errorMessages.OLD_PASSWORD_COMBINATION_ERROR,
     );
 
     if (!isOldPasswordValid) {
@@ -373,7 +373,7 @@ export const updatePasswordRequestMiddleware = (req, res, next) => {
           errors: oldPasswordErrors,
           password: oldPassword,
         },
-        req?.url
+        req?.url,
       );
     }
 
@@ -385,7 +385,7 @@ export const updatePasswordRequestMiddleware = (req, res, next) => {
     } = passwordValidator(
       newPassword,
       errorMessages.NEW_PASSWORD_REQUIRED_ERROR,
-      errorMessages.NEW_PASSWORD_COMBINATION_ERROR
+      errorMessages.NEW_PASSWORD_COMBINATION_ERROR,
     );
 
     if (!isNewPasswordValid) {
@@ -396,7 +396,7 @@ export const updatePasswordRequestMiddleware = (req, res, next) => {
           errors: newPasswordErrors,
           password: newPassword,
         },
-        req?.url
+        req?.url,
       );
     }
 
@@ -408,7 +408,7 @@ export const updatePasswordRequestMiddleware = (req, res, next) => {
     } = passwordValidator(
       confirmPassword,
       errorMessages.CONFIRM_PASSWORD_REQUIRED_ERROR,
-      errorMessages.CONFIRM_PASSWORD_COMBINATION_ERROR
+      errorMessages.CONFIRM_PASSWORD_COMBINATION_ERROR,
     );
 
     if (!isConfirmPasswordValid) {
@@ -419,7 +419,7 @@ export const updatePasswordRequestMiddleware = (req, res, next) => {
           errors: confirmPasswordErrors,
           password: confirmPassword,
         },
-        req?.url
+        req?.url,
       );
     }
 
@@ -431,7 +431,7 @@ export const updatePasswordRequestMiddleware = (req, res, next) => {
           password: newPassword,
           confirmPassword,
         },
-        req?.url
+        req?.url,
       );
     }
 
@@ -445,7 +445,7 @@ export const updatePasswordRequestMiddleware = (req, res, next) => {
   } catch (error) {
     return res
       .status(
-        error?.status?.statusCode || status.internalServerError.statusCode
+        error?.status?.statusCode || status.internalServerError.statusCode,
       )
       .json({
         status: error?.status?.message || status.internalServerError.message,
@@ -469,7 +469,7 @@ export const updateProfileRequestMiddleware = (req, res, next) => {
 
     if (incomingProperties && Object.keys(incomingProperties).length > 0) {
       const propertyKeys = Object.keys(incomingProperties).filter((key) =>
-        Object.values(allowedUpdateProfileProperties).includes(key)
+        Object.values(allowedUpdateProfileProperties).includes(key),
       );
 
       if (!propertyKeys || (propertyKeys && !propertyKeys.length)) {
@@ -479,12 +479,12 @@ export const updateProfileRequestMiddleware = (req, res, next) => {
           {
             properties: Object.keys(incomingProperties),
           },
-          req?.url
+          req?.url,
         );
       }
 
       propertyKeys.forEach(
-        (key) => (propertiesToUpdate[key] = incomingProperties[key])
+        (key) => (propertiesToUpdate[key] = incomingProperties[key]),
       );
     }
 
@@ -497,7 +497,7 @@ export const updateProfileRequestMiddleware = (req, res, next) => {
   } catch (error) {
     return res
       .status(
-        error?.status?.statusCode || status.internalServerError.statusCode
+        error?.status?.statusCode || status.internalServerError.statusCode,
       )
       .json({
         status: error?.status?.message || status.internalServerError.message,

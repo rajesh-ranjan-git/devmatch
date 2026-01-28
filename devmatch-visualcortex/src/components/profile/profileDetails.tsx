@@ -15,7 +15,7 @@ import { useDevMatchAppStore } from "@/store/store";
 import useContextMenu from "@/hooks/useContextMenu";
 import ProfileTabularData from "@/components/profile/profileTabularData";
 import ProfileDetailsUpdateContext from "@/components/profile/profileDetailsUpdateContext";
-import SpecificProfileDetailsUpdateContext from "@/components/profile/specificProfileDetailsUpdateContext";
+import SingleProfileDetailsUpdateContext from "@/components/profile/singleProfileDetailsUpdateContext";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
@@ -176,7 +176,7 @@ const ProfileDetails = ({ user }: ProfileDetailsProps) => {
         open={updateSpecificProfileDetailsContext.isOpen}
         onClose={() => setPropertyToUpdate(null)}
       >
-        <SpecificProfileDetailsUpdateContext
+        <SingleProfileDetailsUpdateContext
           user={user}
           propertyToUpdate={propertyToUpdate}
           setPropertyToUpdate={setPropertyToUpdate}

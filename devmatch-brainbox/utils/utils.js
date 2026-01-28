@@ -113,6 +113,7 @@ const addToValidatedProperties = (
 
       validatedProperties[property] = validatedAge;
       return validatedProperties;
+
     case allowedUpdateProfileProperties.PHONE:
       const {
         isPropertyValid: isPhoneValid,
@@ -132,7 +133,12 @@ const addToValidatedProperties = (
 
       validatedProperties[property] = validatedPhone;
       return validatedProperties;
+
     case allowedUpdateProfileProperties.GENDER:
+      if (!properties[property]) {
+        return (validatedProperties[property] = null);
+      }
+
       Object.values(genderProperties).forEach((value) => {
         if (value === properties[property]) {
           validatedProperties[property] = properties[property];
@@ -154,6 +160,7 @@ const addToValidatedProperties = (
       }
 
       return validatedProperties;
+
     case allowedUpdateProfileProperties.AVATAR_URL:
       const {
         isAvatarUrlValid,
@@ -174,6 +181,7 @@ const addToValidatedProperties = (
       validatedProperties[property] = validatedAvatarUrl;
 
       return validatedProperties;
+
     case allowedUpdateProfileProperties.COVER_PHOTO_URL:
       const {
         isCoverPhotoUrlValid,
@@ -198,6 +206,7 @@ const addToValidatedProperties = (
       validatedProperties[property] = validatedCoverPhotoUrl;
 
       return validatedProperties;
+
     case allowedUpdateProfileProperties.BIO:
       const {
         isPropertyValid: isBioValid,
@@ -223,7 +232,12 @@ const addToValidatedProperties = (
       validatedProperties[property] = validatedBio;
 
       return validatedProperties;
+
     case allowedUpdateProfileProperties.MARITAL_STATUS:
+      if (!properties[property]) {
+        return (validatedProperties[property] = null);
+      }
+
       Object.values(maritalStatusProperties).forEach((value) => {
         if (value === properties[property]) {
           validatedProperties[property] = properties[property];
@@ -245,6 +259,7 @@ const addToValidatedProperties = (
       }
 
       return validatedProperties;
+
     case allowedUpdateProfileProperties.JOB_PROFILE:
       const {
         isPropertyValid: isJobProfileValid,
@@ -270,6 +285,7 @@ const addToValidatedProperties = (
       validatedProperties[property] = validatedJobProfile;
 
       return validatedProperties;
+
     case allowedUpdateProfileProperties.EXPERIENCE:
       const {
         isPropertyValid: isExperienceValid,
@@ -295,6 +311,7 @@ const addToValidatedProperties = (
 
       validatedProperties[property] = validatedExperience;
       return validatedProperties;
+
     case allowedUpdateProfileProperties.FACEBOOK:
       const {
         isPropertyValid: isFacebookValid,
@@ -314,6 +331,7 @@ const addToValidatedProperties = (
 
       validatedProperties[property] = validatedFacebook;
       return validatedProperties;
+
     case allowedUpdateProfileProperties.INSTAGRAM:
       const {
         isPropertyValid: isInstagramValid,
@@ -333,6 +351,7 @@ const addToValidatedProperties = (
 
       validatedProperties[property] = validatedInstagram;
       return validatedProperties;
+
     case allowedUpdateProfileProperties.TWITTER:
       const {
         isPropertyValid: isTwitterValid,
@@ -352,6 +371,7 @@ const addToValidatedProperties = (
 
       validatedProperties[property] = validatedTwitter;
       return validatedProperties;
+
     case allowedUpdateProfileProperties.GITHUB:
       const {
         isPropertyValid: isGithubValid,
@@ -371,6 +391,7 @@ const addToValidatedProperties = (
 
       validatedProperties[property] = validatedGithub;
       return validatedProperties;
+
     case allowedUpdateProfileProperties.LINKEDIN:
       const {
         isPropertyValid: isLinkedinValid,
@@ -390,6 +411,7 @@ const addToValidatedProperties = (
 
       validatedProperties[property] = validatedLinkedin;
       return validatedProperties;
+
     case allowedUpdateProfileProperties.YOUTUBE:
       const {
         isPropertyValid: isYoutubeValid,
@@ -409,6 +431,7 @@ const addToValidatedProperties = (
 
       validatedProperties[property] = validatedYoutube;
       return validatedProperties;
+
     case allowedUpdateProfileProperties.WEBSITE:
       const {
         isPropertyValid: isWebsiteValid,
@@ -428,6 +451,7 @@ const addToValidatedProperties = (
 
       validatedProperties[property] = validatedWebsite;
       return validatedProperties;
+
     case allowedUpdateProfileProperties.ORGANIZATION:
       const {
         isPropertyValid: isOrganizationValid,
@@ -453,6 +477,7 @@ const addToValidatedProperties = (
       validatedProperties[property] = validatedOrganization;
 
       return validatedProperties;
+
     case allowedUpdateProfileProperties.COMPANY:
       const {
         isPropertyValid: isCompanyValid,
@@ -478,6 +503,7 @@ const addToValidatedProperties = (
       validatedProperties[property] = validatedCompany;
 
       return validatedProperties;
+
     case allowedUpdateProfileProperties.SKILLS:
       const {
         isPropertyValid: isSkillsValid,
@@ -497,6 +523,7 @@ const addToValidatedProperties = (
       validatedProperties[property] = validatedSkills;
 
       return validatedProperties;
+
     case allowedUpdateProfileProperties.INTERESTS:
       const {
         isPropertyValid: isInterestsValid,

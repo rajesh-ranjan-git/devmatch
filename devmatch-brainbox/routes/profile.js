@@ -13,13 +13,13 @@ profileRouter.get("/view", auth, view);
 
 profileRouter.get("/view/:id", auth, view);
 
-profileRouter.post("/update", auth, updateProfileRequestMiddleware, update);
+profileRouter.patch("/update", auth, updateProfileRequestMiddleware, update);
 
-profileRouter.post(
+profileRouter.patch(
   "/update-password",
   auth,
   updatePasswordRequestMiddleware,
-  updatePassword
+  updatePassword,
 );
 
 export default profileRouter;
