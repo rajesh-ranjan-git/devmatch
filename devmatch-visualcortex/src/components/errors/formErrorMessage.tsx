@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import { FormErrorMessageProps } from "@/types/propTypes";
 
-const FormErrorMessage = ({ errors }: FormErrorMessageProps) => {
+const FormErrorMessage = ({ errors, className }: FormErrorMessageProps) => {
   return (
     <AnimatePresence>
       {errors &&
@@ -14,7 +14,7 @@ const FormErrorMessage = ({ errors }: FormErrorMessageProps) => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="mx-5 mt-2 overflow-hidden text-red-400 text-sm origin-top"
+            className={`mx-5 mt-2 overflow-hidden text-red-400 text-sm origin-top ${className}`}
           >
             {error}
           </motion.p>

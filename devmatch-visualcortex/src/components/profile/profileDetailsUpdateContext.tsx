@@ -17,6 +17,7 @@ import { isPlainObject, toTitleCase, typedKeys } from "@/lib/utils/utils";
 import { updateProfileDetailsAction } from "@/lib/actions/profileActions";
 import { useToast } from "@/hooks/toast";
 import ProfileDetailsUpdateDropdown from "@/components/profile/profileDetailsUpdateDropdown";
+import FormErrorMessage from "@/components/errors/formErrorMessage";
 import Input from "@/components/ui/inputs/input";
 import Radio from "@/components/ui/inputs/radio";
 import Chips from "@/components/ui/chips/chips";
@@ -40,416 +41,686 @@ const ProfileDetailsUpdateContext = ({
     switch (key) {
       case allowedUpdateProfileProperties.firstName:
         return (
-          <Input
-            name={key ?? profileDetailsFormFieldInputItems.firstName?.name}
-            type={profileDetailsFormFieldInputItems.firstName?.type as string}
-            placeholder={
-              profileDetailsFormFieldInputItems.firstName?.placeholder as string
-            }
-            defaultValue={
-              state?.success === false && state?.inputs?.firstName
-                ? state.inputs.firstName
-                : (value ?? "")
-            }
-            icon={profileDetailsFormFieldInputItems.firstName?.icon}
-          />
+          <>
+            <Input
+              name={key ?? profileDetailsFormFieldInputItems.firstName?.name}
+              type={profileDetailsFormFieldInputItems.firstName?.type as string}
+              placeholder={
+                profileDetailsFormFieldInputItems.firstName
+                  ?.placeholder as string
+              }
+              defaultValue={
+                state?.success === false && state?.inputs?.firstName
+                  ? state.inputs.firstName
+                  : (value ?? "")
+              }
+              icon={profileDetailsFormFieldInputItems.firstName?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.firstName
+                  ? state?.errors?.firstName
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.middleName:
         return (
-          <Input
-            name={key ?? profileDetailsFormFieldInputItems.middleName?.name}
-            type={profileDetailsFormFieldInputItems.middleName?.type as string}
-            placeholder={
-              value ??
-              (profileDetailsFormFieldInputItems.middleName
-                ?.placeholder as string)
-            }
-            defaultValue={
-              state?.success === false &&
-              state?.inputs &&
-              state?.inputs?.middleName
-                ? (state?.inputs?.middleName as string)
-                : (value ?? "")
-            }
-            icon={profileDetailsFormFieldInputItems.middleName?.icon}
-          />
+          <>
+            <Input
+              name={key ?? profileDetailsFormFieldInputItems.middleName?.name}
+              type={
+                profileDetailsFormFieldInputItems.middleName?.type as string
+              }
+              placeholder={
+                value ??
+                (profileDetailsFormFieldInputItems.middleName
+                  ?.placeholder as string)
+              }
+              defaultValue={
+                state?.success === false &&
+                state?.inputs &&
+                state?.inputs?.middleName
+                  ? (state?.inputs?.middleName as string)
+                  : (value ?? "")
+              }
+              icon={profileDetailsFormFieldInputItems.middleName?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.middleName
+                  ? state?.errors?.middleName
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.lastName:
         return (
-          <Input
-            name={key ?? profileDetailsFormFieldInputItems.lastName?.name}
-            type={profileDetailsFormFieldInputItems.lastName?.type as string}
-            placeholder={
-              value ??
-              (profileDetailsFormFieldInputItems.lastName
-                ?.placeholder as string)
-            }
-            defaultValue={
-              state?.success === false &&
-              state?.inputs &&
-              state?.inputs?.lastName
-                ? (state?.inputs?.lastName as string)
-                : (value ?? "")
-            }
-            icon={profileDetailsFormFieldInputItems.lastName?.icon}
-          />
+          <>
+            <Input
+              name={key ?? profileDetailsFormFieldInputItems.lastName?.name}
+              type={profileDetailsFormFieldInputItems.lastName?.type as string}
+              placeholder={
+                value ??
+                (profileDetailsFormFieldInputItems.lastName
+                  ?.placeholder as string)
+              }
+              defaultValue={
+                state?.success === false &&
+                state?.inputs &&
+                state?.inputs?.lastName
+                  ? (state?.inputs?.lastName as string)
+                  : (value ?? "")
+              }
+              icon={profileDetailsFormFieldInputItems.lastName?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.lastName
+                  ? state?.errors?.lastName
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.nickName:
         return (
-          <Input
-            name={key ?? profileDetailsFormFieldInputItems.nickName?.name}
-            type={profileDetailsFormFieldInputItems.nickName?.type as string}
-            placeholder={
-              value ??
-              (profileDetailsFormFieldInputItems.nickName
-                ?.placeholder as string)
-            }
-            defaultValue={
-              state?.success === false &&
-              state?.inputs &&
-              state?.inputs?.nickName
-                ? (state?.inputs?.nickName as string)
-                : (value ?? "")
-            }
-            icon={profileDetailsFormFieldInputItems.nickName?.icon}
-          />
+          <>
+            <Input
+              name={key ?? profileDetailsFormFieldInputItems.nickName?.name}
+              type={profileDetailsFormFieldInputItems.nickName?.type as string}
+              placeholder={
+                value ??
+                (profileDetailsFormFieldInputItems.nickName
+                  ?.placeholder as string)
+              }
+              defaultValue={
+                state?.success === false &&
+                state?.inputs &&
+                state?.inputs?.nickName
+                  ? (state?.inputs?.nickName as string)
+                  : (value ?? "")
+              }
+              icon={profileDetailsFormFieldInputItems.nickName?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.nickName
+                  ? state?.errors?.nickName
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.age:
         return (
-          <ProfileDetailsUpdateDropdown
-            name={allowedUpdateProfileProperties.age}
-            value={value}
-            placeholder="Age"
-          />
+          <>
+            <ProfileDetailsUpdateDropdown
+              name={allowedUpdateProfileProperties.age}
+              value={value}
+              placeholder="Age"
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.age
+                  ? state?.errors?.age
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.phone:
         return (
-          <Input
-            name={key ?? profileDetailsFormFieldInputItems.phone?.name}
-            type={profileDetailsFormFieldInputItems.phone?.type as string}
-            placeholder={
-              value ??
-              (profileDetailsFormFieldInputItems.phone?.placeholder as string)
-            }
-            defaultValue={
-              state?.success === false && state?.inputs && state?.inputs?.phone
-                ? (state?.inputs?.phone as string)
-                : (value ?? "")
-            }
-            icon={profileDetailsFormFieldInputItems.phone?.icon}
-          />
+          <>
+            <Input
+              name={key ?? profileDetailsFormFieldInputItems.phone?.name}
+              type={profileDetailsFormFieldInputItems.phone?.type as string}
+              placeholder={
+                value ??
+                (profileDetailsFormFieldInputItems.phone?.placeholder as string)
+              }
+              defaultValue={
+                state?.success === false &&
+                state?.inputs &&
+                state?.inputs?.phone
+                  ? (state?.inputs?.phone as string)
+                  : (value ?? "")
+              }
+              icon={profileDetailsFormFieldInputItems.phone?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.phone
+                  ? state?.errors?.phone
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.gender:
         return (
-          <Radio
-            name={key ?? profileDetailsFormFieldInputItems.gender?.name}
-            options={Object.values(GENDER_PROPERTIES)}
-            value={
-              value ??
-              (profileDetailsFormFieldInputItems.gender?.placeholder as string)
-            }
-            icon={profileDetailsFormFieldInputItems.gender?.icon}
-          />
+          <>
+            <Radio
+              name={key ?? profileDetailsFormFieldInputItems.gender?.name}
+              options={Object.values(GENDER_PROPERTIES)}
+              value={
+                value ??
+                (profileDetailsFormFieldInputItems.gender
+                  ?.placeholder as string)
+              }
+              icon={profileDetailsFormFieldInputItems.gender?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.gender
+                  ? state?.errors?.gender
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.bio:
         return (
-          <Input
-            name={key ?? profileDetailsFormFieldInputItems.bio?.name}
-            type={profileDetailsFormFieldInputItems.bio?.type as string}
-            placeholder={
-              value ??
-              (profileDetailsFormFieldInputItems.bio?.placeholder as string)
-            }
-            defaultValue={
-              state?.success === false && state?.inputs && state?.inputs?.bio
-                ? (state?.inputs?.bio as string)
-                : (value ?? "")
-            }
-            icon={profileDetailsFormFieldInputItems.bio?.icon}
-          />
+          <>
+            <Input
+              name={key ?? profileDetailsFormFieldInputItems.bio?.name}
+              type={profileDetailsFormFieldInputItems.bio?.type as string}
+              placeholder={
+                value ??
+                (profileDetailsFormFieldInputItems.bio?.placeholder as string)
+              }
+              defaultValue={
+                state?.success === false && state?.inputs && state?.inputs?.bio
+                  ? (state?.inputs?.bio as string)
+                  : (value ?? "")
+              }
+              icon={profileDetailsFormFieldInputItems.bio?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.bio
+                  ? state?.errors?.bio
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.maritalStatus:
         return (
-          <Radio
-            name={key ?? profileDetailsFormFieldInputItems.maritalStatus?.name}
-            options={Object.values(MARITAL_STATUS_PROPERTIES)}
-            value={
-              value ??
-              (profileDetailsFormFieldInputItems.maritalStatus
-                ?.placeholder as string)
-            }
-            icon={profileDetailsFormFieldInputItems.maritalStatus?.icon}
-          />
+          <>
+            <Radio
+              name={
+                key ?? profileDetailsFormFieldInputItems.maritalStatus?.name
+              }
+              options={Object.values(MARITAL_STATUS_PROPERTIES)}
+              value={
+                value ??
+                (profileDetailsFormFieldInputItems.maritalStatus
+                  ?.placeholder as string)
+              }
+              icon={profileDetailsFormFieldInputItems.maritalStatus?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.maritalStatus
+                  ? state?.errors?.maritalStatus
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.jobProfile:
         return (
-          <Input
-            name={key ?? profileDetailsFormFieldInputItems.jobProfile?.name}
-            type={profileDetailsFormFieldInputItems.jobProfile?.type as string}
-            placeholder={
-              value ??
-              (profileDetailsFormFieldInputItems.jobProfile
-                ?.placeholder as string)
-            }
-            defaultValue={
-              state?.success === false &&
-              state?.inputs &&
-              state?.inputs?.jobProfile
-                ? (state?.inputs?.jobProfile as string)
-                : (value ?? "")
-            }
-            icon={profileDetailsFormFieldInputItems.jobProfile?.icon}
-          />
+          <>
+            <Input
+              name={key ?? profileDetailsFormFieldInputItems.jobProfile?.name}
+              type={
+                profileDetailsFormFieldInputItems.jobProfile?.type as string
+              }
+              placeholder={
+                value ??
+                (profileDetailsFormFieldInputItems.jobProfile
+                  ?.placeholder as string)
+              }
+              defaultValue={
+                state?.success === false &&
+                state?.inputs &&
+                state?.inputs?.jobProfile
+                  ? (state?.inputs?.jobProfile as string)
+                  : (value ?? "")
+              }
+              icon={profileDetailsFormFieldInputItems.jobProfile?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.jobProfile
+                  ? state?.errors?.jobProfile
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.experience:
         return (
-          <ProfileDetailsUpdateDropdown
-            name={allowedUpdateProfileProperties.experience}
-            value={value}
-            placeholder="Experience"
-          />
+          <>
+            <ProfileDetailsUpdateDropdown
+              name={allowedUpdateProfileProperties.experience}
+              value={value}
+              placeholder="Experience"
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.experience
+                  ? state?.errors?.experience
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.facebook:
         return (
-          <Input
-            name={key ?? profileDetailsFormFieldInputItems.facebook?.name}
-            type={profileDetailsFormFieldInputItems.facebook?.type as string}
-            placeholder={
-              value ??
-              (profileDetailsFormFieldInputItems.facebook
-                ?.placeholder as string)
-            }
-            defaultValue={
-              state?.success === false &&
-              state?.inputs &&
-              state?.inputs?.facebook
-                ? (state?.inputs?.facebook as string)
-                : (value ?? "")
-            }
-            icon={profileDetailsFormFieldInputItems.facebook?.icon}
-          />
+          <>
+            <Input
+              name={key ?? profileDetailsFormFieldInputItems.facebook?.name}
+              type={profileDetailsFormFieldInputItems.facebook?.type as string}
+              placeholder={
+                value ??
+                (profileDetailsFormFieldInputItems.facebook
+                  ?.placeholder as string)
+              }
+              defaultValue={
+                state?.success === false &&
+                state?.inputs &&
+                state?.inputs?.facebook
+                  ? (state?.inputs?.facebook as string)
+                  : (value ?? "")
+              }
+              icon={profileDetailsFormFieldInputItems.facebook?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.facebook
+                  ? state?.errors?.facebook
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.instagram:
         return (
-          <Input
-            name={key ?? profileDetailsFormFieldInputItems.instagram?.name}
-            type={profileDetailsFormFieldInputItems.instagram?.type as string}
-            placeholder={
-              value ??
-              (profileDetailsFormFieldInputItems.instagram
-                ?.placeholder as string)
-            }
-            defaultValue={
-              state?.success === false &&
-              state?.inputs &&
-              state?.inputs?.instagram
-                ? (state?.inputs?.instagram as string)
-                : (value ?? "")
-            }
-            icon={profileDetailsFormFieldInputItems.instagram?.icon}
-          />
+          <>
+            <Input
+              name={key ?? profileDetailsFormFieldInputItems.instagram?.name}
+              type={profileDetailsFormFieldInputItems.instagram?.type as string}
+              placeholder={
+                value ??
+                (profileDetailsFormFieldInputItems.instagram
+                  ?.placeholder as string)
+              }
+              defaultValue={
+                state?.success === false &&
+                state?.inputs &&
+                state?.inputs?.instagram
+                  ? (state?.inputs?.instagram as string)
+                  : (value ?? "")
+              }
+              icon={profileDetailsFormFieldInputItems.instagram?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.instagram
+                  ? state?.errors?.instagram
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.twitter:
         return (
-          <Input
-            name={key ?? profileDetailsFormFieldInputItems.twitter?.name}
-            type={profileDetailsFormFieldInputItems.twitter?.type as string}
-            placeholder={
-              value ??
-              (profileDetailsFormFieldInputItems.twitter?.placeholder as string)
-            }
-            defaultValue={
-              state?.success === false &&
-              state?.inputs &&
-              state?.inputs?.twitter
-                ? (state?.inputs?.twitter as string)
-                : (value ?? "")
-            }
-            icon={profileDetailsFormFieldInputItems.twitter?.icon}
-          />
+          <>
+            <Input
+              name={key ?? profileDetailsFormFieldInputItems.twitter?.name}
+              type={profileDetailsFormFieldInputItems.twitter?.type as string}
+              placeholder={
+                value ??
+                (profileDetailsFormFieldInputItems.twitter
+                  ?.placeholder as string)
+              }
+              defaultValue={
+                state?.success === false &&
+                state?.inputs &&
+                state?.inputs?.twitter
+                  ? (state?.inputs?.twitter as string)
+                  : (value ?? "")
+              }
+              icon={profileDetailsFormFieldInputItems.twitter?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.twitter
+                  ? state?.errors?.twitter
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.github:
         return (
-          <Input
-            name={key ?? profileDetailsFormFieldInputItems.github?.name}
-            type={profileDetailsFormFieldInputItems.github?.type as string}
-            placeholder={
-              value ??
-              (profileDetailsFormFieldInputItems.github?.placeholder as string)
-            }
-            defaultValue={
-              state?.success === false && state?.inputs && state?.inputs?.github
-                ? (state?.inputs?.github as string)
-                : (value ?? "")
-            }
-            icon={profileDetailsFormFieldInputItems.github?.icon}
-          />
+          <>
+            <Input
+              name={key ?? profileDetailsFormFieldInputItems.github?.name}
+              type={profileDetailsFormFieldInputItems.github?.type as string}
+              placeholder={
+                value ??
+                (profileDetailsFormFieldInputItems.github
+                  ?.placeholder as string)
+              }
+              defaultValue={
+                state?.success === false &&
+                state?.inputs &&
+                state?.inputs?.github
+                  ? (state?.inputs?.github as string)
+                  : (value ?? "")
+              }
+              icon={profileDetailsFormFieldInputItems.github?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.github
+                  ? state?.errors?.github
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.linkedin:
         return (
-          <Input
-            name={key ?? profileDetailsFormFieldInputItems.linkedin?.name}
-            type={profileDetailsFormFieldInputItems.linkedin?.type as string}
-            placeholder={
-              value ??
-              (profileDetailsFormFieldInputItems.linkedin
-                ?.placeholder as string)
-            }
-            defaultValue={
-              state?.success === false &&
-              state?.inputs &&
-              state?.inputs?.linkedin
-                ? (state?.inputs?.linkedin as string)
-                : (value ?? "")
-            }
-            icon={profileDetailsFormFieldInputItems.linkedin?.icon}
-          />
+          <>
+            <Input
+              name={key ?? profileDetailsFormFieldInputItems.linkedin?.name}
+              type={profileDetailsFormFieldInputItems.linkedin?.type as string}
+              placeholder={
+                value ??
+                (profileDetailsFormFieldInputItems.linkedin
+                  ?.placeholder as string)
+              }
+              defaultValue={
+                state?.success === false &&
+                state?.inputs &&
+                state?.inputs?.linkedin
+                  ? (state?.inputs?.linkedin as string)
+                  : (value ?? "")
+              }
+              icon={profileDetailsFormFieldInputItems.linkedin?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.linkedin
+                  ? state?.errors?.linkedin
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.youtube:
         return (
-          <Input
-            name={key ?? profileDetailsFormFieldInputItems.youtube?.name}
-            type={profileDetailsFormFieldInputItems.youtube?.type as string}
-            placeholder={
-              value ??
-              (profileDetailsFormFieldInputItems.youtube?.placeholder as string)
-            }
-            defaultValue={
-              state?.success === false &&
-              state?.inputs &&
-              state?.inputs?.youtube
-                ? (state?.inputs?.youtube as string)
-                : (value ?? "")
-            }
-            icon={profileDetailsFormFieldInputItems.youtube?.icon}
-          />
+          <>
+            <Input
+              name={key ?? profileDetailsFormFieldInputItems.youtube?.name}
+              type={profileDetailsFormFieldInputItems.youtube?.type as string}
+              placeholder={
+                value ??
+                (profileDetailsFormFieldInputItems.youtube
+                  ?.placeholder as string)
+              }
+              defaultValue={
+                state?.success === false &&
+                state?.inputs &&
+                state?.inputs?.youtube
+                  ? (state?.inputs?.youtube as string)
+                  : (value ?? "")
+              }
+              icon={profileDetailsFormFieldInputItems.youtube?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.linkedin
+                  ? state?.errors?.linkedin
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.website:
         return (
-          <Input
-            name={key ?? profileDetailsFormFieldInputItems.website?.name}
-            type={profileDetailsFormFieldInputItems.website?.type as string}
-            placeholder={
-              value ??
-              (profileDetailsFormFieldInputItems.website?.placeholder as string)
-            }
-            defaultValue={
-              state?.success === false &&
-              state?.inputs &&
-              state?.inputs?.website
-                ? (state?.inputs?.website as string)
-                : (value ?? "")
-            }
-            icon={profileDetailsFormFieldInputItems.website?.icon}
-          />
+          <>
+            <Input
+              name={key ?? profileDetailsFormFieldInputItems.website?.name}
+              type={profileDetailsFormFieldInputItems.website?.type as string}
+              placeholder={
+                value ??
+                (profileDetailsFormFieldInputItems.website
+                  ?.placeholder as string)
+              }
+              defaultValue={
+                state?.success === false &&
+                state?.inputs &&
+                state?.inputs?.website
+                  ? (state?.inputs?.website as string)
+                  : (value ?? "")
+              }
+              icon={profileDetailsFormFieldInputItems.website?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.website
+                  ? state?.errors?.website
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.company:
         return (
-          <Input
-            name={key ?? profileDetailsFormFieldInputItems.company?.name}
-            type={profileDetailsFormFieldInputItems.company?.type as string}
-            placeholder={
-              value ??
-              (profileDetailsFormFieldInputItems.company?.placeholder as string)
-            }
-            defaultValue={
-              state?.success === false &&
-              state?.inputs &&
-              state?.inputs?.company
-                ? (state?.inputs?.company as string)
-                : (value ?? "")
-            }
-            icon={profileDetailsFormFieldInputItems.company?.icon}
-          />
+          <>
+            <Input
+              name={key ?? profileDetailsFormFieldInputItems.company?.name}
+              type={profileDetailsFormFieldInputItems.company?.type as string}
+              placeholder={
+                value ??
+                (profileDetailsFormFieldInputItems.company
+                  ?.placeholder as string)
+              }
+              defaultValue={
+                state?.success === false &&
+                state?.inputs &&
+                state?.inputs?.company
+                  ? (state?.inputs?.company as string)
+                  : (value ?? "")
+              }
+              icon={profileDetailsFormFieldInputItems.company?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.company
+                  ? state?.errors?.company
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.organization:
         return (
-          <Input
-            name={key ?? profileDetailsFormFieldInputItems.organization?.name}
-            type={
-              profileDetailsFormFieldInputItems.organization?.type as string
-            }
-            placeholder={
-              value ??
-              (profileDetailsFormFieldInputItems.organization
-                ?.placeholder as string)
-            }
-            defaultValue={
-              state?.success === false &&
-              state?.inputs &&
-              state?.inputs?.organization
-                ? (state?.inputs?.organization as string)
-                : (value ?? "")
-            }
-            icon={profileDetailsFormFieldInputItems.organization?.icon}
-          />
+          <>
+            <Input
+              name={key ?? profileDetailsFormFieldInputItems.organization?.name}
+              type={
+                profileDetailsFormFieldInputItems.organization?.type as string
+              }
+              placeholder={
+                value ??
+                (profileDetailsFormFieldInputItems.organization
+                  ?.placeholder as string)
+              }
+              defaultValue={
+                state?.success === false &&
+                state?.inputs &&
+                state?.inputs?.organization
+                  ? (state?.inputs?.organization as string)
+                  : (value ?? "")
+              }
+              icon={profileDetailsFormFieldInputItems.organization?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.organization
+                  ? state?.errors?.organization
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.skills:
         return (
-          <Chips
-            name={key ?? profileDetailsFormFieldInputItems.skills?.name}
-            type={profileDetailsFormFieldInputItems.skills?.type as string}
-            values={value}
-            icon={profileDetailsFormFieldInputItems.skills?.icon}
-          />
+          <>
+            <Chips
+              name={key ?? profileDetailsFormFieldInputItems.skills?.name}
+              type={profileDetailsFormFieldInputItems.skills?.type as string}
+              values={value}
+              icon={profileDetailsFormFieldInputItems.skills?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.skills
+                  ? state?.errors?.skills
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.interests:
         return (
-          <Chips
-            name={key ?? profileDetailsFormFieldInputItems.interests?.name}
-            type={profileDetailsFormFieldInputItems.interests?.type as string}
-            values={value}
-            icon={profileDetailsFormFieldInputItems.interests?.icon}
-          />
+          <>
+            <Chips
+              name={key ?? profileDetailsFormFieldInputItems.interests?.name}
+              type={profileDetailsFormFieldInputItems.interests?.type as string}
+              values={value}
+              icon={profileDetailsFormFieldInputItems.interests?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.interests
+                  ? state?.errors?.interests
+                  : null
+              }
+              className="text-left"
+            />
+          </>
         );
 
       case allowedUpdateProfileProperties.address:
-        return typedKeys(addressFormFieldInputItems).map((item, idx) => {
-          return (
-            <div className="flex items-center w-full" key={idx}>
-              <label className="mb-4 w-2/5 font-semibold text-glass-text-primary text-left">
-                {addressFormFieldInputItems[item]?.label}
-              </label>
-              <Input
-                name={Object.keys(ADDRESS_PROPERTIES)[idx]}
-                type={addressFormFieldInputItems[item]?.type as string}
-                placeholder={
-                  addressFormFieldInputItems[item]?.placeholder as string
-                }
-                defaultValue={
-                  state?.success === false &&
-                  state?.inputs &&
-                  state?.inputs?.address
-                    ? (state?.inputs?.address as string)
-                    : (value[item] ?? "")
-                }
-                icon={addressFormFieldInputItems[item]?.icon}
-                className="mb-4 w-3/5"
-              />
-            </div>
-          );
-        });
+        return (
+          <>
+            {typedKeys(addressFormFieldInputItems).map((item, idx) => (
+              <div className="flex items-center w-full" key={idx}>
+                <label className="mb-4 w-2/5 font-semibold text-glass-text-primary text-left">
+                  {addressFormFieldInputItems[item]?.label}
+                </label>
+                <Input
+                  name={Object.keys(ADDRESS_PROPERTIES)[idx]}
+                  type={addressFormFieldInputItems[item]?.type as string}
+                  placeholder={
+                    addressFormFieldInputItems[item]?.placeholder as string
+                  }
+                  defaultValue={
+                    state?.success === false &&
+                    state?.inputs &&
+                    state?.inputs?.address
+                      ? (state?.inputs?.address as string)
+                      : (value[item] ?? "")
+                  }
+                  icon={addressFormFieldInputItems[item]?.icon}
+                  className="mb-4 w-3/5"
+                />
+              </div>
+            ))}
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.address
+                  ? state?.errors?.address
+                  : null
+              }
+              className="my-4"
+            />
+          </>
+        );
     }
   };
 
@@ -461,13 +732,15 @@ const ProfileDetailsUpdateContext = ({
         variant: "error",
       });
     } else if (state?.result?.success && state?.result?.data) {
+      onClose();
+
       showToast({
         title: toTitleCase(state?.message),
         message: state?.result?.data?.message,
         variant: "success",
       });
     }
-  }, [state?.result]);
+  }, [state]);
 
   return (
     <div className="flex flex-col gap-2 w-[50vw] h-full">
@@ -537,7 +810,6 @@ const ProfileDetailsUpdateContext = ({
             }
             disabled={isPending}
             className={`h-10 ${isPending ? "w-48" : "w-40"}`}
-            onClick={onClose}
           />
           <ButtonDestructive
             icon={profileDetailsFormFieldButtonItems?.discard?.icon}

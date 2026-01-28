@@ -19,6 +19,7 @@ import { toTitleCase, typedKeys } from "@/lib/utils/utils";
 import { updateSingleProfilePropertyAction } from "@/lib/actions/profileActions";
 import { useToast } from "@/hooks/toast";
 import ProfileDetailsUpdateDropdown from "@/components/profile/profileDetailsUpdateDropdown";
+import FormErrorMessage from "@/components/errors/formErrorMessage";
 import Input from "@/components/ui/inputs/input";
 import Radio from "@/components/ui/inputs/radio";
 import Chips from "@/components/ui/chips/chips";
@@ -71,6 +72,15 @@ const SingleProfileDetailsUpdateContext = ({
               }
               icon={profileDetailsFormFieldInputItems.nickName?.icon}
             />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.nickName
+                  ? state?.errors?.nickName
+                  : null
+              }
+              className="text-left"
+            />
           </>
         );
 
@@ -88,6 +98,15 @@ const SingleProfileDetailsUpdateContext = ({
               name={allowedUpdateProfileProperties.age}
               value={value}
               placeholder="Age"
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.age
+                  ? state?.errors?.age
+                  : null
+              }
+              className="text-left"
             />
           </div>
         );
@@ -118,6 +137,15 @@ const SingleProfileDetailsUpdateContext = ({
               }
               icon={profileDetailsFormFieldInputItems.phone?.icon}
             />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.phone
+                  ? state?.errors?.phone
+                  : null
+              }
+              className="text-left"
+            />
           </>
         );
 
@@ -130,6 +158,7 @@ const SingleProfileDetailsUpdateContext = ({
               value={key}
               className="hidden"
             />
+
             <Radio
               name={key ?? profileDetailsFormFieldInputItems.gender?.name}
               options={Object.values(GENDER_PROPERTIES)}
@@ -139,6 +168,15 @@ const SingleProfileDetailsUpdateContext = ({
                   ?.placeholder as string)
               }
               icon={profileDetailsFormFieldInputItems.gender?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.gender
+                  ? state?.errors?.gender
+                  : null
+              }
+              className="text-left"
             />
           </>
         );
@@ -167,6 +205,15 @@ const SingleProfileDetailsUpdateContext = ({
               }
               icon={profileDetailsFormFieldInputItems.bio?.icon}
             />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.bio
+                  ? state?.errors?.bio
+                  : null
+              }
+              className="text-left"
+            />
           </>
         );
 
@@ -179,6 +226,7 @@ const SingleProfileDetailsUpdateContext = ({
               value={key}
               className="hidden"
             />
+
             <Radio
               name={
                 key ?? profileDetailsFormFieldInputItems.maritalStatus?.name
@@ -190,6 +238,15 @@ const SingleProfileDetailsUpdateContext = ({
                   ?.placeholder as string)
               }
               icon={profileDetailsFormFieldInputItems.maritalStatus?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.maritalStatus
+                  ? state?.errors?.maritalStatus
+                  : null
+              }
+              className="text-left"
             />
           </>
         );
@@ -223,6 +280,15 @@ const SingleProfileDetailsUpdateContext = ({
               }
               icon={profileDetailsFormFieldInputItems.jobProfile?.icon}
             />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.jobProfile
+                  ? state?.errors?.jobProfile
+                  : null
+              }
+              className="text-left"
+            />
           </>
         );
 
@@ -241,6 +307,15 @@ const SingleProfileDetailsUpdateContext = ({
               value={value}
               placeholder="Experience"
               propertyToUpdate={property}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.experience
+                  ? state?.errors?.experience
+                  : null
+              }
+              className="text-left"
             />
           </div>
         );
@@ -272,6 +347,15 @@ const SingleProfileDetailsUpdateContext = ({
               }
               icon={profileDetailsFormFieldInputItems.facebook?.icon}
             />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.facebook
+                  ? state?.errors?.facebook
+                  : null
+              }
+              className="text-left"
+            />
           </>
         );
 
@@ -301,6 +385,15 @@ const SingleProfileDetailsUpdateContext = ({
                   : (value ?? "")
               }
               icon={profileDetailsFormFieldInputItems.instagram?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.instagram
+                  ? state?.errors?.instagram
+                  : null
+              }
+              className="text-left"
             />
           </>
         );
@@ -332,6 +425,15 @@ const SingleProfileDetailsUpdateContext = ({
               }
               icon={profileDetailsFormFieldInputItems.twitter?.icon}
             />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.twitter
+                  ? state?.errors?.twitter
+                  : null
+              }
+              className="text-left"
+            />
           </>
         );
 
@@ -361,6 +463,15 @@ const SingleProfileDetailsUpdateContext = ({
                   : (value ?? "")
               }
               icon={profileDetailsFormFieldInputItems.github?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.github
+                  ? state?.errors?.github
+                  : null
+              }
+              className="text-left"
             />
           </>
         );
@@ -392,6 +503,15 @@ const SingleProfileDetailsUpdateContext = ({
               }
               icon={profileDetailsFormFieldInputItems.linkedin?.icon}
             />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.linkedin
+                  ? state?.errors?.linkedin
+                  : null
+              }
+              className="text-left"
+            />
           </>
         );
 
@@ -421,6 +541,15 @@ const SingleProfileDetailsUpdateContext = ({
                   : (value ?? "")
               }
               icon={profileDetailsFormFieldInputItems.youtube?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.youtube
+                  ? state?.errors?.youtube
+                  : null
+              }
+              className="text-left"
             />
           </>
         );
@@ -452,6 +581,15 @@ const SingleProfileDetailsUpdateContext = ({
               }
               icon={profileDetailsFormFieldInputItems.website?.icon}
             />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.website
+                  ? state?.errors?.website
+                  : null
+              }
+              className="text-left"
+            />
           </>
         );
 
@@ -481,6 +619,15 @@ const SingleProfileDetailsUpdateContext = ({
                   : (value ?? "")
               }
               icon={profileDetailsFormFieldInputItems.company?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.company
+                  ? state?.errors?.company
+                  : null
+              }
+              className="text-left"
             />
           </>
         );
@@ -514,6 +661,15 @@ const SingleProfileDetailsUpdateContext = ({
               }
               icon={profileDetailsFormFieldInputItems.organization?.icon}
             />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.organization
+                  ? state?.errors?.organization
+                  : null
+              }
+              className="text-left"
+            />
           </>
         );
 
@@ -526,11 +682,21 @@ const SingleProfileDetailsUpdateContext = ({
               value={key}
               className="hidden"
             />
+
             <Chips
               name={key ?? profileDetailsFormFieldInputItems.skills?.name}
               type={profileDetailsFormFieldInputItems.skills?.type as string}
               values={value}
               icon={profileDetailsFormFieldInputItems.skills?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.skills
+                  ? state?.errors?.skills
+                  : null
+              }
+              className="text-left"
             />
           </>
         );
@@ -544,11 +710,21 @@ const SingleProfileDetailsUpdateContext = ({
               value={key}
               className="hidden"
             />
+
             <Chips
               name={key ?? profileDetailsFormFieldInputItems.interests?.name}
               type={profileDetailsFormFieldInputItems.interests?.type as string}
               values={value}
               icon={profileDetailsFormFieldInputItems.interests?.icon}
+            />
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.interests
+                  ? state?.errors?.interests
+                  : null
+              }
+              className="text-left"
             />
           </>
         );
@@ -562,6 +738,7 @@ const SingleProfileDetailsUpdateContext = ({
               value={key}
               className="hidden"
             />
+
             {typedKeys(addressFormFieldInputItems).map((item, idx) => (
               <div className="flex items-center w-full" key={idx}>
                 <label className="mb-4 w-2/5 font-semibold text-glass-text-primary text-left">
@@ -585,6 +762,15 @@ const SingleProfileDetailsUpdateContext = ({
                 />
               </div>
             ))}
+
+            <FormErrorMessage
+              errors={
+                !state?.success && state?.errors && state?.errors?.address
+                  ? state?.errors?.address
+                  : null
+              }
+              className="my-4"
+            />
           </>
         );
     }
@@ -603,8 +789,9 @@ const SingleProfileDetailsUpdateContext = ({
         message: state?.result?.data?.message,
         variant: "success",
       });
+      setPropertyToUpdate(null);
     }
-  }, [state?.result]);
+  }, [state]);
 
   return (
     <div className="flex flex-col gap-2 w-[36vw] h-full">
@@ -668,7 +855,6 @@ const SingleProfileDetailsUpdateContext = ({
             }
             disabled={isPending}
             className={`h-10 ${isPending ? "w-48" : "w-40"}`}
-            onClick={() => setPropertyToUpdate(null)}
           />
         </div>
       </Form>

@@ -37,6 +37,7 @@ export interface ButtonProps {
 
 export interface FormErrorMessageProps {
   errors: string[] | null;
+  className?: string;
 }
 
 export interface DropdownProps {
@@ -164,7 +165,7 @@ export interface ProfileDetailsComponentProps {
 
 export interface ProfileDetailsProps {
   user: UserType;
-  onClose?: () => void;
+  onClose: () => void;
 }
 
 export interface UserCardsProps {
