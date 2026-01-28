@@ -1,4 +1,4 @@
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import Form from "next/form";
 import {
   ADDRESS_PROPERTIES,
@@ -13,8 +13,9 @@ import {
 } from "@/config/config";
 import { ProfileUpdateFormStateType } from "@/types/types";
 import { ProfileComponentProps } from "@/types/propTypes";
-import { isPlainObject, typedKeys } from "@/lib/utils/utils";
+import { isPlainObject, toTitleCase, typedKeys } from "@/lib/utils/utils";
 import { updateProfileDetailsAction } from "@/lib/actions/profileActions";
+import { useToast } from "@/hooks/toast";
 import ProfileDetailsUpdateDropdown from "@/components/profile/profileDetailsUpdateDropdown";
 import Input from "@/components/ui/inputs/input";
 import Radio from "@/components/ui/inputs/radio";
@@ -33,7 +34,7 @@ const ProfileDetailsUpdateContext = ({
     initialState,
   );
 
-  console.log("debug from ProfileDetailsUpdateContext state : ", state);
+  const { showToast } = useToast();
 
   const renderValue = (key: string, value: any) => {
     switch (key) {
@@ -451,6 +452,22 @@ const ProfileDetailsUpdateContext = ({
         });
     }
   };
+
+  useEffect(() => {
+    if (!state?.success && !state?.result?.success && state?.result?.error) {
+      showToast({
+        title: toTitleCase(state?.message),
+        message: state?.result?.error?.message,
+        variant: "error",
+      });
+    } else if (state?.result?.success && state?.result?.data) {
+      showToast({
+        title: toTitleCase(state?.message),
+        message: state?.result?.data?.message,
+        variant: "success",
+      });
+    }
+  }, [state?.result]);
 
   return (
     <div className="flex flex-col gap-2 w-full h-full">
