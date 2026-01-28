@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Image from "next/image";
 import {
   authFormFieldButtonItems,
@@ -7,6 +8,7 @@ import {
   staticImages,
 } from "@/config/config";
 import { getFullName, toTitleCase } from "@/lib/utils/utils";
+import { checkAuth } from "@/lib/actions/actions";
 import { ProfileComponentProps } from "@/types/propTypes";
 import { useDevMatchAppStore } from "@/store/store";
 import useContextMenu from "@/hooks/useContextMenu";
@@ -23,6 +25,7 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
   if (!user) return;
 
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
+  const setLoggedInUser = useDevMatchAppStore((state) => state.setLoggedInUser);
 
   const updateProfileDetailsContext = useContextMenu({
     type: "updateProfileDetailsContext",
@@ -41,6 +44,25 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
         ].includes(key),
     ),
   );
+
+  useEffect(() => {
+    const refreshLoggedInUser = async () => {
+      const refreshedLoggedInUser = await checkAuth();
+
+      if (refreshedLoggedInUser) {
+        setLoggedInUser(refreshedLoggedInUser);
+      }
+    };
+
+    if (
+      loggedInUser?.userName !== user?.userName ||
+      loggedInUser?.firstName !== user?.firstName ||
+      loggedInUser?.middleName !== user?.middleName ||
+      loggedInUser?.lastName !== user?.lastName
+    ) {
+      refreshLoggedInUser();
+    }
+  }, [loggedInUser, user]);
 
   return (
     <div className="relative flex flex-col p-8 pb-4 w-full h-full">

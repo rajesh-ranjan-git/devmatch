@@ -69,7 +69,6 @@
 - [ ] When password is expired, it stays on login window, there should be a new window to get user to reset the password.
 - [ ] Sheets should have higher z-index than context.
 - [ ] Toast should have higher z-index than context.
-- [ ] Data in account options in navbar is not updating after profile update.
 
 ---
 
