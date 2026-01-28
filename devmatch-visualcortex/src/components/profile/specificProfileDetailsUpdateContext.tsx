@@ -13,7 +13,7 @@ import {
   profileDetailsFormFieldInputItems,
 } from "@/config/config";
 import { ProfileUpdateFormStateType, UserType } from "@/types/types";
-import { SpecificProfileDetailsUpdateContextProps } from "@/types/propTypes";
+import { ProfileDetailsComponentProps } from "@/types/propTypes";
 import { toTitleCase, typedKeys } from "@/lib/utils/utils";
 import { updateProfileDetailsAction } from "@/lib/actions/profileActions";
 import { useToast } from "@/hooks/toast";
@@ -27,7 +27,7 @@ const SpecificProfileDetailsUpdateContext = ({
   user,
   propertyToUpdate,
   setPropertyToUpdate,
-}: SpecificProfileDetailsUpdateContextProps) => {
+}: ProfileDetailsComponentProps) => {
   if (!user) return null;
 
   const [property] = useState<keyof UserType | null>(propertyToUpdate);

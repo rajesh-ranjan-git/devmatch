@@ -154,7 +154,7 @@ export interface StoredData<T> {
   expiresAt?: number;
 }
 
-export interface ProfileTabularDataProps {
+export interface ProfileDetailsComponentProps {
   user: UserType;
   propertyToUpdate: keyof UserType | null;
   setPropertyToUpdate: React.Dispatch<
@@ -162,15 +162,7 @@ export interface ProfileTabularDataProps {
   >;
 }
 
-export interface SpecificProfileDetailsUpdateContextProps {
-  user: UserType;
-  propertyToUpdate: keyof UserType | null;
-  setPropertyToUpdate: React.Dispatch<
-    React.SetStateAction<keyof UserType | null>
-  >;
-}
-
-export interface ProfileComponentProps {
+export interface ProfileDetailsProps {
   user: UserType;
   onClose?: () => void;
 }

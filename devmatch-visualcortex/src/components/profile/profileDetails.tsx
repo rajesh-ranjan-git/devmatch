@@ -10,7 +10,7 @@ import {
 import { getFullName, toTitleCase } from "@/lib/utils/utils";
 import { checkAuth } from "@/lib/actions/actions";
 import { UserType } from "@/types/types";
-import { ProfileComponentProps } from "@/types/propTypes";
+import { ProfileDetailsProps } from "@/types/propTypes";
 import { useDevMatchAppStore } from "@/store/store";
 import useContextMenu from "@/hooks/useContextMenu";
 import ProfileTabularData from "@/components/profile/profileTabularData";
@@ -23,7 +23,7 @@ import Dropdown from "@/components/ui/dropdown/dropdown";
 import ProfilePhotoEditButton from "@/components/ui/buttons/profilePhotoEditButton";
 import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 
-const ProfileDetails = ({ user }: ProfileComponentProps) => {
+const ProfileDetails = ({ user }: ProfileDetailsProps) => {
   if (!user) return;
 
   const [propertyToUpdate, setPropertyToUpdate] = useState<

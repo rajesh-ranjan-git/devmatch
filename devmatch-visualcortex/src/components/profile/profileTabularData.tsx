@@ -2,7 +2,7 @@ import Link from "next/link";
 import { MdEdit, MdOutlineEdit } from "react-icons/md";
 import { USER_PROPERTIES, USER_PROPERTY_LABELS } from "@/config/constants";
 import { UserType } from "@/types/types";
-import { ProfileTabularDataProps } from "@/types/propTypes";
+import { ProfileDetailsComponentProps } from "@/types/propTypes";
 import { formatDate, toSentenceCase, toTitleCase } from "@/lib/utils/utils";
 import { useDevMatchAppStore } from "@/store/store";
 import { allowedUpdateProfileProperties } from "@/config/config";
@@ -11,7 +11,7 @@ const ProfileTabularData = ({
   user,
   propertyToUpdate,
   setPropertyToUpdate,
-}: ProfileTabularDataProps) => {
+}: ProfileDetailsComponentProps) => {
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
 
   const renderValue = (key: string, value: string) => {
