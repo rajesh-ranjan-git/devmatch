@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   authFormFieldButtonItems,
@@ -14,6 +14,7 @@ import { useDevMatchAppStore } from "@/store/store";
 import useContextMenu from "@/hooks/useContextMenu";
 import ProfileTabularData from "@/components/profile/profileTabularData";
 import ProfileDetailsUpdateContext from "@/components/profile/profileDetailsUpdateContext";
+import SpecificProfileDetailsUpdateContext from "@/components/profile/specificProfileDetailsUpdateContext";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import HorizontalSeparator from "@/components/ui/separators/horizontalSeparator";
@@ -24,11 +25,17 @@ import ContextMenu from "@/components/ui/contextMenu/contextMenu";
 const ProfileDetails = ({ user }: ProfileComponentProps) => {
   if (!user) return;
 
+  const [propertyToUpdate, setPropertyToUpdate] = useState<string | null>(null);
+
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
   const setLoggedInUser = useDevMatchAppStore((state) => state.setLoggedInUser);
 
   const updateProfileDetailsContext = useContextMenu({
     type: "updateProfileDetailsContext",
+  });
+
+  const updateSpecificProfileDetailsContext = useContextMenu({
+    type: "updateSpecificProfileDetailsContext",
   });
 
   const selectedUserProperties = Object.fromEntries(
@@ -64,6 +71,14 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
       refreshLoggedInUser();
     }
   }, [loggedInUser, user]);
+
+  useEffect(() => {
+    if (propertyToUpdate) {
+      updateSpecificProfileDetailsContext.open();
+    } else {
+      updateSpecificProfileDetailsContext.close();
+    }
+  }, [propertyToUpdate]);
 
   return (
     <div className="relative flex flex-col p-8 pb-4 w-full h-full">
@@ -115,7 +130,10 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
       >
         <table className="w-full text-glass-text-primary table-fixed">
           <tbody>
-            <ProfileTabularData user={selectedUserProperties} />
+            <ProfileTabularData
+              user={selectedUserProperties}
+              setPropertyToUpdate={setPropertyToUpdate}
+            />
           </tbody>
         </table>
       </div>
@@ -147,6 +165,17 @@ const ProfileDetails = ({ user }: ProfileComponentProps) => {
         <ProfileDetailsUpdateContext
           user={user}
           onClose={updateProfileDetailsContext.close}
+        />
+      </ContextMenu>
+
+      <ContextMenu
+        open={updateSpecificProfileDetailsContext.isOpen}
+        onClose={updateSpecificProfileDetailsContext.close}
+      >
+        <SpecificProfileDetailsUpdateContext
+          user={user}
+          property={propertyToUpdate}
+          setPropertyToUpdate={setPropertyToUpdate}
         />
       </ContextMenu>
     </div>

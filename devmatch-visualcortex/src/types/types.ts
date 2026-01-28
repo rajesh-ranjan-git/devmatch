@@ -34,10 +34,11 @@ export type NotificationItemType = {
 };
 
 export type ContextMenuTypes =
+  | "addButtonContext"
   | "updateCoverPhotoContext"
   | "updateProfilePhotoContext"
   | "updateProfileDetailsContext"
-  | "addButtonContext"
+  | "updateSpecificProfileDetailsContext"
   | null;
 
 export type SheetTypes = "requests" | "connections" | null;
