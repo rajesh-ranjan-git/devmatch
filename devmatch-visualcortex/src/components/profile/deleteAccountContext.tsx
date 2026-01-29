@@ -10,13 +10,16 @@ import { authRoutes } from "@/lib/routes/routes";
 import { apiUrls } from "@/lib/api/apiUtils";
 import { apiRequest } from "@/lib/api/api";
 import { setCookies } from "@/lib/api/cookiesHandler";
-import { ProfileDetailsProps } from "@/types/propTypes";
+import { ProfileDetailsUpdateContextProps } from "@/types/propTypes";
 import { useToast } from "@/hooks/toast";
 import { useDevMatchAppStore } from "@/store/store";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 
-const DeleteAccountContext = ({ user, onClose }: ProfileDetailsProps) => {
+const DeleteAccountContext = ({
+  user,
+  onClose,
+}: ProfileDetailsUpdateContextProps) => {
   if (!user) return null;
 
   const [isPending, setIsPending] = useState(false);

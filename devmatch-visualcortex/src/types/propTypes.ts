@@ -155,6 +155,10 @@ export interface StoredData<T> {
   expiresAt?: number;
 }
 
+export interface ProfileDetailsProps {
+  user: UserType;
+}
+
 export interface ProfileDetailsComponentProps {
   user: UserType;
   propertyToUpdate: keyof UserType | null;
@@ -163,7 +167,7 @@ export interface ProfileDetailsComponentProps {
   >;
 }
 
-export interface ProfileDetailsProps {
+export interface ProfileDetailsUpdateContextProps {
   user: UserType;
   onClose: () => void;
 }

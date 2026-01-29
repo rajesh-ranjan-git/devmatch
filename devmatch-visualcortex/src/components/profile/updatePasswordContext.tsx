@@ -5,7 +5,7 @@ import {
   profileDetailsFormFieldButtonItems,
 } from "@/config/config";
 import { UpdatePasswordFormStateType } from "@/types/types";
-import { ProfileDetailsProps } from "@/types/propTypes";
+import { ProfileDetailsUpdateContextProps } from "@/types/propTypes";
 import { toTitleCase } from "@/lib/utils/utils";
 import { updatePasswordAction } from "@/lib/actions/profileActions";
 import { useToast } from "@/hooks/toast";
@@ -13,7 +13,10 @@ import FormErrorMessage from "@/components/errors/formErrorMessage";
 import Input from "@/components/ui/inputs/input";
 import SubmitButton from "@/components/ui/buttons/submitButton";
 
-const UpdatePasswordContext = ({ user, onClose }: ProfileDetailsProps) => {
+const UpdatePasswordContext = ({
+  user,
+  onClose,
+}: ProfileDetailsUpdateContextProps) => {
   if (!user) return null;
 
   const initialState: UpdatePasswordFormStateType = { message: "", errors: {} };

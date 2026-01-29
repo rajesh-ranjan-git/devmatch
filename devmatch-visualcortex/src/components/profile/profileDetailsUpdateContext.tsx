@@ -12,7 +12,7 @@ import {
   profileDetailsFormFieldInputItems,
 } from "@/config/config";
 import { ProfileUpdateFormStateType } from "@/types/types";
-import { ProfileDetailsProps } from "@/types/propTypes";
+import { ProfileDetailsUpdateContextProps } from "@/types/propTypes";
 import { isPlainObject, toTitleCase, typedKeys } from "@/lib/utils/utils";
 import { updateProfileDetailsAction } from "@/lib/actions/profileActions";
 import { useToast } from "@/hooks/toast";
@@ -27,7 +27,7 @@ import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 const ProfileDetailsUpdateContext = ({
   user,
   onClose,
-}: ProfileDetailsProps) => {
+}: ProfileDetailsUpdateContextProps) => {
   const initialState: ProfileUpdateFormStateType = { message: "", errors: {} };
 
   const [state, formAction, isPending] = useActionState(
