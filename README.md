@@ -61,7 +61,7 @@
 - When connection action is taken, the item removes in flash, it should be removed smoothly to the left with opacity transition.
 - Sometimes after login, the page is not moving explore, upon refresh the page sometimes still stays on login and does not move to explore.
 - Repeated code blocks related to connection actions.
-- Unnecessary multiple api calls in explore and connection actions probably because of proxy.
+- Unnecessary multiple api calls in explore, profile and connection actions probably because of proxy.
 - When connection request is already sent, either it should not show that user's card on explore or it should allow to send the interested request again and should not throw error.
 - Notifications gets removed abruptly, it should have a sliding effect to the left and get removed.
 - Requests and connections gets removed abruptly, it should have a sliding effect to the left and get removed.
