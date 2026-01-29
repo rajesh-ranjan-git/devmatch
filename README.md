@@ -67,6 +67,7 @@
 - Requests and connections gets removed abruptly, it should have a sliding effect to the left and get removed.
 - Upon submitting form if the token gets expired, it throws error but it should just redirect to login.
 - When password is expired, it stays on login window, there should be a new window to get user to reset the password.
+- Pagination is not working on explore.
 
 ---
 
