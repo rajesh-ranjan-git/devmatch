@@ -1,6 +1,7 @@
 import { FaPeopleGroup, FaRocketchat } from "react-icons/fa6";
-import { IoCallSharp } from "react-icons/io5";
-import ButtonNormal from "../ui/buttons/buttonNormal";
+import { IoCallSharp, IoSend } from "react-icons/io5";
+import ButtonNormal from "@/components/ui/buttons/buttonNormal";
+import Textarea from "@/components/ui/inputs/textarea";
 
 const Chat = () => {
   return (
@@ -33,8 +34,8 @@ const Chat = () => {
           <ButtonNormal className="p-4 py-5 w-full">New Chat</ButtonNormal>
         </div>
 
-        <div className="p-2 pr-1 h-[68%]">
-          <div className="space-y-2 [&::-webkit-scrollbar-thumb]:bg-glass-surface-light [&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 h-full overflow-y-auto [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
+        <div className="p-2 pr-1 h-[72%]">
+          <div className="space-y-1 [&::-webkit-scrollbar-thumb]:bg-glass-surface-light [&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 h-full overflow-y-auto [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
               <div
                 key={item}
@@ -141,8 +142,8 @@ const Chat = () => {
 
         <div className="p-2 pr-4 border-t">
           <div className="mx-auto max-w-5xl">
-            <div className="flex items-end gap-3">
-              <button className="p-2 text-gray-400 hover:text-gray-600">
+            <div className="flex items-center gap-2">
+              <button className="p-1 text-glass-text-secondary hover:text-glass-text-primary cursor-pointer">
                 <svg
                   className="w-6 h-6"
                   fill="none"
@@ -157,14 +158,12 @@ const Chat = () => {
                   />
                 </svg>
               </button>
-              <textarea
-                placeholder="Type your message..."
-                className="flex-1 px-4 py-3 border border-gray-300 focus:border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-                rows="1"
+              <Textarea
+                name="sendMessage"
+                placeholder="Type your message"
+                rows={1}
               />
-              <button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium text-white transition-colors">
-                Send
-              </button>
+              <ButtonNormal icon={<IoSend />} className="py-5" />
             </div>
           </div>
         </div>

@@ -103,6 +103,15 @@ export interface RadioProps {
   icon?: ReactNode;
 }
 
+export interface TextareaProps {
+  name: string;
+  placeholder: string;
+  rows: number;
+  value?: string;
+  defaultValue?: string;
+  className?: string;
+}
+
 export interface ChipsProps {
   name: string;
   type: string;
