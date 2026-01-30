@@ -225,3 +225,7 @@ export interface ProfileDetailsUpdateDropdownProps {
   placeholder: string;
   propertyToUpdate?: string | null;
 }
+
+export interface ChatProps {
+  user: UserType;
+}

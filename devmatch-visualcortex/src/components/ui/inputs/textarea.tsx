@@ -1,3 +1,6 @@
+"use client";
+
+import { useRef } from "react";
 import { TextareaProps } from "@/types/propTypes";
 
 const Textarea = ({
@@ -8,17 +11,34 @@ const Textarea = ({
   defaultValue,
   className,
 }: TextareaProps) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleInput = () => {
+    const el = textareaRef.current;
+    if (!el) return;
+
+    el.style.height = "auto";
+
+    const lineHeight = parseInt(window.getComputedStyle(el).lineHeight);
+
+    const maxHeight = lineHeight * 3;
+
+    el.style.height = Math.min(el.scrollHeight, maxHeight) + "px";
+  };
+
   return (
     <div
-      className={`flex items-center gap-2 bg-glass-surface-light shadow-glass-shadow-heavy shadow-md pr-4 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl outline-none w-full overflow-hidden text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider ${className}`}
+      className={`flex items-center gap-2 bg-glass-surface-light focus-within:bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md pr-4 border border-glass-border-bright border-r-glass-border-subtle border-b-glass-border-subtle border-none rounded-4xl focus-within:rounded-xl outline-none w-full overflow-hidden text-glass-text-primary text-md placeholder:text-glass-text-secondary tracking-wider transition-all duration-300 ${className}`}
     >
       <textarea
+        ref={textareaRef}
         name={name}
         placeholder={placeholder}
         value={value}
         defaultValue={defaultValue as string}
-        rows={rows}
-        className="focus:bg-glass-surface-heavy px-5 py-2 rounded-l-4xl outline-none w-full transition-all ease-in-out caret-glass-text-primary"
+        rows={rows ?? 1}
+        onInput={handleInput}
+        className="bg-transparent [&::-webkit-scrollbar-thumb]:bg-glass-surface-heavy [&::-webkit-scrollbar-track]:bg-transparent px-5 py-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full outline-none w-full [&::-webkit-scrollbar]:w-1 overflow-y-auto [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out caret-glass-text-primary resize-none"
       />
     </div>
   );

@@ -1,9 +1,10 @@
 import { FaPeopleGroup, FaRocketchat } from "react-icons/fa6";
 import { IoCallSharp, IoSend } from "react-icons/io5";
+import { ChatProps } from "@/types/propTypes";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import Textarea from "@/components/ui/inputs/textarea";
 
-const Chat = () => {
+const Chat = ({ user }: ChatProps) => {
   return (
     <div className="grid grid-cols-[1fr_3fr] rounded-xl w-full h-full">
       <div className="grid grid-rows-[auto_auto_1fr] border-r rounded-xl w-full h-[99.2%] overflow-hidden">
