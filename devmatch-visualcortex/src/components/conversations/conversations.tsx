@@ -1,62 +1,49 @@
-import { FaPeopleGroup, FaRocketchat } from "react-icons/fa6";
-import { IoCallSharp, IoSend } from "react-icons/io5";
-import { ChatProps } from "@/types/propTypes";
+"use client";
+
+import { IoSend } from "react-icons/io5";
+import { conversationTabs } from "@/config/config";
+import { ConversationsProps } from "@/types/propTypes";
+import { useDevMatchAppStore } from "@/store/store";
+import ConversationsTab from "@/components/conversations/conversationsTab";
+import Chats from "@/components/conversations/chats";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import Textarea from "@/components/ui/inputs/textarea";
+import { CONVERSATION_TABS } from "@/config/constants";
+import Calls from "./calls";
+import Groups from "./groups";
 
-const Chat = ({ user }: ChatProps) => {
+const Conversations = ({ user }: ConversationsProps) => {
+  const activeConversationTab = useDevMatchAppStore(
+    (state) => state.activeConversationTab,
+  );
+  const setActiveConversationTab = useDevMatchAppStore(
+    (state) => state.setActiveConversationTab,
+  );
+
   return (
     <div className="grid grid-cols-[1fr_3fr] rounded-xl w-full h-full">
       <div className="grid grid-rows-[auto_auto_1fr] border-r rounded-xl w-full h-[99.2%] overflow-hidden">
         <div className="border-b">
-          <div className="grid grid-cols-[1fr_1fr_1fr] w-full">
-            <div className="flex justify-center items-center gap-2 bg-glass-surface-light hover:bg-glass-surface-heavy p-2 py-4 border-r cursor-pointer">
-              <span>
-                <IoCallSharp />
-              </span>
-              <span>Calls</span>
-            </div>
-            <div className="flex justify-center items-center gap-2 bg-glass-surface-light hover:bg-glass-surface-heavy p-2 border-r cursor-pointer">
-              <span>
-                <FaRocketchat />
-              </span>
-              <span>Chats</span>
-            </div>
-            <div className="flex justify-center items-center gap-2 bg-glass-surface-light hover:bg-glass-surface-heavy p-2 cursor-pointer">
-              <span>
-                <FaPeopleGroup />
-              </span>
-              <span>Groups</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="p-2 pt-3">
-          <ButtonNormal className="p-4 py-5 w-full">New Chat</ButtonNormal>
-        </div>
-
-        <div className="p-2 pr-1 h-[72%]">
-          <div className="space-y-1 [&::-webkit-scrollbar-thumb]:bg-glass-surface-light [&::-webkit-scrollbar-track]:bg-transparent pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 h-full overflow-y-auto [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-              <div
-                key={item}
-                className="flex items-center gap-2 bg-glass-surface-light hover:bg-glass-surface-heavy p-2 border rounded-lg transition-colors cursor-pointer"
-              >
-                <div className="flex justify-center items-center bg-green-600 rounded-full w-10 h-10 font-semibold text-white">
-                  AI
-                </div>
-                <div>
-                  <h3 className="mb-1 font-medium text-glass-text-primary text-sm">
-                    Chat Conversation {item}
-                  </h3>
-                  <p className="text-glass-text-secondary text-xs truncate">
-                    Last message preview goes here...
-                  </p>
-                </div>
-              </div>
+          <div className="grid grid-cols-[1fr_1fr_1fr] w-[101%]">
+            {Object.values(conversationTabs).map((tab, idx) => (
+              <ConversationsTab
+                key={idx}
+                tab={tab.tab}
+                activeTab={activeConversationTab}
+                setActiveTab={setActiveConversationTab}
+                icon={tab.icon}
+              />
             ))}
           </div>
         </div>
+
+        {activeConversationTab === CONVERSATION_TABS.calls ? (
+          <Calls />
+        ) : activeConversationTab === CONVERSATION_TABS.chats ? (
+          <Chats />
+        ) : activeConversationTab === CONVERSATION_TABS.groups ? (
+          <Groups />
+        ) : null}
       </div>
 
       <div className="flex flex-col">
@@ -173,4 +160,4 @@ const Chat = ({ user }: ChatProps) => {
   );
 };
 
-export default Chat;
+export default Conversations;

@@ -1,7 +1,12 @@
 import { Dispatch, SetStateAction } from "react";
 import { create } from "zustand";
-import { THEMES, EXPLORE_VISIBLE_USER_CARDS } from "@/config/constants";
 import {
+  THEMES,
+  EXPLORE_VISIBLE_USER_CARDS,
+  CONVERSATION_TABS,
+} from "@/config/constants";
+import {
+  ConversationTabsType,
   ContextMenuTypes,
   NotificationItemType,
   SheetItemType,
@@ -33,6 +38,8 @@ type DevMatchAppState = {
   setConnectionNotifications: Dispatch<SetStateAction<NotificationItemType[]>>;
   chatNotifications: NotificationItemType[];
   setChatNotifications: Dispatch<SetStateAction<NotificationItemType[]>>;
+  activeConversationTab: ConversationTabsType;
+  setActiveConversationTab: Dispatch<SetStateAction<ConversationTabsType>>;
 };
 
 export const useDevMatchAppStore = create<DevMatchAppState>((set) => ({
@@ -133,5 +140,13 @@ export const useDevMatchAppStore = create<DevMatchAppState>((set) => ({
         typeof notificationsOrUpdater === "function"
           ? notificationsOrUpdater(state.chatNotifications)
           : notificationsOrUpdater,
+    })),
+  activeConversationTab: CONVERSATION_TABS.chats,
+  setActiveConversationTab: (conversationTabOrUpdater) =>
+    set((state) => ({
+      activeConversationTab:
+        typeof conversationTabOrUpdater === "function"
+          ? conversationTabOrUpdater(state.activeConversationTab)
+          : conversationTabOrUpdater,
     })),
 }));

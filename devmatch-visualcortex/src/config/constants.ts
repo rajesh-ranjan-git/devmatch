@@ -439,3 +439,9 @@ export const CONNECTION_STATUS_PROPERTIES = {
   rejected: "rejected",
   blocked: "blocked",
 } as const;
+
+export const CONVERSATION_TABS = {
+  calls: "calls",
+  chats: "chats",
+  groups: "groups",
+} as const;

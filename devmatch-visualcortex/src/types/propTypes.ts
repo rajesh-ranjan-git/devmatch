@@ -1,7 +1,8 @@
-import { ReactNode, RefObject } from "react";
+import { Dispatch, ReactNode, RefObject, SetStateAction } from "react";
 import { IconType } from "react-icons";
 import {
   ContextMenuTypes,
+  ConversationTabsType,
   NavbarMenuItemTypes,
   NotificationActionType,
   NotificationItemType,
@@ -171,9 +172,7 @@ export interface ProfileDetailsProps {
 export interface ProfileDetailsComponentProps {
   user: UserType;
   propertyToUpdate: keyof UserType | null;
-  setPropertyToUpdate: React.Dispatch<
-    React.SetStateAction<keyof UserType | null>
-  >;
+  setPropertyToUpdate: Dispatch<SetStateAction<keyof UserType | null>>;
 }
 
 export interface ProfileDetailsUpdateContextProps {
@@ -226,6 +225,14 @@ export interface ProfileDetailsUpdateDropdownProps {
   propertyToUpdate?: string | null;
 }
 
-export interface ChatProps {
+export interface ConversationsProps {
   user: UserType;
+}
+
+export interface ConversationTabProps {
+  tab: ConversationTabsType;
+  activeTab: ConversationTabsType;
+  setActiveTab: Dispatch<SetStateAction<ConversationTabsType>>;
+  icon: ReactNode;
+  className?: string;
 }

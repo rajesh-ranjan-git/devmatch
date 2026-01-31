@@ -22,12 +22,15 @@ import {
   FaFlag,
   FaGlobe,
   FaMapPin,
+  FaRocketchat,
+  FaPeopleGroup,
 } from "react-icons/fa6";
 import { BsCamera } from "react-icons/bs";
 import {
   ACCOUNT_OPTIONS_DROPDOWN_ITEMS,
   ADDRESS_PROPERTIES,
   AUTH_FORM_FIELDS,
+  CONVERSATION_TABS,
   INPUT_TYPES,
   UPDATE_PASSWORD_FORM_FIELDS,
   USER_PROPERTIES,
@@ -38,6 +41,8 @@ import {
   AuthFormFieldButtonItemsType,
   AuthFormFieldInputItemsType,
   CameraDropdownItemType,
+  ConversationTabsType,
+  ConversationTabType,
   NavbarMenuItemType,
   ProfileDetailsFormFieldButtonItemsType,
   ProfileFormFieldInputItemsType,
@@ -66,7 +71,7 @@ import {
   MdWc,
   MdWork,
 } from "react-icons/md";
-import { IoLogIn, IoLogOut } from "react-icons/io5";
+import { IoCallSharp, IoLogIn, IoLogOut } from "react-icons/io5";
 import { RiUserSmileFill } from "react-icons/ri";
 import { FaBirthdayCake, FaMapMarkedAlt } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
@@ -517,4 +522,22 @@ export const socialMediaIcons: SocialMediaIconType = {
   linkedin: { Icon: FaLinkedin },
   youtube: { Icon: FaYoutube },
   website: { Icon: TbWorld },
+};
+
+export const conversationTabs: Record<
+  ConversationTabsType,
+  ConversationTabType
+> = {
+  calls: {
+    tab: CONVERSATION_TABS.calls,
+    icon: <IoCallSharp />,
+  },
+  chats: {
+    tab: CONVERSATION_TABS.chats,
+    icon: <FaRocketchat />,
+  },
+  groups: {
+    tab: CONVERSATION_TABS.groups,
+    icon: <FaPeopleGroup />,
+  },
 };

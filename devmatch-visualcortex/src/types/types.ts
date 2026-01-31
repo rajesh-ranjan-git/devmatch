@@ -4,6 +4,7 @@ import {
   ACCOUNT_OPTIONS_DROPDOWN_ITEMS,
   ADDRESS_PROPERTIES,
   AUTH_FORM_FIELDS,
+  CONVERSATION_TABS,
   INPUT_TYPES,
   NAVBAR_MENU_ITEMS,
   NOTIFICATION_TYPES,
@@ -245,4 +246,11 @@ export type NotificationActionType = {
   type?: string;
   id?: string;
   removeNotificationFlag?: boolean;
+};
+
+export type ConversationTabsType = keyof typeof CONVERSATION_TABS;
+
+export type ConversationTabType = {
+  tab: ConversationTabsType;
+  icon: ReactNode;
 };
