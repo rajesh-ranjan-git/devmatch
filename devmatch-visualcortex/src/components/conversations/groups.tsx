@@ -21,7 +21,7 @@ const Groups = () => {
               key={item}
               className="flex items-center gap-2 bg-glass-surface-light hover:bg-glass-surface-heavy p-2 border rounded-lg transition-colors cursor-pointer"
             >
-              <div className="flex justify-center items-center rounded-full w-10 h-8 font-semibold text-white cursor-pointer">
+              <div className="flex justify-center items-center shadow-glass-shadow-heavy shadow-md rounded-full w-10 h-8 font-semibold text-white cursor-pointer">
                 <Image
                   src={staticImages.avatarPlaceholder.src}
                   alt={staticImages.avatarPlaceholder.alt}

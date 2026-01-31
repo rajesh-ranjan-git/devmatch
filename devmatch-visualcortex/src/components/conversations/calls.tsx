@@ -23,7 +23,7 @@ const Calls = () => {
               key={item}
               className="flex items-center gap-2 bg-glass-surface-light hover:bg-glass-surface-heavy p-2 border rounded-lg transition-all ease-in-out cursor-pointer"
             >
-              <div className="flex justify-center items-center rounded-full w-12 h-10 font-semibold text-white">
+              <div className="flex justify-center items-center shadow-glass-shadow-heavy shadow-md rounded-full w-12 h-10 font-semibold text-white">
                 <Image
                   src={staticImages.avatarPlaceholder.src}
                   alt={staticImages.avatarPlaceholder.alt}
@@ -36,7 +36,7 @@ const Calls = () => {
                 <span className="mb-1 font-medium text-glass-text-primary text-lg">
                   Call {item}
                 </span>
-                <span className="bg-green-600 hover:bg-green-900 mb-1 p-2 rounded-full font-medium text-glass-text-primary text-sm transition-all ease-in-out">
+                <span className="bg-green-600 hover:bg-green-900 shadow-glass-shadow-heavy shadow-md mb-1 p-2 rounded-full font-medium text-glass-text-primary text-sm transition-all ease-in-out">
                   <IoCallSharp />
                 </span>
               </div>
