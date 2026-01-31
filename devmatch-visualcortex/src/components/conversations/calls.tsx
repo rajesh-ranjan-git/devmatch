@@ -13,9 +13,7 @@ const Calls = () => {
           text="New Call"
           icon={<IoCallSharp />}
         />
-        <div className="bg-glass-surface-light hover:bg-glass-surface-heavy shadow-glass-shadow-heavy shadow-md p-2 border-y rounded-full transition-all ease-in-out cursor-pointer">
-          <IoMdKeypad size={24} />
-        </div>
+        <ButtonNormal icon={<IoMdKeypad size={24} />} className="py-5" />
       </div>
 
       <div className="p-2 pr-1 h-[72%]">
@@ -23,9 +21,9 @@ const Calls = () => {
           {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
             <div
               key={item}
-              className="flex items-center gap-2 bg-glass-surface-light hover:bg-glass-surface-heavy p-2 border rounded-lg transition-colors"
+              className="flex items-center gap-2 bg-glass-surface-light hover:bg-glass-surface-heavy p-2 border rounded-lg transition-all ease-in-out cursor-pointer"
             >
-              <div className="flex justify-center items-center rounded-full w-12 h-10 font-semibold text-white cursor-pointer">
+              <div className="flex justify-center items-center rounded-full w-12 h-10 font-semibold text-white">
                 <Image
                   src={staticImages.avatarPlaceholder.src}
                   alt={staticImages.avatarPlaceholder.alt}
@@ -38,7 +36,7 @@ const Calls = () => {
                 <span className="mb-1 font-medium text-glass-text-primary text-lg">
                   Call {item}
                 </span>
-                <span className="bg-green-600 hover:bg-green-900 mb-1 p-2 rounded-full font-medium text-glass-text-primary text-sm transition-all ease-in-out cursor-pointer">
+                <span className="bg-green-600 hover:bg-green-900 mb-1 p-2 rounded-full font-medium text-glass-text-primary text-sm transition-all ease-in-out">
                   <IoCallSharp />
                 </span>
               </div>

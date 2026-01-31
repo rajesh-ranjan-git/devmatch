@@ -1,16 +1,18 @@
 "use client";
 
+import Image from "next/image";
 import { IoSend } from "react-icons/io5";
-import { conversationTabs } from "@/config/config";
+import { CONVERSATION_TABS } from "@/config/constants";
+import { conversationTabs, staticImages } from "@/config/config";
 import { ConversationsProps } from "@/types/propTypes";
 import { useDevMatchAppStore } from "@/store/store";
 import ConversationsTab from "@/components/conversations/conversationsTab";
 import Chats from "@/components/conversations/chats";
+import Calls from "@/components/conversations/calls";
+import Groups from "@/components/conversations/groups";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import Textarea from "@/components/ui/inputs/textarea";
-import { CONVERSATION_TABS } from "@/config/constants";
-import Calls from "./calls";
-import Groups from "./groups";
+import { TiAttachmentOutline } from "react-icons/ti";
 
 const Conversations = ({ user }: ConversationsProps) => {
   const activeConversationTab = useDevMatchAppStore(
@@ -47,32 +49,25 @@ const Conversations = ({ user }: ConversationsProps) => {
       </div>
 
       <div className="flex flex-col">
-        <div className="p-2 border-b">
+        <div className="p-1 border-b">
           <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3">
-              <div className="flex justify-center items-center bg-green-600 rounded-full w-10 h-10 font-semibold text-white">
-                AI
+            <div className="flex items-center gap-3 hover:bg-glass-surface-light shadow-glass-shadow-medium hover:shadow-md p-1 pr-8 rounded-lg transition-all ease-in-out cursor-pointer">
+              <div className="flex justify-center items-center rounded-full w-10 h-8 font-semibold text-white">
+                <Image
+                  src={staticImages.avatarPlaceholder.src}
+                  alt={staticImages.avatarPlaceholder.alt}
+                  width={100}
+                  height={100}
+                  className="border rounded-full"
+                />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">Chat Assistant</h3>
-                <p className="text-green-600 text-xs">● Online</p>
+                <h3 className="font-semibold text-glass-text-primary">
+                  Your connections's Name
+                </h3>
+                <p className="text-green-400 text-xs">● Online</p>
               </div>
             </div>
-            <button className="text-gray-500 hover:text-gray-700">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-                />
-              </svg>
-            </button>
           </div>
         </div>
 
@@ -131,21 +126,10 @@ const Conversations = ({ user }: ConversationsProps) => {
         <div className="p-2 pr-4 border-t">
           <div className="mx-auto max-w-5xl">
             <div className="flex items-center gap-2">
-              <button className="p-1 text-glass-text-secondary hover:text-glass-text-primary cursor-pointer">
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
-                  />
-                </svg>
-              </button>
+              <ButtonNormal
+                icon={<TiAttachmentOutline size={24} />}
+                className="py-5"
+              />
               <Textarea
                 name="sendMessage"
                 placeholder="Type your message"
