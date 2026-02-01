@@ -3,7 +3,16 @@ import SentChatBubble from "@/components/conversations/sentChatBubble";
 
 const ChatMessages = () => {
   return (
-    <div className="w-full">
+    <div className="w-full overflow-hidden">
+      <ReceivedChatBubble />
+
+      <SentChatBubble />
+      <ReceivedChatBubble />
+
+      <SentChatBubble />
+      <ReceivedChatBubble />
+
+      <SentChatBubble />
       <ReceivedChatBubble />
 
       <SentChatBubble />
