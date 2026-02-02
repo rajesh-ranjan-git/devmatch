@@ -49,7 +49,7 @@ const Conversations = ({ user }: ConversationsProps) => {
         ) : null}
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col h-full min-h-0 overflow-hidden">
         <div className="p-1 border-b">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3 hover:bg-glass-surface-light shadow-glass-shadow-medium hover:shadow-md p-1 pr-8 rounded-lg transition-all ease-in-out cursor-pointer">
@@ -72,8 +72,8 @@ const Conversations = ({ user }: ConversationsProps) => {
           </div>
         </div>
 
-        <div className="flex-1 p-2 pr-4 overflow-y-auto">
-          <div className="space-y-4 mx-auto max-w-5xl">
+        <div className="flex-1 p-2 pr-1 overflow-y-auto">
+          <div className="space-y-4 [&::-webkit-scrollbar-thumb]:bg-glass-surface-light [&::-webkit-scrollbar-track]:bg-transparent mx-auto pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 max-w-5xl h-full overflow-y-auto [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
             <ChatMessages />
           </div>
         </div>
