@@ -52,7 +52,7 @@ const Conversations = ({ user }: ConversationsProps) => {
       <div className="flex flex-col h-full min-h-0 overflow-hidden">
         <div className="p-1 border-b">
           <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3 hover:bg-glass-surface-light shadow-glass-shadow-medium hover:shadow-md p-1 pr-8 rounded-lg transition-all ease-in-out cursor-pointer">
+            <div className="flex items-center gap-3 hover:bg-glass-surface-light shadow-glass-shadow-medium hover:shadow p-1 pr-8 rounded-lg transition-all ease-in-out cursor-pointer">
               <div className="flex justify-center items-center shadow-glass-shadow-heavy shadow-md rounded-full w-10 h-8 font-semibold text-white">
                 <Image
                   src={staticImages.avatarPlaceholder.src}
