@@ -21,7 +21,7 @@ const Calls = () => {
           {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
             <div
               key={item}
-              className="flex items-center gap-2 bg-glass-surface-light hover:bg-glass-surface-heavy p-2 border rounded-lg transition-all ease-in-out cursor-pointer"
+              className="flex items-center gap-2 bg-glass-surface-light hover:bg-glass-surface-heavy shadow shadow-glass-shadow-medium p-2 border rounded-lg transition-all ease-in-out cursor-pointer"
             >
               <div className="flex justify-center items-center shadow-glass-shadow-heavy shadow-md rounded-full w-12 h-10 font-semibold text-white">
                 <Image

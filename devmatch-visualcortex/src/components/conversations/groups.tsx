@@ -19,7 +19,7 @@ const Groups = () => {
           {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
             <div
               key={item}
-              className="flex items-center gap-2 bg-glass-surface-light hover:bg-glass-surface-heavy p-2 border rounded-lg transition-colors cursor-pointer"
+              className="flex items-center gap-2 bg-glass-surface-light hover:bg-glass-surface-heavy shadow shadow-glass-shadow-medium p-2 border rounded-lg transition-colors cursor-pointer"
             >
               <div className="flex justify-center items-center shadow-glass-shadow-heavy shadow-md rounded-full w-10 h-8 font-semibold text-white cursor-pointer">
                 <Image
