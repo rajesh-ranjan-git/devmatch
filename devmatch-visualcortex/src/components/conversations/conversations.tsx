@@ -87,7 +87,7 @@ const Conversations = ({ user }: ConversationsProps) => {
               />
               <Textarea
                 name="sendMessage"
-                placeholder="Type your message"
+                placeholder="Type your message..."
                 rows={1}
               />
               <ButtonNormal icon={<IoSend />} className="py-5" />
