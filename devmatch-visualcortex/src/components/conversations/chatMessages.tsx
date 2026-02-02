@@ -1,5 +1,6 @@
 import ReceivedChatBubble from "@/components/conversations/receivedChatBubble";
 import SentChatBubble from "@/components/conversations/sentChatBubble";
+import ChatsSeparator from "@/components/conversations/chatsSeparator";
 
 const ChatMessages = () => {
   return (
@@ -7,6 +8,9 @@ const ChatMessages = () => {
       <ReceivedChatBubble />
 
       <SentChatBubble />
+
+      <ChatsSeparator />
+
       <ReceivedChatBubble />
 
       <SentChatBubble />
