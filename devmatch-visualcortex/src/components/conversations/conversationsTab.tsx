@@ -1,3 +1,4 @@
+import { toTitleCase } from "@/lib/utils/utils";
 import { ConversationTabProps } from "@/types/propTypes";
 
 const ConversationsTab = ({
@@ -13,7 +14,7 @@ const ConversationsTab = ({
       onClick={() => setActiveTab(tab)}
     >
       <span>{icon}</span>
-      <span>{tab}</span>
+      <span>{toTitleCase(tab)}</span>
     </div>
   );
 };

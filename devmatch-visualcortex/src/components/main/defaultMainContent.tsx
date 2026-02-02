@@ -10,7 +10,7 @@ const DefaultMainContent = () => {
           alt={staticImages.mainLogo.alt}
           width={200}
           height={200}
-          className="shadow-glass-shadow-heavy shadow-lg rounded-full"
+          className="shadow-glass-shadow-heavy shadow-lg rounded-full select-none"
         />
       </div>
       <span className="text-3xl">DevMatch</span>

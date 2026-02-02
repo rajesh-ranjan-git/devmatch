@@ -27,7 +27,7 @@ const Chats = () => {
                   alt={staticImages.avatarPlaceholder.alt}
                   width={100}
                   height={100}
-                  className="border rounded-full"
+                  className="border rounded-full select-none"
                 />
               </div>
               <div>

@@ -25,7 +25,7 @@ const Conversations = ({ user }: ConversationsProps) => {
 
   return (
     <div className="grid grid-cols-[1fr_3fr] rounded-xl w-full h-full">
-      <div className="grid grid-rows-[auto_auto_1fr] border-r rounded-xl w-full h-[99.2%] overflow-hidden">
+      <div className="grid grid-rows-[auto_auto_1fr] border-r rounded-xl w-full h-[99.2%] overflow-hidden select-none">
         <div className="border-b">
           <div className="grid grid-cols-[1fr_1fr_1fr] w-[101%]">
             {Object.values(conversationTabs).map((tab, idx) => (
@@ -50,7 +50,7 @@ const Conversations = ({ user }: ConversationsProps) => {
       </div>
 
       <div className="flex flex-col h-full min-h-0 overflow-hidden">
-        <div className="p-1 border-b">
+        <div className="p-1 border-b select-none">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3 hover:bg-glass-surface-light shadow-glass-shadow-medium hover:shadow p-1 pr-8 rounded-lg transition-all ease-in-out cursor-pointer">
               <div className="flex justify-center items-center shadow-glass-shadow-heavy shadow-md rounded-full w-10 h-8 font-semibold text-white">
@@ -59,7 +59,7 @@ const Conversations = ({ user }: ConversationsProps) => {
                   alt={staticImages.avatarPlaceholder.alt}
                   width={100}
                   height={100}
-                  className="border rounded-full"
+                  className="border rounded-full select-none"
                 />
               </div>
               <div>

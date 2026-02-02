@@ -12,13 +12,13 @@ const ReceivedChatBubble = () => {
               alt={staticImages.avatarPlaceholder.alt}
               width={100}
               height={100}
-              className="border rounded-full"
+              className="border rounded-full select-none"
             />
           </div>
         </div>
       </div>
 
-      <div className="flex gap-1 col-start-2 row-start-1 text-xs">
+      <div className="flex gap-1 col-start-2 row-start-1 text-xs select-none">
         Obi-Wan Kenobi <time className="opacity-50 text-xs">2 hours ago</time>
       </div>
 
