@@ -33,7 +33,7 @@
 - [x] Block functionality
 - [ ] Report functionality
 - [x] Profile visibility controls
-- [ ] Profile update controls
+- [x] Profile update controls
 - [ ] GitHub/Linkedin integration
 - [ ] Admin dashboard for moderation
 
@@ -46,7 +46,7 @@
 - [x] Block functionality
 - [ ] Report functionality
 - [x] Profile visibility controls
-- [ ] Profile update controls
+- [x] Profile update controls
 - [ ] Google Authentication integration
 - [ ] In-app messaging between matched users
 - [ ] GitHub/LinkedIn integration
