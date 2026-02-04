@@ -1,3 +1,4 @@
+import http from "http";
 import express from "express";
 import * as dotenv from "dotenv";
 import path from "path";
@@ -12,6 +13,7 @@ import connectionRouter from "../routes/connection.js";
 import notificationRouter from "../routes/notification.js";
 import exploreRouter from "../routes/explore.js";
 import { showDevMatchBanner } from "../banner/banner.js";
+import { initializeSocket } from "../socket/socket.js";
 
 const envFile =
   process.env.NODE_ENV === "production"
@@ -26,25 +28,25 @@ const BRAINBOX_HOST_URL =
 const VISUALCORTEX_HOST_URL =
   process.env.VISUALCORTEX_HOST_URL || "http://localhost:3000";
 
-const server = express();
+const app = express();
 
-server.use(express.json());
-server.use(
+app.use(express.json());
+app.use(
   cors({
     origin: [BRAINBOX_HOST_URL, VISUALCORTEX_HOST_URL],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-  })
+  }),
 );
-server.use(cookieParser());
+app.use(cookieParser());
 
-server.use("/api/user", userRouter);
-server.use("/api/profile", profileRouter);
-server.use("/api/connection", connectionRouter);
-server.use("/api/notification", notificationRouter);
-server.use("/api/", exploreRouter);
+app.use("/api/user", userRouter);
+app.use("/api/profile", profileRouter);
+app.use("/api/connection", connectionRouter);
+app.use("/api/notification", notificationRouter);
+app.use("/api/", exploreRouter);
 
-server.get("/", (req, res) => {
+app.get("/", (req, res) => {
   res.status(status.success.statusCode).json({
     status: status.success.message,
     statusCode: status.success.statusCode,
@@ -52,7 +54,7 @@ server.get("/", (req, res) => {
   });
 });
 
-server.use((err, req, res, next) => {
+app.use((err, req, res, next) => {
   console.error("❌ ERROR :: Global error :", err);
   console.error("❌ ERROR :: Global error message :", err?.message);
   console.error("❌ ERROR :: Global error stack:", err.stack);
@@ -68,6 +70,10 @@ server.use((err, req, res, next) => {
     },
   });
 });
+
+const server = http.createServer(app);
+
+initializeSocket(server);
 
 server.listen(BRAINBOX_PORT, async () => {
   await connectDB();
