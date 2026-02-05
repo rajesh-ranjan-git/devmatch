@@ -29,6 +29,7 @@
 - [x] Developer profile creation
 - [x] Swipe-based match interface
 - [ ] In-app messaging between matched users
+- [ ] In-app calling between matched users
 - [x] Real-time notifications
 - [x] Block functionality
 - [ ] Report functionality
@@ -49,6 +50,7 @@
 - [x] Profile update controls
 - [ ] Google Authentication integration
 - [ ] In-app messaging between matched users
+- [ ] In-app calling between matched users
 - [ ] GitHub/LinkedIn integration
 - [ ] Admin dashboard for moderation
 
