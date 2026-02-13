@@ -1,5 +1,6 @@
 "use client";
 
+import { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import { IoSend } from "react-icons/io5";
 import { TiAttachmentOutline } from "react-icons/ti";
@@ -8,6 +9,7 @@ import { conversationTabs, staticImages } from "@/config/config";
 import { ConversationsProps } from "@/types/propTypes";
 import { getFullName, toTitleCase } from "@/lib/utils/utils";
 import { useDevMatchAppStore } from "@/store/store";
+import { createSocketConnection } from "@/socket/socket";
 import ConversationsTab from "@/components/conversations/conversationsTab";
 import Chats from "@/components/conversations/chats";
 import Calls from "@/components/conversations/calls";
@@ -18,12 +20,31 @@ import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import Textarea from "@/components/ui/inputs/textarea";
 
 const Conversations = ({ user }: ConversationsProps) => {
+  const [chatMessages, setChatMessages] = useState<Record<"text", string>[]>(
+    [],
+  );
+  const [newMessage, setNewMessage] = useState({ text: "" });
+
+  const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
   const activeConversationTab = useDevMatchAppStore(
     (state) => state.activeConversationTab,
   );
   const setActiveConversationTab = useDevMatchAppStore(
     (state) => state.setActiveConversationTab,
   );
+
+  const handleSendMessage = () => {
+    const socket = createSocketConnection();
+
+    socket.emit("sendMessage", {
+      userId: loggedInUser?.id,
+      targetUserId: user?.id,
+      message: newMessage.text,
+    });
+
+    setChatMessages((prev) => [...prev, newMessage]);
+    setNewMessage({ text: "" });
+  };
 
   return (
     <div className="grid grid-cols-[1fr_3fr] rounded-xl w-full h-full">
@@ -80,7 +101,7 @@ const Conversations = ({ user }: ConversationsProps) => {
 
             <div className="flex-1 p-2 pr-1 overflow-y-auto">
               <div className="space-y-4 [&::-webkit-scrollbar-thumb]:bg-glass-surface-light [&::-webkit-scrollbar-track]:bg-transparent mx-auto pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 max-w-5xl h-full overflow-y-auto [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
-                <ChatMessages user={user} />
+                <ChatMessages user={user} chatMessages={chatMessages} />
               </div>
             </div>
 
@@ -95,8 +116,16 @@ const Conversations = ({ user }: ConversationsProps) => {
                     name="sendMessage"
                     placeholder="Type your message..."
                     rows={1}
+                    value={newMessage.text}
+                    onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                      setNewMessage({ text: e.target.value })
+                    }
                   />
-                  <ButtonNormal icon={<IoSend />} className="py-5" />
+                  <ButtonNormal
+                    icon={<IoSend />}
+                    className="py-5"
+                    onClick={handleSendMessage}
+                  />
                 </div>
               </div>
             </div>

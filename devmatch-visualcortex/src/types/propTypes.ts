@@ -1,4 +1,10 @@
-import { Dispatch, ReactNode, RefObject, SetStateAction } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  ReactNode,
+  RefObject,
+  SetStateAction,
+} from "react";
 import { IconType } from "react-icons";
 import {
   ContextMenuTypes,
@@ -111,6 +117,7 @@ export interface TextareaProps {
   value?: string;
   defaultValue?: string;
   className?: string;
+  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 export interface ChipsProps {
@@ -227,6 +234,16 @@ export interface ProfileDetailsUpdateDropdownProps {
 
 export interface ConversationsProps {
   user?: UserType;
+}
+
+export interface ChatMessagesProps {
+  user?: UserType;
+  chatMessages: Record<"text", string>[];
+}
+
+export interface ChatBubbleProps {
+  user?: UserType;
+  message: string;
 }
 
 export interface ConversationTabProps {

@@ -10,6 +10,7 @@ const Textarea = ({
   value,
   defaultValue,
   className,
+  onChange,
 }: TextareaProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -38,6 +39,7 @@ const Textarea = ({
         defaultValue={defaultValue as string}
         rows={rows ?? 1}
         onInput={handleInput}
+        onChange={onChange}
         className="bg-transparent [&::-webkit-scrollbar-thumb]:bg-glass-surface-heavy [&::-webkit-scrollbar-track]:bg-transparent px-5 py-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full outline-none w-full [&::-webkit-scrollbar]:w-1 overflow-y-auto [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out caret-glass-text-primary resize-none"
       />
     </div>
