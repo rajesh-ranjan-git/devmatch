@@ -344,7 +344,7 @@ export const jwtKnownErrors = {
 };
 
 export const userProperties = {
-  ID: "id",
+  ID: "_id",
   EMAIL: "email",
   USER_NAME: "userName",
   PASSWORD: "password",

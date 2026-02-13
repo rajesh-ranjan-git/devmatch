@@ -226,7 +226,7 @@ export interface ProfileDetailsUpdateDropdownProps {
 }
 
 export interface ConversationsProps {
-  user: UserType;
+  user?: UserType;
 }
 
 export interface ConversationTabProps {

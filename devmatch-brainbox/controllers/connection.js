@@ -38,7 +38,7 @@ export const connect = async (req, res) => {
         status.badRequest,
         errorMessages.SELF_CONNECTION_ERROR,
         { loggedInUserId: userId, otherUserId },
-        req?.url
+        req?.url,
       );
     }
 
@@ -47,7 +47,7 @@ export const connect = async (req, res) => {
         status.forbidden,
         errorMessages.INVALID_USER_ID_FORMAT_ERROR,
         { otherUserId },
-        req?.url
+        req?.url,
       );
     }
 
@@ -58,7 +58,7 @@ export const connect = async (req, res) => {
         status.notFound,
         errorMessages.USER_NOT_EXIST_ERROR,
         { otherUserId },
-        req?.url
+        req?.url,
       );
     }
 
@@ -70,7 +70,7 @@ export const connect = async (req, res) => {
         status.badRequest,
         errorMessages.INVALID_CONNECTION_REQUEST_ERROR,
         { status: connectionStatus },
-        req?.url
+        req?.url,
       );
     }
 
@@ -130,7 +130,7 @@ export const connect = async (req, res) => {
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
-            req?.url
+            req?.url,
           );
         }
 
@@ -151,7 +151,7 @@ export const connect = async (req, res) => {
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
-            req?.url
+            req?.url,
           );
         }
 
@@ -197,7 +197,7 @@ export const connect = async (req, res) => {
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
-            req?.url
+            req?.url,
           );
         }
 
@@ -217,7 +217,7 @@ export const connect = async (req, res) => {
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
-            req?.url
+            req?.url,
           );
         }
 
@@ -237,7 +237,7 @@ export const connect = async (req, res) => {
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
-            req?.url
+            req?.url,
           );
         }
 
@@ -261,7 +261,7 @@ export const connect = async (req, res) => {
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
-            req?.url
+            req?.url,
           );
         }
 
@@ -281,7 +281,7 @@ export const connect = async (req, res) => {
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
-            req?.url
+            req?.url,
           );
         }
 
@@ -313,7 +313,7 @@ export const connect = async (req, res) => {
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
-            req?.url
+            req?.url,
           );
         }
 
@@ -334,7 +334,7 @@ export const connect = async (req, res) => {
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
-            req?.url
+            req?.url,
           );
         }
 
@@ -354,7 +354,7 @@ export const connect = async (req, res) => {
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
-            req?.url
+            req?.url,
           );
         }
 
@@ -401,7 +401,7 @@ export const connect = async (req, res) => {
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
-            req?.url
+            req?.url,
           );
         }
 
@@ -422,7 +422,7 @@ export const connect = async (req, res) => {
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
-            req?.url
+            req?.url,
           );
         }
 
@@ -442,7 +442,7 @@ export const connect = async (req, res) => {
                 connectionStatus: existingConnection?.connectionStatus,
               },
             },
-            req?.url
+            req?.url,
           );
         }
 
@@ -464,7 +464,7 @@ export const connect = async (req, res) => {
             ],
           },
           { $set: connectionToUpdate },
-          { new: true, upsert: false }
+          { new: true, upsert: false },
         );
 
     if (!connection) {
@@ -472,7 +472,7 @@ export const connect = async (req, res) => {
         status.internalServerError,
         errorMessages.CONNECTION_REQUEST_FAILED_ERROR,
         { connection },
-        req?.url
+        req?.url,
       );
     }
 
@@ -490,7 +490,7 @@ export const connect = async (req, res) => {
       notificationObject[notificationProperties.BODY] = getNotificationBody(
         connectionForFirstName?.senderId?.firstName,
         notificationObject[notificationProperties.TYPE],
-        notificationObject.connectionStatus
+        notificationObject.connectionStatus,
       );
 
       const notifications = await Notification.create(notificationObject);
@@ -500,7 +500,7 @@ export const connect = async (req, res) => {
           status.internalServerError,
           errorMessages.NOTIFICATION_FAILED_ERROR,
           { notifications },
-          req?.url
+          req?.url,
         );
       }
     }
@@ -514,7 +514,7 @@ export const connect = async (req, res) => {
   } catch (error) {
     return res
       .status(
-        error?.status?.statusCode || status.internalServerError.statusCode
+        error?.status?.statusCode || status.internalServerError.statusCode,
       )
       .json({
         status: error?.status?.message || status.internalServerError.message,
@@ -540,7 +540,7 @@ export const connections = async (req, res) => {
     const validatedLimit = limitValidator(limit);
 
     const otherUserProjection = Object.values(
-      publicProfilePropertiesForExplore
+      publicProfilePropertiesForExplore,
     ).reduce((acc, field) => ({ ...acc, [`otherUser.${field}`]: 1 }), {});
 
     const connections = await Connection.aggregate([
@@ -594,7 +594,7 @@ export const connections = async (req, res) => {
         status.internalServerError,
         errorMessages.VIEW_CONNECTION_REQUEST_FAILED_ERROR,
         { connections },
-        req?.url
+        req?.url,
       );
     }
 
@@ -626,7 +626,7 @@ export const connections = async (req, res) => {
   } catch (error) {
     return res
       .status(
-        error?.status?.statusCode || status.internalServerError.statusCode
+        error?.status?.statusCode || status.internalServerError.statusCode,
       )
       .json({
         status: error?.status?.message || status.internalServerError.message,
@@ -676,7 +676,7 @@ export const requests = async (req, res) => {
         status.internalServerError,
         errorMessages.VIEW_CONNECTION_REQUEST_FAILED_ERROR,
         { requests },
-        req?.url
+        req?.url,
       );
     }
 
@@ -708,7 +708,7 @@ export const requests = async (req, res) => {
   } catch (error) {
     return res
       .status(
-        error?.status?.statusCode || status.internalServerError.statusCode
+        error?.status?.statusCode || status.internalServerError.statusCode,
       )
       .json({
         status: error?.status?.message || status.internalServerError.message,

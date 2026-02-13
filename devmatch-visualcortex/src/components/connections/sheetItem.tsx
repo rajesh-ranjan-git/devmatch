@@ -15,6 +15,7 @@ import ButtonSuccess from "@/components/ui/buttons/buttonSuccess";
 import ButtonWarning from "@/components/ui/buttons/buttonWarning";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 import UserInfoButton from "@/components/ui/buttons/userInfoButton";
+import { useRouter } from "next/navigation";
 
 const SheetItem = ({
   type,
@@ -23,6 +24,8 @@ const SheetItem = ({
   handleConnectionAction,
   onSheetClose,
 }: SheetItemProps) => {
+  const router = useRouter();
+
   let sheetItemData = {
     imageSrc: staticImages.profilePlaceholder.src,
     name: "John Doe",
@@ -54,16 +57,19 @@ const SheetItem = ({
     sheetItemData.profileUrl = `${getUrlString(profileRoutes.profile)}/${
       connection?.otherUser?.id
     }`;
-    sheetItemData.onAccept = () => console.log("Chat window will open...");
+    sheetItemData.onAccept = () =>
+      connection?.otherUser?.id
+        ? openChatWindow(connection?.otherUser?.id)
+        : null;
     sheetItemData.onReject = () =>
       handleConnectionAction?.(
         CONNECTION_STATUS_PROPERTIES.rejected,
-        connection?.otherUser?.id as string
+        connection?.otherUser?.id as string,
       );
     sheetItemData.onBlock = () =>
       handleConnectionAction?.(
         CONNECTION_STATUS_PROPERTIES.blocked,
-        connection?.otherUser?.id as string
+        connection?.otherUser?.id as string,
       );
   } else if (type === navbarMenuItems[1].type) {
     sheetItemData.imageSrc =
@@ -84,19 +90,24 @@ const SheetItem = ({
     sheetItemData.onAccept = () =>
       handleConnectionAction?.(
         CONNECTION_STATUS_PROPERTIES.accepted,
-        request?.sender?.id as string
+        request?.sender?.id as string,
       );
     sheetItemData.onReject = () =>
       handleConnectionAction?.(
         CONNECTION_STATUS_PROPERTIES.rejected,
-        request?.sender?.id as string
+        request?.sender?.id as string,
       );
     sheetItemData.onBlock = () =>
       handleConnectionAction?.(
         CONNECTION_STATUS_PROPERTIES.blocked,
-        request?.sender?.id as string
+        request?.sender?.id as string,
       );
   }
+
+  const openChatWindow = (userId: string) => {
+    router.push(`/conversations/${userId}`);
+    onSheetClose();
+  };
 
   return (
     <div className="relative flex flex-col items-center gap-2 hover:bg-glass-surface-heavy p-2 rounded-lg w-full transition-all ease-in-out">

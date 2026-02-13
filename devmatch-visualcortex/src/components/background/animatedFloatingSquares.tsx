@@ -1,15 +1,4 @@
-"use client";
-
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
-
 const AnimatedFloatingSquares = () => {
-  const pathname = usePathname();
-
-  if (pathname.includes("conversations")) {
-    return;
-  }
-
   return (
     <>
       <div
