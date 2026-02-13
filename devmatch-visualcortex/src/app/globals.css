@@ -30,6 +30,13 @@
   --glass-accent-cyan: rgba(6, 182, 212, 0.15);
   --glass-accent-green: rgba(34, 197, 94, 0.15);
 
+  /* Accent bright overlays */
+  --glass-accent-blue-bright: rgba(96, 165, 250);
+  --glass-accent-purple-bright: rgba(168, 85, 247);
+  --glass-accent-pink-bright: rgba(244, 114, 182);
+  --glass-accent-cyan-bright: rgba(34, 211, 238);
+  --glass-accent-green-bright: rgba(74, 222, 128);
+
   /* ⚠️ Warning (Yellow) */
   --glass-warning: rgba(255, 213, 79, 0.25);
   --glass-warning-border: rgba(255, 193, 7, 0.4);
@@ -86,6 +93,13 @@
   --glass-accent-pink: rgba(244, 114, 182, 0.2);
   --glass-accent-cyan: rgba(34, 211, 238, 0.2);
   --glass-accent-green: rgba(74, 222, 128, 0.2);
+
+  /* Accent bright overlays */
+  --glass-accent-blue-bright: rgba(96, 165, 250);
+  --glass-accent-purple-bright: rgba(168, 85, 247);
+  --glass-accent-pink-bright: rgba(244, 114, 182);
+  --glass-accent-cyan-bright: rgba(34, 211, 238);
+  --glass-accent-green-bright: rgba(74, 222, 128);
 
   /* ⚠️ Warning (Yellow) */
   --glass-warning: rgba(255, 193, 7, 0.15);
@@ -162,6 +176,13 @@ html:not(.light) {
   --color-glass-accent-pink: var(--glass-accent-pink);
   --color-glass-accent-cyan: var(--glass-accent-cyan);
   --color-glass-accent-green: var(--glass-accent-green);
+
+  /* Accent bright overlays */
+  --color-glass-accent-blue-bright: var(--glass-accent-blue-bright);
+  --color-glass-accent-purple-bright: var(--glass-accent-purple-bright);
+  --color-glass-accent-pink-bright: var(--glass-accent-pink-bright);
+  --color-glass-accent-cyan-bright: var(--glass-accent-cyan-bright);
+  --color-glass-accent-green-bright: var(--glass-accent-green-bright);
 
   /* ⚠️ Warning (Yellow) */
   --color-glass-warning: var(--glass-warning);

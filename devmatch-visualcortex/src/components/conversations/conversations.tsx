@@ -64,7 +64,7 @@ const Conversations = ({ user }: ConversationsProps) => {
               </div>
               <div>
                 <h3 className="font-semibold text-glass-text-primary">
-                  Your connections's Name
+                  Your connections's name
                 </h3>
                 <p className="text-green-400 text-xs">● Online</p>
               </div>
