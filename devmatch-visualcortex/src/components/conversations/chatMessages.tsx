@@ -1,23 +1,24 @@
+import { ConversationsProps } from "@/types/propTypes";
 import ReceivedChatBubble from "@/components/conversations/receivedChatBubble";
 import SentChatBubble from "@/components/conversations/sentChatBubble";
 import ChatsSeparator from "@/components/conversations/chatsSeparator";
 
-const ChatMessages = () => {
+const ChatMessages = ({ user }: ConversationsProps) => {
   return (
     <div className="w-full overflow-hidden">
-      <ReceivedChatBubble />
+      <ReceivedChatBubble user={user} />
 
       <SentChatBubble />
 
       <ChatsSeparator />
 
-      <ReceivedChatBubble />
+      <ReceivedChatBubble user={user} />
 
       <SentChatBubble />
-      <ReceivedChatBubble />
+      <ReceivedChatBubble user={user} />
 
       <SentChatBubble />
-      <ReceivedChatBubble />
+      <ReceivedChatBubble user={user} />
 
       <SentChatBubble />
     </div>

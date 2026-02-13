@@ -15,8 +15,11 @@ import Groups from "@/components/conversations/groups";
 import DefaultMainContent from "@/components/main/defaultMainContent";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import Textarea from "@/components/ui/inputs/textarea";
+import { getFullName, toTitleCase } from "@/lib/utils/utils";
 
 const Conversations = ({ user }: ConversationsProps) => {
+  console.log("debug from conversations user : ", user);
+
   const activeConversationTab = useDevMatchAppStore(
     (state) => state.activeConversationTab,
   );
@@ -56,18 +59,20 @@ const Conversations = ({ user }: ConversationsProps) => {
             <div className="p-1 border-b select-none">
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-3 hover:bg-glass-surface-light shadow-glass-shadow-medium hover:shadow p-1 pr-8 rounded-lg transition-all ease-in-out cursor-pointer">
-                  <div className="flex justify-center items-center shadow-glass-shadow-heavy shadow-md rounded-full w-10 h-8 font-semibold text-white">
+                  <div className="flex justify-center items-center shadow-glass-shadow-heavy shadow-md rounded-full w-10 h-10 font-semibold text-white">
                     <Image
-                      src={staticImages.avatarPlaceholder.src}
+                      src={
+                        user?.avatarUrl ?? staticImages.avatarPlaceholder.src
+                      }
                       alt={staticImages.avatarPlaceholder.alt}
                       width={100}
                       height={100}
-                      className="border rounded-full select-none"
+                      className="border rounded-full w-full h-full object-cover select-none"
                     />
                   </div>
                   <div>
                     <h3 className="font-semibold text-glass-text-primary">
-                      Your connections's name
+                      {toTitleCase(getFullName(user))}
                     </h3>
                     <p className="text-green-400 text-xs">● Online</p>
                   </div>
@@ -77,7 +82,7 @@ const Conversations = ({ user }: ConversationsProps) => {
 
             <div className="flex-1 p-2 pr-1 overflow-y-auto">
               <div className="space-y-4 [&::-webkit-scrollbar-thumb]:bg-glass-surface-light [&::-webkit-scrollbar-track]:bg-transparent mx-auto pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 max-w-5xl h-full overflow-y-auto [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
-                <ChatMessages />
+                <ChatMessages user={user} />
               </div>
             </div>
 

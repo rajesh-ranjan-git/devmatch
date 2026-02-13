@@ -1,11 +1,16 @@
 import Image from "next/image";
 import { staticImages } from "@/config/config";
+import { toTitleCase } from "@/lib/utils/utils";
+import { useDevMatchAppStore } from "@/store/store";
 
 const SentChatBubble = () => {
+  const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
+
   return (
     <div className="place-items-end gap-x-3 grid grid-cols-[1fr_auto] py-1">
       <div className="flex gap-1 col-start-1 row-start-1 text-xs select-none">
-        Anakin <time className="opacity-50 text-xs">2 hours ago</time>
+        {toTitleCase(loggedInUser?.firstName)}{" "}
+        <time className="opacity-50 text-xs">2 hours ago</time>
       </div>
 
       <div className="before:-right-2 before:bottom-0 before:absolute relative col-start-1 row-end-3 shadow shadow-glass-shadow-medium px-4 py-2 rounded rounded-ee-none w-fit before:w-3 min-w-10 max-w-[90%] before:h-3 min-h-8 text-glass-text-primary before:content-[''] before:rotate-y-180 before:scale-x-[-1] bg-glass-accent-green-bright before:bg-glass-accent-green-bright before:[clip-path:polygon(100%_87%,85%_100%,8%_100%,0%_0%,4%_0%,8%_19%,14%_38%,31%_42%,100%_87%)]">
@@ -14,13 +19,15 @@ const SentChatBubble = () => {
 
       <div className="self-end col-start-2 row-span-2">
         <div className="inline-flex relative">
-          <div className="flex justify-center items-center shadow-glass-shadow-heavy shadow-md rounded-full w-10 h-8 font-semibold text-glass-text-primary cursor-pointer">
+          <div className="flex justify-center items-center shadow-glass-shadow-heavy shadow-md rounded-full w-10 h-10 font-semibold text-glass-text-primary cursor-pointer">
             <Image
-              src={staticImages.avatarPlaceholder.src}
+              src={
+                loggedInUser?.avatarUrl ?? staticImages.avatarPlaceholder.src
+              }
               alt={staticImages.avatarPlaceholder.alt}
               width={100}
               height={100}
-              className="border rounded-full select-none"
+              className="border rounded-full w-full h-full object-cover select-none"
             />
           </div>
         </div>

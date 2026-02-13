@@ -21,13 +21,13 @@ const Chats = () => {
               key={item}
               className="flex items-center gap-2 bg-glass-surface-light hover:bg-glass-surface-heavy shadow shadow-glass-shadow-medium p-2 border rounded-lg transition-colors cursor-pointer"
             >
-              <div className="flex justify-center items-center shadow-glass-shadow-heavy shadow-md rounded-full w-10 h-8 font-semibold text-white cursor-pointer">
+              <div className="flex justify-center items-center shadow-glass-shadow-heavy shadow-md rounded-full w-10 h-10 font-semibold text-white cursor-pointer">
                 <Image
                   src={staticImages.avatarPlaceholder.src}
                   alt={staticImages.avatarPlaceholder.alt}
                   width={100}
                   height={100}
-                  className="border rounded-full select-none"
+                  className="border rounded-full w-full h-full object-cover select-none"
                 />
               </div>
               <div>

@@ -29,7 +29,7 @@ const Calls = () => {
                   alt={staticImages.avatarPlaceholder.alt}
                   width={100}
                   height={100}
-                  className="border rounded-full select-none"
+                  className="border rounded-full w-full h-full object-cover select-none"
                 />
               </div>
               <div className="flex justify-between items-center pt-1 w-full">
