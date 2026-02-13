@@ -1,7 +1,11 @@
-import socket from "socket.io";
+import { Server } from "socket.io";
+import {
+  BRAINBOX_HOST_URL,
+  VISUALCORTEX_HOST_URL,
+} from "../config/constants.js";
 
 export const initializeSocket = (server) => {
-  const io = socket(server, {
+  const io = new Server(server, {
     cors: {
       origin: [BRAINBOX_HOST_URL, VISUALCORTEX_HOST_URL],
     },

@@ -5,6 +5,11 @@ import path from "path";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
+import {
+  BRAINBOX_PORT,
+  BRAINBOX_HOST_URL,
+  VISUALCORTEX_HOST_URL,
+} from "../config/constants.js";
 import { status } from "../config/config.js";
 import connectDB from "../db/connectDB.js";
 import userRouter from "../routes/user.js";
@@ -21,12 +26,6 @@ const envFile =
     : "env/env-development";
 
 dotenv.config({ path: path.resolve(process.cwd(), "env", envFile) });
-
-const BRAINBOX_PORT = process.env.BRAINBOX_PORT || 5000;
-const BRAINBOX_HOST_URL =
-  process.env.BRAINBOX_HOST_URL || "http://localhost:5000";
-const VISUALCORTEX_HOST_URL =
-  process.env.VISUALCORTEX_HOST_URL || "http://localhost:3000";
 
 const app = express();
 
