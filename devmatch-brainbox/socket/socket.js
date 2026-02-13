@@ -12,8 +12,12 @@ export const initializeSocket = (server) => {
   });
 
   io.on("connection", (socket) => {
-    socket.on("joinChat", () => {});
-    socket.on("sendMessage", () => {});
-    socket.on("disconnect", () => {});
+    socket.on("joinChat", ({ userId, targetUserId }) => {
+      const roomId = [userId, targetUserId].sort().join("-");
+
+      socket.join(roomId);
+    });
+    socket.on("sendMessage", ({ userId, targetUserId }) => {});
+    socket.on("disconnect", ({ userId, targetUserId }) => {});
   });
 };

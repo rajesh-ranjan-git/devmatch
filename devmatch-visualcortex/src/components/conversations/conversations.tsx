@@ -6,6 +6,7 @@ import { TiAttachmentOutline } from "react-icons/ti";
 import { CONVERSATION_TABS } from "@/config/constants";
 import { conversationTabs, staticImages } from "@/config/config";
 import { ConversationsProps } from "@/types/propTypes";
+import { getFullName, toTitleCase } from "@/lib/utils/utils";
 import { useDevMatchAppStore } from "@/store/store";
 import ConversationsTab from "@/components/conversations/conversationsTab";
 import Chats from "@/components/conversations/chats";
@@ -15,11 +16,8 @@ import Groups from "@/components/conversations/groups";
 import DefaultMainContent from "@/components/main/defaultMainContent";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import Textarea from "@/components/ui/inputs/textarea";
-import { getFullName, toTitleCase } from "@/lib/utils/utils";
 
 const Conversations = ({ user }: ConversationsProps) => {
-  console.log("debug from conversations user : ", user);
-
   const activeConversationTab = useDevMatchAppStore(
     (state) => state.activeConversationTab,
   );
