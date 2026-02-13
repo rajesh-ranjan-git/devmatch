@@ -7,7 +7,7 @@ import SentChatBubble from "@/components/conversations/sentChatBubble";
 import ChatsSeparator from "@/components/conversations/chatsSeparator";
 
 const ChatMessages = ({ user }: ConversationsProps) => {
-  const [messages, setMessages] = useState({ text: "Hello bro!" });
+  const [chatMessages, setChatMessages] = useState({ text: "Hello bro!" });
 
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
 
