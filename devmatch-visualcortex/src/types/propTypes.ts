@@ -118,6 +118,7 @@ export interface TextareaProps {
   defaultValue?: string;
   className?: string;
   onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  onKeyDown: () => void;
 }
 
 export interface ChipsProps {

@@ -34,13 +34,13 @@ const ChatMessages = ({
   }, [loggedInUser, user]);
 
   return (
-    <div className="w-full h-full overflow-hidden">
+    <div className="w-full overflow-hidden">
       {chatMessages?.length ? (
         chatMessages?.map((message, idx) => (
           <ReceivedChatBubble key={idx} user={user} message={message.text} />
         ))
       ) : (
-        <div className="flex flex-col justify-center items-center gap-4 w-full h-full text-xl">
+        <div className="flex flex-col justify-center items-center gap-4 pt-8 w-full h-full text-xl">
           <span>
             <TbMessageReportFilled size={40} />
           </span>

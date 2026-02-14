@@ -123,6 +123,7 @@ const Conversations = ({ user }: ConversationsProps) => {
                     onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
                       setNewMessage({ text: e.target.value })
                     }
+                    onKeyDown={handleSendMessage}
                   />
                   <ButtonNormal
                     icon={<IoSend />}
