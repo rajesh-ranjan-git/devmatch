@@ -28,8 +28,8 @@ const ReceivedChatBubble = ({ user, message }: ChatBubbleProps) => {
       </div>
 
       <div className="before:bottom-0 before:-left-2 before:absolute relative flex flex-col col-start-2 row-end-3 shadow shadow-glass-shadow-medium px-4 py-2 rounded-xl rounded-es-none w-fit before:w-3 min-w-10 max-w-[90%] before:h-3 min-h-8 text-glass-text-primary before:content-[''] bg-glass-accent-blue-bright before:bg-glass-accent-blue-bright before:[clip-path:polygon(0%_87%,15%_100%,92%_100%,100%_0%,96%_0%,92%_19%,86%_38%,69%_42%,0%_87%)]">
-        {message.split("\n").map((m) => (
-          <span>{m}</span>
+        {message.split("\n").map((m, idx) => (
+          <span key={idx}>{m}</span>
         ))}
       </div>
     </div>

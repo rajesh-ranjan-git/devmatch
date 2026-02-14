@@ -1,18 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
+import { TbMessageReportFilled } from "react-icons/tb";
 import { ChatMessagesProps } from "@/types/propTypes";
 import { useDevMatchAppStore } from "@/store/store";
 import { createSocketConnection } from "@/socket/socket";
 import ReceivedChatBubble from "@/components/conversations/receivedChatBubble";
 import SentChatBubble from "@/components/conversations/sentChatBubble";
 import ChatsSeparator from "@/components/conversations/chatsSeparator";
-import { TbMessageReportFilled } from "react-icons/tb";
 
 const ChatMessages = ({
   user,
   chatMessages,
   setChatMessages,
 }: ChatMessagesProps) => {
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatMessages]);
 
   useEffect(() => {
     if (!user?.id || !loggedInUser?.id) return;
@@ -36,9 +46,12 @@ const ChatMessages = ({
   return (
     <div className="w-full overflow-hidden">
       {chatMessages?.length ? (
-        chatMessages?.map((message, idx) => (
-          <ReceivedChatBubble key={idx} user={user} message={message.text} />
-        ))
+        <>
+          {chatMessages?.map((message, idx) => (
+            <ReceivedChatBubble key={idx} user={user} message={message.text} />
+          ))}
+          <div ref={messagesEndRef} />
+        </>
       ) : (
         <div className="flex flex-col justify-center items-center gap-4 pt-8 w-full h-full text-xl">
           <span>
