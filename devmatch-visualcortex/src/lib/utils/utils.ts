@@ -153,3 +153,149 @@ export const deepEquals = (a: unknown, b: unknown) => {
 
   return true;
 };
+
+export const formatChatMessageTime = (time: Date | string | number): string => {
+  const messageDate =
+    typeof time === "string" || typeof time === "number"
+      ? new Date(time)
+      : time;
+
+  const now = new Date();
+  const diffMs = now.getTime() - messageDate.getTime();
+  const diffMins = Math.floor(diffMs / (1000 * 60));
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+
+  if (diffMins < 1) {
+    return "now";
+  }
+
+  if (diffMins < 60) {
+    return diffMins === 1 ? "1 min ago" : `${diffMins} mins ago`;
+  }
+
+  if (diffHours < 24) {
+    return diffHours === 1 ? "1 hour ago" : `${diffHours} hours ago`;
+  }
+
+  const day = messageDate.getDate();
+  const month = messageDate.getMonth() + 1;
+  const year = messageDate.getFullYear();
+
+  return `${day}/${month}/${year}`;
+};
+
+export const formatChatSeparatorTime = (
+  time: Date | string | number,
+): string => {
+  const messageDate =
+    typeof time === "string" || typeof time === "number"
+      ? new Date(time)
+      : time;
+
+  const now = new Date();
+  const diffMs = now.getTime() - messageDate.getTime();
+  const diffMins = Math.floor(diffMs / (1000 * 60));
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+
+  if (diffMins < 1) {
+    return "now";
+  }
+
+  if (diffMins < 60) {
+    return diffMins === 1 ? "1 min ago" : `${diffMins} mins ago`;
+  }
+
+  if (diffHours < 24) {
+    return diffHours === 1 ? "1 hour ago" : `${diffHours} hours ago`;
+  }
+
+  const day = messageDate.getDate();
+  const month = messageDate.getMonth() + 1;
+  const year = messageDate.getFullYear();
+
+  return `${day}/${month}/${year}`;
+};
+
+export const formatDaySeparator = (date: Date | string | number): string => {
+  const messageDate = new Date(date);
+  const now = new Date();
+
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const msgDay = new Date(
+    messageDate.getFullYear(),
+    messageDate.getMonth(),
+    messageDate.getDate(),
+  );
+
+  const diffTime = today.getTime() - msgDay.getTime();
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  if (diffDays === 0) {
+    return "Today";
+  }
+
+  if (diffDays === 1) {
+    return "Yesterday";
+  }
+
+  if (diffDays >= 2 && diffDays <= 6) {
+    return `${diffDays} days ago`;
+  }
+
+  if (diffDays === 7) {
+    return "1 week ago";
+  }
+
+  if (diffDays >= 8 && diffDays <= 27) {
+    const weeks = Math.floor(diffDays / 7);
+    return `${weeks} weeks ago`;
+  }
+
+  const yearsDiff = now.getFullYear() - messageDate.getFullYear();
+  const monthsDiff = now.getMonth() - messageDate.getMonth();
+  const totalMonths = yearsDiff * 12 + monthsDiff;
+
+  if ((diffDays >= 28 && diffDays < 60) || totalMonths === 1) {
+    return "1 month ago";
+  }
+
+  if (totalMonths >= 2 && totalMonths < 12) {
+    return `${totalMonths} months ago`;
+  }
+
+  if (totalMonths >= 12 && totalMonths < 24) {
+    return "1 year ago";
+  }
+
+  if (totalMonths >= 24) {
+    const years = Math.floor(totalMonths / 12);
+    return `${years} years ago`;
+  }
+
+  return `${diffDays} days ago`;
+};
+
+export const shouldShowChatSeparator = (
+  currentMessageDate: Date | string | number,
+  previousMessageDate?: Date | string | number | null,
+): boolean => {
+  if (!previousMessageDate) {
+    return true;
+  }
+
+  const current = new Date(currentMessageDate);
+  const previous = new Date(previousMessageDate);
+
+  const currentDay = new Date(
+    current.getFullYear(),
+    current.getMonth(),
+    current.getDate(),
+  );
+  const previousDay = new Date(
+    previous.getFullYear(),
+    previous.getMonth(),
+    previous.getDate(),
+  );
+
+  return currentDay.getTime() !== previousDay.getTime();
+};

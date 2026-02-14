@@ -240,13 +240,14 @@ export interface ConversationsProps {
 
 export interface ChatMessagesProps {
   user?: UserType;
-  chatMessages: Record<"text", string>[];
+  chatMessages: MessageType[];
   setChatMessages: Dispatch<SetStateAction<MessageType[]>>;
 }
 
 export interface ChatBubbleProps {
   user?: UserType;
-  message: string;
+  message: MessageType;
+  isLatestMessage?: boolean;
 }
 
 export interface ConversationTabProps {

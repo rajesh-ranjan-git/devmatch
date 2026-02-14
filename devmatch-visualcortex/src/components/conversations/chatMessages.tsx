@@ -1,12 +1,13 @@
 import { useEffect, useRef } from "react";
 import { TbMessageReportFilled } from "react-icons/tb";
+import { MessageType } from "@/types/types";
 import { ChatMessagesProps } from "@/types/propTypes";
 import { useDevMatchAppStore } from "@/store/store";
 import { createSocketConnection } from "@/socket/socket";
+import { shouldShowChatSeparator } from "@/lib/utils/utils";
 import ReceivedChatBubble from "@/components/conversations/receivedChatBubble";
 import SentChatBubble from "@/components/conversations/sentChatBubble";
 import ChatsSeparator from "@/components/conversations/chatsSeparator";
-import { MessageType } from "@/types/types";
 
 const ChatMessages = ({
   user,
@@ -52,9 +53,39 @@ const ChatMessages = ({
     <div className="w-full overflow-hidden">
       {chatMessages?.length ? (
         <>
-          {chatMessages?.map((message, idx) => (
-            <ReceivedChatBubble key={idx} user={user} message={message.text} />
-          ))}
+          {chatMessages?.map((message, idx) => {
+            const previousMessage = idx > 0 ? chatMessages[idx - 1] : null;
+
+            const showChatSeparator = shouldShowChatSeparator(
+              message.sentAt,
+              previousMessage?.sentAt,
+            );
+
+            return message?.sentBy === user?.id ? (
+              <>
+                {showChatSeparator && <ChatsSeparator date={message.sentAt} />}
+
+                <ReceivedChatBubble
+                  key={idx}
+                  user={user}
+                  message={message}
+                  isLatestMessage={chatMessages?.length - 1 === idx}
+                />
+              </>
+            ) : message?.sentBy === loggedInUser?.id ? (
+              <>
+                {showChatSeparator && <ChatsSeparator date={message.sentAt} />}
+
+                <SentChatBubble
+                  key={idx}
+                  user={user}
+                  message={message}
+                  isLatestMessage={chatMessages?.length - 1 === idx}
+                />
+              </>
+            ) : null;
+          })}
+
           <div ref={messagesEndRef} />
         </>
       ) : (
