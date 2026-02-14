@@ -15,15 +15,15 @@ export const initializeSocket = (server) => {
     socket.on("joinChat", ({ userId, targetUserId }) => {
       const roomId = [userId, targetUserId].sort().join("-");
 
-      console.log("debug from server socket roomId : ", roomId);
-
       socket.join(roomId);
     });
+
     socket.on("sendMessage", ({ userId, targetUserId, message }) => {
-      console.log(
-        `debug from server socket userId : ${userId} sent message : ${message} to targetUserId : ${targetUserId}`,
-      );
+      const roomId = [userId, targetUserId].sort().join("-");
+
+      io.to(roomId).emit("receivedMessage", message);
     });
+
     socket.on("disconnect", ({ userId, targetUserId }) => {});
   });
 };

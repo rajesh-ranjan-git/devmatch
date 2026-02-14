@@ -239,6 +239,7 @@ export interface ConversationsProps {
 export interface ChatMessagesProps {
   user?: UserType;
   chatMessages: Record<"text", string>[];
+  setChatMessages: Dispatch<SetStateAction<Record<"text", string>[]>>;
 }
 
 export interface ChatBubbleProps {

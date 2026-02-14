@@ -7,7 +7,11 @@ import SentChatBubble from "@/components/conversations/sentChatBubble";
 import ChatsSeparator from "@/components/conversations/chatsSeparator";
 import { TbMessageReportFilled } from "react-icons/tb";
 
-const ChatMessages = ({ user, chatMessages }: ChatMessagesProps) => {
+const ChatMessages = ({
+  user,
+  chatMessages,
+  setChatMessages,
+}: ChatMessagesProps) => {
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
 
   useEffect(() => {
@@ -18,6 +22,10 @@ const ChatMessages = ({ user, chatMessages }: ChatMessagesProps) => {
     socket.emit("joinChat", {
       userId: loggedInUser?.id,
       targetUserId: user?.id,
+    });
+
+    socket.on("receivedMessage", (message) => {
+      setChatMessages((chatMessages) => [...chatMessages, { text: message }]);
     });
 
     return () => {

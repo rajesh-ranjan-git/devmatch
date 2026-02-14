@@ -42,7 +42,6 @@ const Conversations = ({ user }: ConversationsProps) => {
       message: newMessage.text,
     });
 
-    setChatMessages((prev) => [...prev, newMessage]);
     setNewMessage({ text: "" });
   };
 
@@ -101,7 +100,11 @@ const Conversations = ({ user }: ConversationsProps) => {
 
             <div className="flex-1 p-2 pr-1 overflow-y-auto">
               <div className="space-y-4 [&::-webkit-scrollbar-thumb]:bg-glass-surface-light [&::-webkit-scrollbar-track]:bg-transparent mx-auto pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 max-w-5xl h-full overflow-y-auto [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
-                <ChatMessages user={user} chatMessages={chatMessages} />
+                <ChatMessages
+                  user={user}
+                  chatMessages={chatMessages}
+                  setChatMessages={setChatMessages}
+                />
               </div>
             </div>
 
