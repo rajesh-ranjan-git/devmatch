@@ -254,3 +254,11 @@ export type ConversationTabType = {
   tab: ConversationTabsType;
   icon: ReactNode;
 };
+
+export type MessageType = {
+  text: string;
+  sentBy: string;
+  sentAt: string;
+  deliveredAt?: string;
+  seen?: boolean;
+};

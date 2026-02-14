@@ -6,6 +6,7 @@ import { createSocketConnection } from "@/socket/socket";
 import ReceivedChatBubble from "@/components/conversations/receivedChatBubble";
 import SentChatBubble from "@/components/conversations/sentChatBubble";
 import ChatsSeparator from "@/components/conversations/chatsSeparator";
+import { MessageType } from "@/types/types";
 
 const ChatMessages = ({
   user,
@@ -17,7 +18,11 @@ const ChatMessages = ({
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const container = messagesEndRef.current?.closest(".overflow-y-auto");
+
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
   };
 
   useEffect(() => {
@@ -34,8 +39,8 @@ const ChatMessages = ({
       targetUserId: user?.id,
     });
 
-    socket.on("receivedMessage", (message) => {
-      setChatMessages((chatMessages) => [...chatMessages, { text: message }]);
+    socket.on("receivedMessage", (message: MessageType) => {
+      setChatMessages((chatMessages) => [...chatMessages, message]);
     });
 
     return () => {

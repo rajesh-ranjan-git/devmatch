@@ -6,6 +6,7 @@ import { IoSend } from "react-icons/io5";
 import { TiAttachmentOutline } from "react-icons/ti";
 import { CONVERSATION_TABS } from "@/config/constants";
 import { conversationTabs, staticImages } from "@/config/config";
+import { MessageType } from "@/types/types";
 import { ConversationsProps } from "@/types/propTypes";
 import { getFullName, toTitleCase } from "@/lib/utils/utils";
 import { useDevMatchAppStore } from "@/store/store";
@@ -20,10 +21,12 @@ import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import Textarea from "@/components/ui/inputs/textarea";
 
 const Conversations = ({ user }: ConversationsProps) => {
-  const [chatMessages, setChatMessages] = useState<Record<"text", string>[]>(
-    [],
-  );
-  const [newMessage, setNewMessage] = useState({ text: "" });
+  const [chatMessages, setChatMessages] = useState<MessageType[]>([]);
+  const [newMessage, setNewMessage] = useState<MessageType>({
+    text: "",
+    sentBy: "",
+    sentAt: "",
+  });
 
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
   const activeConversationTab = useDevMatchAppStore(
@@ -42,7 +45,13 @@ const Conversations = ({ user }: ConversationsProps) => {
       message: newMessage.text,
     });
 
-    setNewMessage({ text: "" });
+    setNewMessage({
+      text: "",
+      sentBy: "",
+      sentAt: "",
+      deliveredAt: "",
+      seen: false,
+    });
   };
 
   return (
@@ -98,7 +107,7 @@ const Conversations = ({ user }: ConversationsProps) => {
               </div>
             </div>
 
-            <div className="flex-1 p-2 pr-1 overflow-y-auto">
+            <div className="flex-1 p-2 pr-1 h-full overflow-y-auto">
               <div className="space-y-4 [&::-webkit-scrollbar-thumb]:bg-glass-surface-light [&::-webkit-scrollbar-track]:bg-transparent mx-auto pr-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:rounded-full w-full [&::-webkit-scrollbar]:w-1 max-w-5xl h-full overflow-y-auto [&::-webkit-scrollbar-thumb]:hover:bg-glass-text-tertiary transition-all ease-in-out">
                 <ChatMessages
                   user={user}
@@ -120,9 +129,15 @@ const Conversations = ({ user }: ConversationsProps) => {
                     placeholder="Type your message..."
                     rows={1}
                     value={newMessage.text}
-                    onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-                      setNewMessage({ text: e.target.value })
-                    }
+                    onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
+                      if (loggedInUser?.id) {
+                        setNewMessage({
+                          text: e.target.value,
+                          sentBy: loggedInUser.id,
+                          sentAt: new Date().toISOString(),
+                        });
+                      }
+                    }}
                     onKeyDown={handleSendMessage}
                   />
                   <ButtonNormal

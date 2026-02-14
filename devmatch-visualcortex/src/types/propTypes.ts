@@ -9,6 +9,7 @@ import { IconType } from "react-icons";
 import {
   ContextMenuTypes,
   ConversationTabsType,
+  MessageType,
   NavbarMenuItemTypes,
   NotificationActionType,
   NotificationItemType,
@@ -240,7 +241,7 @@ export interface ConversationsProps {
 export interface ChatMessagesProps {
   user?: UserType;
   chatMessages: Record<"text", string>[];
-  setChatMessages: Dispatch<SetStateAction<Record<"text", string>[]>>;
+  setChatMessages: Dispatch<SetStateAction<MessageType[]>>;
 }
 
 export interface ChatBubbleProps {

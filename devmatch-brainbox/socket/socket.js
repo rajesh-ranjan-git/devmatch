@@ -21,7 +21,11 @@ export const initializeSocket = (server) => {
     socket.on("sendMessage", ({ userId, targetUserId, message }) => {
       const roomId = [userId, targetUserId].sort().join("-");
 
-      io.to(roomId).emit("receivedMessage", message);
+      io.to(roomId).emit("receivedMessage", {
+        text: message,
+        sentBy: userId,
+        sentAt: new Date().toISOString(),
+      });
     });
 
     socket.on("disconnect", ({ userId, targetUserId }) => {});
