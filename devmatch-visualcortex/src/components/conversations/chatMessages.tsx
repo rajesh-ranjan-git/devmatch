@@ -62,7 +62,7 @@ const ChatMessages = ({
             );
 
             return message?.sentBy === user?.id ? (
-              <>
+              <div key={idx}>
                 {showChatSeparator && <ChatsSeparator date={message.sentAt} />}
 
                 <ReceivedChatBubble
@@ -71,9 +71,9 @@ const ChatMessages = ({
                   message={message}
                   isLatestMessage={chatMessages?.length - 1 === idx}
                 />
-              </>
+              </div>
             ) : message?.sentBy === loggedInUser?.id ? (
-              <>
+              <div key={idx}>
                 {showChatSeparator && <ChatsSeparator date={message.sentAt} />}
 
                 <SentChatBubble
@@ -82,7 +82,7 @@ const ChatMessages = ({
                   message={message}
                   isLatestMessage={chatMessages?.length - 1 === idx}
                 />
-              </>
+              </div>
             ) : null;
           })}
 
