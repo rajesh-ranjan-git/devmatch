@@ -671,3 +671,7 @@ export const deepEquals = (a, b) => {
 
   return true;
 };
+
+export const getSecretRoomId = (participants) => {
+  return participants.sort().join("-");
+};

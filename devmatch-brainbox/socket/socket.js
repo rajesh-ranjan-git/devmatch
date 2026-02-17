@@ -3,6 +3,7 @@ import {
   BRAINBOX_HOST_URL,
   VISUALCORTEX_HOST_URL,
 } from "../config/constants.js";
+import { getSecretRoomId } from "../utils/utils.js";
 
 export const initializeSocket = (server) => {
   const io = new Server(server, {
@@ -13,13 +14,13 @@ export const initializeSocket = (server) => {
 
   io.on("connection", (socket) => {
     socket.on("joinChat", ({ userId, targetUserId }) => {
-      const roomId = [userId, targetUserId].sort().join("-");
+      const roomId = getSecretRoomId([userId, targetUserId]);
 
       socket.join(roomId);
     });
 
     socket.on("sendMessage", ({ userId, targetUserId, message }) => {
-      const roomId = [userId, targetUserId].sort().join("-");
+      const roomId = getSecretRoomId([userId, targetUserId]);
 
       io.to(roomId).emit("receivedMessage", {
         text: message,
