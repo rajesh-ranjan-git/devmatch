@@ -13,64 +13,6 @@
 - **[Motion](https://motion.dev/)** Web (UI) animation library for React, JavaScript and Vue.
 - **[Zustand](https://github.com/pmndrs/zustand)** – Lightweight state management solution for React.
 
-### Backend (devmatch-brainbox):
-
-- **[Node.js](https://nodejs.org/)** – JavaScript runtime environment.
-- **[Express.js](https://expressjs.com/)** – Fast and minimalist web framework for Node.js.
-- **[MongoDB](https://www.mongodb.com/)** – NoSQL database for scalable and flexible data storage.
-
----
-
-## 🔥 Features (Planned & In Progress)
-
-### 🎨 Frontend (devmatch-visualcortex):
-
-- [x] User registration & login
-- [x] Developer profile creation
-- [x] Swipe-based match interface
-- [ ] In-app messaging between matched users
-- [ ] In-app calling between matched users
-- [x] Real-time notifications
-- [x] Block functionality
-- [ ] Report functionality
-- [x] Profile visibility controls
-- [x] Profile update controls
-- [ ] GitHub/Linkedin integration
-- [ ] Admin dashboard for moderation
-
-### 🤖 Backend (devmatch-brainbox):
-
-- [x] User registration, login, logout, forgot password
-- [x] Authentication
-- [x] Real-time notifications
-- [x] Explore and connect with fellow developers
-- [x] Block functionality
-- [ ] Report functionality
-- [x] Profile visibility controls
-- [x] Profile update controls
-- [ ] Google Authentication integration
-- [ ] In-app messaging between matched users
-- [ ] In-app calling between matched users
-- [ ] GitHub/LinkedIn integration
-- [ ] Admin dashboard for moderation
-
----
-
-## 🪲 Known Bugs
-
-- Explore page seems like it keeps refreshing till toast notification is active.
-- While logging in the submit button when changes state from normal to loading or vice-versa, animation is not smooth.
-- When connection action is taken, the item removes in flash, it should be removed smoothly to the left with opacity transition.
-- Sometimes after login, the page is not moving explore, upon refresh the page sometimes still stays on login and does not move to explore.
-- Repeated code blocks related to connection actions.
-- Unnecessary multiple api calls in explore, profile and connection actions probably because of proxy.
-- When connection request is already sent, either it should not show that user's card on explore or it should allow to send the interested request again and should not throw error.
-- Notifications gets removed abruptly, it should have a sliding effect to the left and get removed.
-- Requests and connections gets removed abruptly, it should have a sliding effect to the left and get removed.
-- Upon submitting form if the token gets expired, it throws error but it should just redirect to login.
-- When password is expired, it stays on login window, there should be a new window to get user to reset the password.
-- Pagination is not working on explore.
-
 ---
 
 ## 📁 Folder Structure
@@ -79,64 +21,6 @@
 devmatch
 │
 ├── 📁 .vscode
-│
-├── 🤖 devmatch-brainbox 🤖
-│    ├── 📁 banner
-│    │    └── banner.js
-│    │
-│    ├── 📁 config
-│    │    ├── config.js
-│    │    └── dbConfig.js
-│    │
-│    ├── 📁 controllers
-│    │    ├── connection.js
-│    │    ├── explore.js
-│    │    ├── notification.js
-│    │    ├── profile.js
-│    │    └── user.js
-│    │
-│    ├── 📁 db
-│    │    ├── connectDB.js
-│    │    ├── sample_user.js
-│    │    └── seedDb.js
-│    │
-│    ├── 📁 env
-│    │    ├── .env-development
-│    │    └── .env-production
-│    │
-│    ├── 📁 errors
-│    │    └── CustomError.js
-│    │
-│    ├── 📁 middleware
-│    │    ├── auth.js
-│    │    └── request.js
-│    │
-│    ├── 📁 models
-│    │    ├── connection.js
-│    │    ├── notification.js
-│    │    └── user.js
-│    │
-│    ├── 📁 routes
-│    │    ├── connection.js
-│    │    ├── explore.js
-│    │    ├── notification.js
-│    │    ├── profile.js
-│    │    └── user.js
-│    │
-│    ├── 📁 src
-│    │    └── server.js
-│    │
-│    ├── 📁 utils
-│    │    ├── authUtils.js
-│    │    └── utils.js
-│    │
-│    ├── 📁 validations
-│    │    └── validation.js
-│    │
-│    ├── .gitignore
-│    ├── package-lock.json
-│    ├── package.json
-│    └── README.md
 │
 ├── 🧩 devmatch-visualcortex 🧩
 │    ├── 📁 .next
@@ -183,7 +67,7 @@ devmatch
 │    │    │    │
 │    │    │    ├── 📁 profile
 │    │    │    │    │
-│    │    │    │    ├── 📁 login
+│    │    │    │    ├── 📁 [id]
 │    │    │    │    │    └── page.tsx
 │    │    │    │    │
 │    │    │    │    └── page.tsx
@@ -199,8 +83,7 @@ devmatch
 │    │    │    ├── 📁 auth
 │    │    │    │    ├── authForm.tsx
 │    │    │    │    ├── authFormWrapper.tsx
-│    │    │    │    ├── checkAuthWrapper.tsx
-│    │    │    │    └── input.tsx
+│    │    │    │    └── checkAuth.tsx
 │    │    │    │
 │    │    │    ├── 📁 background
 │    │    │    │    ├── animatedBackground.tsx
@@ -224,28 +107,39 @@ devmatch
 │    │    │    │    ├── userCard.tsx
 │    │    │    │    └── userDetailsCardContent.tsx
 │    │    │    │
+│    │    │    ├── 📁 flash
+│    │    │    │    └── flash.tsx
+│    │    │    │
 │    │    │    ├── 📁 header
+│    │    │    │    ├── 📁 navbar
+│    │    │    │    │    ├── navbar.tsx
+│    │    │    │    │    └── navbarRight.tsx
+│    │    │    │    │
+│    │    │    │    ├── 📁 notifications
+│    │    │    │    │    ├── notifications.tsx
+│    │    │    │    │    ├── notificationsHeading.tsx
+│    │    │    │    │    └── notificationsItem.tsx
+│    │    │    │    │
 │    │    │    │    ├── header.tsx
-│    │    │    │    ├── logo.tsx
-│    │    │    │    ├── navbar.tsx
-│    │    │    │    ├── navbarRight.tsx
-│    │    │    │    └── notificationsDropdownItems.tsx
+│    │    │    │    └── logo.tsx
 │    │    │    │
 │    │    │    ├── 📁 main
 │    │    │    │    ├── defaultMainContent.tsx
 │    │    │    │    └── main.tsx
 │    │    │    │
 │    │    │    ├── 📁 profile
+│    │    │    │    ├── deleteAccountContext.tsx
 │    │    │    │    ├── profileCover.tsx
 │    │    │    │    ├── profileDetails.tsx
-│    │    │    │    └── profileTabularData.tsx
+│    │    │    │    ├── profileDetailsUpdateContext.tsx
+│    │    │    │    ├── profileDetailsUpdateDropdown.tsx
+│    │    │    │    ├── profileTabularData.tsx
+│    │    │    │    ├── singleProfileDetailsUpdateContext.tsx
+│    │    │    │    └── updatePasswordContext.tsx
 │    │    │    │
 │    │    │    ├── 📁 socialMedia
 │    │    │    │    ├── socialMedia.tsx
 │    │    │    │    └── socialMediaItem.tsx
-│    │    │    │
-│    │    │    ├── 📁 toast
-│    │    │    │    └── toast.tsx
 │    │    │    │
 │    │    │    ├── 📁 theme
 │    │    │    │    ├── themeManager.tsx
@@ -253,7 +147,6 @@ devmatch
 │    │    │    │
 │    │    │    └── 📁 ui
 │    │    │         ├── 📁 buttons
-│    │    │         │    ├── accountOptionsButton.tsx
 │    │    │         │    ├── buttonDestructive.tsx
 │    │    │         │    ├── buttonNormal.tsx
 │    │    │         │    ├── buttonSuccess.tsx
@@ -265,11 +158,19 @@ devmatch
 │    │    │         │    ├── submitButton.tsx
 │    │    │         │    └── userInfoButton.tsx
 │    │    │         │
+│    │    │         ├── 📁 chips
+│    │    │         │    └── chips.tsx
+│    │    │         │
 │    │    │         ├── 📁 contextMenu
 │    │    │         │    └── contextMenu.tsx
 │    │    │         │
 │    │    │         ├── 📁 dropdown
 │    │    │         │    └── dropdown.tsx
+│    │    │         │
+│    │    │         ├── 📁 inputs
+│    │    │         │    ├── input.tsx
+│    │    │         │    ├── radio.tsx
+│    │    │         │    └── textarea.tsx
 │    │    │         │
 │    │    │         ├── 📁 loaders
 │    │    │         │    └── initialLoader.tsx
@@ -286,6 +187,7 @@ devmatch
 │    │    │    └── constants.ts
 │    │    │
 │    │    ├── 📁 hooks
+│    │    │    ├── toast.tsx
 │    │    │    ├── useContextMenu.tsx
 │    │    │    ├── useOutsideClick.tsx
 │    │    │    ├── useSheet.tsx
@@ -295,7 +197,8 @@ devmatch
 │    │    │    │
 │    │    │    ├── 📁 actions
 │    │    │    │    ├── actions.ts
-│    │    │    │    └── authActions.ts
+│    │    │    │    ├── authActions.ts
+│    │    │    │    └── profileActions.ts
 │    │    │    │
 │    │    │    ├── 📁 api
 │    │    │    │    ├── api.ts
@@ -311,6 +214,9 @@ devmatch
 │    │    │    │
 │    │    │    └── 📁 validations
 │    │    │         └── validations.ts
+│    │    │
+│    │    ├── 📁 socket
+│    │    │    └── socket.tsx
 │    │    │
 │    │    ├── 📁 store
 │    │    │    └── store.tsx
@@ -333,92 +239,6 @@ devmatch
 
 ---
 
-## ⚙️ Getting Started
-
-### Prerequisites
-
-- Node.js ≥ 18.x
-- MongoDB (Atlas or local instance)
-
----
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/rajesh-ranjan-git/devmatch.git
-cd devmatch
-```
-
----
-
-### 2. Setup Environment Variables
-
-Create `.env` files:
-
-- `devmatch-visualcortex/env/.env-development`
-
-```env
-NEXT_PUBLIC_API_URL=http://localhost:5000/api
-```
-
-- `devmatch-brainbox/env/.env-development`
-
-```env
-# Environment
-NODE_ENV=development
-
-# Ports
-BRAINBOX_PORT=5000
-VISUALCORTEX_PORT=3000
-
-# Host URLs
-BRAINBOX_HOST_URL=http://localhost:5000
-VISUALCORTEX_HOST_URL=http://localhost:3000
-
-# Secret Keys
-BRAINBOX_SESSION_SECRET_KEY=
-BRAINBOX_JWT_SECRET_KEY=
-
-# Database Configurations
-DB_LOCAL_URI=mongodb://localhost:27017
-DB_LOCAL_NAME=devmatch-local
-DB_BASE_URI=
-DB_CLUSTER=
-DB_NAME=
-DB_USER=
-DB_PASSWORD=
-```
-
----
-
-### 3. Install Dependencies
-
-```bash
-# Backend
-cd ../devmatch-brainbox
-npm install
-
-# Frontend
-cd devmatch-visualcortex
-npm install
-```
-
----
-
-### 4. Run the App
-
-```bash
-# Start backend
-cd devmatch-brainbox
-npm run dev
-
-# Start frontend
-cd ../devmatch-visualcortex
-npm run dev
-```
-
----
-
 ## 🛠️ Dev Tools & Libraries
 
 - **Authentication:** JSON Web Tokens (JWT), Bcrypt JS
@@ -430,19 +250,3 @@ npm run dev
 - **Future Upgrades:** WebSockets for chat, Docker, CI/CD pipelines
 
 ---
-
-## 🤝 Contributing
-
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
-
----
-
-## 📄 License
-
-[MIT](LICENSE)
-
----
-
-## 🧠 Inspiration
-
-Built with passion for the dev community. Why swipe left or right on strangers when you can swipe on someone who knows what a merge conflict is?
