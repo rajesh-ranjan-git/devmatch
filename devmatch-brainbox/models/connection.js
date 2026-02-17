@@ -1,18 +1,16 @@
 import mongoose from "mongoose";
 
-import User from "./user.js";
-
 const connectionSchema = mongoose.Schema(
   {
     senderId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: User,
+      ref: "User",
     },
     receiverId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: User,
+      ref: "User",
     },
     connectionStatus: {
       type: String,
@@ -36,7 +34,7 @@ const connectionSchema = mongoose.Schema(
     lastActionedBy: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: User,
+      ref: "User",
     },
   },
   { timestamps: true }

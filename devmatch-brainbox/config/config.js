@@ -334,7 +334,8 @@ export const successMessages = {
   EXPLORE_DATA_FETCH_SUCCESS: "Explore data fetch successful!",
   NOTIFICATION_FETCH_SUCCESS: "Notifications fetch successful!",
   NOTIFICATION_READ_SUCCESS: "Notifications read successful!",
-  ACCOUNT_DELETION_SUCCESSFUL: "Account deleted successfully!",
+  ACCOUNT_DELETION_SUCCESS: "Account deleted successfully!",
+  FETCH_MESSAGES_SUCCESS: "Fetch messages success!"
 };
 
 export const jwtKnownErrors = {

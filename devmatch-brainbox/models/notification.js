@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 
-import User from "./user.js";
-
 const notificationSchema = mongoose.Schema(
   {
     type: {
@@ -13,12 +11,12 @@ const notificationSchema = mongoose.Schema(
     to: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: User,
+      ref: "User",
     },
     from: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: User,
+      ref: "User",
     },
     title: {
       type: String,

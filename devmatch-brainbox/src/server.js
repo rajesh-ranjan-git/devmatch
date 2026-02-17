@@ -16,6 +16,7 @@ import userRouter from "../routes/user.js";
 import profileRouter from "../routes/profile.js";
 import connectionRouter from "../routes/connection.js";
 import notificationRouter from "../routes/notification.js";
+import conversationRouter from "../routes/conversation.js";
 import exploreRouter from "../routes/explore.js";
 import { showDevMatchBanner } from "../banner/banner.js";
 import { initializeSocket } from "../socket/socket.js";
@@ -43,6 +44,7 @@ app.use("/api/user", userRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/connection", connectionRouter);
 app.use("/api/notification", notificationRouter);
+app.use("/api/conversation", conversationRouter);
 app.use("/api/", exploreRouter);
 
 app.get("/", (req, res) => {

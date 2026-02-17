@@ -354,7 +354,7 @@ export const deleteAccount = async (req, res) => {
     return res.status(status.deleted.statusCode).json({
       status: status.deleted.message,
       statusCode: status.deleted.statusCode,
-      message: successMessages.ACCOUNT_DELETION_SUCCESSFUL,
+      message: successMessages.ACCOUNT_DELETION_SUCCESS,
     });
   } catch (error) {
     return res
