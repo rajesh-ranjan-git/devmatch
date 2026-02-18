@@ -675,3 +675,26 @@ export const deepEquals = (a, b) => {
 export const getSecretRoomId = (participants) => {
   return participants.sort().join("-");
 };
+
+export const buildPagination = (totalCount, validatedPage, validatedLimit) => ({
+  total: totalCount || 0,
+  page: validatedPage || 1,
+  limit: validatedLimit || 10,
+  totalPages:
+    totalCount && validatedLimit ? Math.ceil(totalCount / validatedLimit) : 0,
+});
+
+export const handleError = (res, error, req) =>
+  res
+    .status(error?.status?.statusCode || status.internalServerError.statusCode)
+    .json({
+      status: error?.status?.message || status.internalServerError.message,
+      statusCode:
+        error?.status?.statusCode || status.internalServerError.statusCode,
+      apiUrl: error?.apiUrl || req?.url,
+      error: {
+        type: error?.type,
+        message: error?.message,
+        data: error?.data,
+      },
+    });

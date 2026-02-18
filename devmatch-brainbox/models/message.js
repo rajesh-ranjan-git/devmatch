@@ -16,6 +16,10 @@ const messageSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    isEdited: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true },
 );

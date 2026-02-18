@@ -8,6 +8,14 @@ const conversationSchema = mongoose.Schema(
       required: true,
     },
     messages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }],
+    isGroup: {
+      type: Boolean,
+      default: false,
+    },
+    groupName: {
+      type: String,
+      default: null,
+    },
   },
   { timestamps: true },
 );
