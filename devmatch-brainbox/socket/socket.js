@@ -3,8 +3,6 @@ import {
   BRAINBOX_HOST_URL,
   VISUALCORTEX_HOST_URL,
 } from "../config/constants.js";
-import Conversation from "../models/conversation.js";
-import Message from "../models/message.js";
 import { getSecretRoomId } from "../utils/utils.js";
 
 export const initializeSocket = (server) => {
