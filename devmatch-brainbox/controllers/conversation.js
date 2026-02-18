@@ -5,6 +5,7 @@ import {
   successMessages,
 } from "../config/config.js";
 import { ForbiddenError, ValidationError } from "../errors/CustomError.js";
+import Connection from "../models/connection.js";
 import Conversation from "../models/conversation.js";
 import Message from "../models/message.js";
 import { isValidMongoDbObjectId } from "../utils/authUtils.js";
@@ -90,12 +91,35 @@ export const chatMessages = async (req, res) => {
       );
     }
 
+    const existingConnection = await Connection.find({
+      $and: [
+        {
+          $or: [
+            { senderId: loggedInUserId, receiverId: otherUserId },
+            { senderId: otherUserId, receiverId: loggedInUserId },
+          ],
+        },
+        {
+          connectionStatus: connectionStatusProperties.ACCEPTED,
+        },
+      ],
+    });
+
+    if (!existingConnection) {
+      throw new ForbiddenError(
+        status.forbidden,
+        errorMessages.USER_NOT_CONNECTED_ERROR,
+        { otherUserId },
+        req?.url,
+      );
+    }
+
     const { page, limit } = await req?.query;
     const validatedPage = pageValidator(page);
     const validatedLimit = limitValidator(limit);
     const skip = ((validatedPage || 1) - 1) * (validatedLimit || 10);
 
-    let conversation = await Conversation.findOne({
+    const conversation = await Conversation.findOne({
       participants: { $all: [loggedInUserId, otherUserId] },
       isGroup: false,
     }).lean();

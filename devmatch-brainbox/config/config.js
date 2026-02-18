@@ -320,6 +320,8 @@ export const errorMessages = {
   ACCOUNT_DELETION_FAILED_ERROR: "Unable to delete account!",
   INVALID_CONVERSATION_ID_FORMAT_ERROR: "Invalid conversation id format!",
   INVALID_MESSAGE_ID_FORMAT_ERROR: "Invalid message id format!",
+  USER_NOT_CONNECTED_ERROR:
+    "Invalid fetch messages request, users are not connected!",
   INVALID_FETCH_MESSAGES_ERROR: "Invalid fetch messages request!",
   INVALID_MESSAGE_ERROR: "Invalid message!",
   INVALID_EDIT_MESSAGE_ERROR: "Invalid edit message request!",
