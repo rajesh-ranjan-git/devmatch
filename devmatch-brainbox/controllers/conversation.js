@@ -11,8 +11,9 @@ import Message from "../models/message.js";
 import { isValidMongoDbObjectId } from "../utils/authUtils.js";
 import {
   buildPagination,
-  handleError,
+  sendErrorResponse,
   sanitizeMongoData,
+  sendSuccessResponse,
 } from "../utils/utils.js";
 import { limitValidator, pageValidator } from "../validations/validation.js";
 
@@ -63,17 +64,16 @@ export const chats = async (req, res) => {
       }),
     );
 
-    return res.status(status.success.statusCode).json({
-      status: status.success.message,
-      statusCode: status.success.statusCode,
-      data: {
+    return sendSuccessResponse(
+      res,
+      {
         conversations: sanitizedConversations,
         pagination: buildPagination(totalCount, validatedPage, validatedLimit),
       },
-      message: successMessages.FETCH_CHATS_SUCCESS,
-    });
+      successMessages.FETCH_CHATS_SUCCESS,
+    );
   } catch (error) {
-    return handleError(res, error, req);
+    return sendErrorResponse(req, res, error);
   }
 };
 
@@ -125,16 +125,15 @@ export const chatMessages = async (req, res) => {
     }).lean();
 
     if (!conversation) {
-      return res.status(status.success.statusCode).json({
-        status: status.success.message,
-        statusCode: status.success.statusCode,
-        data: {
+      return sendSuccessResponse(
+        res,
+        {
           conversation: null,
           messages: [],
           pagination: buildPagination(0, validatedPage, validatedLimit),
         },
-        message: successMessages.FETCH_CHAT_MESSAGES_SUCCESS,
-      });
+        successMessages.FETCH_CHAT_MESSAGES_SUCCESS,
+      );
     }
 
     const sanitizedConversation = sanitizeMongoData(conversation);
@@ -149,10 +148,9 @@ export const chatMessages = async (req, res) => {
       Message.countDocuments({ conversationId: conversation._id }),
     ]);
 
-    return res.status(status.success.statusCode).json({
-      status: status.success.message,
-      statusCode: status.success.statusCode,
-      data: {
+    return sendSuccessResponse(
+      res,
+      {
         conversation: sanitizedConversation,
         messages: sanitizeMongoData(messages),
         pagination: buildPagination(
@@ -161,10 +159,10 @@ export const chatMessages = async (req, res) => {
           validatedLimit,
         ),
       },
-      message: successMessages.FETCH_CHAT_MESSAGES_SUCCESS,
-    });
+      successMessages.FETCH_CHAT_MESSAGES_SUCCESS,
+    );
   } catch (error) {
-    return handleError(res, error, req);
+    return sendErrorResponse(req, res, error);
   }
 };
 
@@ -212,17 +210,16 @@ export const groupChats = async (req, res) => {
       }),
     );
 
-    return res.status(status.success.statusCode).json({
-      status: status.success.message,
-      statusCode: status.success.statusCode,
-      data: {
+    return sendSuccessResponse(
+      res,
+      {
         conversations: sanitizedConversations,
         pagination: buildPagination(totalCount, validatedPage, validatedLimit),
       },
-      message: successMessages.FETCH_GROUP_CHATS_SUCCESS,
-    });
+      successMessages.FETCH_GROUP_CHATS_SUCCESS,
+    );
   } catch (error) {
-    return handleError(res, error, req);
+    return sendErrorResponse(req, res, error);
   }
 };
 
@@ -254,16 +251,15 @@ export const groupChatMessages = async (req, res) => {
       .lean();
 
     if (!conversation) {
-      return res.status(status.success.statusCode).json({
-        status: status.success.message,
-        statusCode: status.success.statusCode,
-        data: {
+      return sendSuccessResponse(
+        res,
+        {
           conversation: null,
           messages: [],
           pagination: buildPagination(0, validatedPage, validatedLimit),
         },
-        message: successMessages.FETCH_GROUP_CHAT_MESSAGES_SUCCESS,
-      });
+        successMessages.FETCH_GROUP_CHAT_MESSAGES_SUCCESS,
+      );
     }
 
     const sanitizedConversation = sanitizeMongoData(conversation);
@@ -278,10 +274,9 @@ export const groupChatMessages = async (req, res) => {
       Message.countDocuments({ conversationId: conversation._id }),
     ]);
 
-    return res.status(status.success.statusCode).json({
-      status: status.success.message,
-      statusCode: status.success.statusCode,
-      data: {
+    return sendSuccessResponse(
+      res,
+      {
         conversation: sanitizedConversation,
         messages: sanitizeMongoData(messages),
         pagination: buildPagination(
@@ -290,10 +285,10 @@ export const groupChatMessages = async (req, res) => {
           validatedLimit,
         ),
       },
-      message: successMessages.FETCH_GROUP_CHAT_MESSAGES_SUCCESS,
-    });
+      successMessages.FETCH_GROUP_CHAT_MESSAGES_SUCCESS,
+    );
   } catch (error) {
-    return handleError(res, error, req);
+    return sendErrorResponse(req, res, error);
   }
 };
 
@@ -335,14 +330,13 @@ export const editMessage = async (req, res) => {
       );
     }
 
-    return res.status(status.success.statusCode).json({
-      status: status.success.message,
-      statusCode: status.success.statusCode,
-      data: { message: sanitizeMongoData(editedMessage) },
-      message: successMessages.EDIT_CHAT_MESSAGE_SUCCESS,
-    });
+    return sendSuccessResponse(
+      res,
+      { message: sanitizeMongoData(editedMessage) },
+      successMessages.EDIT_CHAT_MESSAGE_SUCCESS,
+    );
   } catch (error) {
-    return handleError(res, error, req);
+    return sendErrorResponse(req, res, error);
   }
 };
 
@@ -379,13 +373,12 @@ export const deleteMessage = async (req, res) => {
       { $pull: { messages: deletedMessage._id } },
     );
 
-    return res.status(status.success.statusCode).json({
-      status: status.success.message,
-      statusCode: status.success.statusCode,
-      data: { messageId },
-      message: successMessages.DELETE_CHAT_MESSAGE_SUCCESS,
-    });
+    return sendSuccessResponse(
+      res,
+      { messageId },
+      successMessages.DELETE_CHAT_MESSAGE_SUCCESS,
+    );
   } catch (error) {
-    return handleError(res, error, req);
+    return sendErrorResponse(req, res, error);
   }
 };

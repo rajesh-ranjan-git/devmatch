@@ -684,8 +684,17 @@ export const buildPagination = (totalCount, validatedPage, validatedLimit) => ({
     totalCount && validatedLimit ? Math.ceil(totalCount / validatedLimit) : 0,
 });
 
-export const handleError = (res, error, req) =>
-  res
+export const sendSuccessResponse = (res, data, message) => {
+  return res.status(status.success.statusCode).json({
+    status: status.success.message,
+    statusCode: status.success.statusCode,
+    data: data,
+    message: message,
+  });
+};
+
+export const sendErrorResponse = (req, res, error) => {
+  return res
     .status(error?.status?.statusCode || status.internalServerError.statusCode)
     .json({
       status: error?.status?.message || status.internalServerError.message,
@@ -698,3 +707,4 @@ export const handleError = (res, error, req) =>
         data: error?.data,
       },
     });
+};
