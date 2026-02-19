@@ -3,19 +3,21 @@ import express from "express";
 import {
   chats,
   chatMessages,
-  groups,
+  groupChats,
   groupChatMessages,
-} from "../controllers/connection.js";
+  editMessage,
+  deleteMessage,
+} from "../controllers/conversation.js";
 import auth from "../middlewares/auth.js";
 
 const conversationRouter = express.Router();
 
-// conversationRouter.get("/calls", auth, callsList);
+// conversationRouter.get("/calls", auth, calls);
 conversationRouter.get("/chats", auth, chats);
-conversationRouter.get("/groups", auth, groups);
 conversationRouter.get("/chats/:id", auth, chatMessages);
-conversationRouter.get("/groups/:id", auth, groupChatMessages);
-conversationRouter.patch("/messages/:id", auth, chatMessages);
-conversationRouter.delete("/messages/:id", auth, groupChatMessages);
+conversationRouter.get("/group-chats", auth, groupChats);
+conversationRouter.get("/groups-chats/:id", auth, groupChatMessages);
+conversationRouter.patch("/message/:id", auth, editMessage);
+conversationRouter.delete("/message/:id", auth, deleteMessage);
 
 export default conversationRouter;
