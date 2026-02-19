@@ -4,19 +4,35 @@ import {
   VISUALCORTEX_HOST_URL,
 } from "../config/constants.js";
 import { getSecretRoomId } from "../utils/utils.js";
+import { verifyJwtToken } from "../utils/authUtils.js";
 
 export const initializeSocket = (server) => {
   const io = new Server(server, {
     cors: {
       origin: [BRAINBOX_HOST_URL, VISUALCORTEX_HOST_URL],
+      credentials: true,
     },
   });
 
   const onlineUsers = new Map();
   const typingUsers = new Map();
 
+  io.use((socket, next) => {
+    const token = socket.handshake.auth?.token;
+
+    if (!token) return next(new Error("Authentication required"));
+
+    try {
+      const payload = verifyJwtToken(token);
+      socket.data.user = payload;
+      next();
+    } catch {
+      next(new Error("Invalid or expired token"));
+    }
+  });
+
   io.on("connection", (socket) => {
-    const userId = socket.handshake.query?.userId;
+    const userId = socket.data.user.id;
 
     if (userId) {
       onlineUsers.set(userId, socket.id);
@@ -24,25 +40,25 @@ export const initializeSocket = (server) => {
       io.emit("onlineUsers", Array.from(onlineUsers.keys()));
     }
 
-    socket.on("joinChat", ({ userId, targetUserId }) => {
+    socket.on("joinChat", ({ targetUserId }) => {
       const roomId = getSecretRoomId([userId, targetUserId]);
 
       socket.join(roomId);
     });
 
-    socket.on("sendMessage", ({ userId, targetUserId, message }) => {
+    socket.on("sendMessage", ({ targetUserId, message }) => {
       const roomId = getSecretRoomId([userId, targetUserId]);
 
       io.to(roomId).emit("receivedMessage", message);
     });
 
-    socket.on("editMessage", ({ userId, targetUserId, messageId, newText }) => {
+    socket.on("editMessage", ({ targetUserId, messageId, newText }) => {
       const roomId = getSecretRoomId([userId, targetUserId]);
 
       io.to(roomId).emit("messageEdited", { messageId, newText });
     });
 
-    socket.on("deleteMessage", ({ userId, targetUserId, messageId }) => {
+    socket.on("deleteMessage", ({ targetUserId, messageId }) => {
       const roomId = getSecretRoomId([userId, targetUserId]);
 
       io.to(roomId).emit("messageDeleted", { messageId });

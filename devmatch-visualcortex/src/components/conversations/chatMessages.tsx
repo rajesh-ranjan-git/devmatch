@@ -5,9 +5,11 @@ import { ChatMessagesProps } from "@/types/propTypes";
 import { useDevMatchAppStore } from "@/store/store";
 import { createSocketConnection } from "@/socket/socket";
 import { shouldShowChatSeparator } from "@/lib/utils/utils";
+import { getCookies } from "@/lib/api/cookiesHandler";
 import ReceivedChatBubble from "@/components/conversations/receivedChatBubble";
 import SentChatBubble from "@/components/conversations/sentChatBubble";
 import ChatsSeparator from "@/components/conversations/chatsSeparator";
+import { Socket } from "socket.io-client";
 
 const ChatMessages = ({
   user,
@@ -33,16 +35,25 @@ const ChatMessages = ({
   useEffect(() => {
     if (!user?.id || !loggedInUser?.id) return;
 
-    const socket = createSocketConnection();
+    let socket: Socket;
 
-    socket.emit("joinChat", {
-      userId: loggedInUser?.id,
-      targetUserId: user?.id,
-    });
+    const initSocket = async () => {
+      const token = await getCookies("authToken");
 
-    socket.on("receivedMessage", (message: MessageType) => {
-      setChatMessages((chatMessages) => [...chatMessages, message]);
-    });
+      if (!token || typeof token !== "string") return;
+
+      socket = createSocketConnection({ token });
+
+      socket.emit("joinChat", {
+        targetUserId: user?.id,
+      });
+
+      socket.on("receivedMessage", (message: MessageType) => {
+        setChatMessages((chatMessages) => [...chatMessages, message]);
+      });
+    };
+
+    initSocket();
 
     return () => {
       socket.disconnect();
