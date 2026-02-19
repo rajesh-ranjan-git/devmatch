@@ -17,4 +17,6 @@ export const apiUrls = {
   viewRequests: `${BASE_API_URL}/connection/requests`,
   viewNotifications: `${BASE_API_URL}/notification/view`,
   markNotificationRead: `${BASE_API_URL}/notification/mark`,
+  chats: `${BASE_API_URL}/conversation/chats`,
+  groupChats: `${BASE_API_URL}/conversation/groups-chats`,
 } as const;

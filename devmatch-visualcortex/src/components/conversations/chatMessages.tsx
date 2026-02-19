@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { TbMessageReportFilled } from "react-icons/tb";
+import { Socket } from "socket.io-client";
 import { MessageType } from "@/types/types";
 import { ChatMessagesProps } from "@/types/propTypes";
 import { useDevMatchAppStore } from "@/store/store";
@@ -9,7 +10,7 @@ import { getCookies } from "@/lib/api/cookiesHandler";
 import ReceivedChatBubble from "@/components/conversations/receivedChatBubble";
 import SentChatBubble from "@/components/conversations/sentChatBubble";
 import ChatsSeparator from "@/components/conversations/chatsSeparator";
-import { Socket } from "socket.io-client";
+import { getChatMessages } from "@/lib/actions/conversationActions";
 
 const ChatMessages = ({
   user,
@@ -49,6 +50,7 @@ const ChatMessages = ({
       });
 
       socket.on("received-message", (message: MessageType) => {
+        console.log("debug from socket received-message : ", message);
         setChatMessages((chatMessages) => [...chatMessages, message]);
       });
     };
@@ -59,6 +61,20 @@ const ChatMessages = ({
       socket.disconnect();
     };
   }, [loggedInUser, user]);
+
+  useEffect(() => {
+    if (!user?.id) return;
+
+    const fetchChatMessages = async (id: string) => {
+      const data = await getChatMessages(id);
+
+      console.log("debug from chatMessages fetchChatMessages data : ", data);
+
+      setChatMessages(data);
+    };
+
+    fetchChatMessages(user?.id);
+  }, [user]);
 
   return (
     <div className="w-full overflow-hidden">

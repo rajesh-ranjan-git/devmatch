@@ -32,7 +32,7 @@ export const initializeSocket = (server) => {
   });
 
   io.on("connection", (socket) => {
-    const userId = socket.data.user.id;
+    const userId = socket.data.user;
 
     if (userId) {
       onlineUsers.set(userId, socket.id);
@@ -42,12 +42,14 @@ export const initializeSocket = (server) => {
 
     socket.on("join-chat", ({ targetUserId }) => {
       const roomId = getSecretRoomId([userId, targetUserId]);
-
+      
       socket.join(roomId);
     });
-
+    
     socket.on("send-message", ({ targetUserId, message }) => {
       const roomId = getSecretRoomId([userId, targetUserId]);
+      console.log("debug from socket roomId : ", roomId)
+      console.log("debug from socket message : ", message)
 
       io.to(roomId).emit("received-message", message);
     });

@@ -1,4 +1,5 @@
 import {
+  connectionStatusProperties,
   defaultUserProperties,
   errorMessages,
   status,
