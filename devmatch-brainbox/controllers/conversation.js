@@ -349,7 +349,7 @@ export const deleteMessage = async (req, res) => {
     if (messageId && !isValidMongoDbObjectId(messageId)) {
       throw new ValidationError(
         status.forbidden,
-        errorMessages.INVALID_NOTIFICATION_ID_FORMAT_ERROR,
+        errorMessages.INVALID_MESSAGE_ID_FORMAT_ERROR,
         { messageId },
         req?.url,
       );
@@ -508,7 +508,7 @@ export const sendGroupMessage = async (req, res) => {
     if (!conversation) {
       throw new ForbiddenError(
         status.forbidden,
-        errorMessages.CONVERSATION_NOT_FOUND_ERROR,
+        errorMessages.INVALID_GROUP_ERROR,
         { conversationId },
         req?.url,
       );
@@ -566,7 +566,7 @@ export const forwardMessages = async (req, res) => {
     if (!Array.isArray(targets) || !targets.length) {
       throw new ValidationError(
         status.badRequest,
-        errorMessages.INVALID_USER_ID_FORMAT_ERROR,
+        errorMessages.INVALID_TARGET_ID_ERROR,
         {},
         req?.url,
       );
@@ -771,7 +771,7 @@ export const messageInfo = async (req, res) => {
     if (!message) {
       throw new ForbiddenError(
         status.forbidden,
-        errorMessages.INVALID_MESSAGE_ID_FORMAT_ERROR,
+        errorMessages.MESSAGE_NOT_FOUND_ERROR,
         { messageId },
         req?.url,
       );

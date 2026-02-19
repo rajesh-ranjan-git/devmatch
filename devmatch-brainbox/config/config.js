@@ -326,6 +326,9 @@ export const errorMessages = {
   INVALID_MESSAGE_ERROR: "Invalid message!",
   INVALID_EDIT_MESSAGE_ERROR: "Invalid edit message request!",
   INVALID_DELETE_MESSAGE_ERROR: "Invalid delete message request!",
+  INVALID_GROUP_ERROR: "Invalid group!",
+  INVALID_TARGET_ID_ERROR: "Invalid set of target ids!",
+  MESSAGE_NOT_FOUND_ERROR: "Message not found!",
 };
 
 export const successMessages = {
@@ -349,6 +352,12 @@ export const successMessages = {
   FETCH_GROUP_CHAT_MESSAGES_SUCCESS: "Group chat messages fetched!",
   EDIT_CHAT_MESSAGE_SUCCESS: "Chat message edited!",
   DELETE_CHAT_MESSAGE_SUCCESS: "Chat message deleted!",
+  SEND_CHAT_MESSAGE_SUCCESS: "Message sent!",
+  SEND_GROUP_CHAT_MESSAGE_SUCCESS: "Group message sent!",
+  FORWARD_MESSAGE_SUCCESS: "Message(s) forwarded!",
+  MESSAGE_DELIVERED_SUCCESS: "Message delivered!",
+  MESSAGE_SEEN_SUCCESS: "Message seen!",
+  FETCH_MESSAGE_INFO_SUCCESS: "Message info fetched!",
 };
 
 export const jwtKnownErrors = {
