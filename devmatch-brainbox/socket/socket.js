@@ -3,6 +3,7 @@ import {
   BRAINBOX_HOST_URL,
   VISUALCORTEX_HOST_URL,
 } from "../config/constants.js";
+import User from "../models/user.js";
 import { getSecretRoomId } from "../utils/utils.js";
 import { verifyJwtToken } from "../utils/authUtils.js";
 
@@ -52,16 +53,36 @@ export const initializeSocket = (server) => {
       io.to(roomId).emit("received-message", message);
     });
 
-    socket.on("edit-message", ({ targetUserId, messageId, newText }) => {
+    socket.on("edit-message", ({ targetUserId, messageId, newMessage }) => {
       const roomId = getSecretRoomId([userId, targetUserId]);
 
-      io.to(roomId).emit("message-edited", { messageId, newText });
+      io.to(roomId).emit("message-edited", { messageId, newMessage });
     });
 
     socket.on("delete-message", ({ targetUserId, messageId }) => {
       const roomId = getSecretRoomId([userId, targetUserId]);
 
       io.to(roomId).emit("message-deleted", { messageId });
+    });
+
+    socket.on("message-delivered", ({ targetUserId, messageId }) => {
+      const roomId = getSecretRoomId([userId, targetUserId]);
+
+      socket
+        .to(roomId)
+        .emit("message-delivered", { messageId, deliveredTo: userId });
+    });
+
+    socket.on("message-seen", ({ targetUserId, messageId }) => {
+      const roomId = getSecretRoomId([userId, targetUserId]);
+
+      socket.to(roomId).emit("message-seen", { messageId, seenBy: userId });
+    });
+
+    socket.on("forward-message", ({ targetUserId, message }) => {
+      const roomId = getSecretRoomId([userId, targetUserId]);
+
+      io.to(roomId).emit("received-message", message);
     });
 
     socket.on("join-group-chat", ({ conversationId }) => {
@@ -90,6 +111,24 @@ export const initializeSocket = (server) => {
       io.to(conversationId).emit("group-message-deleted", { messageId });
     });
 
+    socket.on("group-message-delivered", ({ conversationId, messageId }) => {
+      socket.to(conversationId).emit("group-message-delivered", {
+        messageId,
+        deliveredTo: userId,
+      });
+    });
+
+    socket.on("group-message-seen", ({ conversationId, messageId }) => {
+      socket.to(conversationId).emit("group-message-seen", {
+        messageId,
+        seenBy: userId,
+      });
+    });
+
+    socket.on("forward-group-message", ({ conversationId, message }) => {
+      io.to(conversationId).emit("received-group-message", message);
+    });
+
     socket.on("typing", ({ userId, targetUserId }) => {
       const roomId = getSecretRoomId([userId, targetUserId]);
 
@@ -108,7 +147,7 @@ export const initializeSocket = (server) => {
       }
       typingUsers.get(conversationId).add(userId);
 
-      socket.to(conversationId).emit("usersTyping", {
+      socket.to(conversationId).emit("users-typing", {
         conversationId,
         typingUserIds: Array.from(typingUsers.get(conversationId)),
       });
@@ -123,7 +162,13 @@ export const initializeSocket = (server) => {
       });
     });
 
-    socket.on("disconnect", () => {
+    socket.on("disconnect", async () => {
+      if (userId) {
+        await User.findByIdAndUpdate(userId, { lastSeen: new Date() }).catch(
+          () => {},
+        );
+      }
+
       typingUsers.forEach((users, conversationId) => {
         if (users.has(userId)) {
           users.delete(userId);

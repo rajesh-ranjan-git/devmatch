@@ -240,8 +240,12 @@ const userSchema = mongoose.Schema(
         match: PIN_CODE_REGEX,
       },
     },
+    lastSeen: {
+      type: Date,
+      default: null,
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const User = mongoose.model("User", userSchema);

@@ -20,6 +20,36 @@ const messageSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    editedAt: {
+      type: Date,
+      default: null,
+    },
+    deliveredTo: [
+      {
+        userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        deliveredAt: { type: Date, default: Date.now },
+      },
+    ],
+    seenBy: [
+      {
+        userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        seenAt: { type: Date, default: Date.now },
+      },
+    ],
+    replyTo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Message",
+      default: null,
+    },
+    isForwarded: {
+      type: Boolean,
+      default: false,
+    },
+    originalMessageId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Message",
+      default: null,
+    },
   },
   { timestamps: true },
 );
