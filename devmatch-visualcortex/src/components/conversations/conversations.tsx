@@ -19,6 +19,8 @@ import Groups from "@/components/conversations/groups";
 import DefaultMainContent from "@/components/main/defaultMainContent";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import Textarea from "@/components/ui/inputs/textarea";
+import { getCookies } from "@/lib/api/cookiesHandler";
+import { Socket } from "socket.io-client";
 
 const Conversations = ({ user }: ConversationsProps) => {
   const [chatMessages, setChatMessages] = useState<MessageType[]>([]);
@@ -37,21 +39,37 @@ const Conversations = ({ user }: ConversationsProps) => {
   );
 
   const handleSendMessage = () => {
-    const socket = createSocketConnection();
+    if (!user?.id || !loggedInUser?.id) return;
 
-    socket.emit("sendMessage", {
-      userId: loggedInUser?.id,
-      targetUserId: user?.id,
-      message: newMessage.text,
-    });
+    let socket: Socket;
 
-    setNewMessage({
-      text: "",
-      sentBy: "",
-      sentAt: "",
-      deliveredAt: "",
-      seen: false,
-    });
+    const initSocket = async () => {
+      const token = await getCookies("authToken");
+
+      if (!token || typeof token !== "string") return;
+
+      socket = createSocketConnection({ token });
+
+      socket.emit("join-chat", {
+        targetUserId: user?.id,
+      });
+
+      socket.emit("send-message", {
+        userId: loggedInUser?.id,
+        targetUserId: user?.id,
+        message: newMessage.text,
+      });
+
+      setNewMessage({
+        text: "",
+        sentBy: "",
+        sentAt: "",
+        deliveredAt: "",
+        seen: false,
+      });
+    };
+
+    initSocket();
   };
 
   return (

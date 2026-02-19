@@ -44,11 +44,11 @@ const ChatMessages = ({
 
       socket = createSocketConnection({ token });
 
-      socket.emit("joinChat", {
+      socket.emit("join-chat", {
         targetUserId: user?.id,
       });
 
-      socket.on("receivedMessage", (message: MessageType) => {
+      socket.on("received-message", (message: MessageType) => {
         setChatMessages((chatMessages) => [...chatMessages, message]);
       });
     };
