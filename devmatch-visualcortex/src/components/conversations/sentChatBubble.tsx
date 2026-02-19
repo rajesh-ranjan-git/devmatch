@@ -3,11 +3,16 @@ import Image from "next/image";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { PiCheckBold, PiChecksBold } from "react-icons/pi";
 import { staticImages } from "@/config/config";
-import { ChatBubbleProps } from "@/types/propTypes";
+import { SentChatBubbleProps } from "@/types/propTypes";
 import { useDevMatchAppStore } from "@/store/store";
 import { formatChatMessageTime, toTitleCase } from "@/lib/utils/utils";
+import { TbClockBitcoin } from "react-icons/tb";
 
-const SentChatBubble = ({ message, isLatestMessage }: ChatBubbleProps) => {
+const SentChatBubble = ({
+  message,
+  isLatestMessage,
+  handleResendMessage,
+}: SentChatBubbleProps) => {
   const [, setTick] = useState(0);
 
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
@@ -25,16 +30,20 @@ const SentChatBubble = ({ message, isLatestMessage }: ChatBubbleProps) => {
       <div className="flex gap-1 col-start-1 row-start-1 text-xs select-none">
         {toTitleCase(loggedInUser?.firstName)}
 
-        {message?.sentAt && (
+        {message?.createdAt && (
           <time className="opacity-50 text-xs">
-            {formatChatMessageTime(message?.sentAt)}
+            {formatChatMessageTime(
+              message?.createdAt ?? Date.now().toLocaleString(),
+            )}
           </time>
         )}
       </div>
 
       <div className="before:-right-2 before:bottom-0 before:absolute relative flex flex-col col-start-1 row-end-3 shadow shadow-glass-shadow-medium px-4 py-2 rounded-xl rounded-ee-none w-fit before:w-3 min-w-10 max-w-[90%] before:h-3 min-h-8 text-glass-text-primary before:content-[''] before:rotate-y-180 before:scale-x-[-1] bg-glass-accent-green-bright before:bg-glass-accent-green-bright before:[clip-path:polygon(100%_87%,85%_100%,8%_100%,0%_0%,4%_0%,8%_19%,14%_38%,31%_42%,100%_87%)]">
-        {message?.text &&
-          message.text.split("\n").map((m, idx) => <span key={idx}>{m}</span>)}
+        {message?.message &&
+          message.message
+            .split("\n")
+            .map((m, idx) => <span key={idx}>{m}</span>)}
       </div>
 
       <div className="self-end col-start-2 row-span-2">
@@ -54,18 +63,26 @@ const SentChatBubble = ({ message, isLatestMessage }: ChatBubbleProps) => {
       </div>
 
       <div className="col-start-1 opacity-50 text-xs select-none">
-        {isLatestMessage && (
+        {message.status === "sending" && <TbClockBitcoin />}
+
+        {message.status === "sent" && (
           <>
-            {message?.deliveredAt && message?.seen ? (
+            {message?.deliveredTo && message?.seenBy ? (
               <PiChecksBold className="text-glass-accent-blue-bright" />
-            ) : message?.deliveredAt && !message?.seen ? (
+            ) : message?.deliveredTo && !message?.seenBy ? (
               <PiChecksBold />
-            ) : !message?.deliveredAt && message?.sentAt ? (
+            ) : !message?.deliveredTo && message?.seenBy ? (
               <PiCheckBold />
             ) : (
               <BsInfoCircleFill />
             )}
           </>
+        )}
+
+        {message.status === "failed" && (
+          <button onClick={() => handleResendMessage(message)}>
+            Tap to resend
+          </button>
         )}
       </div>
     </div>

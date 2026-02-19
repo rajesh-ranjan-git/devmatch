@@ -255,10 +255,29 @@ export type ConversationTabType = {
   icon: ReactNode;
 };
 
+export type DeliveryRecord = {
+  userId: string;
+  deliveredAt: string;
+};
+
+export type SeenRecord = {
+  userId: string;
+  seenAt: string;
+};
+
 export type MessageType = {
-  text: string;
-  sentBy: string;
-  sentAt: string;
-  deliveredAt?: string;
-  seen?: boolean;
+  id: string;
+  conversationId?: string;
+  senderId: string;
+  message: string;
+  isEdited?: boolean;
+  editedAt?: string | null;
+  deliveredTo?: DeliveryRecord[];
+  seenBy?: SeenRecord[];
+  replyTo?: string | null;
+  isForwarded?: boolean;
+  originalMessageId?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  status?: "sending" | "sent" | "failed";
 };

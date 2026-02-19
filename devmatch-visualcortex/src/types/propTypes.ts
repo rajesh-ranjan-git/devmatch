@@ -242,12 +242,20 @@ export interface ChatMessagesProps {
   user?: UserType;
   chatMessages: MessageType[];
   setChatMessages: Dispatch<SetStateAction<MessageType[]>>;
+  handleResendMessage: (message: MessageType) => void;
 }
 
-export interface ChatBubbleProps {
+export interface ReceivedChatBubbleProps {
   user?: UserType;
   message: MessageType;
   isLatestMessage?: boolean;
+}
+
+export interface SentChatBubbleProps {
+  user?: UserType;
+  message: MessageType;
+  isLatestMessage?: boolean;
+  handleResendMessage: (message: MessageType) => void;
 }
 
 export interface ConversationTabProps {

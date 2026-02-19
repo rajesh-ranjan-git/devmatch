@@ -41,3 +41,30 @@ export const getGroupChatMessages = async (id: string) => {
 
   return result?.success ? result?.data?.user : null;
 };
+
+export const sendMessage = async (id: string, message: string) => {
+  const result = await apiRequest({
+    method: "POST",
+    url: `${apiUrls.chats}/send/${id}`,
+    data: message,
+  });
+
+  console.log("debug from conversationActions sendMessage result : ", result);
+
+  return result?.success ? result?.data?.user : null;
+};
+
+export const sendGroupMessage = async (id: string, message: string) => {
+  const result = await apiRequest({
+    method: "POST",
+    url: `${apiUrls.groupChats}/send/${id}`,
+    data: message,
+  });
+
+  console.log(
+    "debug from conversationActions sendGroupMessage result : ",
+    result,
+  );
+
+  return result?.success ? result?.data?.user : null;
+};

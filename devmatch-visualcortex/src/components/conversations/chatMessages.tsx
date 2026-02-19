@@ -1,21 +1,22 @@
 import { useEffect, useRef } from "react";
-import { TbMessageReportFilled } from "react-icons/tb";
 import { Socket } from "socket.io-client";
+import { TbMessageReportFilled } from "react-icons/tb";
 import { MessageType } from "@/types/types";
 import { ChatMessagesProps } from "@/types/propTypes";
 import { useDevMatchAppStore } from "@/store/store";
 import { createSocketConnection } from "@/socket/socket";
 import { shouldShowChatSeparator } from "@/lib/utils/utils";
+import { getChatMessages } from "@/lib/actions/conversationActions";
 import { getCookies } from "@/lib/api/cookiesHandler";
 import ReceivedChatBubble from "@/components/conversations/receivedChatBubble";
 import SentChatBubble from "@/components/conversations/sentChatBubble";
 import ChatsSeparator from "@/components/conversations/chatsSeparator";
-import { getChatMessages } from "@/lib/actions/conversationActions";
 
 const ChatMessages = ({
   user,
   chatMessages,
   setChatMessages,
+  handleResendMessage,
 }: ChatMessagesProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -84,13 +85,17 @@ const ChatMessages = ({
             const previousMessage = idx > 0 ? chatMessages[idx - 1] : null;
 
             const showChatSeparator = shouldShowChatSeparator(
-              message.sentAt,
-              previousMessage?.sentAt,
+              message?.createdAt ?? Date.now().toLocaleString(),
+              previousMessage?.createdAt,
             );
 
-            return message?.sentBy === user?.id ? (
+            return message?.senderId === user?.id ? (
               <div key={idx}>
-                {showChatSeparator && <ChatsSeparator date={message.sentAt} />}
+                {showChatSeparator && (
+                  <ChatsSeparator
+                    date={message?.createdAt ?? Date.now().toLocaleString()}
+                  />
+                )}
 
                 <ReceivedChatBubble
                   key={idx}
@@ -99,15 +104,20 @@ const ChatMessages = ({
                   isLatestMessage={chatMessages?.length - 1 === idx}
                 />
               </div>
-            ) : message?.sentBy === loggedInUser?.id ? (
+            ) : message?.senderId === loggedInUser?.id ? (
               <div key={idx}>
-                {showChatSeparator && <ChatsSeparator date={message.sentAt} />}
+                {showChatSeparator && (
+                  <ChatsSeparator
+                    date={message?.createdAt ?? Date.now().toLocaleString()}
+                  />
+                )}
 
                 <SentChatBubble
                   key={idx}
                   user={user}
                   message={message}
                   isLatestMessage={chatMessages?.length - 1 === idx}
+                  handleResendMessage={handleResendMessage}
                 />
               </div>
             ) : null;

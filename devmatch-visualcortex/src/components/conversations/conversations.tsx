@@ -2,6 +2,7 @@
 
 import { ChangeEvent, useState } from "react";
 import Image from "next/image";
+import { Socket } from "socket.io-client";
 import { IoSend } from "react-icons/io5";
 import { TiAttachmentOutline } from "react-icons/ti";
 import { CONVERSATION_TABS } from "@/config/constants";
@@ -9,6 +10,7 @@ import { conversationTabs, staticImages } from "@/config/config";
 import { MessageType } from "@/types/types";
 import { ConversationsProps } from "@/types/propTypes";
 import { getFullName, toTitleCase } from "@/lib/utils/utils";
+import { getCookies } from "@/lib/api/cookiesHandler";
 import { useDevMatchAppStore } from "@/store/store";
 import { createSocketConnection } from "@/socket/socket";
 import ConversationsTab from "@/components/conversations/conversationsTab";
@@ -19,15 +21,14 @@ import Groups from "@/components/conversations/groups";
 import DefaultMainContent from "@/components/main/defaultMainContent";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import Textarea from "@/components/ui/inputs/textarea";
-import { getCookies } from "@/lib/api/cookiesHandler";
-import { Socket } from "socket.io-client";
+import { sendMessage } from "@/lib/actions/conversationActions";
 
 const Conversations = ({ user }: ConversationsProps) => {
   const [chatMessages, setChatMessages] = useState<MessageType[]>([]);
   const [newMessage, setNewMessage] = useState<MessageType>({
-    text: "",
-    sentBy: "",
-    sentAt: "",
+    id: "",
+    senderId: "",
+    message: "",
   });
 
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
@@ -38,38 +39,84 @@ const Conversations = ({ user }: ConversationsProps) => {
     (state) => state.setActiveConversationTab,
   );
 
-  const handleSendMessage = () => {
-    if (!user?.id || !loggedInUser?.id) return;
+  const handleSendMessage = async () => {
+    if (!user?.id || !loggedInUser?.id || !newMessage.message.trim()) return;
 
-    let socket: Socket;
-
-    const initSocket = async () => {
-      const token = await getCookies("authToken");
-
-      if (!token || typeof token !== "string") return;
-
-      socket = createSocketConnection({ token });
-
-      socket.emit("join-chat", {
-        targetUserId: user?.id,
-      });
-
-      socket.emit("send-message", {
-        userId: loggedInUser?.id,
-        targetUserId: user?.id,
-        message: newMessage.text,
-      });
-
-      setNewMessage({
-        text: "",
-        sentBy: "",
-        sentAt: "",
-        deliveredAt: "",
-        seen: false,
-      });
+    const tempId = `temp-${Date.now()}`;
+    const optimisticMessage: MessageType = {
+      id: tempId,
+      senderId: loggedInUser?.id,
+      message: newMessage.message,
+      status: "sending",
     };
 
-    initSocket();
+    setChatMessages((prev) => [...prev, optimisticMessage]);
+    setNewMessage({ id: "", senderId: "", message: "" });
+
+    try {
+      const sentMessage = await sendMessage(user.id, optimisticMessage.message);
+
+      setChatMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === tempId ? { ...sentMessage, status: "sent" } : msg,
+        ),
+      );
+
+      await sendViaSocket(sentMessage);
+    } catch (err) {
+      setChatMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === tempId ? { ...msg, status: "failed" } : msg,
+        ),
+      );
+    }
+  };
+
+  const handleResendMessage = async (failedMessage: MessageType) => {
+    if (!user?.id || !loggedInUser?.id) return;
+
+    setChatMessages((prev) =>
+      prev.map((msg) =>
+        msg.id === failedMessage.id ? { ...msg, status: "sending" } : msg,
+      ),
+    );
+
+    try {
+      const sentMessage = await sendMessage(user.id, failedMessage?.message);
+
+      setChatMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === failedMessage.id
+            ? { ...sentMessage, status: "sent" }
+            : msg,
+        ),
+      );
+
+      await sendViaSocket(sentMessage);
+    } catch (err) {
+      setChatMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === failedMessage.id ? { ...msg, status: "failed" } : msg,
+        ),
+      );
+    }
+  };
+
+  const sendViaSocket = async (savedMessage: MessageType) => {
+    const token = await getCookies("authToken");
+    if (!token || typeof token !== "string") throw new Error("No auth token");
+
+    const socket: Socket = createSocketConnection({ token });
+
+    return new Promise<void>((resolve, reject) => {
+      socket.emit("join-chat", { targetUserId: user?.id });
+      socket.emit("send-message", savedMessage);
+
+      socket.once("message-sent", resolve);
+      socket.once("error", reject);
+
+      setTimeout(() => reject(new Error("Socket timeout")), 10_000);
+    });
   };
 
   return (
@@ -131,6 +178,7 @@ const Conversations = ({ user }: ConversationsProps) => {
                   user={user}
                   chatMessages={chatMessages}
                   setChatMessages={setChatMessages}
+                  handleResendMessage={handleResendMessage}
                 />
               </div>
             </div>
@@ -146,13 +194,13 @@ const Conversations = ({ user }: ConversationsProps) => {
                     name="sendMessage"
                     placeholder="Type your message..."
                     rows={1}
-                    value={newMessage.text}
+                    value={newMessage.message}
                     onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
                       if (loggedInUser?.id) {
                         setNewMessage({
-                          text: e.target.value,
-                          sentBy: loggedInUser.id,
-                          sentAt: new Date().toISOString(),
+                          id: `temp-${Date.now()}`,
+                          message: e.target.value,
+                          senderId: loggedInUser.id,
                         });
                       }
                     }}
