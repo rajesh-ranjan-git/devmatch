@@ -6,7 +6,7 @@ import { IoIosChatboxes } from "react-icons/io";
 import { CONNECTION_STATUS_PROPERTIES } from "@/config/constants";
 import { cameraDropDownItems, staticImages } from "@/config/config";
 import { UserType } from "@/types/types";
-import { ProfileComponentProps } from "@/types/propTypes";
+import { ProfileDetailsProps } from "@/types/propTypes";
 import { getFullName, toTitleCase } from "@/lib/utils/utils";
 import { updateConnectionStatus } from "@/lib/actions/actions";
 import { useDevMatchAppStore } from "@/store/store";
@@ -19,7 +19,7 @@ import ButtonSuccess from "@/components/ui/buttons/buttonSuccess";
 import ButtonWarning from "@/components/ui/buttons/buttonWarning";
 import ButtonDestructive from "@/components/ui/buttons/buttonDestructive";
 
-const ProfileCover = ({ user }: ProfileComponentProps) => {
+const ProfileCover = ({ user }: ProfileDetailsProps) => {
   const loggedInUser = useDevMatchAppStore((state) => state.loggedInUser);
   const allUsers = useDevMatchAppStore((state) => state.allUsers);
   const userCards = useDevMatchAppStore((state) => state.userCards);

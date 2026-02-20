@@ -8,9 +8,9 @@ const envFilePath = `./env/.env-${mode}`;
 
 if (existsSync(envFilePath)) {
   loadEnv({ path: envFilePath });
-  console.log(`🔵 Loaded env file: ${envFilePath}`);
+  console.info(`📢 INFO :: 🔵 Loaded env file: ${envFilePath}`);
 } else {
-  console.warn(`⚠️ WARNING :: Env file not found: ${envFilePath}`);
+  console.warn(`🚨 WARNING :: 🔴 Env file not found: ${envFilePath}`);
 }
 
 const nextConfig = {

@@ -5,6 +5,8 @@ import path from "path";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
+import "../logger/logger.js";
+
 import {
   BRAINBOX_PORT,
   BRAINBOX_HOST_URL,
@@ -78,6 +80,6 @@ initializeSocket(server);
 
 server.listen(BRAINBOX_PORT, async () => {
   await connectDB();
-  console.log(`ℹ️️  INFO :: Server is running at ${BRAINBOX_HOST_URL}`);
+  console.log(`📢 INFO :: Server is running at ${BRAINBOX_HOST_URL}`);
   await showDevMatchBanner(BRAINBOX_PORT);
 });

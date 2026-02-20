@@ -32,7 +32,7 @@ export default function Flash() {
     if (flashCookie) {
       try {
         const flashData: FlashMessage = JSON.parse(
-          decodeURIComponent(flashCookie)
+          decodeURIComponent(flashCookie),
         );
 
         showToast({
@@ -43,7 +43,7 @@ export default function Flash() {
 
         deleteCookie("flash");
       } catch (error) {
-        console.warn("⚠️ WARNING :: Error parsing flash cookie:", error);
+        console.warn("🚨 WARNING :: Error parsing flash cookie:", error);
         deleteCookie("flash");
       }
     }

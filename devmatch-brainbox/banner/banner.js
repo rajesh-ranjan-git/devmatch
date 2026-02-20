@@ -41,11 +41,11 @@ export const showDevMatchBanner = async (port = process.env.BRAINBOX_PORT) => {
         const sysInfo = systemInfo(port);
 
         console.log(`\n\n${output}\n${desc}\n\n${sysInfo}\n`);
-      }
+      },
     );
   } catch (error) {
     console.warn(
-      `⚠️  WARNING :: ${errorMessages.BANNER_ERROR} : ${error.message}`
+      `📢 WARNING :: ${errorMessages.BANNER_ERROR} : ${error.message}`,
     );
     return;
   }

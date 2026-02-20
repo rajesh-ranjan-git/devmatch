@@ -37,7 +37,7 @@
   --glass-accent-cyan-bright: rgba(34, 211, 238);
   --glass-accent-green-bright: rgba(3, 141, 60);
 
-  /* ⚠️ Warning (Yellow) */
+  /* 🚨 Warning (Yellow) */
   --glass-warning: rgba(255, 213, 79, 0.25);
   --glass-warning-border: rgba(255, 193, 7, 0.4);
   --glass-warning-text: rgba(102, 75, 0, 0.8);
@@ -101,7 +101,7 @@
   --glass-accent-cyan-bright: rgba(34, 211, 238);
   --glass-accent-green-bright: rgba(3, 141, 60);
 
-  /* ⚠️ Warning (Yellow) */
+  /* 🚨 Warning (Yellow) */
   --glass-warning: rgba(255, 193, 7, 0.15);
   --glass-warning-border: rgba(255, 214, 10, 0.35);
   --glass-warning-text: rgba(255, 214, 10, 0.85);
@@ -184,7 +184,7 @@ html:not(.light) {
   --color-glass-accent-cyan-bright: var(--glass-accent-cyan-bright);
   --color-glass-accent-green-bright: var(--glass-accent-green-bright);
 
-  /* ⚠️ Warning (Yellow) */
+  /* 🚨 Warning (Yellow) */
   --color-glass-warning: var(--glass-warning);
   --color-glass-warning-border: var(--glass-warning-border);
   --color-glass-warning-text: var(--glass-warning-text);

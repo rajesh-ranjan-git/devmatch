@@ -59,6 +59,21 @@ export const toTitleCase = (str) => {
     .join(" ");
 };
 
+export const formatDate = (dateString) => {
+  if (!dateString) return "N/A";
+
+  return new Date(dateString)
+    .toLocaleDateString("en-IN", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    })
+    .replace(/\b(am|pm)\b/gi, (m) => m.toUpperCase());
+};
+
 const addToValidatedProperties = (
   properties,
   validatedProperties = {},

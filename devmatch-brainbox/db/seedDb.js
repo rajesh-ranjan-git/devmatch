@@ -269,7 +269,7 @@ const generateRandomUser = async (index) => {
     email: generateEmail(firstName, lastName),
     password: await generatePassword(),
     passwordLastUpdated: new Date(
-      Date.now() - randomInt(0, 365) * 24 * 60 * 60 * 1000
+      Date.now() - randomInt(0, 365) * 24 * 60 * 60 * 1000,
     ),
     firstName: firstName,
     lastName: lastName,
@@ -306,7 +306,7 @@ const generateRandomUser = async (index) => {
   if (Math.random() > 0.3) {
     user.bio = `passionate ${randomElement(jobProfiles)} with ${randomInt(
       0,
-      15
+      15,
     )} years of experience`;
   }
 
@@ -378,7 +378,7 @@ const generateRandomUser = async (index) => {
 
     if (Math.random() > 0.5) {
       user.address.landmark = `near ${randomElement(
-        firstNames
+        firstNames,
       )} ${randomElement(["mall", "park", "station"])}`;
     }
   }
@@ -401,10 +401,7 @@ const seedUsers = async (count = 50) => {
     await User.insertMany(users);
     console.log(`✅ SUCCESS :: Successfully inserted ${count} users`);
 
-    console.log(
-      "\nℹ️️  INFO :: Sample user:",
-      JSON.stringify(users[0], null, 2)
-    );
+    console.log("\n📢 INFO :: Sample user:", JSON.stringify(users[0], null, 2));
 
     mongoose.connection.close();
     console.log("\n✅ SUCCESS :: Database connection closed");

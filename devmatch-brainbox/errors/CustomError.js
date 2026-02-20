@@ -44,13 +44,15 @@ class ErrorHandlerManager {
         console.error("❌ ERROR :: ", logMessage);
         break;
       case "warn":
-        console.warn("⚠️ WARNING :: ", logMessage);
+        console.warn("🚨 WARNING :: ", logMessage);
         break;
       case "info":
-        console.info("ℹ️️  INFO :: ", logMessage);
+        console.info("📢 INFO :: ", logMessage);
         break;
+      case "debug":
+        console.debug("🛠️ DEBUG :: ", logMessage);
       default:
-        console.log("LOG :: ", logMessage);
+        console.log("📝 LOG :: ", logMessage);
     }
   }
 

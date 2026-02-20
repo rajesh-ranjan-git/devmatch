@@ -59,7 +59,7 @@ const ChatMessages = ({
     initSocket();
 
     return () => {
-      socket.disconnect();
+      socket?.disconnect();
     };
   }, [loggedInUser, user]);
 

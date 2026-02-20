@@ -50,8 +50,8 @@ const ConsoleBanner = ({ nodeVersion }: ConsoleBannerProps) => {
           async (error, data) => {
             if (error) {
               console.warn(
-                "⚠️ WARNING :: An error occurred while creating console banner :",
-                error
+                "🚨 WARNING :: An error occurred while creating console banner :",
+                error,
               );
               showToast({
                 title: MESSAGE_TITLES.bannerFailed,
@@ -67,13 +67,13 @@ const ConsoleBanner = ({ nodeVersion }: ConsoleBannerProps) => {
 
             console.log(`\n${output}\n${desc}\n\n${sysInfo}\n\n`);
             console.log("");
-          }
+          },
         );
       })
       .catch((err) => {
         console.warn(
-          "⚠️ WARNING :: An error occurred while creating console banner :",
-          err
+          "🚨 WARNING :: An error occurred while creating console banner :",
+          err,
         );
         showToast({
           title: MESSAGE_TITLES.bannerFailed,

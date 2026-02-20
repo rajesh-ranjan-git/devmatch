@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { alkatra, arima, inter, tourney } from "@/config/config";
 import { ReactNodeProps } from "@/types/propTypes";
 import { ToastProvider } from "@/hooks/toast";
+import "@/lib/logger/logger";
 import Flash from "@/components/flash/flash";
 import ConsoleBanner from "@/components/banner/consoleBanner";
 import ThemeManager from "@/components/theme/themeManager";
