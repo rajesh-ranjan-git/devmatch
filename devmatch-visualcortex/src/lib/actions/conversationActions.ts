@@ -46,7 +46,7 @@ export const sendMessage = async (id: string, message: string) => {
   const result = await apiRequest({
     method: "POST",
     url: `${apiUrls.chats}/send/${id}`,
-    data: message,
+    data: { message },
   });
 
   console.log("debug from conversationActions sendMessage result : ", result);
@@ -58,7 +58,7 @@ export const sendGroupMessage = async (id: string, message: string) => {
   const result = await apiRequest({
     method: "POST",
     url: `${apiUrls.groupChats}/send/${id}`,
-    data: message,
+    data: { message },
   });
 
   console.log(
