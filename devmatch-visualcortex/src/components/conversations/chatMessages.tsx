@@ -51,7 +51,6 @@ const ChatMessages = ({
       });
 
       socket.on("received-message", (message: MessageType) => {
-        console.log("debug from socket received-message : ", message);
         setChatMessages((chatMessages) => [...chatMessages, message]);
       });
     };
@@ -68,8 +67,6 @@ const ChatMessages = ({
 
     const fetchChatMessages = async (id: string) => {
       const data = await getChatMessages(id);
-
-      console.log("debug from chatMessages fetchChatMessages data : ", data);
 
       setChatMessages(data);
     };

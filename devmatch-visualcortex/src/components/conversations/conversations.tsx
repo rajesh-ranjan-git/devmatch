@@ -11,6 +11,7 @@ import { MessageType } from "@/types/types";
 import { ConversationsProps } from "@/types/propTypes";
 import { getFullName, toTitleCase } from "@/lib/utils/utils";
 import { getCookies } from "@/lib/api/cookiesHandler";
+import { sendMessage } from "@/lib/actions/conversationActions";
 import { useDevMatchAppStore } from "@/store/store";
 import { createSocketConnection } from "@/socket/socket";
 import ConversationsTab from "@/components/conversations/conversationsTab";
@@ -21,7 +22,6 @@ import Groups from "@/components/conversations/groups";
 import DefaultMainContent from "@/components/main/defaultMainContent";
 import ButtonNormal from "@/components/ui/buttons/buttonNormal";
 import Textarea from "@/components/ui/inputs/textarea";
-import { sendMessage } from "@/lib/actions/conversationActions";
 
 const Conversations = ({ user }: ConversationsProps) => {
   const [chatMessages, setChatMessages] = useState<MessageType[]>([]);
@@ -110,7 +110,10 @@ const Conversations = ({ user }: ConversationsProps) => {
 
     return new Promise<void>((resolve, reject) => {
       socket.emit("join-chat", { targetUserId: user?.id });
-      socket.emit("send-message", savedMessage);
+      socket.emit("send-message", {
+        targetUserId: user?.id,
+        message: savedMessage,
+      });
 
       socket.once("message-sent", resolve);
       socket.once("error", reject);
