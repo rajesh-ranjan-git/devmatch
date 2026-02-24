@@ -71,6 +71,7 @@
 - When password is expired, it stays on login window, there should be a new window to get user to reset the password.
 - Pagination is not working on explore.
 - Conflicts has happened, need to check.
+- Moving to System Design for now, will come back later.
 
 ---
 
