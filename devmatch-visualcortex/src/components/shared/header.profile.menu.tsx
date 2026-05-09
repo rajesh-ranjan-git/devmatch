@@ -55,11 +55,11 @@ const profileMenuItems = {
     url: subscriptionRoutes.subscription,
     icon: <LuCreditCard size={16} className="text-text-secondary" />,
   },
-  settings: {
-    id: "settings",
-    title: "Account Settings",
-    icon: <LuSettings size={16} className="text-text-secondary" />,
-  },
+  // settings: {
+  //   id: "settings",
+  //   title: "Account Settings",
+  //   icon: <LuSettings size={16} className="text-text-secondary" />,
+  // },
 };
 
 const adminDashboardMenuItem = {
