@@ -123,7 +123,7 @@ const ProfilePage = ({ userName }: ProfilePageProps) => {
           isOwnProfile={isOwnProfile}
         />
 
-        <Activity isOwnProfile={isOwnProfile} activities={mockActivities} />
+        {/* <Activity isOwnProfile={isOwnProfile} activities={mockActivities} /> */}
 
         <ProfileForms userProfile={userProfile} onSave={handleProfileSave} />
       </div>
