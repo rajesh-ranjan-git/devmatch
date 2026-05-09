@@ -1,476 +1,138 @@
-# DevMatch 💻❤️
+# DevMatch VisualCortex
 
-**DevMatch** is a modern matchmaking app designed exclusively for software developers. Whether you're looking for coding buddies, tech collaborators, or just like-minded devs to hang out with, DevMatch helps you connect with fellow developers based on your skills, interests, and vibe.
+`devmatch-visualcortex` is the Next.js frontend for DevMatch. It provides the public landing page, auth screens, protected app shell, discovery flow, profile editor, conversation UI, admin sections, subscription/payment screens, push notification registration, and PWA assets.
 
----
+## Stack
 
-## 🚀 Tech Stack
+- Next.js 16 App Router.
+- React 19.
+- TypeScript 6.
+- Tailwind CSS 4 through `@tailwindcss/postcss`.
+- Zustand for app state.
+- Motion for UI animations.
+- Socket.IO client.
+- React OAuth helpers.
+- IndexedDB helper utilities.
+- React Webcam for camera-based image capture flows.
+- Recharts for admin/analytics charts.
+- React Icons.
+- Next proxy middleware for route protection.
 
-### Frontend (devmatch-visualcortex):
-
-- **[Next.js](https://nextjs.org/)** – React-based framework for server-side rendering and routing.
-- **[Tailwind CSS](https://tailwindcss.com/)** – Utility-first CSS framework for rapid UI development.
-- **[Motion](https://motion.dev/)** Web (UI) animation library for React, JavaScript and Vue.
-- **[Zustand](https://github.com/pmndrs/zustand)** – Lightweight state management solution for React.
-
-### Backend (devmatch-brainbox):
-
-- **[Node.js](https://nodejs.org/)** – JavaScript runtime environment.
-- **[Express.js](https://expressjs.com/)** – Fast and minimalist web framework for Node.js.
-- **[MongoDB](https://www.mongodb.com/)** – NoSQL database for scalable and flexible data storage.
-
----
-
-## 🔥 Features (Planned & In Progress)
-
-### 🎨 Frontend (devmatch-visualcortex):
-
-- [x] User registration & login
-- [x] Developer profile creation
-- [x] Swipe-based match interface
-- [ ] In-app messaging between matched users
-- [ ] In-app calling between matched users
-- [x] Real-time notifications
-- [x] Block functionality
-- [ ] Report functionality
-- [x] Profile visibility controls
-- [x] Profile update controls
-- [ ] GitHub/Linkedin integration
-- [ ] Admin dashboard for moderation
-
-### 🤖 Backend (devmatch-brainbox):
-
-- [x] User registration, login, logout, forgot password
-- [x] Authentication
-- [x] Real-time notifications
-- [x] Explore and connect with fellow developers
-- [x] Block functionality
-- [ ] Report functionality
-- [x] Profile visibility controls
-- [x] Profile update controls
-- [ ] Google Authentication integration
-- [ ] In-app messaging between matched users
-- [ ] In-app calling between matched users
-- [ ] GitHub/LinkedIn integration
-- [ ] Admin dashboard for moderation
-
----
-
-## 🪲 Known Bugs
-
-- Explore page seems like it keeps refreshing till toast notification is active.
-- While logging in the submit button when changes state from normal to loading or vice-versa, animation is not smooth.
-- When connection action is taken, the item removes in flash, it should be removed smoothly to the left with opacity transition.
-- Sometimes after login, the page is not moving explore, upon refresh the page sometimes still stays on login and does not move to explore.
-- Repeated code blocks related to connection actions.
-- Unnecessary multiple api calls in explore, profile and connection actions probably because of proxy.
-- When connection request is already sent, either it should not show that user's card on explore or it should allow to send the interested request again and should not throw error.
-- Notifications gets removed abruptly, it should have a sliding effect to the left and get removed.
-- Requests and connections gets removed abruptly, it should have a sliding effect to the left and get removed.
-- Upon submitting form if the token gets expired, it throws error but it should just redirect to login.
-- When password is expired, it stays on login window, there should be a new window to get user to reset the password.
-- Pagination is not working on explore.
-- Conflicts has happened, need to check.
-- Moving to Namaste Frontend System Design for now, will come back later.
-
----
-
-## 📁 Folder Structure
+## Scripts
 
 ```bash
-devmatch
-│
-├── 📁 .vscode
-│
-├── 🤖 devmatch-brainbox 🤖
-│    ├── 📁 banner
-│    │    └── banner.js
-│    │
-│    ├── 📁 config
-│    │    ├── config.js
-│    │    ├── constants.js
-│    │    └── dbConfig.js
-│    │
-│    ├── 📁 controllers
-│    │    ├── connection.js
-│    │    ├── explore.js
-│    │    ├── notification.js
-│    │    ├── profile.js
-│    │    └── user.js
-│    │
-│    ├── 📁 db
-│    │    ├── connectDB.js
-│    │    ├── sample_user.js
-│    │    └── seedDb.js
-│    │
-│    ├── 📁 env
-│    │    ├── .env-development
-│    │    └── .env-production
-│    │
-│    ├── 📁 errors
-│    │    └── CustomError.js
-│    │
-│    ├── 📁 middleware
-│    │    ├── auth.js
-│    │    └── request.js
-│    │
-│    ├── 📁 models
-│    │    ├── connection.js
-│    │    ├── notification.js
-│    │    └── user.js
-│    │
-│    ├── 📁 routes
-│    │    ├── connection.js
-│    │    ├── explore.js
-│    │    ├── notification.js
-│    │    ├── profile.js
-│    │    └── user.js
-│    │
-│    ├── 📁 socket
-│    │    └── socket.js
-│    │
-│    ├── 📁 src
-│    │    └── server.js
-│    │
-│    ├── 📁 utils
-│    │    ├── authUtils.js
-│    │    └── utils.js
-│    │
-│    ├── 📁 validations
-│    │    └── validation.js
-│    │
-│    ├── .gitignore
-│    ├── package-lock.json
-│    ├── package.json
-│    └── README.md
-│
-├── 🧩 devmatch-visualcortex 🧩
-│    ├── 📁 .next
-│    │
-│    ├── 📁 public
-│    │    └── 📁 assets
-│    │         ├── 📁 avatar
-│    │         │    └── user.webp
-│    │         │
-│    │         ├── 📁 error
-│    │         │    └── 404-error.webp
-│    │         │
-│    │         ├── 📁 fonts
-│    │         │    └── ansi_shadow.flf
-│    │         │
-│    │         └── 📁 logo
-│    │              ├── devmatch-logo-transparent-circular.png
-│    │              ├── devmatch-logo-transparent-circular.webp
-│    │              ├── devmatch-logo-transparent.png
-│    │              ├── devmatch-logo-transparent.webp
-│    │              ├── devmatch-logo-white-circular.png
-│    │              ├── devmatch-logo-white-circular.webp
-│    │              ├── devmatch-logo-white.png
-│    │              ├── devmatch-logo-white.webp
-│    │              └── favicon.ico
-│    │
-│    ├── 📁 src
-│    │    ├── 📁 app
-│    │    │    ├── 📁 (auth)
-│    │    │    │    ├── 📁 forgot-password
-│    │    │    │    │    └── page.tsx
-│    │    │    │    │
-│    │    │    │    ├── 📁 login
-│    │    │    │    │    └── page.tsx
-│    │    │    │    │
-│    │    │    │    ├── 📁 register
-│    │    │    │    │    └── page.tsx
-│    │    │    │    │
-│    │    │    │    ├── layout.tsx
-│    │    │    │    └── loading.tsx
-│    │    │    │
-│    │    │    ├── 📁 explore
-│    │    │    │    └── page.tsx
-│    │    │    │
-│    │    │    ├── 📁 profile
-│    │    │    │    │
-│    │    │    │    ├── 📁 [id]
-│    │    │    │    │    └── page.tsx
-│    │    │    │    │
-│    │    │    │    └── page.tsx
-│    │    │    │
-│    │    │    ├── favicon.ico
-│    │    │    ├── global-error.tsx
-│    │    │    ├── globals.css
-│    │    │    ├── layout.tsx
-│    │    │    ├── not-found.tsx
-│    │    │    └── page.tsx
-│    │    │
-│    │    ├── 📁 components
-│    │    │    ├── 📁 auth
-│    │    │    │    ├── authForm.tsx
-│    │    │    │    ├── authFormWrapper.tsx
-│    │    │    │    └── checkAuth.tsx
-│    │    │    │
-│    │    │    ├── 📁 background
-│    │    │    │    ├── animatedBackground.tsx
-│    │    │    │    ├── animatedFloatingSquares.tsx
-│    │    │    │    └── defaultAnimatedBackground.tsx
-│    │    │    │
-│    │    │    ├── 📁 banner
-│    │    │    │    └── consoleBanner.tsx
-│    │    │    │
-│    │    │    ├── 📁 connections
-│    │    │    │    ├── connections.tsx
-│    │    │    │    └── sheetItem.tsx
-│    │    │    │
-│    │    │    ├── 📁 errors
-│    │    │    │    ├── errorWrapper.tsx
-│    │    │    │    └── formErrorMessage.tsx
-│    │    │    │
-│    │    │    ├── 📁 explore
-│    │    │    │    ├── nameCardContent.tsx
-│    │    │    │    ├── singleUserCard.tsx
-│    │    │    │    ├── userCard.tsx
-│    │    │    │    └── userDetailsCardContent.tsx
-│    │    │    │
-│    │    │    ├── 📁 flash
-│    │    │    │    └── flash.tsx
-│    │    │    │
-│    │    │    ├── 📁 header
-│    │    │    │    ├── 📁 navbar
-│    │    │    │    │    ├── navbar.tsx
-│    │    │    │    │    └── navbarRight.tsx
-│    │    │    │    │
-│    │    │    │    ├── 📁 notifications
-│    │    │    │    │    ├── notifications.tsx
-│    │    │    │    │    ├── notificationsHeading.tsx
-│    │    │    │    │    └── notificationsItem.tsx
-│    │    │    │    │
-│    │    │    │    ├── header.tsx
-│    │    │    │    └── logo.tsx
-│    │    │    │
-│    │    │    ├── 📁 main
-│    │    │    │    ├── defaultMainContent.tsx
-│    │    │    │    └── main.tsx
-│    │    │    │
-│    │    │    ├── 📁 profile
-│    │    │    │    ├── deleteAccountContext.tsx
-│    │    │    │    ├── profileCover.tsx
-│    │    │    │    ├── profileDetails.tsx
-│    │    │    │    ├── profileDetailsUpdateContext.tsx
-│    │    │    │    ├── profileDetailsUpdateDropdown.tsx
-│    │    │    │    ├── profileTabularData.tsx
-│    │    │    │    ├── singleProfileDetailsUpdateContext.tsx
-│    │    │    │    └── updatePasswordContext.tsx
-│    │    │    │
-│    │    │    ├── 📁 socialMedia
-│    │    │    │    ├── socialMedia.tsx
-│    │    │    │    └── socialMediaItem.tsx
-│    │    │    │
-│    │    │    ├── 📁 theme
-│    │    │    │    ├── themeManager.tsx
-│    │    │    │    └── themeToggle.tsx
-│    │    │    │
-│    │    │    └── 📁 ui
-│    │    │         ├── 📁 buttons
-│    │    │         │    ├── buttonDestructive.tsx
-│    │    │         │    ├── buttonNormal.tsx
-│    │    │         │    ├── buttonSuccess.tsx
-│    │    │         │    ├── buttonWarning.tsx
-│    │    │         │    ├── connectionsButton.tsx
-│    │    │         │    ├── notificationsButton.tsx
-│    │    │         │    ├── profileCoverEditButton.tsx
-│    │    │         │    ├── profilePhotoEditButton.tsx
-│    │    │         │    ├── submitButton.tsx
-│    │    │         │    └── userInfoButton.tsx
-│    │    │         │
-│    │    │         ├── 📁 chips
-│    │    │         │    └── chips.tsx
-│    │    │         │
-│    │    │         ├── 📁 contextMenu
-│    │    │         │    └── contextMenu.tsx
-│    │    │         │
-│    │    │         ├── 📁 dropdown
-│    │    │         │    └── dropdown.tsx
-│    │    │         │
-│    │    │         ├── 📁 inputs
-│    │    │         │    ├── input.tsx
-│    │    │         │    ├── radio.tsx
-│    │    │         │    └── textarea.tsx
-│    │    │         │
-│    │    │         ├── 📁 loaders
-│    │    │         │    └── initialLoader.tsx
-│    │    │         │
-│    │    │         ├── 📁 separators
-│    │    │         │    ├── horizontalSeparator.tsx
-│    │    │         │    └── verticalSeparator.tsx
-│    │    │         │
-│    │    │         └── 📁 sheet
-│    │    │              └── sheet.tsx
-│    │    │
-│    │    ├── 📁 config
-│    │    │    ├── config.tsx
-│    │    │    └── constants.ts
-│    │    │
-│    │    ├── 📁 hooks
-│    │    │    ├── toast.tsx
-│    │    │    ├── useContextMenu.tsx
-│    │    │    ├── useOutsideClick.tsx
-│    │    │    ├── useSheet.tsx
-│    │    │    └── useWebStorage.tsx
-│    │    │
-│    │    ├── 📁 lib
-│    │    │    │
-│    │    │    ├── 📁 actions
-│    │    │    │    ├── actions.ts
-│    │    │    │    ├── authActions.ts
-│    │    │    │    └── profileActions.ts
-│    │    │    │
-│    │    │    ├── 📁 api
-│    │    │    │    ├── api.ts
-│    │    │    │    ├── apiHandler.ts
-│    │    │    │    ├── apiUtils.ts
-│    │    │    │    └── cookiesHandler.ts
-│    │    │    │
-│    │    │    ├── 📁 routes
-│    │    │    │    └── routes.ts
-│    │    │    │
-│    │    │    ├── 📁 utils
-│    │    │    │    └── utils.ts
-│    │    │    │
-│    │    │    └── 📁 validations
-│    │    │         └── validations.ts
-│    │    │
-│    │    ├── 📁 socket
-│    │    │    └── socket.tsx
-│    │    │
-│    │    ├── 📁 store
-│    │    │    └── store.tsx
-│    │    │
-│    │    └── 📁 types
-│    │         ├── propTypes.ts
-│    │         └── types.ts
-│    │
-│    ├── .gitignore
-│    ├── eslint.config.mjs
-│    ├── next.config.ts
-│    ├── package-lock.json
-│    ├── package.json
-│    ├── postcss.config.mjs
-│    ├── README.md
-│    └── tsconfig.json
-│
-└── README.md
+npm run dev          # Start frontend on 1997 and backend from ../devmatch-brainbox
+npm run build        # Build the Next.js app
+npm start            # Start frontend and backend in production mode
+npm run lint         # Run ESLint
+npm run seed         # Run backend RBAC seed
+npm run seed-users   # Run backend user seed
+npm run seed-connect # Run backend connection seed
 ```
 
----
+## Environment
 
-## ⚙️ Getting Started
+Create `env/.env-development` from `env/env-example.txt`. For production, create `env/.env-production`.
 
-### Prerequisites
-
-- Node.js ≥ 18.x
-- MongoDB (Atlas or local instance)
-
----
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/rajesh-ranjan-git/devmatch.git
-cd devmatch
-```
-
----
-
-### 2. Setup Environment Variables
-
-Create `.env` files:
-
-- `devmatch-visualcortex/env/.env-development`
+Default local values:
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:5000/api
+NEXT_PUBLIC_NODE_ENV=development
+NEXT_PUBLIC_HOST_PORT=1995
+NEXT_PUBLIC_CLIENT_PORT=1997
+NEXT_PUBLIC_HOST_VERSION=v1
+NEXT_PUBLIC_CLIENT_VERSION=v1
+NEXT_PUBLIC_HOST_URL=http://localhost:1995
+NEXT_PUBLIC_CLIENT_URL=http://localhost:1997
 ```
 
-- `devmatch-brainbox/env/.env-development`
+The frontend builds `HOST_API_URL` as:
 
-```env
-# Environment
-NODE_ENV=development
-
-# Ports
-BRAINBOX_PORT=5000
-VISUALCORTEX_PORT=3000
-
-# Host URLs
-BRAINBOX_HOST_URL=http://localhost:5000
-VISUALCORTEX_HOST_URL=http://localhost:3000
-
-# Secret Keys
-BRAINBOX_SESSION_SECRET_KEY=
-BRAINBOX_JWT_SECRET_KEY=
-
-# Database Configurations
-DB_LOCAL_URI=mongodb://localhost:27017
-DB_LOCAL_NAME=devmatch-local
-DB_BASE_URI=
-DB_CLUSTER=
-DB_NAME=
-DB_USER=
-DB_PASSWORD=
+```text
+NEXT_PUBLIC_HOST_URL + /api/ + NEXT_PUBLIC_HOST_VERSION
 ```
 
----
+With the defaults above, API requests go to `http://localhost:1995/api/v1`.
 
-### 3. Install Dependencies
+Public OAuth client IDs can also be provided for Google, GitHub, Facebook, and LinkedIn.
+
+## Routes
+
+```text
+/                         Landing page
+/register                 Registration
+/login                    Login
+/forgot-password          Forgot password
+/reset-password           Reset password
+/verify-email             Email verification
+/oauth                    OAuth popup/callback UI
+/discover                 Developer discovery
+/profile                  Current user's profile
+/profile/[userName]       Public profile
+/conversation             Conversation list/page
+/conversation/[userName]  Direct conversation entry
+/subscription             Subscription plans
+/subscription/payment     Payment flow
+/admin/[type]             Admin dashboard, users, analytics, reports, settings
+```
+
+## Authentication And Route Protection
+
+- `src/proxy.ts` protects authenticated routes using the `refreshToken` cookie.
+- Auth routes redirect to `/` when a refresh token is already present.
+- Protected routes redirect to `/login` when no refresh token is present.
+- `/verify-email` and `/reset-password` are allowed without a refresh token.
+- API calls use `credentials: "include"` and can attach a Bearer token from the Zustand store when `requireAuth` is set.
+
+## Feature Areas
+
+- `src/components/landing`: public homepage sections.
+- `src/components/auth` and `src/components/forms/auth`: auth layouts and forms.
+- `src/components/layout`: header, sidebar, bottom navigation, and app chrome.
+- `src/components/discover`: swipe/discovery cards and action controls.
+- `src/components/profile`: profile display and profile editing components.
+- `src/components/forms/profile`: focused profile update forms.
+- `src/components/conversation`: conversation list, message window, message bubbles, composer, and empty states.
+- `src/components/subscription`: pricing, billing toggle, comparison, order summary, and payment form.
+- `src/components/admin`: admin wrapper, sidebar, stat cards, charts, and activity feed.
+- `src/components/push`: push notification UI.
+- `src/components/service-worker`: service worker registration.
+- `src/components/theme`: theme manager and toggle.
+
+## Client Architecture
+
+- `src/lib/api`: typed API client, cookie helpers, and API utilities.
+- `src/lib/actions`: frontend action modules for auth, OAuth, profile, discover, connections, conversations, and common actions.
+- `src/lib/routes`: centralized route constants.
+- `src/store`: Zustand app store.
+- `src/socket`: Socket.IO client setup.
+- `src/hooks`: reusable hooks for toast, OAuth listener, network actions, sheet state, outside click, storage, screen width, and field validation.
+- `src/validators`: auth/profile/common validation helpers.
+- `src/types`: shared type and prop definitions.
+- `src/config` and `src/constants`: app config, forms, profile fields, OAuth config, fonts, HTTP status config, regex, and env constants.
+
+## PWA And Assets
+
+- `public/manifest/manifest.json` defines the PWA manifest.
+- `public/serviceWorker/serviceWorker.js` is registered by the root layout.
+- Android, iOS, Windows, favicon, app logo, avatar, cover, error, and font assets live under `public/assets`.
+
+## Local Development
+
+From this package:
 
 ```bash
-# Backend
-cd ../devmatch-brainbox
 npm install
-
-# Frontend
-cd devmatch-visualcortex
-npm install
-```
-
----
-
-### 4. Run the App
-
-```bash
-# Start backend
-cd devmatch-brainbox
-npm run dev
-
-# Start frontend
-cd ../devmatch-visualcortex
 npm run dev
 ```
 
----
+`npm run dev` uses `concurrently` to run both the frontend and backend. Open `http://localhost:1997`.
 
-## 🛠️ Dev Tools & Libraries
+The backend must have its own `env/.env-development` configured because this script starts `../devmatch-brainbox/src/server.js`.
 
-- **Authentication:** JSON Web Tokens (JWT), Bcrypt JS
-- **Database ORM:** Mongoose
-- **API Testing:** Postman
-- **UI Dev:** Next JS., Tailwind CSS
-- **UI Animations:** Motion
-- **State Management:** Zustand
-- **Future Upgrades:** WebSockets for chat, Docker, CI/CD pipelines
+## Build
 
----
-
-## 🤝 Contributing
-
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
-
----
-
-## 📄 License
-
-[MIT](LICENSE)
-
----
-
-## 🧠 Inspiration
-
-Built with passion for the dev community. Why swipe left or right on strangers when you can swipe on someone who knows what a merge conflict is?
+```bash
+npm run build
+npm run lint
+```
