@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "concurrently --names \"🧩 VISUALCORTEX 🧩,🤖 BRAINBOX 🤖\" --prefix \"[{name}]\" --timestamp --timestamp-format \"HH:mm:ss\" --prefix-colors \"yellow,green\" \"cross-env PORT=1997 NODE_ENV=development next dev\" \"cross-env NODE_ENV=development CONCURRENTLY=true nodemon --quiet ../devmatch-brainbox/src/server.js\"",
     "build": "next build",
-    "start": "concurrently --names \"🧩 VISUALCORTEX  🧩,🤖 BRAINBOX 🤖\" --prefix \"[{name}]\" --timestamp --timestamp-format \"HH:mm:ss\" --prefix-colors \"yellow,green\" \"cross-env PORT=1997 NODE_ENV=development next start\" \"cross-env NODE_ENV=development CONCURRENTLY=true nodemon --quiet ../devmatch-brainbox/src/server.js\"",
+    "start": "concurrently --names \"🧩 VISUALCORTEX  🧩,🤖 BRAINBOX 🤖\" --prefix \"[{name}]\" --timestamp --timestamp-format \"HH:mm:ss\" --prefix-colors \"yellow,green\" \"cross-env PORT=1997 NODE_ENV=production next start\" \"cross-env NODE_ENV=production node ../devmatch-brainbox/src/server.js\"",
     "seed": "node ../devmatch-brainbox/seed/rbac.seed.js",
     "seed-users": "node ../devmatch-brainbox/seed/users.seed.js",
     "seed-connect": "node ../devmatch-brainbox/seed/connect.seed.js",
