@@ -23,6 +23,7 @@ import { loginWithProvider, providerLogin } from "@/lib/actions/oauth.actions";
 import RegisterForm from "@/components/forms/auth/register.form";
 import AuthBanner from "@/components/auth/auth.banner";
 import LoginForm from "@/components/forms/auth/login.form";
+import { setCookies } from "@/lib/api/cookiesHandler";
 
 const AuthPage = () => {
   const pathname = usePathname();
@@ -136,6 +137,8 @@ const AuthPage = () => {
 
         setAccessToken(providerLoginData.accessToken);
         setLoggedInUser(providerLoginData.user);
+
+        await setCookies("isAuthenticated=true; Path=/; SameSite=Lax");
 
         router.push(defaultRoutes.landing);
       }
