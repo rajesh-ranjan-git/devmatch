@@ -21,6 +21,11 @@ CLIENT_VERSION=
 HOST_URL=
 CLIENT_URL=
 
+# Logs Configurations
+
+LOG_LEVEL=info
+LOG_TARGET=db
+
 # Secret Keys
 
 SESSION_SECRET_KEY=

@@ -76,7 +76,7 @@ class AuthService {
 
     await SocialLink.create({ user: user.id });
 
-    if (!email.endsWith("@server.com")) {
+    if (!email.endsWith("@devmatch.com")) {
       const verificationToken = await this._createVerificationToken(
         user.id,
         "email_verification",

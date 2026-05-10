@@ -1,0 +1,22 @@
+{
+  "name": "devmatch-visualcortex",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "DevMatch is a platform for developers and engineers to explore and connect with other developers. (frontend)",
+  "keywords": [
+    "keywords"
+  ],
+  "author": "Rajesh Ranjan",
+  "scripts": {
+    "dev": "concurrently --names \"🧩 VISUALCORTEX 🧩,🤖 BRAINBOX 🤖\" --prefix \"[{name}]\" --timestamp --timestamp-format \"HH:mm:ss\" --prefix-colors \"yellow,green\" \"npm run dev --prefix devmatch-visualcortex\" \"npm run dev --prefix devmatch-brainbox\"",
+    "start": "concurrently --names \"🧩 VISUALCORTEX 🧩,🤖 BRAINBOX 🤖\" --prefix \"[{name}]\" --timestamp --timestamp-format \"HH:mm:ss\" --prefix-colors \"yellow,green\" \"npm run start --prefix devmatch-visualcortex\" \"npm run start --prefix devmatch-brainbox\"",
+    "build": "npm run build --prefix devmatch-visualcortex && npm run build --prefix devmatch-brainbox",
+    "seed": "npm run seed --prefix devmatch-brainbox",
+    "seed-users": "npm run seed-users --prefix devmatch-brainbox",
+    "seed-connect": "npm run seed-connect --prefix devmatch-brainbox"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
