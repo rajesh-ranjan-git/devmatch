@@ -29,15 +29,10 @@ import { responseService } from "../services/response/response.service.js";
 
 const app = express();
 
-console.log("HOST URL:", HOST_URL);
-console.log("CLIENT URL:", CLIENT_URL);
-
 const allowedOrigins = [HOST_URL, CLIENT_URL]
   .flatMap((url) => (url ? url.split(",") : []))
   .map((url) => url.trim())
   .filter(Boolean);
-
-console.log("Allowed origins:", allowedOrigins);
 
 app.use(
   cors({
@@ -47,8 +42,6 @@ app.use(
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
-
-      console.log("Blocked by CORS:", origin);
 
       return callback(new Error(`CORS blocked for origin: ${origin}`));
     },
