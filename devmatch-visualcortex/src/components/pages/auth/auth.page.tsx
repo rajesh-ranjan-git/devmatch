@@ -155,9 +155,6 @@ const AuthPage = () => {
         variant: "error",
       });
     } else {
-      setAccessToken(state.data.accessToken);
-      setLoggedInUser(state.data.user);
-
       showToast({
         title: state.status,
         message: state.message!,
@@ -167,7 +164,15 @@ const AuthPage = () => {
       if (pathname === authRoutes.register) {
         handleToggleMode();
       } else {
-        router.push(defaultRoutes.landing);
+        const completeLogin = async () => {
+          setAccessToken(state.data.accessToken);
+          setLoggedInUser(state.data.user);
+          await setCookies("isAuthenticated=true; Path=/; SameSite=Lax");
+
+          router.push(defaultRoutes.landing);
+        };
+
+        void completeLogin();
       }
     }
   }, [state]);
