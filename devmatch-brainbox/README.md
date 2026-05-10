@@ -2,6 +2,12 @@
 
 `devmatch-brainbox` is the backend for DevMatch. It exposes the REST API, owns MongoDB persistence, handles auth and authorization, powers realtime socket events, and integrates with external services for email, push notifications, OAuth, and media storage.
 
+## Live Deployment
+
+- Backend URL: `https://devmatch-brainbox.onrender.com`
+- API base URL: `https://devmatch-brainbox.onrender.com/api/v1`
+- Frontend client URL: `https://devmatch-indol-seven.vercel.app`
+
 ## Stack
 
 - Node.js with ES modules.
@@ -43,6 +49,16 @@ HOST_URL=http://localhost:1995
 CLIENT_URL=http://localhost:1997
 DB_LOCAL_URI=mongodb://localhost:27017
 DB_LOCAL_NAME=devmatch-local
+```
+
+Production should point the client and host values at the live apps:
+
+```env
+NODE_ENV=production
+HOST_URL=https://devmatch-brainbox.onrender.com
+CLIENT_URL=https://devmatch-indol-seven.vercel.app
+HOST_VERSION=v1
+CLIENT_VERSION=v1
 ```
 
 You will also need secrets for access/refresh tokens, JWT metadata, and any service you want to enable: Resend, VAPID, OAuth providers, Google Drive, and Cloudinary.
@@ -238,6 +254,20 @@ config/        App, HTTP, logger, Cloudinary, role/permission config
 ```
 
 ## Local Development
+
+From the repository root, install all package dependencies and start both apps together:
+
+```bash
+npm install
+cd devmatch-brainbox
+npm install
+cd ../devmatch-visualcortex
+npm install
+cd ..
+npm run dev
+```
+
+From this backend package only:
 
 ```bash
 npm install

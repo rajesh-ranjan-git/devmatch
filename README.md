@@ -7,6 +7,12 @@ The repository is split into two apps:
 - `devmatch-brainbox`: Express/MongoDB backend API, realtime socket server, auth, RBAC, conversations, push notifications, email, and media upload services.
 - `devmatch-visualcortex`: Next.js frontend, app shell, protected routes, discovery UI, profile management, conversation UI, admin screens, subscription screens, and PWA assets.
 
+## Live Deployment
+
+- Frontend: `https://devmatch-indol-seven.vercel.app`
+- Backend: `https://devmatch-brainbox.onrender.com`
+- Production API base URL: `https://devmatch-brainbox.onrender.com/api/v1`
+
 ## Current Feature Set
 
 - Landing page for the DevMatch product.
@@ -57,14 +63,21 @@ The repository is split into two apps:
 ```text
 devmatch/
   README.md
+  package.json
+  package-lock.json
   devmatch-brainbox/
     src/server.js
+    config/
+    constants/
     routes/
     controllers/
     middlewares/
     models/
     services/
+    lib/
+    utils/
     validators/
+    db/
     seed/
     env/env-example.txt
     package.json
@@ -72,11 +85,17 @@ devmatch/
   devmatch-visualcortex/
     src/app/
     src/components/
+    src/config/
+    src/constants/
+    src/helpers/
     src/lib/
+    src/services/
     src/hooks/
     src/store/
     src/socket/
     src/types/
+    src/utils/
+    src/validators/
     public/
     env/env-example.txt
     package.json
@@ -107,15 +126,21 @@ Default local ports used by the examples:
 - Frontend app: `http://localhost:1997`
 - API base URL: `http://localhost:1995/api/v1`
 
+Production URLs:
+
+- Backend API: `https://devmatch-brainbox.onrender.com/api/v1`
+- Frontend app: `https://devmatch-indol-seven.vercel.app`
+
 Important backend variables include `HOST_PORT`, `HOST_URL`, `CLIENT_URL`, token secrets, MongoDB settings, VAPID keys, Resend settings, OAuth credentials, Google Drive settings, and Cloudinary settings.
 
 Important frontend variables include `NEXT_PUBLIC_HOST_URL`, `NEXT_PUBLIC_HOST_VERSION`, `NEXT_PUBLIC_CLIENT_URL`, and public OAuth client IDs.
 
 ## Install
 
-Install dependencies in both apps:
+Install the root orchestration dependencies and both app packages:
 
 ```bash
+npm install
 cd devmatch-brainbox
 npm install
 
@@ -125,10 +150,9 @@ npm install
 
 ## Run Locally
 
-The easiest local workflow starts both apps from the frontend package:
+The easiest local workflow starts both apps from the repository root:
 
 ```bash
-cd devmatch-visualcortex
 npm run dev
 ```
 
@@ -144,9 +168,24 @@ cd devmatch-brainbox
 npm run dev
 ```
 
+Or run the frontend by itself:
+
+```bash
+cd devmatch-visualcortex
+npm run dev
+```
+
 ## Seed Data
 
-Seed scripts live in the backend and are also exposed from the frontend package:
+Seed scripts live in the backend and are exposed from the repository root:
+
+```bash
+npm run seed
+npm run seed-users
+npm run seed-connect
+```
+
+You can also run them from the backend package:
 
 ```bash
 cd devmatch-brainbox
@@ -159,7 +198,13 @@ npm run seed-connect
 
 ## Build And Checks
 
-Backend syntax check:
+Build both apps from the repository root:
+
+```bash
+npm run build
+```
+
+Backend syntax check only:
 
 ```bash
 cd devmatch-brainbox

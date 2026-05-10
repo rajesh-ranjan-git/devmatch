@@ -2,6 +2,12 @@
 
 `devmatch-visualcortex` is the Next.js frontend for DevMatch. It provides the public landing page, auth screens, protected app shell, discovery flow, profile editor, conversation UI, admin sections, subscription/payment screens, push notification registration, and PWA assets.
 
+## Live Deployment
+
+- Frontend URL: `https://devmatch-indol-seven.vercel.app`
+- Backend URL: `https://devmatch-brainbox.onrender.com`
+- Production API base URL: `https://devmatch-brainbox.onrender.com/api/v1`
+
 ## Stack
 
 - Next.js 16 App Router.
@@ -21,9 +27,9 @@
 ## Scripts
 
 ```bash
-npm run dev          # Start frontend on 1997 and backend from ../devmatch-brainbox
+npm run dev          # Start the frontend on port 1997
 npm run build        # Build the Next.js app
-npm start            # Start frontend and backend in production mode
+npm start            # Start the frontend in production mode on port 1997
 npm run lint         # Run ESLint
 npm run seed         # Run backend RBAC seed
 npm run seed-users   # Run backend user seed
@@ -53,6 +59,18 @@ NEXT_PUBLIC_HOST_URL + /api/ + NEXT_PUBLIC_HOST_VERSION
 ```
 
 With the defaults above, API requests go to `http://localhost:1995/api/v1`.
+
+Production values should point to the deployed apps:
+
+```env
+NEXT_PUBLIC_NODE_ENV=production
+NEXT_PUBLIC_HOST_URL=https://devmatch-brainbox.onrender.com
+NEXT_PUBLIC_CLIENT_URL=https://devmatch-indol-seven.vercel.app
+NEXT_PUBLIC_HOST_VERSION=v1
+NEXT_PUBLIC_CLIENT_VERSION=v1
+```
+
+With those values, API requests go to `https://devmatch-brainbox.onrender.com/api/v1`.
 
 Public OAuth client IDs can also be provided for Google, GitHub, Facebook, and LinkedIn.
 
@@ -104,9 +122,11 @@ Public OAuth client IDs can also be provided for Google, GitHub, Facebook, and L
 - `src/lib/api`: typed API client, cookie helpers, and API utilities.
 - `src/lib/actions`: frontend action modules for auth, OAuth, profile, discover, connections, conversations, and common actions.
 - `src/lib/routes`: centralized route constants.
+- `src/services`: client-side service modules.
 - `src/store`: Zustand app store.
 - `src/socket`: Socket.IO client setup.
 - `src/hooks`: reusable hooks for toast, OAuth listener, network actions, sheet state, outside click, storage, screen width, and field validation.
+- `src/helpers` and `src/utils`: shared frontend helpers and utilities.
 - `src/validators`: auth/profile/common validation helpers.
 - `src/types`: shared type and prop definitions.
 - `src/config` and `src/constants`: app config, forms, profile fields, OAuth config, fonts, HTTP status config, regex, and env constants.
@@ -119,16 +139,28 @@ Public OAuth client IDs can also be provided for Google, GitHub, Facebook, and L
 
 ## Local Development
 
-From this package:
+From the repository root, install all package dependencies and start both apps together:
+
+```bash
+npm install
+cd devmatch-brainbox
+npm install
+cd ../devmatch-visualcortex
+npm install
+cd ..
+npm run dev
+```
+
+From this frontend package only:
 
 ```bash
 npm install
 npm run dev
 ```
 
-`npm run dev` uses `concurrently` to run both the frontend and backend. Open `http://localhost:1997`.
+Open `http://localhost:1997`.
 
-The backend must have its own `env/.env-development` configured because this script starts `../devmatch-brainbox/src/server.js`.
+The backend must have its own `env/.env-development` configured when running the full workspace dev script from the root.
 
 ## Build
 
