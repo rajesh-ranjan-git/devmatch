@@ -37,6 +37,8 @@ const allowedOrigins = [HOST_URL, CLIENT_URL]
   .map((url) => url.trim())
   .filter(Boolean);
 
+console.log("Allowed origins:", allowedOrigins);
+
 app.use(
   cors({
     origin(origin, callback) {
@@ -45,6 +47,8 @@ app.use(
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
+
+      console.log("Blocked by CORS:", origin);
 
       return callback(new Error(`CORS blocked for origin: ${origin}`));
     },
