@@ -4,9 +4,9 @@
 
 ## Live Deployment
 
-- Frontend URL: `https://devmatch-indol-seven.vercel.app`
-- Backend URL: `https://devmatch-brainbox.onrender.com`
-- Production API base URL: `https://devmatch-brainbox.onrender.com/api/v1`
+- Frontend URL: `https://devmatch.rajeshranjan.dev`
+- Backend URL: `https://devmatch.rajeshranjan.dev/brainbox`
+- Production API base URL: `https://devmatch.rajeshranjan.dev/brainbox/api/v1`
 
 ## Stack
 
@@ -64,13 +64,13 @@ Production values should point to the deployed apps:
 
 ```env
 NEXT_PUBLIC_NODE_ENV=production
-NEXT_PUBLIC_HOST_URL=https://devmatch-brainbox.onrender.com
-NEXT_PUBLIC_CLIENT_URL=https://devmatch-indol-seven.vercel.app
+NEXT_PUBLIC_HOST_URL=https://devmatch.rajeshranjan.dev/brainbox
+NEXT_PUBLIC_CLIENT_URL=https://devmatch.rajeshranjan.dev
 NEXT_PUBLIC_HOST_VERSION=v1
 NEXT_PUBLIC_CLIENT_VERSION=v1
 ```
 
-With those values, API requests go to `https://devmatch-brainbox.onrender.com/api/v1`.
+With those values, API requests go to `https://devmatch.rajeshranjan.dev/brainbox/api/v1`.
 
 Public OAuth client IDs can also be provided for Google, GitHub, Facebook, and LinkedIn.
 

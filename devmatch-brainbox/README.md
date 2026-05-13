@@ -4,9 +4,9 @@
 
 ## Live Deployment
 
-- Backend URL: `https://devmatch-brainbox.onrender.com`
-- API base URL: `https://devmatch-brainbox.onrender.com/api/v1`
-- Frontend client URL: `https://devmatch-indol-seven.vercel.app`
+- Backend URL: `https://devmatch.rajeshranjan.dev/brainbox`
+- API base URL: `https://devmatch.rajeshranjan.dev/brainbox/api/v1`
+- Frontend client URL: `https://devmatch.rajeshranjan.dev`
 
 ## Stack
 
@@ -55,8 +55,8 @@ Production should point the client and host values at the live apps:
 
 ```env
 NODE_ENV=production
-HOST_URL=https://devmatch-brainbox.onrender.com
-CLIENT_URL=https://devmatch-indol-seven.vercel.app
+HOST_URL=https://devmatch.rajeshranjan.dev/brainbox
+CLIENT_URL=https://devmatch.rajeshranjan.dev
 HOST_VERSION=v1
 CLIENT_VERSION=v1
 ```

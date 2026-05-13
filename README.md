@@ -9,9 +9,9 @@ The repository is split into two apps:
 
 ## Live Deployment
 
-- Frontend: `https://devmatch-indol-seven.vercel.app`
-- Backend: `https://devmatch-brainbox.onrender.com`
-- Production API base URL: `https://devmatch-brainbox.onrender.com/api/v1`
+- Frontend: `https://devmatch.rajeshranjan.dev`
+- Backend: `https://devmatch.rajeshranjan.dev/brainbox`
+- Production API base URL: `https://devmatch.rajeshranjan.dev/brainbox/api/v1`
 
 ## Current Feature Set
 
@@ -128,8 +128,8 @@ Default local ports used by the examples:
 
 Production URLs:
 
-- Backend API: `https://devmatch-brainbox.onrender.com/api/v1`
-- Frontend app: `https://devmatch-indol-seven.vercel.app`
+- Backend API: `https://devmatch.rajeshranjan.dev/brainbox/api/v1`
+- Frontend app: `https://devmatch.rajeshranjan.dev`
 
 Important backend variables include `HOST_PORT`, `HOST_URL`, `CLIENT_URL`, token secrets, MongoDB settings, VAPID keys, Resend settings, OAuth credentials, Google Drive settings, and Cloudinary settings.
 
