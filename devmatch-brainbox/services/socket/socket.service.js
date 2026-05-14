@@ -67,10 +67,6 @@ export const initializeSocket = (server) => {
   const typingUsers = new Map();
 
   io.use((socket, next) => {
-    logger.info("[WS Middleware] Incoming from:", socket.handshake.address);
-    logger.info("[WS Middleware] URL:", socket.handshake.url);
-    logger.info("[WS Middleware] Headers:", socket.handshake.headers);
-
     const token = socket.handshake.auth?.token;
 
     if (!token) {
@@ -125,25 +121,6 @@ export const initializeSocket = (server) => {
   };
 
   io.on("connection", (socket) => {
-    logger.info("[WS] New connection:", socket.id);
-    logger.info("[WS] From origin:", socket.handshake.headers.origin);
-    logger.info("[WS] URL hit:", socket.handshake.url);
-    logger.info("[WS] Full address:", socket.handshake.address);
-
-    const { url, address, headers, query, auth } = socket.handshake;
-
-    logger.info("[WS] URL:", url); // /socket.io/?EIO=4&transport=polling
-    logger.info("[WS] Client IP:", address); // ::1 or actual IP
-    logger.info("[WS] Origin:", headers.origin);
-    logger.info("[WS] Query params:", query); // { EIO: '4', transport: 'websocket' }
-    logger.info("[WS] Auth payload:", auth); // whatever you passed in auth: {}
-
-    logger.info("[WS] Initial transport:", socket.conn.transport.name); // "polling"
-
-    socket.conn.on("upgrade", (transport) => {
-      logger.info("[WS] Upgraded to:", transport.name); // "websocket"
-    });
-
     const userId = socket.data.userId?.toString();
 
     if (!userId) {
