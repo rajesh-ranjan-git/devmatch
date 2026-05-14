@@ -114,11 +114,11 @@ devmatch/
 Each app reads environment files from its own `env` directory. Create these files from the examples:
 
 ```bash
-cp devmatch-brainbox/env/env-example.txt devmatch-brainbox/env/.env-development
-cp devmatch-visualcortex/env/env-example.txt devmatch-visualcortex/env/.env-development
+cp devmatch-brainbox/env/env-example.txt devmatch-brainbox/env/.env.development
+cp devmatch-visualcortex/env/env-example.txt devmatch-visualcortex/env/.env.development
 ```
 
-For production, create matching `.env-production` files in the same directories.
+For production, create matching `.env.production` files in the same directories.
 
 Default local ports used by the examples:
 

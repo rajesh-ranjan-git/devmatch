@@ -38,7 +38,7 @@ npm run seed-connect # Run backend connection seed
 
 ## Environment
 
-Create `env/.env-development` from `env/env-example.txt`. For production, create `env/.env-production`.
+Create `env/.env.development` from `env/env-example.txt`. For production, create `env/.env.production`.
 
 Default local values:
 
@@ -160,7 +160,7 @@ npm run dev
 
 Open `http://localhost:1997`.
 
-The backend must have its own `env/.env-development` configured when running the full workspace dev script from the root.
+The backend must have its own `env/.env.development` configured when running the full workspace dev script from the root.
 
 ## Build
 

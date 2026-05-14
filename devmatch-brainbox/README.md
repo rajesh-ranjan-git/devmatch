@@ -35,7 +35,7 @@ npm run build        # Alias for npm run check
 
 ## Environment
 
-Create `env/.env-development` from `env/env-example.txt`. For production, create `env/.env-production`.
+Create `env/.env.development` from `env/env-example.txt`. For production, create `env/.env.production`.
 
 Common local values:
 
