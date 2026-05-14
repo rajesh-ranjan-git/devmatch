@@ -13,6 +13,8 @@ export const createSocketConnection = ({ token }: SocketConfigType): Socket => {
   const isLocal =
     typeof window !== "undefined" && window.location.hostname === "localhost";
 
+  logger.debug("debug from socket HOST_URL:", HOST_URL);
+
   const socket = io(HOST_URL, {
     withCredentials: true,
     transports: ["websocket", "polling"],
