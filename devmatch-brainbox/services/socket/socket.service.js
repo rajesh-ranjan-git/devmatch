@@ -52,6 +52,7 @@ export const isConnectedSocket = async (socket, targetUserId) => {
 
 export const initializeSocket = (server) => {
   const io = new Server(server, {
+    path: "/brainbox/socket.io",
     cors: {
       origin: [HOST_URL, CLIENT_URL],
       credentials: true,
