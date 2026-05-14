@@ -51,9 +51,6 @@ export const isConnectedSocket = async (socket, targetUserId) => {
 };
 
 export const initializeSocket = (server) => {
-  logger.info("debug from initializeSocket HOST_URL:", HOST_URL);
-  logger.info("debug from initializeSocket CLIENT_URL:", CLIENT_URL);
-
   const io = new Server(server, {
     path: MODE === "production" ? "/brainbox/socket.io" : "/socket.io",
     cors: {
@@ -69,11 +66,8 @@ export const initializeSocket = (server) => {
 
   const typingUsers = new Map();
 
-  const token = socket.handshake.auth?.token;
-  logger.info("debug from initializeSocket token:", token);
-
   io.use((socket, next) => {
-    logger.info("debug from io.use");
+    const token = socket.handshake.auth?.token;
 
     if (!token) {
       return next(
