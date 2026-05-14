@@ -1,7 +1,10 @@
 import { io, Socket } from "socket.io-client";
-import { HOST_URL } from "@/constants/env.constants";
+import { CLIENT_URL, HOST_URL, MODE } from "@/constants/env.constants";
 import { useAppStore } from "@/store/store";
 import { SocketConfigType } from "@/types/types/socket.types";
+
+let socketInstance: Socket | null = null;
+let socketToken: string | null = null;
 
 export const createSocketConnection = ({ token }: SocketConfigType): Socket => {
   const accessToken = token ?? useAppStore.getState().accessToken;
@@ -10,14 +13,28 @@ export const createSocketConnection = ({ token }: SocketConfigType): Socket => {
     throw new Error("Socket connection failed!");
   }
 
+  if (socketInstance && socketToken === accessToken) {
+    socketInstance.auth = { token: accessToken };
+
+    if (!socketInstance.connected && !socketInstance.active) {
+      socketInstance.connect();
+    }
+
+    return socketInstance;
+  }
+
+  socketInstance?.disconnect();
+
   const isLocal =
     typeof window !== "undefined" && window.location.hostname === "localhost";
 
-  const socket = io(HOST_URL, {
+  const socketBaseUrl = MODE === "production" ? CLIENT_URL : HOST_URL;
+
+  const socket = io(socketBaseUrl, {
     withCredentials: true,
     transports: ["websocket", "polling"],
     auth: { token: accessToken },
-    ...(!isLocal && { path: "/brainbox/socket.io" }),
+    path: MODE === "production" ? "/brainbox/socket.io" : "/socket.io",
     reconnection: true,
     reconnectionAttempts: 10,
     reconnectionDelay: 1_000,
@@ -25,6 +42,9 @@ export const createSocketConnection = ({ token }: SocketConfigType): Socket => {
     randomizationFactor: 0.5,
     timeout: 20_000,
   });
+
+  socketInstance = socket;
+  socketToken = accessToken;
 
   const manager = socket.io;
   logger.info("[Socket.io] URL:", (manager as any).uri);
@@ -46,4 +66,10 @@ export const createSocketConnection = ({ token }: SocketConfigType): Socket => {
   });
 
   return socket;
+};
+
+export const disconnectSocketConnection = () => {
+  socketInstance?.disconnect();
+  socketInstance = null;
+  socketToken = null;
 };
