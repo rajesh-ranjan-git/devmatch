@@ -8,6 +8,7 @@ import { ToastProvider } from "@/hooks/toast";
 import ServiceWorker from "@/components/service-worker/service.worker";
 import Orb from "@/components/background/orb";
 import ThemeManager from "@/components/theme/theme.manager";
+import TanstackQueryProvider from "@/components/tanstack-query/tanstack.query.provider";
 import ErrorWrapper from "@/components/errors/error.wrapper";
 import AuthWrapper from "@/components/auth/auth.wrapper";
 import AppChrome from "@/components/layout/app.chrome";
@@ -34,17 +35,19 @@ const RootLayout = ({ children }: Readonly<ReactNodeProps>) => {
         suppressHydrationWarning
       >
         <ServiceWorker />
-        <ToastProvider>
-          <Banner nodeVersion={process.version} />
-          <ThemeManager />
-          <Orb />
+        <TanstackQueryProvider>
+          <ToastProvider>
+            <Banner nodeVersion={process.version} />
+            <ThemeManager />
+            <Orb />
 
-          <AuthWrapper>
-            <AppChrome>
-              <ErrorWrapper>{children}</ErrorWrapper>
-            </AppChrome>
-          </AuthWrapper>
-        </ToastProvider>
+            <AuthWrapper>
+              <AppChrome>
+                <ErrorWrapper>{children}</ErrorWrapper>
+              </AppChrome>
+            </AuthWrapper>
+          </ToastProvider>
+        </TanstackQueryProvider>
       </body>
     </html>
   );

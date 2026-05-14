@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { FiCheckCircle } from "react-icons/fi";
 import { LuArrowLeft, LuEyeClosed, LuShieldQuestion } from "react-icons/lu";
 import { FaRegEye } from "react-icons/fa";
+import { TbLoader3 } from "react-icons/tb";
 import { initialState } from "@/config/forms.config";
 import { FormStateType } from "@/types/types/actions.types";
 import { passwordValidator } from "@/validators/auth.validators";
@@ -18,7 +19,6 @@ import AuthLayout from "@/components/auth/auth.layout";
 import FormField from "@/components/forms/shared/form.field";
 import FormInput from "@/components/forms/shared/form.input";
 import FormButton from "@/components/forms/shared/form.button";
-import { TbLoader3 } from "react-icons/tb";
 
 const ResetPasswordPage = () => {
   const [showPassword, setShowPassword] = useState(false);
