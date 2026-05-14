@@ -26,6 +26,21 @@ export const createSocketConnection = ({ token }: SocketConfigType): Socket => {
     timeout: 20_000,
   });
 
+  const manager = socket.io;
+  logger.info("[Socket.io] URL:", (manager as any).uri);
+  logger.info("[Socket.io] Path:", socket.io.opts.path);
+
+  socket.on("connect", () => {
+    logger.info("[Socket.io] Connected — ID:", socket.id);
+    logger.info("[Socket.io] Transport:", socket.io.engine.transport.name);
+  });
+
+  socket.io.on("open", () => {
+    console.log("[Socket.io] Engine URL:", socket.io.engine.transport.name);
+    console.log("[Socket.io] Hostname:", (socket.io.engine as any).hostname);
+    console.log("[Socket.io] Port:", (socket.io.engine as any).port);
+  });
+
   socket.io.on("reconnect_attempt", () => {
     socket.auth = { token: useAppStore.getState().accessToken };
   });
