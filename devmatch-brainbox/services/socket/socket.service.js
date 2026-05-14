@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import { HOST_URL, CLIENT_URL, MODE } from "../../constants/env.constants.js";
+import { HOST_URL, CLIENT_URL } from "../../constants/env.constants.js";
 import User from "../../models/user/auth/user.model.js";
 import Connection from "../../models/connection/connection.model.js";
 import { tokenService } from "../auth/token.service.js";
