@@ -13,13 +13,11 @@ export const createSocketConnection = ({ token }: SocketConfigType): Socket => {
   const isLocal =
     typeof window !== "undefined" && window.location.hostname === "localhost";
 
-  logger.debug("debug from socket HOST_URL:", HOST_URL);
-
   const socket = io(HOST_URL, {
     withCredentials: true,
     transports: ["websocket", "polling"],
     auth: { token: accessToken },
-    path: isLocal ? "/socket.io" : "/brainbox/socket.io",
+    ...(!isLocal && { path: "/socket.io" }),
     reconnection: true,
     reconnectionAttempts: 10,
     reconnectionDelay: 1_000,
