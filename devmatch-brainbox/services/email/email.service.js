@@ -47,6 +47,12 @@ class EmailService {
 
   async send({ to, subject, template }) {
     try {
+      logger.debug("debugging from send");
+      logger.info("debug to:", to);
+      logger.info("debug subject:", subject);
+      logger.info("debug CLIENT_URL:", CLIENT_URL);
+      logger.info("debug template:", template);
+
       if (this.isLocalAccount(to)) {
         throw new AppError({
           message: "Email Service is not available for local accounts!",
@@ -57,6 +63,8 @@ class EmailService {
 
       const recipients = this.getRecipients(to);
 
+      logger.info("debug recipients:", recipients);
+
       if (!AWS_EMAIL_FROM || !recipients?.length) {
         throw new AppError({
           message: "Email Service is not configured!",
@@ -66,8 +74,10 @@ class EmailService {
       }
 
       const html = await render(template);
+      logger.info("debug html:", html);
 
       const text = await render(template, { plainText: true });
+      logger.info("debug text:", text);
 
       const command = new SendEmailCommand({
         Source: AWS_EMAIL_FROM,
@@ -91,6 +101,7 @@ class EmailService {
           },
         },
       });
+      logger.info("debug command:", command);
 
       return await this.client.send(command);
     } catch (error) {
@@ -153,6 +164,13 @@ class EmailService {
 
   async sendPasswordResetConfirmationEmail(to) {
     try {
+      logger.debug("debugging from sendPasswordResetConfirmationEmail");
+      logger.info("debug to:", to);
+      logger.info("debug AWS_SES_REGION:", AWS_SES_REGION);
+      logger.info("debug CLIENT_URL:", CLIENT_URL);
+      logger.info("debug AWS_EMAIL_FROM:", AWS_EMAIL_FROM);
+      logger.info("debug AWS_EMAIL_TO:", AWS_EMAIL_TO);
+
       if (to.endsWith("@server.com")) {
         throw new AppError({
           message: "Email Service is not available for local accounts!",
@@ -169,7 +187,10 @@ class EmailService {
           resetPasswordUrl: `${CLIENT_URL}/forgot-password`,
         }),
       });
+
+      logger.info("debug after send");
     } catch (error) {
+      logger.info("debug in catch with error");
       logger.error("[EmailService] Failed to send email:", error);
       return null;
     }
