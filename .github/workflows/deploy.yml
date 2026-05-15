@@ -250,12 +250,11 @@ jobs:
                 <div style="margin-top:20px">
                   <a
                     href="https://devmatch.rajeshranjan.dev"
-                    style="background:purple;color:white;padding:12px 18px;text-decoration:none;border-radius:8px"
+                    style="background:#059669;color:white;padding:12px 18px;text-decoration:none;border-radius:8px"
                   >
                     Go to DevMatch
                   </a>
                 </div>
-
               </div>
             </div>
 
@@ -350,17 +349,16 @@ jobs:
                 </table>
 
                 <p>Check attached deployment logs.</p>
-                <p>Check GitHub Actions logs immediately!</p>            
+                <p>Check GitHub Actions logs immediately!</p>        
 
                 <div style="margin-top:20px">
                   <a
-                    href="https://devmatch.rajeshranjan.dev"
-                    style="background:black;color:white;padding:12px 18px;text-decoration:none;border-radius:8px"
+                    href="https://github.com/rajesh-ranjan-git/devmatch/actions"
+                    style="background:#dc2626;color:white;padding:12px 18px;text-decoration:none;border-radius:8px"
                   >
-                    Go to DevMatch
+                    Check GitHub Actions logs
                   </a>
                 </div>
-
               </div>
             </div>
 
