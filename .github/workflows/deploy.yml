@@ -204,24 +204,64 @@ jobs:
 
           convert_markdown: false
 
-          body: |
-            DevMatch Deployment completed successfully!
+          html_body: |
+            <div style="font-family:Arial;background:#f5f5f5;padding:30px">
+              <div style="max-width:600px;margin:auto;background:white;padding:24px;border-radius:12px">
 
-            Repository: ${{ github.repository }}
+                <h1 style="margin-top:0">✅ DevMatch Deployment Completed</h1>
 
-            Branch: ${{ github.ref_name }}
+                <table style="width:100%;border-collapse:collapse">
+                  <tr>
+                    <td><strong>Repository</strong></td>
+                    <td>${{ github.repository }}</td>
+                  </tr>
 
-            Commit: ${{ github.sha }}
+                  <tr>
+                    <td><strong>Environment</strong></td>
+                    <td>Production</td>
+                  </tr>
 
-            Commit Message: ${{ github.event.head_commit.message }}
+                  <tr>
+                    <td><strong>Branch</strong></td>
+                    <td>${{ github.ref_name }}</td>
+                  </tr>
 
-            Triggered by: ${{ github.actor }}
+                  <tr>
+                    <td><strong>Commit</strong></td>
+                    <td>${{ github.sha }}</td>
+                  </tr>
 
-            Frontend Changed:
-            ${{ steps.changes.outputs.visualcortex }}
+                  <tr>
+                    <td><strong>Commit Message</strong></td>
+                    <td>${{ github.event.head_commit.message }}</td>
+                  </tr>
 
-            Backend Changed:
-            ${{ steps.changes.outputs.brainbox }}
+                  <tr>
+                    <td><strong>Triggered By</strong></td>
+                    <td>${{ github.actor }}</td>
+                  </tr>
+
+                  <tr>
+                    <td><strong>VisualCortex changed</strong></td>
+                    <td>${{ steps.changes.outputs.visualcortex }}</td>
+                  </tr>
+                  <tr>
+                    <td><strong>BrainBox changed</strong></td>
+                    <td>${{ steps.changes.outputs.visualcortex }}</td>
+                  </tr>
+                </table>
+
+                <div style="margin-top:20px">
+                  <a
+                    href="https://devmatch.rajeshranjan.dev"
+                    style="background:black;color:white;padding:12px 18px;text-decoration:none;border-radius:8px"
+                  >
+                    Go to DevMatch
+                  </a>
+                </div>
+
+              </div>
+            </div>
 
           attachments: deploy-logs.txt
 
@@ -275,23 +315,57 @@ jobs:
 
           convert_markdown: false
 
-          body: |
-            DevMatch Deployment failed!
+          html_body: |
+            <div style="font-family:Arial;background:#f5f5f5;padding:30px">
+              <div style="max-width:600px;margin:auto;background:white;padding:24px;border-radius:12px">
 
-            Repository: ${{ github.repository }}
+                <h1 style="margin-top:0">❌ DevMatch Deployment Failed</h1>
 
-            Branch: ${{ github.ref_name }}
+                <table style="width:100%;border-collapse:collapse">
+                  <tr>
+                    <td><strong>Repository</strong></td>
+                    <td>${{ github.repository }}</td>
+                  </tr>
 
-            Commit: ${{ github.sha }}
+                  <tr>
+                    <td><strong>Environment</strong></td>
+                    <td>Production</td>
+                  </tr>
 
-            Commit Message: ${{ github.event.head_commit.message }}
+                  <tr>
+                    <td><strong>Branch</strong></td>
+                    <td>${{ github.ref_name }}</td>
+                  </tr>
 
-            Triggered By: ${{ github.actor }}
+                  <tr>
+                    <td><strong>Commit</strong></td>
+                    <td>${{ github.sha }}</td>
+                  </tr>
 
-            Rollback attempted automatically.
+                  <tr>
+                    <td><strong>Commit Message</strong></td>
+                    <td>${{ github.event.head_commit.message }}</td>
+                  </tr>
 
-            Check attached deployment logs.
+                  <tr>
+                    <td><strong>Triggered By</strong></td>
+                    <td>${{ github.actor }}</td>
+                  </tr>
+                </table>
 
-            Check GitHub Actions logs immediately!
+                <p>Check attached deployment logs.</p>
+                <p>Check GitHub Actions logs immediately!</p>            
+
+                <div style="margin-top:20px">
+                  <a
+                    href="https://devmatch.rajeshranjan.dev"
+                    style="background:black;color:white;padding:12px 18px;text-decoration:none;border-radius:8px"
+                  >
+                    Go to DevMatch
+                  </a>
+                </div>
+
+              </div>
+            </div>
 
           attachments: deploy-logs.txt
