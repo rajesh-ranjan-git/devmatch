@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout latest DevMatch code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Detect DevMatch changed services
         id: changes
@@ -63,6 +65,9 @@ jobs:
           script: |
             set -e
             START_TIME=$(date +%s)
+
+            touch ~/deploy-logs.txt
+            exec > >(tee -a ~/deploy-logs.txt) 2>&1
 
             echo "===== STARTING DEVMATCH DEPLOYMENT ====="
 
