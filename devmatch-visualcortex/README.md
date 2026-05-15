@@ -23,6 +23,7 @@
 - Recharts for admin/analytics charts.
 - React Icons.
 - Next proxy middleware for route protection.
+- Production Socket.IO routing through `/brainbox/socket.io` with socket instance reuse and cleanup.
 
 ## Scripts
 
@@ -38,7 +39,7 @@ npm run seed-connect # Run backend connection seed
 
 ## Environment
 
-Create `env/.env.development` from `env/env-example.txt`. For production, create `env/.env.production`.
+Create `env/.env.development` from `env/env.example.txt`. For production, create `env/.env.production`.
 
 Default local values:
 
@@ -124,7 +125,7 @@ Public OAuth client IDs can also be provided for Google, GitHub, Facebook, and L
 - `src/lib/routes`: centralized route constants.
 - `src/services`: client-side service modules.
 - `src/store`: Zustand app store.
-- `src/socket`: Socket.IO client setup.
+- `src/socket`: Socket.IO client setup, singleton connection reuse, reconnect auth refresh, and explicit disconnect cleanup.
 - `src/hooks`: reusable hooks for toast, OAuth listener, network actions, sheet state, outside click, storage, screen width, and field validation.
 - `src/helpers` and `src/utils`: shared frontend helpers and utilities.
 - `src/validators`: auth/profile/common validation helpers.
@@ -136,6 +137,23 @@ Public OAuth client IDs can also be provided for Google, GitHub, Facebook, and L
 - `public/manifest/manifest.json` defines the PWA manifest.
 - `public/serviceWorker/serviceWorker.js` is registered by the root layout.
 - Android, iOS, Windows, favicon, app logo, avatar, cover, error, and font assets live under `public/assets`.
+
+## Realtime Sockets
+
+- Local development connects to `HOST_URL` with `/socket.io`.
+- Production connects to `CLIENT_URL` with `/brainbox/socket.io`, matching the backend behind the `/brainbox` route.
+- The socket helper reuses the active socket when the access token is unchanged, refreshes auth during reconnect attempts, and exposes `disconnectSocketConnection()` for layout cleanup.
+
+## Production Deployment
+
+The root GitHub Actions workflow deploys VisualCortex when files under `devmatch-visualcortex/` change.
+
+- Package installation runs only when the frontend package file or lockfile changed.
+- `npm run build` creates the production Next.js build.
+- PM2 reloads the `visualcortex` app from the root `ecosystem.config.js`.
+- Deployment success/failure emails include the deployment logs.
+
+Date display utilities use the `Asia/Kolkata` timezone for consistent formatted dates.
 
 ## Local Development
 

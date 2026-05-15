@@ -4,7 +4,7 @@ DevMatch is a full-stack social discovery app for developers and engineers. It h
 
 The repository is split into two apps:
 
-- `devmatch-brainbox`: Express/MongoDB backend API, realtime socket server, auth, RBAC, conversations, push notifications, email, and media upload services.
+- `devmatch-brainbox`: Express/MongoDB backend API, realtime socket server, auth, RBAC, conversations, push notifications, AWS SES email, and media upload services.
 - `devmatch-visualcortex`: Next.js frontend, app shell, protected routes, discovery UI, profile management, conversation UI, admin screens, subscription screens, and PWA assets.
 
 ## Live Deployment
@@ -28,10 +28,13 @@ The repository is split into two apps:
 - Direct and group conversations with message send, edit, delete, search, delivery/seen receipts, reactions, pinned messages, and read state.
 - Socket.IO integration for realtime app events.
 - Push notification subscription support through Web Push/VAPID.
-- Email delivery through Resend.
+- Transactional email delivery through AWS SES with React Email templates.
+- Password reset confirmation email template and delivery flow.
 - Media upload support through Cloudinary and Google Drive service modules.
 - Admin screens and APIs for users, roles, activity, analytics, reports, and settings.
 - PWA manifest, service worker registration, mobile/desktop app icons, theme manager, and responsive app chrome.
+- Production GitHub Actions deployment pipeline with changed-service detection, PM2 reloads, deployment logs, email notifications, and rollback support.
+- Production PM2 ecosystem config for the frontend and backend services.
 
 ## Tech Stack
 
@@ -42,10 +45,10 @@ The repository is split into two apps:
 - MongoDB with Mongoose 9.
 - Socket.IO for realtime events.
 - JSON Web Tokens, cookies, session documents, bcryptjs, and OAuth provider support.
-- Resend and React Email rendering for transactional email.
 - Web Push for browser notifications.
 - Cloudinary, Multer, and Google Drive service helpers for images/uploads.
 - Custom logger, response wrapper, request middleware, validation layer, and centralized error service.
+- AWS SES and React Email rendering for transactional email.
 
 ### Frontend: `devmatch-visualcortex`
 
@@ -79,7 +82,7 @@ devmatch/
     validators/
     db/
     seed/
-    env/env-example.txt
+    env/env.example.txt
     package.json
     README.md
   devmatch-visualcortex/
@@ -97,7 +100,7 @@ devmatch/
     src/utils/
     src/validators/
     public/
-    env/env-example.txt
+    env/env.example.txt
     package.json
     README.md
 ```
@@ -107,15 +110,15 @@ devmatch/
 - Node.js 20 or newer is recommended for the current Next.js/React toolchain.
 - npm.
 - MongoDB, either local or Atlas.
-- Optional service credentials for OAuth providers, Resend, Web Push, Google Drive, and Cloudinary.
+- Optional service credentials for OAuth providers, AWS SES, Web Push, Google Drive, and Cloudinary.
 
 ## Environment Setup
 
 Each app reads environment files from its own `env` directory. Create these files from the examples:
 
 ```bash
-cp devmatch-brainbox/env/env-example.txt devmatch-brainbox/env/.env.development
-cp devmatch-visualcortex/env/env-example.txt devmatch-visualcortex/env/.env.development
+cp devmatch-brainbox/env/env.example.txt devmatch-brainbox/env/.env.development
+cp devmatch-visualcortex/env/env.example.txt devmatch-visualcortex/env/.env.development
 ```
 
 For production, create matching `.env.production` files in the same directories.
@@ -131,7 +134,7 @@ Production URLs:
 - Backend API: `https://devmatch.rajeshranjan.dev/brainbox/api/v1`
 - Frontend app: `https://devmatch.rajeshranjan.dev`
 
-Important backend variables include `HOST_PORT`, `HOST_URL`, `CLIENT_URL`, token secrets, MongoDB settings, VAPID keys, Resend settings, OAuth credentials, Google Drive settings, and Cloudinary settings.
+Important backend variables include `HOST_PORT`, `HOST_URL`, `CLIENT_URL`, token secrets, MongoDB settings, VAPID keys, AWS SES settings, OAuth credentials, Google Drive settings, and Cloudinary settings.
 
 Important frontend variables include `NEXT_PUBLIC_HOST_URL`, `NEXT_PUBLIC_HOST_VERSION`, `NEXT_PUBLIC_CLIENT_URL`, and public OAuth client IDs.
 
@@ -225,10 +228,22 @@ cd devmatch-visualcortex
 npm run lint
 ```
 
+## Production Deployment
+
+Production deployment is automated by `.github/workflows/deploy.yml` on pushes to `main`.
+
+- The workflow detects whether `devmatch-visualcortex` or `devmatch-brainbox` changed and only rebuilds/reloads affected services.
+- Dependency installation is skipped unless the matching package file or lockfile changed.
+- Deployment happens over SSH to the EC2 host, creates `~/devmatch-backup`, pulls `origin/main`, builds changed services, reloads PM2, and saves the PM2 process list.
+- Deployment logs are downloaded as `deploy-logs.txt` and attached to success/failure emails through AWS SMTP secrets.
+- On deploy failure, the workflow restores the backup and reloads PM2.
+- `ecosystem.config.js` defines the production PM2 apps: `visualcortex` on port `1997` and `brainbox` on port `1995`.
+
 ## API Overview
 
-All backend routes are mounted under `/api/v1`.
+Most backend API routes are mounted under `/api/v1`; root status checks are exposed directly by the backend server.
 
+- `/health`: backend uptime/timestamp check.
 - `/auth`: registration, login, logout, refresh, current user, email verification, password reset, password update.
 - `/oauth`: OAuth provider callback/linking endpoints.
 - `/user`: account, dashboard summary, sessions, activity, profile, social links, and addresses.
@@ -256,5 +271,6 @@ See [devmatch-visualcortex/README.md](devmatch-visualcortex/README.md) for front
 
 - The frontend uses a `refreshToken` cookie in proxy middleware to protect authenticated routes.
 - The API also accepts Bearer tokens from the frontend API handler when `requireAuth` is used.
+- In production, sockets connect through the frontend origin using `/brainbox/socket.io`; the frontend socket helper selects `/socket.io` in development.
 - API responses go through a shared response service, and errors go through a centralized error service.
 - Some service integrations are optional for local development, but related features will need credentials to work end to end.

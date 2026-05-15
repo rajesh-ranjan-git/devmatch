@@ -1,6 +1,6 @@
 # DevMatch Brainbox
 
-`devmatch-brainbox` is the backend for DevMatch. It exposes the REST API, owns MongoDB persistence, handles auth and authorization, powers realtime socket events, and integrates with external services for email, push notifications, OAuth, and media storage.
+`devmatch-brainbox` is the backend for DevMatch. It exposes the REST API, owns MongoDB persistence, handles auth and authorization, powers realtime socket events, and integrates with external services for AWS SES email, push notifications, OAuth, and media storage.
 
 ## Live Deployment
 
@@ -16,10 +16,12 @@
 - Socket.IO.
 - JWT access/refresh tokens, cookies, sessions, bcryptjs, and OAuth provider support.
 - RBAC with roles, permissions, hierarchy checks, and ownership checks.
-- Resend plus React Email rendering.
+- AWS SES plus React Email rendering.
 - Web Push with VAPID keys.
 - Multer, Cloudinary, and Google Drive service helpers for image upload/storage.
 - Custom middleware for authentication, authorization, request validation, rate limiting, uploads, OAuth, and conversation access checks.
+- Health/root status endpoints.
+- Socket.IO path support under `/brainbox/socket.io`.
 
 ## Scripts
 
@@ -35,7 +37,7 @@ npm run build        # Alias for npm run check
 
 ## Environment
 
-Create `env/.env.development` from `env/env-example.txt`. For production, create `env/.env.production`.
+Create `env/.env.development` from `env/env.example.txt`. For production, create `env/.env.production`.
 
 Common local values:
 
@@ -61,7 +63,20 @@ HOST_VERSION=v1
 CLIENT_VERSION=v1
 ```
 
-You will also need secrets for access/refresh tokens, JWT metadata, and any service you want to enable: Resend, VAPID, OAuth providers, Google Drive, and Cloudinary.
+You will also need secrets for access/refresh tokens, JWT metadata, and any service you want to enable: AWS SES, VAPID, OAuth providers, Google Drive, and Cloudinary.
+
+Email delivery uses these AWS SES variables:
+
+```env
+AWS_EMAIL_FROM=
+AWS_EMAIL_TO=
+AWS_DEV_EMAIL_OVERRIDE=
+AWS_SES_REGION=
+AWS_SES_ACCESS_KEY_ID=
+AWS_SES_SECRET_ACCESS_KEY=
+```
+
+In non-production environments, `AWS_DEV_EMAIL_OVERRIDE` can redirect outbound email to development recipients. Seed/local accounts use the `@devmatch.rajeshranjan.dev` domain and are blocked from live email delivery.
 
 ## App Entry
 
@@ -83,7 +98,14 @@ It configures:
 
 ## Route Map
 
-All endpoints are mounted under `/api/v1`.
+Most API endpoints are mounted under `/api/v1`; status checks are exposed directly by the backend server.
+
+### Status
+
+```text
+GET    /
+GET    /health
+```
 
 ### Auth: `/auth`
 
@@ -218,6 +240,26 @@ DELETE /message/:conversationId/pinned/:messageId
 POST   /push-notifications/subscribe
 ```
 
+## Email
+
+Transactional email is sent with AWS SES and React Email templates.
+
+- Verification email.
+- Password reset email.
+- Password reset confirmation email.
+- Welcome email.
+- Account locked email.
+- Development recipient override through `AWS_DEV_EMAIL_OVERRIDE`.
+
+## Realtime Sockets
+
+Socket.IO is initialized by `services/socket/socket.service.js`.
+
+- Socket path: `/brainbox/socket.io`.
+- CORS allows `HOST_URL` and `CLIENT_URL`.
+- Socket authentication uses the access token supplied by the frontend client.
+- Online-user tracking and conversation events are emitted through the shared socket service.
+
 ## Data Model Overview
 
 - `User`: account shell with status, email/phone verification flags, last seen, soft-delete timestamp, and virtual links to account/profile.
@@ -252,6 +294,14 @@ seed/          RBAC, sample users, and sample connection seeders
 constants/     Env, roles, permissions, regex, common constants
 config/        App, HTTP, logger, Cloudinary, role/permission config
 ```
+
+## Seed Data
+
+- `npm run seed` creates RBAC permissions/roles and seed admin accounts using the `@devmatch.rajeshranjan.dev` domain.
+- `npm run seed-users` creates sample users with `@devmatch.rajeshranjan.dev` emails.
+- `npm run seed-connect` now prompts for the admin user-list page and target user id before generating connection data.
+
+Date display utilities use the `Asia/Kolkata` timezone for consistent formatted dates.
 
 ## Local Development
 
