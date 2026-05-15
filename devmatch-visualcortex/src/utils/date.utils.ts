@@ -5,6 +5,7 @@ export const getDateToShow = (dateString?: string | Date) => {
 
   return new Date(dateString)
     .toLocaleDateString("en-IN", {
+      timeZone: "Asia/Kolkata",
       year: "numeric",
       month: "short",
       day: "numeric",
