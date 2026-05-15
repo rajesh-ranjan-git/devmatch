@@ -182,7 +182,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.DEVMATCH_EC2_SSH_KEY }}
 
-          source: "~/deploy-logs.txt"
+          source: "/home/ubuntu/deploy-logs.txt"
           target: "./"
 
       - name: Send DevMatch Deployment Success Email
@@ -224,7 +224,7 @@ jobs:
           attachments: deploy-logs.txt
 
       - name: Rollback on failure
-        if: failure()
+        if: steps.deploy.outcome == 'failure'
 
         uses: appleboy/ssh-action@v1.2.0
 
