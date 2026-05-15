@@ -127,7 +127,7 @@ jobs:
                 echo "Installing latest dependencies for DevMatch BrainBox..."
                 npm ci
               else
-                echo "No dependency changes for DevMatch BrainBox. Skipping npm ci."
+                echo "No dependency changes for DevMatch BrainBox. Skipping dependencies installation!"
               fi
 
               echo "Building latest DevMatch BrainBox code..."
