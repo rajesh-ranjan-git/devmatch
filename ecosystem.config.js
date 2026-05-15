@@ -3,6 +3,8 @@ module.exports = {
     {
       name: "visualcortex",
 
+      namespace: "devmatch",
+
       cwd: "/home/ubuntu/devmatch/devmatch-visualcortex",
 
       script: "npm",
@@ -25,6 +27,8 @@ module.exports = {
 
     {
       name: "brainbox",
+
+      namespace: "devmatch",
 
       cwd: "/home/ubuntu/devmatch/devmatch-brainbox",
 
