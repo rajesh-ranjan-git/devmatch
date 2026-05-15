@@ -15,29 +15,6 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Print Base64 Secret
-        run: |
-          echo "AWS_EMAIL_FROM:"
-          echo "${{ secrets.AWS_EMAIL_FROM }}" | base64
-          echo "AWS_EMAIL_TO:"
-          echo "${{ secrets.AWS_EMAIL_TO }}" | base64
-          echo "AWS_SES_REGION:"
-          echo "${{ secrets.AWS_SES_REGION }}" | base64
-          echo "AWS_SMTP_ENDPOINT:"
-          echo "${{ secrets.AWS_SMTP_ENDPOINT }}" | base64
-          echo "AWS_SMTP_PASSWORD:"
-          echo "${{ secrets.AWS_SMTP_PASSWORD }}" | base64
-          echo "AWS_SMTP_PORT:"
-          echo "${{ secrets.AWS_SMTP_PORT }}" | base64
-          echo "AWS_SMTP_USERNAME:"
-          echo "${{ secrets.AWS_SMTP_USERNAME }}" | base64
-          echo "DEVMATCH_EC2_SSH_KEY:"
-          echo "${{ secrets.DEVMATCH_EC2_SSH_KEY }}" | base64
-          echo "HOST:"
-          echo "${{ secrets.HOST }}" | base64
-          echo "USERNAME:"
-          echo "${{ secrets.USERNAME }}" | base64
-
       - name: Detect DevMatch changed services
         id: changes
 
@@ -198,16 +175,15 @@ jobs:
 
       - name: Download DevMatch deployment logs
         if: always()
-
-        uses: appleboy/scp-action@v0.1.7
-
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.DEVMATCH_EC2_SSH_KEY }}
-
-          source: "/home/ubuntu/deploy-logs.txt"
-          target: "./"
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEVMATCH_EC2_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          scp -i ~/.ssh/deploy_key \
+              -o StrictHostKeyChecking=no \
+              ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/${{ secrets.USERNAME }}/deploy-logs.txt \
+              ./deploy-logs.txt
+          rm ~/.ssh/deploy_key
 
       - name: Send DevMatch Deployment Success Email
         if: success()
