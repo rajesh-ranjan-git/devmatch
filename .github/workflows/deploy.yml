@@ -1,0 +1,288 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout latest DevMatch code
+        uses: actions/checkout@v4
+
+      - name: Detect DevMatch changed services
+        id: changes
+
+        run: |
+          echo "Checking changed files for DevMatch..."
+
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          echo "$CHANGED_FILES"
+
+          BUILD_NEEDED=false
+
+          if echo "$CHANGED_FILES" | grep -qvE '(^README\.md$|^\.gitignore$|^LICENSE$|^docs/|^\.github/)'; then
+            BUILD_NEEDED=true
+          fi
+
+          if echo "$CHANGED_FILES" | grep '^devmatch-visualcortex/' > /dev/null && [ "$BUILD_NEEDED" = "true" ]; then
+            echo "visualcortex=true" >> $GITHUB_OUTPUT
+          else
+            echo "visualcortex=false" >> $GITHUB_OUTPUT
+          fi
+
+          if echo "$CHANGED_FILES" | grep '^devmatch-brainbox/' > /dev/null && [ "$BUILD_NEEDED" = "true" ]; then
+            echo "brainbox=true" >> $GITHUB_OUTPUT
+          else
+            echo "brainbox=false" >> $GITHUB_OUTPUT
+          fi
+
+          if echo "$CHANGED_FILES" | grep -E '(^devmatch-visualcortex/package-lock\.json$|^devmatch-visualcortex/package\.json$)' > /dev/null; then
+            echo "visualcortex_install=true" >> $GITHUB_OUTPUT
+          else
+            echo "visualcortex_install=false" >> $GITHUB_OUTPUT
+          fi
+
+          if echo "$CHANGED_FILES" | grep -E '(^devmatch-brainbox/package-lock\.json$|^devmatch-brainbox/package\.json$)' > /dev/null; then
+            echo "brainbox_install=true" >> $GITHUB_OUTPUT
+          else
+            echo "brainbox_install=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Deploy DevMatch changed services via SSH
+        uses: appleboy/ssh-action@v1.2.0
+
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.DEVMATCH_EC2_SSH_KEY }}
+
+          script: |
+            set -e
+            START_TIME=$(date +%s)
+
+            echo "===== STARTING DEVMATCH DEPLOYMENT ====="
+
+            cd ~
+
+            echo "Creating DevMatch backup..."
+
+            rm -rf ~/devmatch-backup
+
+            cp -R ~/devmatch ~/devmatch-backup
+
+            cd ~/devmatch
+
+            echo "Pulling latest DevMatch code..."
+            git pull origin main
+            git reset --hard origin/main
+
+            if [ "${{ steps.changes.outputs.visualcortex }}" = "true" ]; then
+
+              echo "DevMatch VisualCortex changes detected..."
+
+              cd ~/devmatch/devmatch-visualcortex
+
+              if [ "${{ steps.changes.outputs.visualcortex_install }}" = "true" ]; then
+                echo "Installing latest dependencies for DevMatch VisualCortex..."
+                npm ci
+              else
+                echo "No dependency changes for DevMatch VisualCortex. Skipping dependencies installation!"
+              fi
+
+              echo "Building latest DevMatch VisualCortex code..."
+              npm run build
+
+              pm2 reload ~/devmatch/ecosystem.config.js --only visualcortex --update-env
+
+              echo "Saving PM2 process list..."
+              pm2 save
+
+              echo "Latest DevMatch VisualCortex code deployed successfully!"
+
+            else
+              echo "No changes detected for DevMatch VisualCortex!"
+            fi
+
+            if [ "${{ steps.changes.outputs.brainbox }}" = "true" ]; then
+
+              echo "DevMatch BrainBox changes detected..."
+
+              cd ~/devmatch/devmatch-brainbox
+
+              if [ "${{ steps.changes.outputs.brainbox_install }}" = "true" ]; then
+                echo "Installing latest dependencies for DevMatch BrainBox..."
+                npm ci
+              else
+                echo "No dependency changes for DevMatch BrainBox. Skipping npm ci."
+              fi
+
+              echo "Building latest DevMatch BrainBox code..."
+              npm run build
+
+              pm2 reload ~/devmatch/ecosystem.config.js --only brainbox --update-env
+
+              echo "Saving PM2 process list..."
+              pm2 save
+
+              echo "Latest DevMatch BrainBox code deployed successfully!"
+
+            else
+              echo "No changes detected for DevMatch BrainBox!"
+            fi
+
+            echo "===== DEVMATCH SERVER STATS =====" > ~/deploy-logs.txt
+
+            echo "" >> ~/deploy-logs.txt
+            echo "CPU LOAD:" >> ~/deploy-logs.txt
+            uptime >> ~/deploy-logs.txt
+
+            echo "" >> ~/deploy-logs.txt
+            echo "MEMORY:" >> ~/deploy-logs.txt
+            free -h >> ~/deploy-logs.txt
+
+            echo "" >> ~/deploy-logs.txt
+            echo "DISK:" >> ~/deploy-logs.txt
+            df -h >> ~/deploy-logs.txt
+
+            echo "" >> ~/deploy-logs.txt
+            echo "PM2 STATUS:" >> ~/deploy-logs.txt
+            pm2 status >> ~/deploy-logs.txt
+
+            echo "" >> ~/deploy-logs.txt
+            echo "PM2 LOGS:" >> ~/deploy-logs.txt
+            pm2 logs --lines 100 --nostream >> ~/deploy-logs.txt            
+
+            END_TIME=$(date +%s)
+
+            DEPLOY_DURATION=$((END_TIME - START_TIME))
+
+            echo "" >> ~/deploy-logs.txt
+            echo "DEPLOYMENT DURATION:" >> ~/deploy-logs.txt
+            echo "${DEPLOY_DURATION} seconds" >> ~/deploy-logs.txt
+
+            echo "Latest DevMatch code deployed successfully!"
+            echo "===== DEVMATCH DEPLOYMENT FINISHED ====="
+
+      - name: Download DevMatch deployment logs
+        if: always()
+
+        uses: appleboy/scp-action@v0.1.7
+
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.DEVMATCH_EC2_SSH_KEY }}
+
+          source: "~/deploy-logs.txt"
+          target: "./"
+
+      - name: Send DevMatch Deployment Success Email
+        if: success()
+
+        uses: dawidd6/action-send-mail@v3
+
+        with:
+          server_address: ${{ secrets.AWS_SMTP_ENDPOINT }}
+          server_port: ${{ secrets.AWS_SMTP_PORT }}
+
+          username: ${{ secrets.AWS_SMTP_USERNAME }}
+          password: ${{ secrets.AWS_SMTP_PASSWORD }}
+
+          subject: "✅ DevMatch Deployment Successful!"
+
+          to: ${{ secrets.AWS_EMAIL_TO }}
+          from: ${{ secrets.AWS_EMAIL_FROM }}
+
+          body: |
+            DevMatch Deployment completed successfully!
+
+            Repository: ${{ github.repository }}
+
+            Branch: ${{ github.ref_name }}
+
+            Commit: ${{ github.sha }}
+
+            Commit Message: ${{ github.event.head_commit.message }}
+
+            Triggered by: ${{ github.actor }}
+
+            Frontend Changed:
+            ${{ steps.changes.outputs.visualcortex }}
+
+            Backend Changed:
+            ${{ steps.changes.outputs.brainbox }}
+
+          attachments: deploy-logs.txt
+
+      - name: Rollback on failure
+        if: failure()
+
+        uses: appleboy/ssh-action@v1.2.0
+
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.DEVMATCH_EC2_SSH_KEY }}
+
+          script: |
+            echo "===== DEVMACTH DEPLOYMENT FAILED ====="
+
+            if [ -d ~/devmatch-backup ]; then
+
+              echo "Restoring DevMatch backup..."
+
+              rm -rf ~/devmatch
+
+              mv ~/devmatch-backup ~/devmatch
+
+              cd ~/devmatch
+
+              pm2 reload ~/devmatch/ecosystem.config.js --update-env
+
+              echo "DevMatch Rollback completed successfully."
+
+            else
+              echo "DevMatch Backup folder not found!"
+            fi
+
+      - name: Send DevMatch Deployment Failure Email
+        if: failure()
+
+        uses: dawidd6/action-send-mail@v3
+
+        with:
+          server_address: ${{ secrets.AWS_SMTP_ENDPOINT }}
+          server_port: ${{ secrets.AWS_SMTP_PORT }}
+
+          username: ${{ secrets.AWS_SMTP_USERNAME }}
+          password: ${{ secrets.AWS_SMTP_PASSWORD }}
+
+          subject: "❌ DevMatch Deployment Failed!"
+
+          to: ${{ secrets.AWS_EMAIL_TO }}
+          from: ${{ secrets.AWS_EMAIL_FROM }}
+
+          body: |
+            DevMatch Deployment failed!
+
+            Repository: ${{ github.repository }}
+
+            Branch: ${{ github.ref_name }}
+
+            Commit: ${{ github.sha }}
+
+            Commit Message: ${{ github.event.head_commit.message }}
+
+            Triggered By: ${{ github.actor }}
+
+            Rollback attempted automatically.
+
+            Check attached deployment logs.
+
+            Check GitHub Actions logs immediately!
+
+          attachments: deploy-logs.txt
