@@ -112,7 +112,7 @@ class EmailService {
 
   async sendVerificationEmail(to, token) {
     try {
-      if (to.endsWith("@server.com")) {
+      if (to.endsWith("@server.com" | "@devmatch.com")) {
         throw new AppError({
           message: "Email Service is not available for local accounts!",
           code: "EMAIL SERVICE FAILED",
@@ -138,7 +138,14 @@ class EmailService {
 
   async sendPasswordResetEmail(to, token) {
     try {
-      if (to.endsWith("@server.com")) {
+      logger.debug("debugging from sendPasswordResetConfirmationEmail");
+      logger.info("debug to:", to);
+      logger.info("debug AWS_SES_REGION:", AWS_SES_REGION);
+      logger.info("debug CLIENT_URL:", CLIENT_URL);
+      logger.info("debug AWS_EMAIL_FROM:", AWS_EMAIL_FROM);
+      logger.info("debug AWS_EMAIL_TO:", AWS_EMAIL_TO);
+
+      if (to.endsWith("@server.com" | "@devmatch.com")) {
         throw new AppError({
           message: "Email Service is not available for local accounts!",
           code: "EMAIL SERVICE FAILED",
@@ -156,7 +163,10 @@ class EmailService {
           resetUrl,
         }),
       });
+
+      logger.info("debug after send");
     } catch (error) {
+      logger.info("debug in catch with error");
       logger.error("[EmailService] Failed to send email:", error);
       return null;
     }
@@ -164,14 +174,7 @@ class EmailService {
 
   async sendPasswordResetConfirmationEmail(to) {
     try {
-      logger.debug("debugging from sendPasswordResetConfirmationEmail");
-      logger.info("debug to:", to);
-      logger.info("debug AWS_SES_REGION:", AWS_SES_REGION);
-      logger.info("debug CLIENT_URL:", CLIENT_URL);
-      logger.info("debug AWS_EMAIL_FROM:", AWS_EMAIL_FROM);
-      logger.info("debug AWS_EMAIL_TO:", AWS_EMAIL_TO);
-
-      if (to.endsWith("@server.com")) {
+      if (to.endsWith("@server.com" | "@devmatch.com")) {
         throw new AppError({
           message: "Email Service is not available for local accounts!",
           code: "EMAIL SERVICE FAILED",
@@ -187,10 +190,7 @@ class EmailService {
           resetPasswordUrl: `${CLIENT_URL}/forgot-password`,
         }),
       });
-
-      logger.info("debug after send");
     } catch (error) {
-      logger.info("debug in catch with error");
       logger.error("[EmailService] Failed to send email:", error);
       return null;
     }
@@ -198,7 +198,7 @@ class EmailService {
 
   async sendWelcomeEmail(to, userName) {
     try {
-      if (to.endsWith("@server.com")) {
+      if (to.endsWith("@server.com" | "@devmatch.com")) {
         throw new AppError({
           message: "Email Service is not available for local accounts!",
           code: "EMAIL SERVICE FAILED",
@@ -223,7 +223,7 @@ class EmailService {
 
   async sendAccountLockedEmail(to) {
     try {
-      if (to.endsWith("@server.com")) {
+      if (to.endsWith("@server.com" | "@devmatch.com")) {
         throw new AppError({
           message: "Email Service is not available for local accounts!",
           code: "EMAIL SERVICE FAILED",
