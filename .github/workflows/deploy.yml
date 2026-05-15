@@ -67,8 +67,8 @@ jobs:
             set -e
             START_TIME=$(date +%s)
 
-            touch ~/deploy-logs.txt
-            exec > >(tee -a ~/deploy-logs.txt) 2>&1
+            rm -f ~/deploy-logs.txt
+            exec > >(tee ~/deploy-logs.txt) 2>&1
 
             echo "===== STARTING DEVMATCH DEPLOYMENT ====="
 
@@ -156,11 +156,7 @@ jobs:
 
             echo "" >> ~/deploy-logs.txt
             echo "PM2 STATUS:" >> ~/deploy-logs.txt
-            pm2 status >> ~/deploy-logs.txt
-
-            echo "" >> ~/deploy-logs.txt
-            echo "PM2 LOGS:" >> ~/deploy-logs.txt
-            pm2 logs --lines 100 --nostream >> ~/deploy-logs.txt            
+            pm2 status >> ~/deploy-logs.txt           
 
             END_TIME=$(date +%s)
 
@@ -254,7 +250,7 @@ jobs:
                 <div style="margin-top:20px">
                   <a
                     href="https://devmatch.rajeshranjan.dev"
-                    style="background:black;color:white;padding:12px 18px;text-decoration:none;border-radius:8px"
+                    style="background:purple;color:white;padding:12px 18px;text-decoration:none;border-radius:8px"
                   >
                     Go to DevMatch
                   </a>
