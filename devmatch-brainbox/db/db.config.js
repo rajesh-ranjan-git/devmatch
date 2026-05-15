@@ -48,7 +48,7 @@ try {
   DB_URI =
     DB_LOCAL_URI && DB_LOCAL_NAME
       ? `${DB_LOCAL_URI}/${DB_LOCAL_NAME}`
-      : "mongodb://localhost:27017/database-local";
+      : "mongodb://localhost:27017/devmatch-local";
 }
 
 export const DB_URL = DB_URI;

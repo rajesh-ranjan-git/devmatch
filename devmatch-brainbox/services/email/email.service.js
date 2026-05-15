@@ -1,9 +1,10 @@
 import { SendEmailCommand, SESClient } from "@aws-sdk/client-ses";
 import { render } from "@react-email/render";
 import {
+  MODE,
   CLIENT_URL,
   AWS_EMAIL_FROM,
-  AWS_EMAIL_TO,
+  AWS_DEV_EMAIL_OVERRIDE,
   AWS_SES_REGION,
   AWS_SES_ACCESS_KEY_ID,
   AWS_SES_SECRET_ACCESS_KEY,
@@ -50,7 +51,11 @@ class EmailService {
   }
 
   getRecipients(to) {
-    return this.normalizeRecipients(AWS_EMAIL_TO || to);
+    if (MODE !== "production" && AWS_DEV_EMAIL_OVERRIDE) {
+      return this.normalizeRecipients(AWS_DEV_EMAIL_OVERRIDE);
+    }
+
+    return this.normalizeRecipients(to);
   }
 
   async send({ to, subject, template }) {
