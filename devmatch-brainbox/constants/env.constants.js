@@ -25,8 +25,8 @@ export const LOG_LEVEL = process.env.LOG_LEVEL;
 export const LOG_TARGET = process.env.LOG_TARGET;
 
 export const AWS_SES_REGION = process.env.AWS_SES_REGION;
-export const AWS_SES_FROM_EMAIL = process.env.AWS_SES_FROM_EMAIL;
-export const AWS_SES_TO_EMAIL = process.env.AWS_SES_TO_EMAIL;
+export const AWS_EMAIL_FROM = process.env.AWS_EMAIL_FROM;
+export const AWS_EMAIL_TO = process.env.AWS_EMAIL_TO;
 
 export const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
 export const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;

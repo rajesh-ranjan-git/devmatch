@@ -3,8 +3,8 @@ import { render } from "@react-email/render";
 import {
   AWS_SES_REGION,
   CLIENT_URL,
-  AWS_SES_FROM_EMAIL,
-  AWS_SES_TO_EMAIL,
+  AWS_EMAIL_FROM,
+  AWS_EMAIL_TO,
 } from "../../constants/env.constants.js";
 import { appConfig } from "../../config/common.config.js";
 import { httpStatusConfig } from "../../config/http.config.js";
@@ -42,7 +42,7 @@ class EmailService {
   }
 
   getRecipients(to) {
-    return this.normalizeRecipients(AWS_SES_TO_EMAIL || to);
+    return this.normalizeRecipients(AWS_EMAIL_TO || to);
   }
 
   async send({ to, subject, template }) {
@@ -57,7 +57,7 @@ class EmailService {
 
       const recipients = this.getRecipients(to);
 
-      if (!AWS_SES_FROM_EMAIL || !recipients?.length) {
+      if (!AWS_EMAIL_FROM || !recipients?.length) {
         throw new AppError({
           message: "Email Service is not configured!",
           code: "EMAIL SERVICE FAILED",
@@ -70,7 +70,7 @@ class EmailService {
       const text = await render(template, { plainText: true });
 
       const command = new SendEmailCommand({
-        Source: AWS_SES_FROM_EMAIL,
+        Source: AWS_EMAIL_FROM,
         Destination: {
           ToAddresses: recipients,
         },
