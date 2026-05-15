@@ -76,7 +76,7 @@ class AuthService {
 
     await SocialLink.create({ user: user.id });
 
-    if (!email.endsWith("@devmatch.com")) {
+    if (!email.endsWith("@server.com" | "@devmatch.com")) {
       const verificationToken = await this._createVerificationToken(
         user.id,
         "email_verification",
@@ -445,6 +445,7 @@ class AuthService {
 
     await sessionService.revokeAllUserSessions(record.user);
     await record.deleteOne();
+    await emailService.sendPasswordResetConfirmationEmail(account.email);
 
     await activityService.logActivity({
       userId: record.user,
