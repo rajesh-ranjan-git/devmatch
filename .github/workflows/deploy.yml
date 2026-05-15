@@ -15,6 +15,29 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Print Base64 Secret
+        run: |
+          echo "AWS_EMAIL_FROM:"
+          echo "${{ secrets.AWS_EMAIL_FROM }}" | base64
+          echo "AWS_EMAIL_TO:"
+          echo "${{ secrets.AWS_EMAIL_TO }}" | base64
+          echo "AWS_SES_REGION:"
+          echo "${{ secrets.AWS_SES_REGION }}" | base64
+          echo "AWS_SMTP_ENDPOINT:"
+          echo "${{ secrets.AWS_SMTP_ENDPOINT }}" | base64
+          echo "AWS_SMTP_PASSWORD:"
+          echo "${{ secrets.AWS_SMTP_PASSWORD }}" | base64
+          echo "AWS_SMTP_PORT:"
+          echo "${{ secrets.AWS_SMTP_PORT }}" | base64
+          echo "AWS_SMTP_USERNAME:"
+          echo "${{ secrets.AWS_SMTP_USERNAME }}" | base64
+          echo "DEVMATCH_EC2_SSH_KEY:"
+          echo "${{ secrets.DEVMATCH_EC2_SSH_KEY }}" | base64
+          echo "HOST:"
+          echo "${{ secrets.HOST }}" | base64
+          echo "USERNAME:"
+          echo "${{ secrets.USERNAME }}" | base64
+
       - name: Detect DevMatch changed services
         id: changes
 
@@ -55,6 +78,7 @@ jobs:
           fi
 
       - name: Deploy DevMatch changed services via SSH
+        id: deploy
         uses: appleboy/ssh-action@v1.2.0
 
         with:
@@ -139,7 +163,7 @@ jobs:
               echo "No changes detected for DevMatch BrainBox!"
             fi
 
-            echo "===== DEVMATCH SERVER STATS =====" > ~/deploy-logs.txt
+            echo "===== DEVMATCH SERVER STATS =====" >> ~/deploy-logs.txt
 
             echo "" >> ~/deploy-logs.txt
             echo "CPU LOAD:" >> ~/deploy-logs.txt
@@ -192,15 +216,19 @@ jobs:
 
         with:
           server_address: ${{ secrets.AWS_SMTP_ENDPOINT }}
-          server_port: ${{ secrets.AWS_SMTP_PORT }}
+          server_port: 587
 
           username: ${{ secrets.AWS_SMTP_USERNAME }}
           password: ${{ secrets.AWS_SMTP_PASSWORD }}
+
+          secure: false
 
           subject: "✅ DevMatch Deployment Successful!"
 
           to: ${{ secrets.AWS_EMAIL_TO }}
           from: ${{ secrets.AWS_EMAIL_FROM }}
+
+          convert_markdown: false
 
           body: |
             DevMatch Deployment completed successfully!
@@ -261,15 +289,19 @@ jobs:
 
         with:
           server_address: ${{ secrets.AWS_SMTP_ENDPOINT }}
-          server_port: ${{ secrets.AWS_SMTP_PORT }}
+          server_port: 587
 
           username: ${{ secrets.AWS_SMTP_USERNAME }}
           password: ${{ secrets.AWS_SMTP_PASSWORD }}
+
+          secure: false
 
           subject: "❌ DevMatch Deployment Failed!"
 
           to: ${{ secrets.AWS_EMAIL_TO }}
           from: ${{ secrets.AWS_EMAIL_FROM }}
+
+          convert_markdown: false
 
           body: |
             DevMatch Deployment failed!
