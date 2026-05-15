@@ -32,20 +32,20 @@ class EmailService {
 
   normalizeRecipients(recipients) {
     if (Array.isArray(recipients)) {
-      return recipients.map((recipient) => recipient?.trim()).filter(Boolean);
+      return recipients
+        .map((recipient) => recipient?.trim().toLowerCase())
+        .filter(Boolean);
     }
 
     return recipients
       ?.split(",")
-      .map((recipient) => recipient.trim())
+      .map((recipient) => recipient.trim().toLowerCase())
       .filter(Boolean);
   }
 
   isLocalAccount(recipients) {
-    return this.normalizeRecipients(recipients)?.some(
-      (recipient) =>
-        recipient.endsWith("@server.com") ||
-        recipient.endsWith("@devmatch.com"),
+    return this.normalizeRecipients(recipients)?.some((recipient) =>
+      recipient.endsWith("@devmatch.rajeshranjan.dev"),
     );
   }
 
@@ -55,12 +55,6 @@ class EmailService {
 
   async send({ to, subject, template }) {
     try {
-      logger.debug("debugging from send");
-      logger.info("debug to:", to);
-      logger.info("debug subject:", subject);
-      logger.info("debug CLIENT_URL:", CLIENT_URL);
-      logger.info("debug template:", template);
-
       if (this.isLocalAccount(to)) {
         throw new AppError({
           message: "Email Service is not available for local accounts!",
@@ -71,8 +65,6 @@ class EmailService {
 
       const recipients = this.getRecipients(to);
 
-      logger.info("debug recipients:", recipients);
-
       if (!AWS_EMAIL_FROM || !recipients?.length) {
         throw new AppError({
           message: "Email Service is not configured!",
@@ -82,10 +74,8 @@ class EmailService {
       }
 
       const html = await render(template);
-      logger.info("debug html:", html);
 
       const text = await render(template, { plainText: true });
-      logger.info("debug text:", text);
 
       const command = new SendEmailCommand({
         Source: AWS_EMAIL_FROM,
@@ -109,7 +99,6 @@ class EmailService {
           },
         },
       });
-      logger.info("debug command:", command);
 
       return await this.client.send(command);
     } catch (error) {
@@ -120,7 +109,7 @@ class EmailService {
 
   async sendVerificationEmail(to, token) {
     try {
-      if (to.endsWith("@server.com") | to.endsWith("@devmatch.com")) {
+      if (to.endsWith("@devmatch.rajeshranjan.dev")) {
         throw new AppError({
           message: "Email Service is not available for local accounts!",
           code: "EMAIL SERVICE FAILED",
@@ -146,14 +135,7 @@ class EmailService {
 
   async sendPasswordResetEmail(to, token) {
     try {
-      logger.debug("debugging from sendPasswordResetConfirmationEmail");
-      logger.info("debug to:", to);
-      logger.info("debug AWS_SES_REGION:", AWS_SES_REGION);
-      logger.info("debug CLIENT_URL:", CLIENT_URL);
-      logger.info("debug AWS_EMAIL_FROM:", AWS_EMAIL_FROM);
-      logger.info("debug AWS_EMAIL_TO:", AWS_EMAIL_TO);
-
-      if (to.endsWith("@server.com") | to.endsWith("@devmatch.com")) {
+      if (to.endsWith("@devmatch.rajeshranjan.dev")) {
         throw new AppError({
           message: "Email Service is not available for local accounts!",
           code: "EMAIL SERVICE FAILED",
@@ -171,10 +153,7 @@ class EmailService {
           resetUrl,
         }),
       });
-
-      logger.info("debug after send");
     } catch (error) {
-      logger.info("debug in catch with error");
       logger.error("[EmailService] Failed to send email:", error);
       return null;
     }
@@ -182,7 +161,7 @@ class EmailService {
 
   async sendPasswordResetConfirmationEmail(to) {
     try {
-      if (to.endsWith("@server.com") | to.endsWith("@devmatch.com")) {
+      if (to.endsWith("@devmatch.rajeshranjan.dev")) {
         throw new AppError({
           message: "Email Service is not available for local accounts!",
           code: "EMAIL SERVICE FAILED",
@@ -206,7 +185,7 @@ class EmailService {
 
   async sendWelcomeEmail(to, userName) {
     try {
-      if (to.endsWith("@server.com") | to.endsWith("@devmatch.com")) {
+      if (to.endsWith("@devmatch.rajeshranjan.dev")) {
         throw new AppError({
           message: "Email Service is not available for local accounts!",
           code: "EMAIL SERVICE FAILED",
@@ -231,7 +210,7 @@ class EmailService {
 
   async sendAccountLockedEmail(to) {
     try {
-      if (to.endsWith("@server.com") | to.endsWith("@devmatch.com")) {
+      if (to.endsWith("@devmatch.rajeshranjan.dev")) {
         throw new AppError({
           message: "Email Service is not available for local accounts!",
           code: "EMAIL SERVICE FAILED",

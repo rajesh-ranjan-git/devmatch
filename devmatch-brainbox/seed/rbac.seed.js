@@ -68,7 +68,7 @@ const seedRBAC = async () => {
     }
 
     const { userId: superAdminUserId } = await authService.register({
-      email: "super.admin@devmatch.com",
+      email: "super.admin@devmatch.rajeshranjan.dev",
       password: "SuperAdmin@0",
       userName: "super_admin",
     });
@@ -81,7 +81,7 @@ const seedRBAC = async () => {
     );
 
     const { userId: adminUserId } = await authService.register({
-      email: "admin@devmatch.com",
+      email: "admin@devmatch.rajeshranjan.dev",
       password: "Admin@01",
       userName: "admin",
     });
@@ -92,11 +92,6 @@ const seedRBAC = async () => {
       { user: adminUserId },
       { $set: { role: adminRole.id } },
     );
-
-    await authService.register({
-      email: "rajesh@devmatch.com",
-      password: "Rajesh@0",
-    });
 
     logger.success(
       "✅ [ RBAC ] Initial roles and permission seeded Successfully!",
