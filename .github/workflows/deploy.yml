@@ -198,11 +198,13 @@ jobs:
           password: ${{ secrets.AWS_SMTP_PASSWORD }}
 
           secure: false
+          ignore_cert: true
 
           subject: "✅ DevMatch Deployment Successful!"
 
           to: ${{ secrets.AWS_EMAIL_TO }}
-          from: ${{ secrets.AWS_EMAIL_FROM }}
+          from: "DevMatch <${{ secrets.AWS_EMAIL_FROM }}>"
+          envelope_from: ${{ secrets.AWS_EMAIL_FROM }}
 
           convert_markdown: false
 
@@ -271,11 +273,13 @@ jobs:
           password: ${{ secrets.AWS_SMTP_PASSWORD }}
 
           secure: false
+          ignore_cert: true
 
           subject: "❌ DevMatch Deployment Failed!"
 
           to: ${{ secrets.AWS_EMAIL_TO }}
-          from: ${{ secrets.AWS_EMAIL_FROM }}
+          from: "DevMatch <${{ secrets.AWS_EMAIL_FROM }}>"
+          envelope_from: ${{ secrets.AWS_EMAIL_FROM }}
 
           convert_markdown: false
 
