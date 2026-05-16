@@ -1,6 +1,8 @@
-import { authRoutes, defaultRoutes } from "@/lib/routes/routes";
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import { logger } from "@/services/logger/logger";
+import { authRoutes, defaultRoutes } from "@/lib/routes/routes";
+
 const AUTH_SESSION_COOKIE = "authSession";
 
 const LOGOUT_COOKIE = "loggedOut";
@@ -52,6 +54,27 @@ export function proxy(request: NextRequest) {
   if (onAuthRoute && isAuthenticated) {
     return NextResponse.redirect(new URL("/", request.url));
   }
+
+  logger.debug("debug from proxy pathname:", pathname);
+  logger.debug(
+    "debug from proxy shouldBypass(pathname):",
+    shouldBypass(pathname),
+  );
+  logger.debug(
+    "debug from proxy isTokenlessAllowedRoute(pathname):",
+    isTokenlessAllowedRoute(pathname),
+  );
+  logger.debug("debug from proxy hasAuthSession:", hasAuthSession);
+  logger.debug("debug from proxy hasRefreshToken:", hasRefreshToken);
+  logger.debug(
+    "debug from proxy isExplicitlyLoggedOut:",
+    isExplicitlyLoggedOut,
+  );
+  logger.debug("debug from proxy isAuthenticated:", isAuthenticated);
+  logger.debug("debug from proxy onAuthRoute:", onAuthRoute);
+  logger.debug("debug from proxy onLanding:", onLanding);
+  logger.debug("debug from proxy isProtected:", isProtected);
+  logger.debug("debug from proxy onAuthRoute:", onAuthRoute);
 
   if (isProtected && !isAuthenticated) {
     const loginUrl = new URL(authRoutes.login, request.url);
