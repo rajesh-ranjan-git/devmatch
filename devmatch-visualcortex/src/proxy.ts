@@ -39,6 +39,9 @@ export function proxy(request: NextRequest) {
 
   if (isProtected && !token) {
     logger.debug("debug from proxy redirected from isProtected && !token");
+    logger.debug("debug from proxy pathname:", pathname);
+    logger.debug("debug from proxy request.cookies:", request.cookies);
+    logger.debug("debug from proxy request.url:", request.url);
     return NextResponse.redirect(new URL(authRoutes.login, request.url));
   }
 
