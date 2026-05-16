@@ -242,11 +242,11 @@ jobs:
                   </tr>
 
                   <tr>
-                    <td><strong>VisualCortex changed</strong></td>
+                    <td><strong>VisualCortex updated</strong></td>
                     <td>${{ steps.changes.outputs.visualcortex }}</td>
                   </tr>
                   <tr>
-                    <td><strong>BrainBox changed</strong></td>
+                    <td><strong>BrainBox updated</strong></td>
                     <td>${{ steps.changes.outputs.visualcortex }}</td>
                   </tr>
                 </table>
