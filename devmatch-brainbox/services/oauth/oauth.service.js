@@ -46,7 +46,7 @@ class OAuthService {
 
     logger.debug(
       "debug from getLinkedinAccessToken redirect_uri:",
-      `${HOST_URL}/api/v1/oauth/provider/linkedin`,
+      `${HOST_URL}/brainbox/api/v1/oauth/provider/linkedin`,
     );
     logger.debug("debug from getLinkedinAccessToken params:", params);
 
