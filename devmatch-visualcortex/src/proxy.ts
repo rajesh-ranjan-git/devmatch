@@ -37,13 +37,14 @@ export function proxy(request: NextRequest) {
   }
 
   if (isProtected && !token) {
-    const loginUrl = new URL(authRoutes.login, request.url);
-    return NextResponse.redirect(loginUrl);
+    return NextResponse.redirect(new URL(authRoutes.login, request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/((?!_next|api|favicon.ico|manifest.json).*)"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|_next|favicon.ico|manifest.json|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|avif|bmp|tiff|flf)$).*)",
+  ],
 };

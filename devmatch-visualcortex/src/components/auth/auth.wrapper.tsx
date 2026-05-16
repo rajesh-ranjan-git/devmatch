@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { redirect } from "next/navigation";
 import {
   FetchMeResponseType,
   RefreshResponseType,
@@ -18,10 +18,6 @@ import { authRoutes } from "@/lib/routes/routes";
 const AuthWrapper = ({ children }: ReactNodeProps) => {
   const [isChecking, setIsChecking] = useState(true);
 
-  const hasRun = useRef(false);
-
-  const router = useRouter();
-
   const { showToast } = useToast();
 
   const loggedInUser = useAppStore((state) => state.loggedInUser);
@@ -34,9 +30,6 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
   useEffect(() => {
     if (isLoggingOut) return;
 
-    if (hasRun.current) return;
-    hasRun.current = true;
-
     let isMounted = true;
 
     const validateUser = async () => {
@@ -46,7 +39,8 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
         clearSessionState();
 
         if (isMounted) setIsChecking(false);
-        return;
+
+        redirect(authRoutes.login);
       }
 
       if (loggedInUser && accessToken) {
@@ -75,10 +69,9 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
 
           clearSessionState();
 
-          router.push(authRoutes.login);
-
           if (isMounted) setIsChecking(false);
-          return;
+
+          redirect(authRoutes.login);
         }
       }
 
@@ -89,14 +82,14 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
 
         setLoggedInUser(data.user);
       } else {
-        clearSessionState();
-
         await logoutAction();
+
+        clearSessionState();
 
         if (Number(response?.statusCode) >= 500) {
           showToast({
             title: toTitleCase(response.code),
-            message: response.message ?? "",
+            message: response.message,
             variant: "error",
           });
         }
