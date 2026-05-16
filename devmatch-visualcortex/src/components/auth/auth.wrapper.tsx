@@ -36,7 +36,7 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
 
     const validateUser = async () => {
       const refreshToken = await getCookies("refreshToken");
-      logger.info("debug from auth wrapper refreshToken:", refreshToken);
+      logger.debug("debug from auth wrapper refreshToken:", refreshToken);
 
       if (!refreshToken) {
         clearSessionState();
@@ -45,9 +45,9 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
         return;
       }
 
-      logger.info("debug from auth wrapper loggedInUser:", loggedInUser);
-      logger.info("debug from auth wrapper accessToken:", accessToken);
-      logger.info(
+      logger.debug("debug from auth wrapper loggedInUser:", loggedInUser);
+      logger.debug("debug from auth wrapper accessToken:", accessToken);
+      logger.debug(
         "debug from auth wrapper loggedInUser && accessToken:",
         loggedInUser && accessToken,
       );
@@ -57,11 +57,11 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
       }
 
       let token = accessToken;
-      logger.info("debug from auth wrapper before if token:", token);
+      logger.debug("debug from auth wrapper before if token:", token);
 
       if (!token) {
         const refreshResponse = await refreshTokens();
-        logger.info(
+        logger.debug(
           "debug from auth wrapper inside if refreshResponse:",
           refreshResponse,
         );
@@ -70,7 +70,7 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
           const refreshData = refreshResponse.data as RefreshResponseType;
 
           token = refreshData.accessToken;
-          logger.info(
+          logger.debug(
             "debug from auth wrapper inside if refreshData.accessToken:",
             token,
           );
@@ -94,7 +94,7 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
       }
 
       const response = await fetchMe(token);
-      logger.info(
+      logger.debug(
         "debug from auth wrapper after if fetchMe response:",
         response,
       );
@@ -120,7 +120,7 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
       if (isMounted) setIsChecking(false);
     };
 
-    logger.info("debug from auth wrapper starting debug");
+    logger.debug("debug from auth wrapper starting debug");
 
     validateUser();
 
