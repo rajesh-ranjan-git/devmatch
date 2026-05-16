@@ -24,23 +24,31 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  logger.debug("debug from proxy starts");
+
   const token = request.cookies.get("refreshToken")?.value ?? null;
+  logger.info("debug from proxy token:", token);
 
   const isAuthRoute = Object.values(authRoutes).some((route) =>
     pathname.startsWith(route),
   );
+  logger.info("debug from proxy isAuthRoute:", isAuthRoute);
 
   const isProtected = !isAuthRoute && pathname !== defaultRoutes.landing;
+  logger.info("debug from proxy isProtected:", isProtected);
 
+  logger.info("debug from proxy isAuthRoute && token:", isAuthRoute && token);
   if (isAuthRoute && token) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
+  logger.info("debug from proxy isProtected && !token:", isProtected && !token);
   if (isProtected && !token) {
     const loginUrl = new URL(authRoutes.login, request.url);
     return NextResponse.redirect(loginUrl);
   }
 
+  logger.info("debug from proxy ends");
   return NextResponse.next();
 }
 

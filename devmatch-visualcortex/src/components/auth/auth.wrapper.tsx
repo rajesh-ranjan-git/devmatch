@@ -36,6 +36,7 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
 
     const validateUser = async () => {
       const refreshToken = await getCookies("refreshToken");
+      logger.info("debug from auth wrapper refreshToken:", refreshToken);
 
       if (!refreshToken) {
         clearSessionState();
@@ -44,20 +45,35 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
         return;
       }
 
+      logger.info("debug from auth wrapper loggedInUser:", loggedInUser);
+      logger.info("debug from auth wrapper accessToken:", accessToken);
+      logger.info(
+        "debug from auth wrapper loggedInUser && accessToken:",
+        loggedInUser && accessToken,
+      );
       if (loggedInUser && accessToken) {
         if (isMounted) setIsChecking(false);
         return;
       }
 
       let token = accessToken;
+      logger.info("debug from auth wrapper before if token:", token);
 
       if (!token) {
         const refreshResponse = await refreshTokens();
+        logger.info(
+          "debug from auth wrapper inside if refreshResponse:",
+          refreshResponse,
+        );
 
         if (refreshResponse?.success) {
           const refreshData = refreshResponse.data as RefreshResponseType;
 
           token = refreshData.accessToken;
+          logger.info(
+            "debug from auth wrapper inside if refreshData.accessToken:",
+            token,
+          );
           setAccessToken(token);
         } else {
           showToast({
@@ -78,6 +94,10 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
       }
 
       const response = await fetchMe(token);
+      logger.info(
+        "debug from auth wrapper after if fetchMe response:",
+        response,
+      );
 
       if (response?.success) {
         const data = response.data as FetchMeResponseType;
@@ -99,6 +119,8 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
 
       if (isMounted) setIsChecking(false);
     };
+
+    logger.info("debug from auth wrapper starting debug");
 
     validateUser();
 
