@@ -1,95 +1,44 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { logger } from "@/services/logger/logger";
 import { authRoutes, defaultRoutes } from "@/lib/routes/routes";
-
-const AUTH_SESSION_COOKIE = "authSession";
-
-const LOGOUT_COOKIE = "loggedOut";
-
-const BYPASS_PREFIXES = ["/_next", "/api", "/static", "/assets"] as const;
-
-const BYPASS_EXACT = new Set(["/favicon.ico", "/manifest.json"]);
-
-function shouldBypass(pathname: string): boolean {
-  if (BYPASS_EXACT.has(pathname)) return true;
-  if (BYPASS_PREFIXES.some((p) => pathname.startsWith(p))) return true;
-  if (/\.[\w]+$/.test(pathname)) return true;
-  return false;
-}
-
-function isTokenlessAllowedRoute(pathname: string): boolean {
-  return (
-    pathname.startsWith(authRoutes.verifyEmail) ||
-    pathname.startsWith(authRoutes.resetPassword)
-  );
-}
-
-function isAuthRoute(pathname: string): boolean {
-  return Object.values(authRoutes).some((route) => pathname.startsWith(route));
-}
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (shouldBypass(pathname)) {
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/static") ||
+    pathname.startsWith("/assets") ||
+    pathname === "/favicon.ico" ||
+    pathname === "/manifest.json" ||
+    pathname.match(/\.(.*)$/)
+  ) {
     return NextResponse.next();
   }
 
-  if (isTokenlessAllowedRoute(pathname)) {
+  if (
+    pathname.startsWith(authRoutes.verifyEmail) ||
+    pathname.startsWith(authRoutes.resetPassword)
+  ) {
     return NextResponse.next();
   }
 
-  const hasAuthSession = !!request.cookies.get(AUTH_SESSION_COOKIE)?.value;
-  const hasRefreshToken = !!request.cookies.get("refreshToken")?.value;
-  const isExplicitlyLoggedOut = !!request.cookies.get(LOGOUT_COOKIE)?.value;
+  const token = request.cookies.get("refreshToken")?.value ?? null;
 
-  const isAuthenticated =
-    !isExplicitlyLoggedOut && (hasAuthSession || hasRefreshToken);
+  const isAuthRoute = Object.values(authRoutes).some((route) =>
+    pathname.startsWith(route),
+  );
 
-  const onAuthRoute = isAuthRoute(pathname);
-  const onLanding = pathname === defaultRoutes.landing;
-  const isProtected = !onAuthRoute && !onLanding;
+  const isProtected = !isAuthRoute && pathname !== defaultRoutes.landing;
 
-  if (onAuthRoute && isAuthenticated) {
+  if (isAuthRoute && token) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  logger.debug("debug from proxy pathname:", pathname);
-  logger.debug(
-    "debug from proxy shouldBypass(pathname):",
-    shouldBypass(pathname),
-  );
-  logger.debug(
-    "debug from proxy isTokenlessAllowedRoute(pathname):",
-    isTokenlessAllowedRoute(pathname),
-  );
-  logger.debug("debug from proxy hasAuthSession:", hasAuthSession);
-  logger.debug("debug from proxy hasRefreshToken:", hasRefreshToken);
-  logger.debug(
-    "debug from proxy isExplicitlyLoggedOut:",
-    isExplicitlyLoggedOut,
-  );
-  logger.debug("debug from proxy isAuthenticated:", isAuthenticated);
-  logger.debug("debug from proxy onAuthRoute:", onAuthRoute);
-  logger.debug("debug from proxy onLanding:", onLanding);
-  logger.debug("debug from proxy isProtected:", isProtected);
-  logger.debug("debug from proxy onAuthRoute:", onAuthRoute);
-
-  if (isProtected && !isAuthenticated) {
+  if (isProtected && !token) {
     const loginUrl = new URL(authRoutes.login, request.url);
-
-    loginUrl.searchParams.set("redirect", pathname);
-
-    const response = NextResponse.redirect(loginUrl);
-
-    if (isExplicitlyLoggedOut) {
-      response.cookies.delete(LOGOUT_COOKIE);
-    }
-
-    response.cookies.delete(AUTH_SESSION_COOKIE);
-
-    return response;
+    return NextResponse.redirect(loginUrl);
   }
 
   return NextResponse.next();

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import {
   FetchMeResponseType,
@@ -12,14 +12,13 @@ import { toTitleCase } from "@/utils/common.utils";
 import { useToast } from "@/hooks/toast";
 import { fetchMe, refreshTokens } from "@/lib/actions/common.actions";
 import { logoutAction } from "@/lib/actions/auth.actions";
-import { getCookies } from "@/lib/api/cookiesHandler";
 import { authRoutes } from "@/lib/routes/routes";
 
 const AuthWrapper = ({ children }: ReactNodeProps) => {
   const [isChecking, setIsChecking] = useState(true);
+  const hasRun = useRef(false);
 
   const router = useRouter();
-
   const { showToast } = useToast();
 
   const loggedInUser = useAppStore((state) => state.loggedInUser);
@@ -31,62 +30,45 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
 
   useEffect(() => {
     if (isLoggingOut) return;
+    if (hasRun.current) return;
+    hasRun.current = true;
 
     let isMounted = true;
 
     const validateUser = async () => {
-      const refreshToken = await getCookies("refreshToken");
-      logger.debug("debug from auth wrapper refreshToken:", refreshToken);
-
-      if (!refreshToken) {
-        clearSessionState();
-
-        if (isMounted) setIsChecking(false);
-        return;
-      }
-
-      logger.debug("debug from auth wrapper loggedInUser:", loggedInUser);
-      logger.debug("debug from auth wrapper accessToken:", accessToken);
-      logger.debug(
-        "debug from auth wrapper loggedInUser && accessToken:",
-        loggedInUser && accessToken,
-      );
       if (loggedInUser && accessToken) {
         if (isMounted) setIsChecking(false);
         return;
       }
 
       let token = accessToken;
-      logger.debug("debug from auth wrapper before if token:", token);
 
       if (!token) {
         const refreshResponse = await refreshTokens();
-        logger.debug(
-          "debug from auth wrapper inside if refreshResponse:",
-          refreshResponse,
-        );
 
         if (refreshResponse?.success) {
           const refreshData = refreshResponse.data as RefreshResponseType;
-
           token = refreshData.accessToken;
-          logger.debug(
-            "debug from auth wrapper inside if refreshData.accessToken:",
-            token,
-          );
           setAccessToken(token);
         } else {
-          showToast({
-            title: "SESSION EXPIRED",
-            message: "Your session has expired, please login again!",
-            variant: "error",
-          });
+          const onAuthRoute = Object.values(authRoutes).some((r) =>
+            window.location.pathname.startsWith(r),
+          );
 
-          await logoutAction();
+          if (!onAuthRoute) {
+            showToast({
+              title: "SESSION EXPIRED",
+              message: "Your session has expired, please login again!",
+              variant: "error",
+            });
 
-          clearSessionState();
+            await logoutAction();
+            clearSessionState();
 
-          router.push(authRoutes.login);
+            if (isMounted) router.push(authRoutes.login);
+          } else {
+            clearSessionState();
+          }
 
           if (isMounted) setIsChecking(false);
           return;
@@ -94,18 +76,12 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
       }
 
       const response = await fetchMe(token);
-      logger.debug(
-        "debug from auth wrapper after if fetchMe response:",
-        response,
-      );
 
       if (response?.success) {
         const data = response.data as FetchMeResponseType;
-
         setLoggedInUser(data.user);
       } else {
         clearSessionState();
-
         await logoutAction();
 
         if (Number(response?.statusCode) >= 500) {
@@ -120,8 +96,6 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
       if (isMounted) setIsChecking(false);
     };
 
-    logger.debug("debug from auth wrapper starting debug");
-
     validateUser();
 
     return () => {
@@ -129,9 +103,7 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
     };
   }, []);
 
-  if (isChecking) {
-    return null;
-  }
+  if (isChecking) return null;
 
   return <>{children}</>;
 };
