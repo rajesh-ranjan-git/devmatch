@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { redirect, usePathname } from "next/navigation";
+import { redirect } from "next/navigation";
 import {
   FetchMeResponseType,
   RefreshResponseType,
@@ -13,12 +13,10 @@ import { useToast } from "@/hooks/toast";
 import { fetchMe, refreshTokens } from "@/lib/actions/common.actions";
 import { logoutAction } from "@/lib/actions/auth.actions";
 import { getCookies } from "@/lib/api/cookiesHandler";
-import { authRoutes, defaultRoutes } from "@/lib/routes/routes";
+import { authRoutes } from "@/lib/routes/routes";
 
 const AuthWrapper = ({ children }: ReactNodeProps) => {
   const [isChecking, setIsChecking] = useState(true);
-
-  const pathname = usePathname();
 
   const { showToast } = useToast();
 
@@ -36,29 +34,44 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
 
     const validateUser = async () => {
       const refreshToken = await getCookies("refreshToken");
+      logger.debug("debug from auth wrapper refreshToken:", refreshToken);
 
       if (!refreshToken) {
         clearSessionState();
 
         if (isMounted) setIsChecking(false);
-
-        redirect(authRoutes.login);
+        return;
       }
 
+      logger.debug("debug from auth wrapper loggedInUser:", loggedInUser);
+      logger.debug("debug from auth wrapper accessToken:", accessToken);
+      logger.debug(
+        "debug from auth wrapper loggedInUser && accessToken:",
+        loggedInUser && accessToken,
+      );
       if (loggedInUser && accessToken) {
         if (isMounted) setIsChecking(false);
         return;
       }
 
       let token = accessToken;
+      logger.debug("debug from auth wrapper before if token:", token);
 
       if (!token) {
         const refreshResponse = await refreshTokens();
+        logger.debug(
+          "debug from auth wrapper inside if refreshResponse:",
+          refreshResponse,
+        );
 
         if (refreshResponse?.success) {
           const refreshData = refreshResponse.data as RefreshResponseType;
 
           token = refreshData.accessToken;
+          logger.debug(
+            "debug from auth wrapper inside if refreshData.accessToken:",
+            token,
+          );
           setAccessToken(token);
         } else {
           showToast({
@@ -68,7 +81,6 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
           });
 
           await logoutAction();
-
           clearSessionState();
 
           if (isMounted) setIsChecking(false);
@@ -78,6 +90,10 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
       }
 
       const response = await fetchMe(token);
+      logger.debug(
+        "debug from auth wrapper after if fetchMe response:",
+        response,
+      );
 
       if (response?.success) {
         const data = response.data as FetchMeResponseType;
@@ -85,13 +101,12 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
         setLoggedInUser(data.user);
       } else {
         await logoutAction();
-
         clearSessionState();
 
         if (Number(response?.statusCode) >= 500) {
           showToast({
             title: toTitleCase(response.code),
-            message: response.message,
+            message: response.message ?? "",
             variant: "error",
           });
         }
@@ -100,20 +115,14 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
       if (isMounted) setIsChecking(false);
     };
 
-    const isProtectedRoute =
-      pathname !== defaultRoutes.landing &&
-      !pathname.startsWith(defaultRoutes.discover) &&
-      !Object.values(authRoutes).find((route) => pathname.startsWith(route));
+    logger.debug("debug from auth wrapper starting debug");
 
-    if (isProtectedRoute) {
-      validateUser();
-    } else {
-      if (isMounted) setIsChecking(false);
-    }
+    validateUser();
+
     return () => {
       isMounted = false;
     };
-  }, [pathname]);
+  }, []);
 
   if (isChecking) {
     return null;
