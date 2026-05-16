@@ -56,6 +56,14 @@ export const login = asyncHandler(async (req, res) => {
     });
   }
 
+  res.cookie("authSession", "1", {
+    httpOnly: false,
+    secure: true,
+    sameSite: "lax",
+    maxAge: tokens.refreshTokenExpiry,
+    path: "/",
+  });
+
   res.cookie("refreshToken", tokens.refreshToken, {
     httpOnly: true,
     secure: true,
@@ -82,12 +90,16 @@ export const logout = asyncHandler(async (req, res) => {
     await authService.logout(req.data.userId, refreshToken, req.ip);
   }
 
-  res.clearCookie("refreshToken", {
-    httpOnly: true,
+  res.cookie("loggedOut", "1", {
+    httpOnly: false,
     secure: true,
-    sameSite: "none",
+    sameSite: "lax",
+    maxAge: 60,
     path: "/",
   });
+
+  res.clearCookie("authSession", { path: "/" });
+  res.clearCookie("refreshToken", { path: "/" });
 
   return responseService.successResponseHandler(req, res, {
     status: "LOGOUT SUCCESS",
@@ -248,6 +260,14 @@ export const refreshTokens = asyncHandler(async (req, res) => {
       code: "TOKENS REFRESH FAILED",
     });
   }
+
+  res.cookie("authSession", "1", {
+    httpOnly: false,
+    secure: true,
+    sameSite: "lax",
+    maxAge: tokens.refreshTokenExpiry,
+    path: "/",
+  });
 
   res.cookie("refreshToken", tokens.refreshToken, {
     httpOnly: true,
