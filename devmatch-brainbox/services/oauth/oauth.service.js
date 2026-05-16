@@ -44,12 +44,6 @@ class OAuthService {
       client_secret: LINKEDIN_OAUTH_CLIENT_SECRET,
     });
 
-    logger.debug(
-      "debug from getLinkedinAccessToken redirect_uri:",
-      `${HOST_URL}/brainbox/api/v1/oauth/provider/linkedin`,
-    );
-    logger.debug("debug from getLinkedinAccessToken params:", params);
-
     const tokenRes = await fetch(
       "https://www.linkedin.com/oauth/v2/accessToken",
       {
@@ -62,8 +56,6 @@ class OAuthService {
     );
 
     const tokenData = await tokenRes.json();
-
-    logger.debug("debug from getLinkedinAccessToken tokenData:", tokenData);
 
     return tokenData.access_token;
   };
@@ -138,8 +130,6 @@ class OAuthService {
     });
 
     const profileData = await profileRes.json();
-
-    logger.debug("debug from verifyLinkedinToken profileData:", profileData);
 
     return {
       id: profileData.sub,
