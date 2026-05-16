@@ -113,7 +113,7 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [pathname]);
 
   if (isChecking) {
     return null;
