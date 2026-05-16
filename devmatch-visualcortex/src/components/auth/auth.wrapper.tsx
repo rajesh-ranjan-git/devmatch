@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   FetchMeResponseType,
@@ -12,13 +12,16 @@ import { toTitleCase } from "@/utils/common.utils";
 import { useToast } from "@/hooks/toast";
 import { fetchMe, refreshTokens } from "@/lib/actions/common.actions";
 import { logoutAction } from "@/lib/actions/auth.actions";
+import { getCookies } from "@/lib/api/cookiesHandler";
 import { authRoutes } from "@/lib/routes/routes";
 
 const AuthWrapper = ({ children }: ReactNodeProps) => {
   const [isChecking, setIsChecking] = useState(true);
+
   const hasRun = useRef(false);
 
   const router = useRouter();
+
   const { showToast } = useToast();
 
   const loggedInUser = useAppStore((state) => state.loggedInUser);
@@ -30,12 +33,22 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
 
   useEffect(() => {
     if (isLoggingOut) return;
+
     if (hasRun.current) return;
     hasRun.current = true;
 
     let isMounted = true;
 
     const validateUser = async () => {
+      const refreshToken = await getCookies("refreshToken");
+
+      if (!refreshToken) {
+        clearSessionState();
+
+        if (isMounted) setIsChecking(false);
+        return;
+      }
+
       if (loggedInUser && accessToken) {
         if (isMounted) setIsChecking(false);
         return;
@@ -48,27 +61,21 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
 
         if (refreshResponse?.success) {
           const refreshData = refreshResponse.data as RefreshResponseType;
+
           token = refreshData.accessToken;
           setAccessToken(token);
         } else {
-          const onAuthRoute = Object.values(authRoutes).some((r) =>
-            window.location.pathname.startsWith(r),
-          );
+          showToast({
+            title: "SESSION EXPIRED",
+            message: "Your session has expired, please login again!",
+            variant: "error",
+          });
 
-          if (!onAuthRoute) {
-            showToast({
-              title: "SESSION EXPIRED",
-              message: "Your session has expired, please login again!",
-              variant: "error",
-            });
+          await logoutAction();
 
-            await logoutAction();
-            clearSessionState();
+          clearSessionState();
 
-            if (isMounted) router.push(authRoutes.login);
-          } else {
-            clearSessionState();
-          }
+          router.push(authRoutes.login);
 
           if (isMounted) setIsChecking(false);
           return;
@@ -79,9 +86,11 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
 
       if (response?.success) {
         const data = response.data as FetchMeResponseType;
+
         setLoggedInUser(data.user);
       } else {
         clearSessionState();
+
         await logoutAction();
 
         if (Number(response?.statusCode) >= 500) {
@@ -103,7 +112,9 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
     };
   }, []);
 
-  if (isChecking) return null;
+  if (isChecking) {
+    return null;
+  }
 
   return <>{children}</>;
 };
