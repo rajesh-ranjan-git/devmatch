@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { redirect } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import {
   FetchMeResponseType,
   RefreshResponseType,
@@ -13,10 +13,12 @@ import { useToast } from "@/hooks/toast";
 import { fetchMe, refreshTokens } from "@/lib/actions/common.actions";
 import { logoutAction } from "@/lib/actions/auth.actions";
 import { getCookies } from "@/lib/api/cookiesHandler";
-import { authRoutes } from "@/lib/routes/routes";
+import { authRoutes, defaultRoutes } from "@/lib/routes/routes";
 
 const AuthWrapper = ({ children }: ReactNodeProps) => {
   const [isChecking, setIsChecking] = useState(true);
+
+  const pathname = usePathname();
 
   const { showToast } = useToast();
 
@@ -98,8 +100,16 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
       if (isMounted) setIsChecking(false);
     };
 
-    validateUser();
+    const isProtectedRoute =
+      pathname !== defaultRoutes.landing &&
+      !pathname.startsWith(defaultRoutes.discover) &&
+      !Object.values(authRoutes).find((route) => pathname.startsWith(route));
 
+    if (isProtectedRoute) {
+      validateUser();
+    } else {
+      if (isMounted) setIsChecking(false);
+    }
     return () => {
       isMounted = false;
     };
