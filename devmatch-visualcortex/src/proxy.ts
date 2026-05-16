@@ -1,7 +1,7 @@
 import { authRoutes, defaultRoutes } from "@/lib/routes/routes";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { logger } from "./services/logger/logger";
+import { logger } from "@/services/logger/logger";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
