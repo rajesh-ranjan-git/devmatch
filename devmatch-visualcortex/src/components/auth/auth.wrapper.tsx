@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   FetchMeResponseType,
   RefreshResponseType,
@@ -18,6 +18,8 @@ import { authRoutes } from "@/lib/routes/routes";
 const AuthWrapper = ({ children }: ReactNodeProps) => {
   const [isChecking, setIsChecking] = useState(true);
 
+  const router = useRouter();
+
   const { showToast } = useToast();
 
   const loggedInUser = useAppStore((state) => state.loggedInUser);
@@ -33,86 +35,94 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
     let isMounted = true;
 
     const validateUser = async () => {
-      const refreshToken = await getCookies("refreshToken");
-      logger.debug("debug from auth wrapper refreshToken:", refreshToken);
+      try {
+        const refreshToken = await getCookies("refreshToken");
+        logger.debug("debug from auth wrapper refreshToken:", refreshToken);
 
-      if (!refreshToken) {
-        clearSessionState();
-
-        if (isMounted) setIsChecking(false);
-        return;
-      }
-
-      logger.debug("debug from auth wrapper loggedInUser:", loggedInUser);
-      logger.debug("debug from auth wrapper accessToken:", accessToken);
-      logger.debug(
-        "debug from auth wrapper loggedInUser && accessToken:",
-        loggedInUser && accessToken,
-      );
-      if (loggedInUser && accessToken) {
-        if (isMounted) setIsChecking(false);
-        return;
-      }
-
-      let token = accessToken;
-      logger.debug("debug from auth wrapper before if token:", token);
-
-      if (!token) {
-        const refreshResponse = await refreshTokens();
-        logger.debug(
-          "debug from auth wrapper inside if refreshResponse:",
-          refreshResponse,
-        );
-
-        if (refreshResponse?.success) {
-          const refreshData = refreshResponse.data as RefreshResponseType;
-
-          token = refreshData.accessToken;
-          logger.debug(
-            "debug from auth wrapper inside if refreshData.accessToken:",
-            token,
-          );
-          setAccessToken(token);
-        } else {
-          showToast({
-            title: "SESSION EXPIRED",
-            message: "Your session has expired, please login again!",
-            variant: "error",
-          });
-
-          await logoutAction();
+        if (!refreshToken) {
           clearSessionState();
 
           if (isMounted) setIsChecking(false);
+          return;
+        }
 
-          redirect(authRoutes.login);
+        logger.debug("debug from auth wrapper loggedInUser:", loggedInUser);
+        logger.debug("debug from auth wrapper accessToken:", accessToken);
+        logger.debug(
+          "debug from auth wrapper loggedInUser && accessToken:",
+          loggedInUser && accessToken,
+        );
+        if (loggedInUser && accessToken) {
+          if (isMounted) setIsChecking(false);
+          return;
+        }
+
+        let token = accessToken;
+        logger.debug("debug from auth wrapper before if token:", token);
+
+        if (!token) {
+          const refreshResponse = await refreshTokens();
+          logger.debug(
+            "debug from auth wrapper inside if refreshResponse:",
+            refreshResponse,
+          );
+
+          if (refreshResponse?.success) {
+            const refreshData = refreshResponse.data as RefreshResponseType;
+
+            token = refreshData.accessToken;
+            logger.debug(
+              "debug from auth wrapper inside if refreshData.accessToken:",
+              token,
+            );
+            setAccessToken(token);
+          } else {
+            showToast({
+              title: "SESSION EXPIRED",
+              message: "Your session has expired, please login again!",
+              variant: "error",
+            });
+
+            await logoutAction();
+            clearSessionState();
+
+            if (isMounted) setIsChecking(false);
+
+            router.push(authRoutes.login);
+
+            return;
+          }
+        }
+
+        const response = await fetchMe(token);
+        logger.debug(
+          "debug from auth wrapper after if fetchMe response:",
+          response,
+        );
+
+        if (response?.success) {
+          const data = response.data as FetchMeResponseType;
+
+          setLoggedInUser(data.user);
+        } else {
+          await logoutAction();
+
+          clearSessionState();
+
+          if (Number(response?.statusCode) >= 500) {
+            showToast({
+              title: toTitleCase(response.code),
+              message: response.message ?? "",
+              variant: "error",
+            });
+          }
+          router.push(authRoutes.login);
+        }
+      } finally {
+        if (isMounted) {
+          setIsChecking(false);
         }
       }
-
-      const response = await fetchMe(token);
-      logger.debug(
-        "debug from auth wrapper after if fetchMe response:",
-        response,
-      );
-
-      if (response?.success) {
-        const data = response.data as FetchMeResponseType;
-
-        setLoggedInUser(data.user);
-      } else {
-        await logoutAction();
-        clearSessionState();
-
-        if (Number(response?.statusCode) >= 500) {
-          showToast({
-            title: toTitleCase(response.code),
-            message: response.message ?? "",
-            variant: "error",
-          });
-        }
-      }
-
-      if (isMounted) setIsChecking(false);
     };
 
     logger.debug("debug from auth wrapper starting debug");
@@ -122,7 +132,7 @@ const AuthWrapper = ({ children }: ReactNodeProps) => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [accessToken, loggedInUser, isLoggingOut]);
 
   if (isChecking) {
     return null;
