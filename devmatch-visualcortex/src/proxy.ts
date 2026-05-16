@@ -33,10 +33,12 @@ export function proxy(request: NextRequest) {
   const isProtected = !isAuthRoute && pathname !== defaultRoutes.landing;
 
   if (isAuthRoute && token) {
+    logger.debug("debug from proxy redirected from isAuthRoute && token");
     return NextResponse.redirect(new URL("/", request.url));
   }
 
   if (isProtected && !token) {
+    logger.debug("debug from proxy redirected from isProtected && !token");
     return NextResponse.redirect(new URL(authRoutes.login, request.url));
   }
 
