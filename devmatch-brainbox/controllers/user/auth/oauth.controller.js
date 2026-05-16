@@ -27,7 +27,7 @@ export const oauthCallback = asyncHandler(async (req, res) => {
   const { provider } = req.data.params;
   const oauthProfile = req.data.oauthProfile;
 
-  ogger.debug("debug from oauthVerifyMiddleware oauthProfile:", oauthProfile);
+  logger.debug("debug from oauthVerifyMiddleware oauthProfile:", oauthProfile);
 
   if (!oauthProfile || !oauthProfile.id || !oauthProfile.email) {
     throw AppError.unprocessable({
