@@ -56,6 +56,14 @@ export const login = asyncHandler(async (req, res) => {
     });
   }
 
+  res.cookie("authSession", 1, {
+    httpOnly: false,
+    secure: true,
+    sameSite: "lax",
+    expires: tokens.refreshTokenExpiry,
+    path: "/",
+  });
+
   res.cookie("refreshToken", tokens.refreshToken, {
     httpOnly: true,
     secure: true,
@@ -251,6 +259,14 @@ export const refreshTokens = asyncHandler(async (req, res) => {
       code: "TOKENS REFRESH FAILED",
     });
   }
+
+  res.cookie("authSession", 1, {
+    httpOnly: false,
+    secure: true,
+    sameSite: "lax",
+    expires: tokens.refreshTokenExpiry,
+    path: "/",
+  });
 
   res.cookie("refreshToken", tokens.refreshToken, {
     httpOnly: true,
