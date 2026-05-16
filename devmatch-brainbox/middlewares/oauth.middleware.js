@@ -3,6 +3,11 @@ import AppError from "../services/error/error.service.js";
 import { oAuthService } from "../services/oauth/oauth.service.js";
 
 export const oauthVerifyMiddleware = asyncHandler(async (req, res, next) => {
+  logger.debug(
+    "debug from oauthVerifyMiddleware req.data:",
+    JSON.stringify(req.data, null, 4),
+  );
+
   const { provider } = req.data.params;
 
   if (!["google", "github", "facebook", "linkedin"].includes(provider)) {
@@ -35,6 +40,8 @@ export const oauthVerifyMiddleware = asyncHandler(async (req, res, next) => {
     });
   }
 
+  logger.debug("debug from oauthVerifyMiddleware token:", token);
+
   let profile;
 
   if (provider === "google") {
@@ -52,6 +59,8 @@ export const oauthVerifyMiddleware = asyncHandler(async (req, res, next) => {
   if (provider === "linkedin") {
     profile = await oAuthService.verifyLinkedinToken(token);
   }
+
+  logger.debug("debug from oauthVerifyMiddleware profile:", profile);
 
   req.data.oauthProfile = profile;
 

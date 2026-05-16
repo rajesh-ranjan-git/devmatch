@@ -131,6 +131,8 @@ class OAuthService {
 
     const profileData = await profileRes.json();
 
+    logger.debug("debug from verifyLinkedinToken profileData:", profileData);
+
     return {
       id: profileData.sub,
       email: profileData.email,
