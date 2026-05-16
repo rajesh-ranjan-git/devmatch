@@ -39,7 +39,7 @@ class OAuthService {
     const params = new URLSearchParams({
       grant_type: "authorization_code",
       code,
-      redirect_uri: `${HOST_URL}/api/v1/oauth/provider/linkedin`,
+      redirect_uri: `${HOST_URL}/brainbox/api/v1/oauth/provider/linkedin`,
       client_id: LINKEDIN_OAUTH_CLIENT_ID,
       client_secret: LINKEDIN_OAUTH_CLIENT_SECRET,
     });
