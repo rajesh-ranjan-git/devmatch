@@ -39,15 +39,18 @@ const AdminSidebar = ({
   ];
 
   const handleLogout = async () => {
-    setIsLoggingOut(true);
+    try {
+      setIsLoggingOut(true);
 
-    await logoutAction();
+      await logoutAction();
 
-    clearSessionState();
+      clearSessionState();
 
-    router.push(defaultRoutes.landing);
-
-    setTimeout(() => setIsLoggingOut(false), 0);
+      router.replace(defaultRoutes.landing);
+      router.refresh();
+    } finally {
+      setIsLoggingOut(false);
+    }
   };
 
   return (
