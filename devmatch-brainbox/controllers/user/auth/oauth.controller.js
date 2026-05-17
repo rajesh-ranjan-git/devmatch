@@ -232,14 +232,6 @@ export const oauthCallback = asyncHandler(async (req, res) => {
     ipAddress: req.ip,
   });
 
-  res.cookie("authSession", 1, {
-    httpOnly: false,
-    secure: true,
-    sameSite: "lax",
-    expires: tokens.refreshTokenExpiry,
-    path: "/",
-  });
-
   res.cookie("refreshToken", tokens.refreshToken, {
     httpOnly: true,
     secure: true,
